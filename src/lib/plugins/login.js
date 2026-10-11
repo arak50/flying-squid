@@ -323,6 +323,8 @@ module.exports.player = async function (player, serv, settings) {
     player.sendSpawnPosition()
     player.sendSelfPosition()
     player.sendAbilities()
+    // 1.20.3+: the client stays on "Loading terrain" until it gets this game event
+    if (serv.registry.version['>=']('1.20.3')) player._client.write('game_state_change', { reason: 13, gameMode: 0 })
     await player.worldSendInitialChunks()
     player.setXp(player.xp)
     updateInventory()

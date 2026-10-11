@@ -56,7 +56,10 @@ module.exports.player = function (player) {
       yaw: player.yaw,
       pitch: player.pitch,
       flags: 0x00,
-      teleportId: 1
+      teleportId: 1,
+      dx: 0, // 1.21.2+: velocity (ignored by older versions)
+      dy: 0,
+      dz: 0
     })
   }
 

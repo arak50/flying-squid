@@ -335,6 +335,7 @@ module.exports.player = function (player, serv, settings) {
     player.sendSpawnPosition()
     player.updateAndSpawn()
 
+    if (serv.registry.version['>=']('1.20.3')) player._client.write('game_state_change', { reason: 13, gameMode: 0 })
     await player.worldSendInitialChunks()
 
     player.sendSelfPosition()
