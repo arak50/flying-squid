@@ -280,12 +280,16 @@ module.exports.player = async function (player, serv, settings) {
   }
 
   player.waitPlayerLogin = () => {
-    const events = ['flying', 'look']
+    // newer clients mostly send position / position_look rather than flying / look
+    const events = ['flying', 'look', 'position', 'position_look']
     return new Promise(function (resolve) {
+      let timer
       const listener = () => {
         events.map(event => player._client.removeListener(event, listener))
+        clearTimeout(timer)
         resolve()
       }
+      timer = setTimeout(listener, 5000) // don't wait forever if the client never sends one of those
       events.map(event => player._client.on(event, listener))
     })
   }
