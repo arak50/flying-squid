@@ -117,7 +117,7 @@ module.exports.entity = function (entity, serv) {
         } else if (serv.supportFeature('doublePosition')) {
           entityPosition = position
         }
-        entity._writeOthersNearby('entity_teleport', {
+        const teleportPacket = {
           entityId: entity.id,
           x: entityPosition.x,
           y: entityPosition.y,
@@ -125,7 +125,19 @@ module.exports.entity = function (entity, serv) {
           yaw: entity.yaw,
           pitch: entity.pitch,
           onGround
-        })
+        }
+        if (serv.registry.version['>=']('1.21.2')) {
+          // 1.21.2+: adds velocity + relative flags, and yaw/pitch are floats in degrees (we store 1/256 turns)
+          Object.assign(teleportPacket, {
+            dx: 0,
+            dy: 0,
+            dz: 0,
+            flags: 0,
+            yaw: (entity.yaw || 0) * 360 / 256,
+            pitch: (entity.pitch || 0) * 360 / 256
+          })
+        }
+        entity._writeOthersNearby('entity_teleport', teleportPacket)
         entity.knownPosition = position
       } else if (diff.distanceTo(new Vec3(0, 0, 0)) !== 0) {
         let delta

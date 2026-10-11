@@ -7,6 +7,9 @@ const plugins = require('./index')
 module.exports.server = function (serv, options) {
   serv._server.on('connection', (client) => {
     client.on('error', error => serv.emit('clientError', client, error))
+    // 1.20.2+: the client sends its settings (incl. view distance) during the configuration state,
+    // which is before 'playerJoin' fires, so remember it here or it is lost
+    client.on('settings', (packet) => { client._clientSettings = packet })
     client.on('state', (now) => {
       if (now === 'configuration') {
         client.write('feature_flags', { features: ['minecraft:vanilla'] })
@@ -25,7 +28,7 @@ module.exports.server = function (serv, options) {
     }
     serv.debug?.(`[login] ${client.socket?.remoteAddress} - ${client.username} (${client.uuid}) connected`, client.version, client.protocolVersion)
     try {
-      const player = serv.initEntity('player', null, serv.overworld, new Vec3(0, 0, 0))
+      const player = serv.initEntity('player', serv.registry.entitiesByName.player?.id ?? null, serv.overworld, new Vec3(0, 0, 0))
       player._client = client
 
       player.profileProperties = player._client.profile ? player._client.profile.properties : []
@@ -227,7 +230,7 @@ module.exports.player = async function (player, serv, settings) {
 
   serv._sendPlayerList = function (toPlayer) {
     if (serv.supportFeature('playerInfoActionIsBitfield')) {
-      toPlayer._writeOthers('player_info', {
+      toPlayer._client.write('player_info', {
         action: { add_player: true },
         data: serv.players.map((otherPlayer) => ({
           uuid: otherPlayer.uuid,
@@ -240,7 +243,7 @@ module.exports.player = async function (player, serv, settings) {
         }))
       })
     } else {
-      toPlayer._writeOthers('player_info', {
+      toPlayer._client.write('player_info', {
         action: 'add_player',
         data: serv.players.map((otherPlayer) => ({
           uuid: otherPlayer.uuid,
@@ -254,7 +257,10 @@ module.exports.player = async function (player, serv, settings) {
   }
 
   function fillTabList () {
+    // send the full player list (names + skin properties) to the joining player...
     serv._sendPlayerList(player)
+    // ...and announce the joining player to everybody else
+    serv._sendPlayerEventNewJoin(player)
     if (serv.supportFeature('playerInfoActionIsBitfield')) {
       setInterval(() => player._client.write('player_info', {
         action: { update_latency: true },

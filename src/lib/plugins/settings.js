@@ -32,12 +32,13 @@ module.exports.server = function (serv, settings) {
   }
 }
 
-module.exports.player = async function (player, serv) {
+module.exports.player = async function (player, serv, options) {
   player.prevGameMode = 255
   player.gameMode = serv.gameMode
   player.findSpawnPoint = async () => {
     player.spawnPoint = await serv.getSpawnPoint(player.world)
   }
+  player.view = player._client._clientSettings?.viewDistance ?? options['view-distance']
   player._client.on('settings', ({ viewDistance }) => {
     player.view = viewDistance
   })

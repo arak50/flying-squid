@@ -283,7 +283,7 @@ module.exports.player = function (player, serv, settings) {
 
   player.worldSendRestOfChunks = async () => {
     player.sendingChunks = true
-    await sendNearbyChunks(Math.min(player.view, settings['view-distance']), true)
+    await sendNearbyChunks(Math.min(player.view ?? settings['view-distance'], settings['view-distance']), true)
     player.sendingChunks = false
   }
 
