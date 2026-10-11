@@ -1,10 +1,28 @@
 module.exports.server = function (serv) {
-  serv.setTime = (time) => {
-    serv.time = time
-    serv._writeAll('update_time', {
+  // Builds the update_time packet payload for the server's protocol version
+  serv.getUpdateTimePacket = () => {
+    if (serv.registry.version['>=']('26.1')) {
+      // 26.1+: time is sent as updates to world clocks. Clock id 0 is minecraft:overworld
+      // (first entry of the world_clock registry). A rate of 0 freezes the client's clock.
+      return {
+        age: [0, 0], // TODO
+        clockUpdates: [{
+          id: 0,
+          totalTicks: serv.time,
+          partialTick: 0,
+          rate: serv.doDaylightCycle ? 1 : 0
+        }]
+      }
+    }
+    return {
       age: [0, 0], // TODO
       time: [0, serv.time]
-    })
+    }
+  }
+
+  serv.setTime = (time) => {
+    serv.time = time
+    serv._writeAll('update_time', serv.getUpdateTimePacket())
   }
 
   serv.doDaylightCycle = true

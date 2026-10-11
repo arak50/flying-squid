@@ -183,9 +183,20 @@ module.exports.player = function (player, serv, settings) {
       chunk: column
     }, ({ x, z, chunk }) => {
       // FIXME: fake heightmap
-      const heightmaps = nbt.comp({
-        MOTION_BLOCKING: nbt.longArray(new Array(36).fill([0, 0]))
-      })
+      const fakeHeightmapData = new Array(36).fill([0, 0])
+      let heightmaps
+      if (serv.registry.version['>=']('1.21.5')) {
+        // 1.21.5+: heightmaps are a list of { type, data } entries instead of an NBT compound.
+        // The type is a named mapping since 1.21.6 and a plain varint id (4 = MOTION_BLOCKING) in 1.21.5.
+        heightmaps = [{
+          type: serv.registry.version['>=']('1.21.6') ? 'motion_blocking' : 4,
+          data: fakeHeightmapData
+        }]
+      } else {
+        heightmaps = nbt.comp({
+          MOTION_BLOCKING: nbt.longArray(fakeHeightmapData)
+        })
+      }
       const trustEdges = true // trust edges for lighting updates - should be false when a chunk section is updated instead of the whole chunk being overwritten, do we ever do that?
       if (serv.supportFeature('tallWorld')) { // 1.18+ - merged chunk and light data
         player._client.write('map_chunk', {
@@ -279,6 +290,18 @@ module.exports.player = function (player, serv, settings) {
   player.worldSendAllChunks = player.worldSendRestOfChunks
 
   player.sendSpawnPosition = () => {
+    if (serv.registry.version['>=']('1.21.9')) {
+      // 1.21.9+: the packet carries a full respawn data structure (dimension + position + rotation)
+      player._client.write('spawn_position', {
+        globalPos: {
+          dimensionName: serv.dimensionNames[player.world === serv.netherworld ? -1 : 0],
+          location: player.spawnPoint
+        },
+        yaw: 0,
+        pitch: 0
+      })
+      return
+    }
     player._client.write('spawn_position', {
       location: player.spawnPoint
     })

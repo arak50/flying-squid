@@ -45,9 +45,11 @@ module.exports.entity = function (entity, serv, { version }) {
       scaledVelocity = scaledVelocity.scaled(1 / 32)
     }
     scaledVelocity = scaledVelocity.floored()
+    // 1.21.9+: velocity is an lpVec3 in blocks per tick instead of 1/8000 blocks per tick
+    const networkVelocity = serv.registry.version['>=']('1.21.9') ? velocity.scaled(1 / 20) : scaledVelocity
     entity._writeNearby('entity_velocity', {
       entityId: entity.id,
-      velocity: scaledVelocity,
+      velocity: networkVelocity,
       velocityX: scaledVelocity.x,
       velocityY: scaledVelocity.y,
       velocityZ: scaledVelocity.z

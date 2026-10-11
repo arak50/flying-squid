@@ -13,7 +13,7 @@ module.exports.player = function (player, serv) {
     }, (o) => o.attackedEntity.takeDamage(o))
   }
 
-  player._client.on('use_entity', ({ mouse, target } = {}) => {
+  function resolveTarget (target) {
     if (!serv.entities[target]) {
       let dragon = target - 1
       while (dragon >= target - 7 && !serv.entities[dragon]) {
@@ -21,7 +21,17 @@ module.exports.player = function (player, serv) {
       }
       if (serv.entities[dragon] && serv.entities[dragon].entityType === 63) { target = dragon }
     }
-    if (mouse === 1) { attackEntity(target) }
+    return target
+  }
+
+  // Before 26.1, attacks are use_entity packets with mouse === 1
+  player._client.on('use_entity', ({ mouse, target } = {}) => {
+    if (mouse === 1) { attackEntity(resolveTarget(target)) }
+  })
+
+  // 26.1+: attacks have their own packet, and use_entity is only used for interactions
+  player._client.on('attack', ({ entityId } = {}) => {
+    attackEntity(resolveTarget(entityId))
   })
 }
 

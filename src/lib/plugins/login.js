@@ -140,10 +140,7 @@ module.exports.player = async function (player, serv, settings) {
   }
 
   function updateTime () {
-    player._client.write('update_time', {
-      age: [0, 0],
-      time: [0, serv.time]
-    })
+    player._client.write('update_time', serv.getUpdateTimePacket())
   }
 
   // TODO: The structure of player_info changes alot between versions and is messy

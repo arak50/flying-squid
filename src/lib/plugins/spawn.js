@@ -312,6 +312,8 @@ module.exports.entity = function (entity, serv) {
       scaledVelocity = scaledVelocity.scaled(1 / 32)
     }
     scaledVelocity = scaledVelocity.floored()
+    // 1.21.9+: velocity is an lpVec3 in blocks per tick instead of 1/8000 blocks per tick
+    const networkVelocity = serv.registry.version['>=']('1.21.9') ? entity.velocity.scaled(1 / 20) : scaledVelocity
 
     let entityPosition
     if (serv.supportFeature('fixedPointPosition')) {
@@ -334,7 +336,7 @@ module.exports.entity = function (entity, serv) {
       headPitch: entity.headPitch,
       currentItem: 0,
       objectData: entity.data,
-      velocity: scaledVelocity,
+      velocity: networkVelocity,
       velocityX: scaledVelocity.x,
       velocityY: scaledVelocity.y,
       velocityZ: scaledVelocity.z,
