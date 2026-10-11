@@ -2,6 +2,19 @@ const { skipMcPrefix } = require('../utils')
 
 const Vec3 = require('vec3').Vec3
 
+// Legacy (1.8-era) sound names still used around the codebase -> modern registry names
+const legacySounds = {
+  'dig.stone': 'block.stone.place',
+  'dig.grass': 'block.grass.place',
+  'dig.cloth': 'block.wool.place',
+  'dig.wood': 'block.wood.place',
+  'random.pop': 'entity.item.pickup',
+  'game.player.hurt': 'entity.player.hurt',
+  'random.chestopen': 'block.chest.open',
+  'random.chestclosed': 'block.chest.close'
+}
+
+
 module.exports.server = function (serv, { version }) {
   const { registry } = serv
   serv.playSound = (sound, world, position, { whitelist, blacklist = [], radius = 32, volume = 1.0, pitch = 1.0, soundCategory = 0 } = {}) => {
@@ -17,20 +30,20 @@ module.exports.server = function (serv, { version }) {
         const iniPos = position ? position.scaled(1 / 32) : player.position.scaled(1 / 32)
         const pos = iniPos.scaled(8).floored()
         if (serv.supportFeature('removedNamedSoundEffectPacket')) { // 1.19.3 removes named_sound_effect
-          // Use new Holder structure for sound
+          // Send a registry id instead of an inline name: legacy/unknown inline names
+          // desync the modern client's sound decoder.
+          const name = skipMcPrefix(legacySounds[sound] ?? sound)
+          const entry = registry.soundsByName?.[name]
+          if (!entry) return // unknown sound: skip rather than send a bad packet
           player._client.write('sound_effect', {
-            sound: {
-              data: {
-                soundName: sound
-              }
-            },
+            sound: { soundId: entry.id },
             soundCategory,
             x: pos.x,
             y: pos.y,
             z: pos.z,
             volume,
-            pitch: Math.round(pitch * 63),
-            seed: 0
+            pitch, // f32 since 1.19.3, not the old 0-255 byte
+            seed: 0n
           })
         } else {
         // only packet still in fixed position in all versions
@@ -70,8 +83,8 @@ module.exports.server = function (serv, { version }) {
           y: pos.y,
           z: pos.z,
           volume,
-          pitch: Math.round(pitch * 63),
-          seed: 0
+          pitch,
+          seed: 0n
         })
       })
   }
