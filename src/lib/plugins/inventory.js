@@ -37,6 +37,10 @@ module.exports.player = function (player, serv, { version }) {
   })
 
   player._client.on('window_click', function (clickInfo) {
+    // Clicks inside the SkyBlock menu window are handled by skyblockMenu.js and must
+    // never be applied to the player's own inventory
+    if (player.skyblockMenu && clickInfo.windowId === player.skyblockMenu.windowId) return
+
     // Do other stuff the inventory doesn't do, eg spawn the dropped item.
     // I've left in stuff that inventory handles, because the cancelling hooks
     // might go here (?)
