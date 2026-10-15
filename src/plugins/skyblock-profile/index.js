@@ -10,11 +10,11 @@
 const { buildSummary } = require('./lib/summary')
 
 module.exports.server = function (serv, options) {
-  serv.skyblock = { buildSummary, lib: { skills: require('./lib/skills'), pets: require('./lib/pets'), calendar: require('./lib/calendar'), format: require('./lib/format') } }
+  serv.skyblock = Object.assign(serv.skyblock || {}, { buildSummary, lib: { skills: require('./lib/skills'), pets: require('./lib/pets'), calendar: require('./lib/calendar'), format: require('./lib/format') } })
 }
 
 module.exports.player = function (player, serv) {
-  const sb = player.skyblock = { state: 'loading', summary: null, source: null, memberUuid: null }
+  const sb = player.skyblock = Object.assign(player.skyblock || {}, { state: 'loading', summary: null, source: null, memberUuid: null })
   sb.ready = new Promise(resolve => {
     // start as soon as the player object exists (before login finishes) so data is ready by the first menu open
     player.once('asap', async () => {

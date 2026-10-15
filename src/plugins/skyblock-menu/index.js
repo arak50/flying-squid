@@ -33,7 +33,8 @@ module.exports.server = function (serv, options) {
   const engine = serv.skyblockMenu = new MenuEngine(serv, this.settings || {})
   serv.info?.(`[skyblock-menu] ${Object.keys(engine.screens).length} screens loaded from ${engine.data.source}`)
 
-  const open = (ctx, id) => engine.open(ctx.player, id).catch(e => ctx.player.chat(serv.color.red + e.message))
+  // commands print whatever their action resolves to, so never let open()'s result (an object) escape
+  const open = (ctx, id) => engine.open(ctx.player, id).then(() => undefined).catch(e => { ctx.player.chat(serv.color.red + e.message) })
   serv.commands.add({
     base: 'sbmenu',
     info: 'open the SkyBlock menu (or any captured screen by id)',
@@ -53,9 +54,13 @@ module.exports.server = function (serv, options) {
 
 module.exports.player = function (player, serv) {
   const engine = () => serv.skyblockMenu
+  // Never reach into engine internals from a packet handler: a stale lib/engine.js must not be able to kick players.
+  const call = (name, ...args) => { const e = engine(); return e && typeof e[name] === 'function' ? e[name](...args) : undefined }
+  const settings = this.settings || {}
+  const starSlot = () => (settings.starSlot !== undefined ? settings.starSlot : ((engine() && engine().opts && engine().opts.starSlot) ?? 8))
   const c = player._client
   let last = 0
-  const openMain = () => { const t = Date.now(); if (t - last < 250) return; last = t; engine().open(player, 'skyblock_menu').catch(e => serv.err?.(e.message)) }
+  const openMain = () => { const t = Date.now(); if (t - last < 250) return; last = t; Promise.resolve(call('open', player, 'skyblock_menu')).catch(e => serv.err?.(e.message)) }
 
   // 'asap' fires after every builtin plugin built player.inventory – guard it so menu clicks never touch real slots
   player.once('asap', () => {
@@ -64,9 +69,11 @@ module.exports.player = function (player, serv) {
     inv.acceptClick = (info) => { if (player.sbMenu) return; return orig(info) }
   })
 
-  c.on('window_click', (pkt) => { engine().click(player, pkt).catch(e => serv.err?.(e.stack)) })
-  c.on('close_window', (pkt) => { if (player.sbMenu && pkt.windowId === player.sbMenu.windowId) engine().close(player, { notifyClient: false }) })
-  c.on('use_item', () => { if (player.heldItemSlot === engine().opts.starSlot) openMain() })
-  c.on('block_place', () => { if (player.heldItemSlot === engine().opts.starSlot) openMain() })
-  player.on('spawned', () => { setTimeout(() => engine().giveStar(player), 300); setTimeout(() => engine().giveStar(player), 2000) })
+  c.on('window_click', (pkt) => { Promise.resolve(call('click', player, pkt)).catch(e => serv.err?.(e.stack)) })
+  c.on('close_window', (pkt) => { if (player.sbMenu && pkt.windowId === player.sbMenu.windowId) call('close', player, { notifyClient: false }) })
+  c.on('use_item', () => { if (player.heldItemSlot === starSlot()) openMain() })
+  c.on('block_place', () => { if (player.heldItemSlot === starSlot()) openMain() })
+  // The star now arrives with the imported inventory (a real SkyBlock item in hotbar slot 9), so giveStar is only
+  // called if the engine still has it.
+  player.on('spawned', () => { if (typeof (engine() || {}).giveStar === 'function') { setTimeout(() => call('giveStar', player), 300); setTimeout(() => call('giveStar', player), 2000) } })
 }
