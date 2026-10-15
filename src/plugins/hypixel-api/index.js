@@ -4,7 +4,15 @@
  * Exposes `serv.hypixel`:
  *   await serv.hypixel.getSkyblockProfiles(uuid)  -> { source: 'api'|'sample', response, memberUuid }
  *   await serv.hypixel.getSkillTables()           -> { SKILL: number[] } | null   (public resources endpoint)
+ *   await serv.hypixel.getItems()                 -> { list, byId }                (public resources endpoint)
+ *   await serv.hypixel.getSkills() / getCollections()                              (public resources endpoints)
+ *   await serv.hypixel.importInventory(player)    -> imports the player's SkyBlock inventory (see below)
  *   serv.hypixel.config                            (resolved settings, key redacted)
+ *
+ * Inventory import: on join (after 'spawned') the player's selected SkyBlock profile inventory + armour are
+ * converted from Hypixel's 1.8 NBT to the server version (26.1 data components) and placed in their inventory.
+ *   player.skyblock.inventory = decoded containers, .member, .profile, .imported (boolean)
+ *   player.on('skyblockInventoryImported', result)
  *
  * The API key is NEVER stored in this repo. Provide it with the HYPIXEL_API_KEY environment variable or
  * `"key"` in config/settings.json. Without a key (or when the request fails) the plugin can fall back to a
@@ -14,11 +22,16 @@
  *   "plugins": { "hypixel-api": {
  *       "sampleFile": "./apiresponsesample.json",       // saved /v2/skyblock/profiles response
  *       "sampleMemberUuid": "88e266f9f6dd41028bda58e009ab1c3c", // whose data inside the sample to show
- *       "sampleMode": "fallback"                        // "off" | "fallback" | "force"
+ *       "sampleMode": "fallback",                       // "off" | "fallback" | "force"
+ *       "key": "<your api key>",                        // or HYPIXEL_API_KEY
+ *       "importOnJoin": false,                          // standalone only: skyblock-core normally owns the import
+ *       "profile": null                                 // optional profile cute name / id; default = selected profile
  *   } }
  */
 const fs = require('fs')
 const path = require('path')
+const { createResources } = require('./lib/resources')
+const { createImporter } = require('./lib/importer')
 
 const stripDashes = (u) => String(u).replace(/-/g, '').toLowerCase()
 
@@ -31,7 +44,9 @@ module.exports.server = function (serv, options) {
     sampleFile: null,
     sampleMemberUuid: null,
     sampleMode: 'fallback', // off | fallback | force
-    requestTimeoutMs: 8000
+    requestTimeoutMs: 8000,
+    importOnJoin: false, // skyblock-core owns first-join import / reset; set true only to run hypixel-api standalone
+    profile: null
   }, this.settings || {})
   if (!cfg.key && process.env.HYPIXEL_API_KEY) cfg.key = process.env.HYPIXEL_API_KEY
 
@@ -86,12 +101,12 @@ module.exports.server = function (serv, options) {
     return { source: 'sample', response: resp, memberUuid: isMember ? clean : sampleMember(resp), actingAs: !isMember }
   }
 
-  async function getSkyblockProfiles (uuid) {
+  async function getSkyblockProfiles (uuid, { force = false } = {}) {
     const clean = stripDashes(uuid)
     if (cfg.sampleMode === 'force') return fromSample(clean)
 
     const hit = cache.get(clean)
-    if (hit && Date.now() - hit.t < cfg.cacheTtlMs) return hit.value
+    if (!force && hit && Date.now() - hit.t < cfg.cacheTtlMs) return hit.value
     if (inflight.has(clean)) return inflight.get(clean)
 
     const p = (async () => {
@@ -114,37 +129,49 @@ module.exports.server = function (serv, options) {
   }
 
   // ---- public resources (no key needed) ----
-  let skillTables
-  async function getSkillTables () {
-    if (skillTables !== undefined) return skillTables
-    skillTables = null
-    const file = path.join(cfg.cacheDir, 'skills.json')
-    let body = null
-    try { const st = fs.statSync(file); if (Date.now() - st.mtimeMs < 24 * 3600e3) body = JSON.parse(fs.readFileSync(file, 'utf8')) } catch (e) { /* no cache */ }
-    if (!body) {
-      try {
-        body = await http('/v2/resources/skyblock/skills', { auth: false })
-        fs.mkdirSync(cfg.cacheDir, { recursive: true }); fs.writeFileSync(file, JSON.stringify(body))
-      } catch (e) { serv.info?.(`[hypixel-api] skills resource unavailable (${e.message}); using built-in tables`) }
-    }
-    if (body?.skills) {
-      skillTables = {}
-      for (const [id, sk] of Object.entries(body.skills)) {
-        const lv = sk.levels || []
-        skillTables[id] = lv.map((l, i) => l.totalExpRequired - (i ? lv[i - 1].totalExpRequired : 0))
-      }
-    }
-    return skillTables
-  }
+  const resources = createResources({ http, cacheDir: cfg.cacheDir, log: m => serv.info?.(`[hypixel-api] ${m}`) })
 
   serv.hypixel = {
     getSkyblockProfiles,
-    getSkillTables,
+    getSkillTables: resources.getSkillTables,
+    getItems: resources.getItems,
+    getSkills: resources.getSkills,
+    getCollections: resources.getCollections,
     config: { ...cfg, key: cfg.key ? '<set>' : '<not set>' },
     stripDashes
   }
+  const importer = createImporter(serv, serv.hypixel, { profile: cfg.profile })
+  serv.hypixel.importInventory = importer.importPlayer
+  serv.hypixel.fetchSnapshot = importer.fetchSnapshot
+  serv.hypixel.getConverter = importer.getConverter
+  serv.hypixel._importOnJoin = cfg.importOnJoin
 
   serv.on?.('asap', () => {
     serv.info?.(`[hypixel-api] key: ${cfg.key ? 'configured' : 'NOT set'} · sampleMode: ${cfg.sampleMode}${cfg.sampleFile ? ' · sampleFile: ' + cfg.sampleFile : ''}`)
+  })
+}
+
+module.exports.player = function (player, serv) {
+  const sb = player.skyblock = player.skyblock || {}
+  sb.imported = false
+
+  // flying-squid's inventory plugin calls player.setEquipment but nothing defines it
+  if (!player.setEquipment) {
+    player.setEquipment = (slot, item) => { if (player.entity) { player.entity.equipment = player.entity.equipment || []; player.entity.equipment[slot] = item || undefined } }
+  }
+
+  // the inventory window exists once builtin plugins have run; 'spawned' fires after login finished
+  player.once('spawned', async () => {
+    if (!serv.hypixel || !serv.hypixel._importOnJoin) return
+    try {
+      const r = await serv.hypixel.importInventory(player)
+      Object.assign(sb, { inventory: r.decoded, member: r.member, profile: r.profile, profileSource: r.source, imported: true })
+      const c = r.converter.stats
+      serv.info?.(`[hypixel-api] ${player._client.username}: imported ${r.placed} items from "${r.profile.cute_name}" (${r.source}); ${c.fallback} via items resource, ${c.unknown} unmapped${c.unknown ? ' (' + [...c.unknownIds].join(',') + ')' : ''}`)
+      player.emit('skyblockInventoryImported', r)
+    } catch (e) {
+      sb.importError = e.message
+      serv.info?.(`[hypixel-api] ${player._client.username}: inventory import skipped: ${e.message}`)
+    }
   })
 }
