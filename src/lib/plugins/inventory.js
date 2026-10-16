@@ -5,28 +5,49 @@ module.exports.player = function (player, serv, { version }) {
   const windows = require('prismarine-windows')(serv.registry)
 
   player.heldItemSlot = 0
-  player.heldItem = new Item(256, 1)
   player.inventory = windows.createWindow(1, 'minecraft:inventory', 'inv', 36)
+  const clicks = require('../windowClicks')(Item)
+  let drag = null
+  let stateId = 0
+
+  // entity_equipment slot ids: 1.8 = hand 0, boots 1, legs 2, chest 3, head 4
+  //                            1.9+ = main hand 0, OFF HAND 1, boots 2, legs 3, chest 4, head 5
+  // (the old table below was 1.8 only, which put boots in the off hand on 1.9+)
+  const modernEquipment = serv.registry.version['>=']('1.9')
+  const ARMOR_EQUIPMENT = modernEquipment ? { 5: 5, 6: 4, 7: 3, 8: 2, 45: 1 } : { 5: 4, 6: 3, 7: 2, 8: 1 } // window slot -> equipment slot
+
+  // The player IS the entity: spawn.js reads entity.equipment[<protocol slot>] and prismarine-entity's read-only `heldItem`
+  // returns equipment[0] (assigning player.heldItem does nothing), so equipment[] is the single place the held item lives.
+  if (!player.setEquipment) {
+    player.setEquipment = (slot, item) => {
+      player.equipment = player.equipment || []
+      player.equipment[slot] = item || undefined
+    }
+  }
+  const broadcastEquipment = (slot, item) => {
+    if (serv.supportFeature('allEntityEquipmentInOne')) {
+      player._writeOthersNearby('entity_equipment', { entityId: player.id, equipments: [{ slot, item: Item.toNotch(item) }] })
+    } else {
+      player._writeOthersNearby('entity_equipment', { entityId: player.id, slot, item: Item.toNotch(item) })
+    }
+  }
+
+  // Send the whole inventory (and the cursor) to the client again. Used whenever a click cannot be applied here, so the
+  // client's prediction can never silently differ from the server's inventory.
+  player.resyncInventory = () => {
+    stateId = (stateId + 1) & 0x7fff
+    player._client.write('window_items', {
+      windowId: 0,
+      stateId,
+      items: player.inventory.slots.map(it => Item.toNotch(it)),
+      carriedItem: Item.toNotch(player.inventory.selectedItem)
+    })
+  }
 
   player._client.on('held_item_slot', ({ slotId } = {}) => {
     player.heldItemSlot = slotId
-    player.setEquipment(0, player.inventory.slots[36 + player.heldItemSlot])
-
-    if (serv.supportFeature('allEntityEquipmentInOne')) {
-      player._writeOthersNearby('entity_equipment', {
-        entityId: player.id,
-        equipments: [{
-          slot: 0,
-          item: Item.toNotch(player.heldItem)
-        }]
-      })
-    } else {
-      player._writeOthersNearby('entity_equipment', {
-        entityId: player.id,
-        slot: 0,
-        item: Item.toNotch(player.heldItem)
-      })
-    }
+    player.setEquipment(0, player.inventory.slots[36 + slotId]) // hotbar lives at window slots 36-44
+    broadcastEquipment(0, player.heldItem)
   })
 
   // Dynamic window ID feature (closing window)
@@ -45,41 +66,14 @@ module.exports.player = function (player, serv, { version }) {
     // I've left in stuff that inventory handles, because the cancelling hooks
     // might go here (?)
     switch (clickInfo.mode) {
-      case 0: {
-        if (clickInfo.mouseButton === 0) {
-          // Left mouse click
-          // Inventory deals with this
-        } else {
-          // Right mouse click
-          // Inventory deals with this
-        }
+      case 0:
+      case 1: // shift click: applied by the inventory (previously skipped, which desynced the client)
+      case 2: // number keys: applied by the inventory (previously skipped)
         break
-      }
 
-      case 1: {
-        if (clickInfo.mouseButton === 0) {
-          // Shift + Left click
-          // Inventory deals with this
-          return
-        } else {
-          // Shift + right click
-          // Inventory deals with this
-          return
-        }
-      }
-
-      case 2: {
-        // button 0 -> 8, indication hotbar switching items
-        // (Nothing to do with held_item_slot)
-        // DANGER! crashes because windows.js hasn't implemented it yet.
+      case 3: // middle click (creative only): nothing to apply, restore the client's view
+        player.resyncInventory()
         return
-      }
-
-      case 3: {
-        // Middle click
-        // DANGER! crashes because windows.js hasn't implemented it yet.
-        return
-      }
 
       case 4: {
         if (clickInfo.slot === -999) {
@@ -107,49 +101,15 @@ module.exports.player = function (player, serv, { version }) {
         break
       }
 
-      // Inventory does not support dragging yet, so not implementing yet.
+      // Drag: collect the slots, apply when the drag ends (prismarine-windows does not implement it)
       case 5: {
-        if (clickInfo.slot === -999) {
-          switch (clickInfo.mouseButton) {
-            case 0: {
-              // Start left mouse drag
-              return
-            }
-
-            case 4: {
-              // Start right mouse drag
-              return
-            }
-
-            case 2: {
-              // End left mouse drag
-              return
-            }
-
-            case 6: {
-              // End right mouse drag
-              return
-            }
-          }
-        } else {
-          switch (clickInfo.mouseButton) {
-            case 1: {
-              // Add slot for left mouse drag
-              return
-            }
-
-            case 5: {
-              // Add slot for right mouse drag
-              return
-            }
-          }
-        }
-        break
+        drag = clicks.dragPacket(player.inventory, drag, clickInfo)
+        return
       }
 
-      // Inventory does not support double click yet, so not implementing yet.
+      // Double click: gather matching stacks onto the cursor
       case 6: {
-        // Double click
+        clicks.doubleClick(player.inventory)
         return
       }
     }
@@ -157,10 +117,14 @@ module.exports.player = function (player, serv, { version }) {
     // Let the inventory know of the click.
     // It's important to let it know of the click later, because it destroys
     // information we need about the inventory.
+    // prismarine-windows' shift-click / number-key / middle-click / drop read click.item (the stack in the clicked slot) and
+    // do nothing without it; the 1.8-era packets carried it, current ones carry only hashes, so take it from our own state
+    if (clickInfo.slot >= 0 && clickInfo.item === undefined) clickInfo.item = player.inventory.slots[clickInfo.slot]
     try {
       player.inventory.acceptClick(clickInfo)
     } catch (err) {
       serv.emit('error', err)
+      player.resyncInventory()
     }
   })
 
@@ -175,30 +139,11 @@ module.exports.player = function (player, serv, { version }) {
   })
 
   player.inventory.on('updateSlot', function (slot, oldItem, newItem) {
-    const equipments = {
-      5: 4,
-      6: 3,
-      7: 2,
-      8: 1
-    }
-    equipments[player.heldItemSlot] = 0
+    const equipments = { ...ARMOR_EQUIPMENT }
+    equipments[36 + player.heldItemSlot] = 0 // the held item is a hotbar slot (window slots 36-44), not slot 0-8
     if (equipments[slot] !== undefined) {
       player.setEquipment(equipments[slot], newItem)
-      if (serv.supportFeature('allEntityEquipmentInOne')) {
-        player._writeOthersNearby('entity_equipment', {
-          entityId: player.id,
-          equipments: [{
-            slot: equipments[slot],
-            item: Item.toNotch(newItem)
-          }]
-        })
-      } else {
-        player._writeOthersNearby('entity_equipment', {
-          entityId: player.id,
-          slot: equipments[slot],
-          item: Item.toNotch(newItem)
-        })
-      }
+      broadcastEquipment(equipments[slot], newItem)
     }
 
     player._client.write('set_slot', {

@@ -30,6 +30,7 @@ module.exports.server = function (serv) {
       const sb = player.skyblock || {}
       if (!sb.profile) throw new Error('your SkyBlock profile is still loading')
       if (!ui.conv) throw new Error('item converter not ready')
+      if (sb.stats) sb.stats.flush()
       return {
         player,
         serv,
@@ -71,6 +72,17 @@ module.exports.player = function (player, serv) {
     if (player.ui.win || !holdingStar()) return
     try { ui.windows.open(player, skyblockMenu) } catch (e) { serv.err?.(e.message) }
   }
+  // Every SkyBlock player has the menu star. Some imported inventories lack it: put it in hotbar slot 9 (where the recorded
+  // profile has it); if that slot is taken, the first free hotbar slot, then the first free slot. (What Hypixel does when the
+  // slot is occupied was not recorded.)
+  player.on('skyblockProfileReady', async (profile) => {
+    const conv = await serv.hypixel.getConverter()
+    const inv = profile.container('inventory')
+    if (inv.items().some(it => it && (conv.neutralFromItem(it).extra || {}).id === 'SKYBLOCK_MENU')) return
+    const slot = !inv.get(8) ? 8 : inv.firstEmpty([...Array(36).keys()])
+    if (slot < 0) return serv.info?.(`[skyblock-ui] ${player._client.username}: inventory full, no room for the SkyBlock Menu star`)
+    inv.set(slot, conv.build(ui.specs.items.skyblockStar), 'star')
+  })
   player._client.on('use_item', useStar)
   player._client.on('block_place', useStar)
 }

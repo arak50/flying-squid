@@ -73,19 +73,23 @@ class WindowManager {
   _click (player, pkt) {
     const w = player.ui.win
     if (!w || pkt.windowId !== w.id) return
-    let result
     try {
+      let result
       // only plain left/right clicks are understood; shift-click, drags, number keys, drops were not recorded
       if (pkt.mode === 0 && (pkt.mouseButton === 0 || pkt.mouseButton === 1)) {
         result = pkt.slot >= 0 && pkt.slot < MENU_SIZE
           ? w.menu.click({ player, slot: pkt.slot, button: pkt.mouseButton, area: 'menu' })
           : (pkt.slot >= MENU_SIZE && pkt.slot < 90 ? w.menu.click({ player, slot: pkt.slot, button: pkt.mouseButton, area: 'inventory', index: invIndexOfSlot(pkt.slot) }) : undefined)
       }
-    } catch (e) { this.serv.err?.(`[skyblock-ui] ${w.menu.title}: ${e.stack}`) }
-    if (player.ui.win !== w) return // the click already opened another menu
-    if (result === 'reopen') this.open(player, w.factory)
-    else if (result === 'close') this.close(player)
-    else this.resync(player)
+      if (player.ui.win !== w) return // the click already opened another menu
+      if (result === 'reopen') this.open(player, w.factory)
+      else if (result === 'close') this.close(player)
+      else this.resync(player)
+    } catch (e) {
+      // an exception in a packet handler would make the server kick the player; log it and close the menu instead
+      this.serv.err?.(`[skyblock-ui] ${w.menu.title}: ${e.stack}`)
+      try { player.chat('§cThat menu hit an error and was closed.'); if (player.ui.win) this.close(player) } catch { /* connection gone */ }
+    }
   }
 }
 

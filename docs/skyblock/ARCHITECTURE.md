@@ -32,6 +32,7 @@ Status: design + first backend milestone. Everything below is tagged
 | `skyblock-stats` | modifier collection, stat totals, derived stats, breakdown data | rendering, item movement |
 | `skyblock-profile` | read-only summary data (skills, pets, calendar) for display | state |
 | `skyblock-ui` | **locked** 9×6 menu windows drawn from `ProfileState` + stats: SkyBlock Menu (star), Stats & Equipment, Your Stats Breakdown, `Stats ➜ X`, `X ➜ Flat Bonuses / Additive Buffs`; `/stats`, `/sbmenu`. Static texts/icons/layouts come from `data/ui-specs.json` (generated from the recordings) | state, stat maths |
+| `skyblock-resourcepack` | hosts your local resource pack over HTTP and sends it to every player on join (Add Resource Pack, forced, with prompt); `/resourcepack` re-sends; a replaced file is picked up on the next join. Items carry the Hypixel pack's `item_model` / `tooltip_style` ids, so the pack is **required** for them to render | state |
 | `skyblock-menu`, `skyblock-personalize` | the old byte-**replay** menus. **Superseded by `skyblock-ui` — do not load them together** (both claim the star, `/stats` and `window_click`) | — |
 
 Load order in `settings.plugins` does not matter; plugins talk through `serv.hypixel`, `serv.skyblock.core`, `player.skyblock.profile` and events.
@@ -41,7 +42,8 @@ Load order in `settings.plugins` does not matter; plugins talk through `serv.hyp
   "hypixel-api": { "key": "…" },
   "skyblock-core": { "dir": "skyblock-data/profiles" },
   "skyblock-stats": {},
-  "skyblock-ui": {}
+  "skyblock-ui": {},
+  "skyblock-resourcepack": { "file": "resourcepack/hypixel-skyblock.zip", "host": "<address players use>", "port": 8765 }
 }
 ```
 
@@ -80,6 +82,17 @@ true def   = TD / (TD + 100)                         32 / 132 = 24.2 %
 SB level   = +5 Health per level, level = floor(xp/100)   307 × 5 = 1,535
 ```
 Categories that appear (count in recording): Basic 50, Skill 20, Enchantment 21, Accessory Bag 19, Slayer 16, Potion Effect 12, Essence Shop 12, Exportation 12, Attribute 11, SkyBlock Levels 10, Bestiary 9, Innate 9, Uncategorized 9, Ability/Passive 5, Gemstone 4, Reforge 4, Attachment 4, Armor 8, Equipment 3, Item Ability (Passive) 2, HOTM 1, Consumable 1, Thaumaturgist Power 1. Kinds seen: **Flat**, **Additive**. (`tools/modifier-catalog.js` regenerates this.)
+
+### 3.4 Built-in inventory plugin — fixes this project depends on (RECORDED protocol, vanilla semantics)
+`src/lib/plugins/inventory.js` was written for 1.8 and is corrected for 26.1:
+- **Equipment slot ids** in `entity_equipment` are version dependent (1.8: boots 1 … head 4; 1.9+: main 0, **off hand 1**, boots 2, legs 3, chest 4, head 5). The old table put boots in the off hand and shifted every other piece.
+- **Held item**: the hotbar lives at window slots 36–44 (the old code used the hotbar number as a window slot, overwriting the armour mapping for hotbar slots 5–8) and `heldItem` is read-only in prismarine-entity (it is `equipment[0]`), so the held item is set through `setEquipment(0, …)`.
+- **Click modes**: shift-click and number keys were skipped (and `prismarine-windows` needs `click.item`, which current packets do not carry — now taken from the server's own inventory); drag and double-click are unimplemented upstream (`src/lib/windowClicks.js`). Anything that cannot be applied re-sends the whole inventory (`player.resyncInventory()`), so the client can never silently differ from the server — the cause of "inventory reverts when a menu opens".
+
+### 3.4 Fixes made to the built-in inventory plugin (`src/lib/plugins/inventory.js`)
+- Equipment slot ids were the 1.8 table (boots = 1). On 1.9+ slot 1 is the **off hand** (main 0, off 1, boots 2, legs 3, chest 4, head 5), so boots showed in the off hand and armour pieces were shifted. Now version-aware.
+- The held item used the window slot number (0-8) instead of the hotbar (36-44) and broadcast a stale `heldItem`. `player.heldItem` is a read-only getter of `equipment[0]` (prismarine-entity), so the held item is kept via `setEquipment(0, …)`.
+- Shift-click and number-key clicks were skipped, and `prismarine-windows` needs `click.item` (not present in current packets) to apply them; drag and double click are unimplemented there (`src/lib/windowClicks.js` adds them). Any click that cannot be applied now re-sends the whole inventory (`player.resyncInventory()`), so the client can never drift from the server's state.
 
 ## 4. State model
 
@@ -185,7 +198,7 @@ Equipment lore rule (derived from the 4 recorded pieces, asserted by test): the 
 11. Active effects: how durations count down and expire, stacking rules.
 
 **Stats**
-12. The Stats menu with a **different held item** (does the held weapon add to Strength/Damage?) and with a dungeon item.
+12. The Stats menu with a **different held item** — today only swords count while held (the recordings contain no stat page with a held weapon or tool, so the rule for pickaxes/axes/rods/bows is unknown). Record it holding a sword, a pickaxe, an axe, a fishing rod, a bow and nothing; also Hypixel-specific inventory behaviour (shift-click into armour/equipment slots, number-key swaps) if it differs from vanilla: only swords (`weapon` role) add their stats when held today; whether tools, bows, rods and other items do is not in the recordings (no recorded stat page lists a held item). Record the Stats menu holding a sword, a pickaxe, an axe, a fishing rod, a bow and nothing. Originally: (does the held weapon add to Strength/Damage?) and with a dungeon item.
 13. Any stat page with a **Multiplicative** section (none seen) and the page opened with `Group By Category` ON.
 14. One breakdown page for **every** category in §3.3 that was not opened (Accessory Bag, Pet, HOTM, Essence Shop…).
 

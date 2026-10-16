@@ -38,7 +38,7 @@ class PlayerStats extends EventEmitter {
     const list = c => p.container(c).items().map(SbItem.fromPrismarine)
     return {
       armor: [3, 2, 1, 0].map(i => it('armor', i)), // providers expect boots..helmet
-      held: it('inventory', this.heldSlot),
+      held: it('inventory', this.player.heldItemSlot !== undefined ? this.player.heldItemSlot : this.heldSlot), // the server's own held slot
       equipment: list('equipment'),
       accessories: list('accessoryBag')
     }
@@ -83,6 +83,8 @@ class PlayerStats extends EventEmitter {
   menu (opts) { return this.result ? buildStatsMenu(this.result, this._sources, opts) : null }
 
   // ---- mutations (all trigger a recompute) --------------------------------------
+  /** Apply a pending recomputation now, so a menu never renders numbers from before the last hotbar/inventory change. */
+  flush () { if (this._scheduled) { clearImmediate(this._scheduled); this._scheduled = null; this.recompute(this._reason) } }
   setHeldSlot (i) { this.heldSlot = i; this.schedule('held') }
   setContext (partial) { Object.assign(this.context, partial); this.schedule('context') }
   setSelectedPower (id) { this.sb.runtime.selectedPower = id; this.schedule('power') }

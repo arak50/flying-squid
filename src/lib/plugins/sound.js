@@ -14,7 +14,6 @@ const legacySounds = {
   'random.chestclosed': 'block.chest.close'
 }
 
-
 module.exports.server = function (serv, { version }) {
   const { registry } = serv
   serv.playSound = (sound, world, position, { whitelist, blacklist = [], radius = 32, volume = 1.0, pitch = 1.0, soundCategory = 0 } = {}) => {

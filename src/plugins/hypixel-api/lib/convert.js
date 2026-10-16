@@ -157,6 +157,7 @@ function createConverter (registry, resources) {
     }
     if (n.name !== null && n.name !== undefined) add('custom_name', legacyToComponent(n.name))
     if (n.lore && n.lore.length) add('lore', n.lore.map(legacyToComponent))
+    // item_model / tooltip_style point into the Hypixel resource pack: the skyblock-resourcepack plugin sends it to players
     if (n.model) add('item_model', n.model)
     if (n.extraNbt) add('custom_data', readNbt(n.extraNbt))
     else if (n.extra && Object.keys(n.extra).length) add('custom_data', typedCompound(n.extra))
