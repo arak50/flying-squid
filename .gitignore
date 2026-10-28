@@ -2,3 +2,5 @@ node_modules/
 logs/
 *.patch
 *.env
+cache/
+skyblock-data/

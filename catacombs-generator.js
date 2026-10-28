@@ -223,7 +223,9 @@ function readSchem (file) {
   const names = []; for (const [k, v] of Object.entries(palette)) names[v] = k
   const data = new Uint16Array(W * H * L); let i = 0; let n = 0
   while (i < bytes.length) { let v = 0; let s = 0; for (;;) { const b = bytes[i++] & 0xff; v |= (b & 0x7f) << s; s += 7; if (!(b & 0x80)) break } data[n++] = v }
-  return { W, H, L, names, data } // data index = (y*L + z)*W + x
+  const rawBE = root.BlockEntities || blocks.BlockEntities || []
+  const blockEntities = rawBE.filter(b => b.Pos && /skull|head/i.test(String(b.Id))).map(b => ({ pos: [b.Pos[0], b.Pos[1], b.Pos[2]], profile: b.profile || null }))
+  return { W, H, L, names, data, blockEntities } // data index = (y*L + z)*W + x
 }
 function rotateSchem (sc, k) {
   if (!k) return sc
@@ -233,7 +235,7 @@ function rotateSchem (sc, k) {
     for (let y = 0; y < H; y++) for (let z = 0; z < L; z++) for (let x = 0; x < W; x++) { out[(y * W + x) * L + (L - 1 - z)] = data[(y * L + z) * W + x] } // (x,z)->(L-1-z, x); new dims W'=L, L'=W
     data = out;[W, L] = [L, W]
   }
-  return { W, H, L, names: sc.names, data, rot: k }
+  return { W, H, L, names: sc.names, data, rot: k, blockEntities: sc.blockEntities }
 }
 
 // ====================================================================================================
@@ -291,6 +293,34 @@ const shapeKind = cells => {
 }
 
 // ====================================================================================================
+// 5b. Skull block entities
+// ====================================================================================================
+/**
+ * Protocol id of the 'skull' block entity type (the `type` field of the chunk packet's blockEntities).
+ * Ids follow vanilla registration order, so they change between versions and are NOT in minecraft-data.
+ * 16 holds for 1.21.2 - 26.1.x (creaking_heart was inserted before skull in 1.21.2; later additions come after it).
+ * Returns null for versions this has not been established for: pass options.skullBlockEntityId there.
+ */
+function skullTypeId (registry) {
+  const v = registry.version
+  return v['>=']('1.21.2') ? 16 : null
+}
+function skullNbt (profile) {
+  if (!profile) return nbt.comp({})
+  const p = {}
+  if (profile.name !== undefined) p.name = nbt.string(String(profile.name))
+  if (Array.isArray(profile.id) && profile.id.length === 4) p.id = nbt.intArray(profile.id.map(n => n | 0))
+  if (Array.isArray(profile.properties) && profile.properties.length) {
+    p.properties = nbt.list(nbt.comp(profile.properties.map(pr => {
+      const o = { name: nbt.string(String(pr.name)), value: nbt.string(String(pr.value)) }
+      if (pr.signature) o.signature = nbt.string(String(pr.signature))
+      return o
+    })))
+  }
+  return nbt.comp({ profile: nbt.comp(p) })
+}
+
+// ====================================================================================================
 // 6. Dungeon builder
 // ====================================================================================================
 function buildDungeon (registry, opts) {
@@ -298,7 +328,9 @@ function buildDungeon (registry, opts) {
   const seed = seedToInt(opts.dungeonSeed ?? opts.seed ?? 0)
   const log = opts.log || (() => {})
   const lib = opts.library || loadTemplates(opts.schematicsDir || path.join(__dirname, 'dungeon-room-schematics'))
-  const bt = new BlockTable(registry, opts)
+  const skullType = opts.skullBlockEntityId ?? skullTypeId(registry)
+  const heads = opts.heads !== false && skullType !== null // heads need the block entity packet field; without a known id they stay off
+  const bt = new BlockTable(registry, { ...opts, skullBlocks: heads })
   const layout = generateLayout(floor, seed)
   const rng = mulberry32((seed ^ 0x9e3779b9) + floor * 7919) // separate stream: template choice never disturbs the layout
   const pickFrom = (list, used) => { let c = list.filter(t => !used.has(t.name)); if (!c.length) c = list; const t = c[Math.floor(rng() * c.length)]; used.add(t.name); return t }
@@ -379,7 +411,13 @@ function buildDungeon (registry, opts) {
   const inside = (x, y, z) => x >= 0 && z >= 0 && x < SX && z < SZ && y >= yMin && y < yMax
   const set = (x, y, z, v) => { if (inside(x, y, z)) grid[idx(x, y, z)] = v }
   const get = (x, y, z) => inside(x, y, z) ? grid[idx(x, y, z)] : 0
+  const beList = [] // skull block entities in world space (checked against the final blocks later)
   const stamp = (sc, rot, ox, oy, oz, skipAir = true) => {
+    for (const be of sc.blockEntities || []) {
+      let [x, y, z] = be.pos; let w = sc.W; let l = sc.L
+      for (let i = 0; i < (rot || 0); i++) { [x, z] = [l - 1 - z, x];[w, l] = [l, w] } // same quarter-turn as the blocks
+      beList.push({ x: ox + x, y: oy + y, z: oz + z, profile: be.profile })
+    }
     const r = rot ? (sc['_r' + rot] || (sc['_r' + rot] = rotateSchem(sc, rot))) : sc
     const pal = r.names.map(n => bt.stateId(n, rot || 0)); // rotation of properties matches rotation of geometry
     for (let y = 0; y < r.H; y++) for (let z = 0; z < r.L; z++) for (let x = 0; x < r.W; x++) {
@@ -467,7 +505,22 @@ function buildDungeon (registry, opts) {
     if (found) break
   }
 
-  const dungeon = { floor, seed, layout, grid, SX, SY, SZ, yMin, yMax, spawn, stats, warnings, bt }
+  // block entities: keep only those whose block really is a skull in the final world, grouped per chunk for the chunk packet
+  const skullNames = bt.skull; const beByChunk = new Map(); let beCount = 0
+  if (heads) {
+    const seenBE = new Set()
+    for (const be of beList) {
+      const key = be.x + ',' + be.y + ',' + be.z; if (seenBE.has(key)) continue; seenBE.add(key)
+      const id = get(be.x, be.y, be.z); const b = id ? registry.blocksByStateId[id] : null
+      if (!b || !skullNames.has(b.name)) continue
+      const ck = (be.x >> 4) + ',' + (be.z >> 4); if (!beByChunk.has(ck)) beByChunk.set(ck, [])
+      beByChunk.get(ck).push({ x: be.x & 15, z: be.z & 15, y: be.y, type: skullType, nbtData: skullNbt(be.profile) }); beCount++
+    }
+  }
+  stats.headBlockEntities = beCount
+  if (!heads && opts.heads !== false) warnings.push('player heads dropped: no skull block entity id known for this version (pass skullBlockEntityId)')
+
+  const dungeon = { floor, seed, layout, grid, SX, SY, SZ, yMin, yMax, spawn, stats, warnings, bt, blockEntitiesFor: (cx, cz) => beByChunk.get(cx + ',' + cz) || [] }
   dungeon.light = opts.lighting === 'fullbright' ? null : computeLight(dungeon, registry)
   return dungeon
 }
@@ -586,5 +639,6 @@ module.exports.buildDungeon = buildDungeon
 module.exports.generateLayout = generateLayout
 module.exports.loadTemplates = loadTemplates
 module.exports.seedToInt = seedToInt
+module.exports.skullTypeId = skullTypeId
 module.exports.T = T
 module.exports.NAME = NAME

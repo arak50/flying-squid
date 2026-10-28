@@ -13,7 +13,8 @@
  *   --schematics <dir>     folder holding the room/door schematics                       [./dungeon-room-schematics]
  *   --lighting <mode>      calculated (dark, torches matter) | fullbright                                   [calculated]
  *   --open-doors           remove the plugs of wither / blood / entrance doors (normal doors are open already)
- *   --skulls               keep player/mob head blocks (flying-squid cannot send their textures, so they render blank)
+ *   --no-heads             leave out player/mob head blocks (by default they are sent with their textures)
+ *   --skull-be-id <n>      override the skull block entity protocol id (default 16, valid for 1.21.2 - 26.1.x)
  *   --gamemode <0-3>       default game mode                                                                [1 = creative]
  *   --online               require Mojang authentication (default is offline mode)
  *   --dump <file.json>     write the layout (rooms, rotations, doors, spawn) to a JSON file
@@ -29,7 +30,7 @@ function parseArgs (argv) {
     const a = argv[i]
     if (!a.startsWith('--')) continue
     const [k, inline] = a.slice(2).split('=')
-    const bool = ['open-doors', 'skulls', 'online', 'dry-run', 'help'].includes(k)
+    const bool = ['open-doors', 'no-heads', 'online', 'dry-run', 'help'].includes(k)
     o[k] = bool ? true : inline !== undefined ? inline : argv[++i]
   }
   return o
@@ -49,7 +50,8 @@ const genOptions = {
   dungeonSeed, floor, schematicsDir,
   lighting: args.lighting || 'calculated',
   openDoors: !!args['open-doors'],
-  skullBlocks: !!args.skulls
+  heads: !args['no-heads'],
+  skullBlockEntityId: args['skull-be-id'] !== undefined ? parseInt(args['skull-be-id'], 10) : undefined
 }
 
 function report (dg) {
@@ -72,6 +74,17 @@ if (args['dry-run']) {
 
 let builtDungeon = null // set when the generator finishes (may happen while the server is still being constructed)
 const mcServer = require('flying-squid')
+// prismarine-provider-anvil (2.13) has no 26.1 support and flying-squid builds it even when no world folder is used.
+// Make that harmless: construction only fails if a save folder is actually requested.
+try {
+  const anvil = require(require.resolve('prismarine-provider-anvil', { paths: [path.dirname(require.resolve('flying-squid'))] }))
+  const original = anvil.Anvil
+  anvil.Anvil = registry => {
+    try { return original(registry) } catch (e) {
+      return class UnsupportedAnvil { constructor () { throw new Error(`Saving worlds is not supported on this version: ${e.message}`) } }
+    }
+  }
+} catch (e) { /* provider not installed: nothing to wrap */ }
 const defaults = require('flying-squid/config/default-settings.json')
 const settings = {
   ...defaults,
@@ -96,16 +109,27 @@ const settings = {
   },
   worldFolder: undefined, // the dungeon is deterministic; nothing to persist (set a folder here to save player edits)
   motd: `Catacombs floor ${floor} seed ${seedArg}\nflying-squid`,
-  generation: {
-    name: path.resolve(__dirname, 'catacombs-generator.js'),
-    options: { ...genOptions, onBuilt: dg => { builtDungeon = dg; report(dg) } }
-  }
+generation: {
+  name: path.resolve(__dirname, 'catacombs-generator.js'),
+  options: { ...genOptions, onBuilt: dg => { builtDungeon = dg; report(dg) } }
+}
 }
 const server = mcServer.createMCServer(settings)
 server.on('pluginsReady', () => {
-  const { Vec3 } = require('vec3')
-  // our spawn replaces flying-squid's random surface search (there is no surface here)
-  server.getSpawnPoint = async () => { const s = builtDungeon ? builtDungeon.spawn : { x: -4, y: 72, z: -3 }; return new Vec3(s.x, s.y, s.z) }
+const { Vec3 } = require('vec3')
+// our spawn replaces flying-squid's random surface search (there is no surface here)
+server.getSpawnPoint = async () => { const s = builtDungeon ? builtDungeon.spawn : { x: 0, y: 70, z: 0 }; return new Vec3(s.x, s.y, s.z) }
+})
+// flying-squid always sends `blockEntities: []` in map_chunk, so player heads would be invisible. Fill the list in on the way out.
+server.on('newPlayer', player => {
+const client = player._client; const write = client.write.bind(client)
+client.write = (name, params) => {
+  if (name === 'map_chunk' && builtDungeon && params && params.blockEntities && params.blockEntities.length === 0) {
+    const list = builtDungeon.blockEntitiesFor(params.x, params.z)
+    if (list.length) params = { ...params, blockEntities: list }
+  }
+  return write(name, params)
+}
 })
 server.on('listening', port => console.log(`Server listening on port ${port} (Minecraft ${version}${settings['online-mode'] ? '' : ', offline mode'})`))
 server.on('error', e => { console.error(e); process.exit(1) })
