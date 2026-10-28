@@ -1,884 +1,3145 @@
 {
+ "ABICASE": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
  "ABIPHONE_XII_MEGA": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/abiphones/xii/abiphone_xii_amber"
+  "model": "hypixel_skyblock:item/abiphones/xii/abiphone_xii_amber",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "ABYSSAL_BOOTS": {
-  "base": "leather_boots"
+  "base": "leather_boots",
+  "style": "hypixel_skyblock:legendary",
+  "glint": false
  },
  "ABYSSAL_CHESTPLATE": {
-  "base": "leather_chestplate"
+  "base": "leather_chestplate",
+  "style": "hypixel_skyblock:legendary",
+  "glint": true
  },
  "ABYSSAL_HELMET": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:legendary",
+  "glint": true
  },
  "ABYSSAL_LEGGINGS": {
-  "base": "leather_leggings"
+  "base": "leather_leggings",
+  "style": "hypixel_skyblock:legendary",
+  "glint": true
  },
  "ACACIA_BIRDHOUSE": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/power_stones/acacia_birdhouse"
+  "model": "hypixel_skyblock:item/power_stones/acacia_birdhouse",
+  "glint": false
+ },
+ "AGARIMOO_RING": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "AGARIMOO_TONGUE": {
+  "base": "mutton",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "AGATHA_COUPON": {
+  "base": "name_tag",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "ALCHEMIST_RECIPE": {
-  "base": "paper"
+  "base": "paper",
+  "style": "hypixel_skyblock:epic",
+  "glint": true
+ },
+ "ALLIGATOR_SKIN": {
+  "base": "green_dye",
+  "model": "hypixel_skyblock:item/fishing/misc/alligator_skin",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
  },
  "ANCIENT_CLAW": {
-  "base": "flint"
+  "base": "flint",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "ANITA_ARTIFACT": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "AQUAMASTER_HYDROMAX": {
+  "base": "carrot_on_a_stick",
+  "model": "hypixel_skyblock:item/island_relevant/garden/tools/aquamaster_hydromax",
+  "style": "hypixel_skyblock:legendary",
+  "glint": false
  },
  "ARACHNE_BELT": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/combat_1/arachne_belt"
+  "model": "hypixel_skyblock:item/combat_1/arachne_belt",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "ARACHNE_CLOAK": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/combat_1/arachne_cloak"
+  "model": "hypixel_skyblock:item/combat_1/arachne_cloak",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "ARCHAEOLOGIST_COMPASS": {
+  "base": "compass",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "ARCHITECT_FIRST_DRAFT": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/island_relevant/dungeons/architects_first_draft",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
  },
  "ARROW": {
   "base": "arrow",
-  "model": "hypixel_skyblock:item/uncategorized/flint_arrow"
+  "model": "hypixel_skyblock:item/uncategorized/flint_arrow",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "ARTIFACT_POTION_AFFINITY": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "ASPECT_OF_THE_DRAGON": {
   "base": "diamond_sword",
-  "model": "hypixel_skyblock:item/uncategorized/aspect_of_the_dragon"
+  "model": "hypixel_skyblock:item/uncategorized/aspect_of_the_dragon",
+  "style": "hypixel_skyblock:legendary",
+  "glint": true
  },
  "ASPECT_OF_THE_VOID": {
   "base": "diamond_shovel",
-  "model": "hypixel_skyblock:item/slayer/enderman/aspect_of_the_void"
+  "model": "hypixel_skyblock:item/slayer/enderman/aspect_of_the_void",
+  "style": "hypixel_skyblock:legendary",
+  "glint": true
+ },
+ "ATMOSPHERIC_FILTER": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "ATOMSPLIT_KATANA": {
   "base": "blaze_rod",
-  "model": "hypixel_skyblock:item/slayer/enderman/weapons/katanas/atomsplit_katana"
+  "model": "hypixel_skyblock:item/slayer/enderman/weapons/katanas/atomsplit_katana",
+  "style": "hypixel_skyblock:mythic",
+  "glint": true
+ },
+ "AUTO_RECOMBOBULATOR": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:legendary",
+  "glint": false
+ },
+ "AXE_OF_THE_SHREDDED": {
+  "base": "diamond_sword",
+  "model": "hypixel_skyblock:item/slayer/zombie/weapons/halberd_of_the_shredded",
+  "style": "hypixel_skyblock:mythic",
+  "glint": true
  },
  "BALLOON_HAT_2024": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:special",
+  "glint": false
+ },
+ "BALLOON_HAT_2025": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:special",
+  "glint": false
+ },
+ "BASIC_FISHING_NET": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/island_relevant/foraging_2/nets/basic_fishing_net",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "BASKET_OF_SEEDS": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/jacob/basket_of_seeds"
+  "model": "hypixel_skyblock:item/jacob/basket_of_seeds",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
+ },
+ "BAT_ARTIFACT": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:legendary",
+  "glint": false
  },
  "BAT_PERSON_BOOTS": {
-  "base": "leather_boots"
+  "base": "leather_boots",
+  "style": "hypixel_skyblock:legendary",
+  "glint": true
  },
  "BAT_PERSON_CHESTPLATE": {
-  "base": "leather_chestplate"
+  "base": "leather_chestplate",
+  "style": "hypixel_skyblock:legendary",
+  "glint": true
  },
  "BAT_PERSON_HELMET": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:legendary",
+  "glint": true
  },
  "BAT_PERSON_LEGGINGS": {
-  "base": "leather_leggings"
+  "base": "leather_leggings",
+  "style": "hypixel_skyblock:legendary",
+  "glint": true
+ },
+ "BAT_PERSON_RING": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "BAT_PERSON_TALISMAN": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "BEASTMASTER_CREST_RARE": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "BEATING_HEART": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/power_stones/beating_heart"
+  "model": "hypixel_skyblock:item/power_stones/beating_heart",
+  "glint": false
+ },
+ "BIOANALYSIS_RING": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "BIOFUEL": {
   "base": "green_dye",
-  "model": "hypixel_skyblock:item/uncategorized/biofuel"
+  "model": "hypixel_skyblock:item/uncategorized/biofuel",
+  "style": "hypixel_skyblock:rare",
+  "glint": true
+ },
+ "BITS_TALISMAN": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "BLAZE_ROD_DISTILLATE": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/slayer/blaze/minion/fuel/distillate/blaze_rod_distillate",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "BLAZE_TALISMAN": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "BLOOD_DONOR_RING": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "BLOOD_GOD_CREST": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "BLUE_ICE_HUNK": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/uncategorized/hunk_of_blue_ice",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "BLUE_RING": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/fishing/misc/blue_ring",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "BLUE_SHARK_TOOTH": {
+  "base": "ghast_tear",
+  "model": "hypixel_skyblock:item/community_center/mayor/marina/blue_shark_tooth",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "BONZO_FRAGMENT": {
+  "base": "red_mushroom",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "BOOK_OF_PROGRESSION": {
+  "base": "book",
+  "style": "hypixel_skyblock:legendary",
+  "glint": false
  },
  "BOOSTER_COOKIE": {
-  "base": "cookie"
+  "base": "cookie",
+  "glint": true
  },
  "BOTTLE_OF_JYRRE": {
-  "base": "potion"
+  "base": "potion",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "BROKEN_PIGGY_BANK": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "BROKEN_RADAR": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/fishing/misc/broken_radar",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "BRONZE_BOWL": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/fishing/misc/bronze_bowl",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "BUBBA_BLISTER": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/power_stones/bubba_blister"
+  "model": "hypixel_skyblock:item/power_stones/bubba_blister",
+  "glint": false
+ },
+ "BUCKET_OF_DYE": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "BUILDERS_RULER": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/island_relevant/garden/builders_ruler"
+  "model": "hypixel_skyblock:item/island_relevant/garden/builders_ruler",
+  "style": "hypixel_skyblock:legendary",
+  "glint": true
  },
  "BUILDERS_WAND": {
   "base": "blaze_rod",
-  "model": "hypixel_skyblock:item/community_center/bits_shop/builders_wand"
+  "model": "hypixel_skyblock:item/community_center/bits_shop/builders_wand",
+  "style": "hypixel_skyblock:legendary",
+  "glint": true
+ },
+ "BUSTED_BELT_BUCKLE": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/fishing/junk/busted_belt_buckle",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "CAMPFIRE_TALISMAN_1": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "CAMPFIRE_TALISMAN_21": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:legendary",
+  "glint": false
+ },
+ "CANDY_RELIC": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:legendary",
+  "glint": false
+ },
+ "CAN_OF_WORMS": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/fishing/misc/can_of_worms",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "CARNIVAL_MASK_BAG": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:common",
+  "glint": false
  },
  "CARNIVAL_TICKET": {
-  "base": "name_tag"
+  "base": "name_tag",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "CARROT_BAIT": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/fishing/bait/carrot_bait",
+  "glint": false
  },
  "CASHMERE_JACKET": {
-  "base": "leather_chestplate"
+  "base": "leather_chestplate",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "CATACOMBS_EXPERT_RING": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
  },
  "CAVESPIDER_GENERATOR_5": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "CHEESE_FUEL": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/uncategorized/tasty_cheese"
+  "model": "hypixel_skyblock:item/uncategorized/tasty_cheese",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "CHEETAH_TALISMAN": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
+ },
+ "CHUM": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/island_relevant/farming_1/chum",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "CHUMMING_TALISMAN": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "CLAY_BALL": {
+  "base": "clay_ball",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "CLAY_BRACELET": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/collections/clay/clay_bracelet",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "COAL": {
+  "base": "coal",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "COBBLESTONE": {
+  "base": "cobblestone",
+  "style": "hypixel_skyblock:common",
+  "glint": false
  },
  "COCO_CHOPPER": {
   "base": "golden_axe",
-  "model": "hypixel_skyblock:item/jacob/coco_chopper"
+  "model": "hypixel_skyblock:item/jacob/coco_chopper",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "COIN_TALISMAN": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "COMMON_HOOK": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/fishing/rod_part/hook/common_hook",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "CONCENTRATED_STONE": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/uncategorized/concentrated_stone",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "CORRUPTED_FRAGMENT": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/uncategorized/corrupted_fragment"
+  "model": "hypixel_skyblock:item/uncategorized/corrupted_fragment",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
  },
  "COW_HEAD": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "CROPSHOT_GARDEN_CHIP": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/island_relevant/garden/chips/cropshot_chip",
+  "glint": false
+ },
+ "CRUDE_GABAGOOL": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "CRUDE_GABAGOOL_DISTILLATE": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/slayer/blaze/minion/fuel/distillate/gabagool_distillate",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "CRYPT_DREADLORD_SWORD": {
   "base": "iron_sword",
-  "model": "hypixel_skyblock:item/uncategorized/dreadlord_sword"
+  "model": "hypixel_skyblock:item/uncategorized/dreadlord_sword",
+  "style": "hypixel_skyblock:rare",
+  "glint": true
  },
  "DAEDALUS_AXE": {
   "base": "golden_sword",
-  "model": "hypixel_skyblock:item/community_center/mayor/diana/daedalus_blade"
+  "model": "hypixel_skyblock:item/community_center/mayor/diana/daedalus_blade",
+  "style": "hypixel_skyblock:legendary",
+  "glint": true
+ },
+ "DANTE_RING": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:common",
+  "glint": false
  },
  "DANTE_TALISMAN": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:common",
+  "glint": false
  },
  "DARK_CACAO_TRUFFLE": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "DARK_ORB": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/power_stones/dark_orb"
+  "model": "hypixel_skyblock:item/power_stones/dark_orb",
+  "glint": false
  },
  "DAVIDS_CLOAK": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/island_relevant/foraging_2/equipment/davids_cloak_5"
+  "model": "hypixel_skyblock:item/island_relevant/foraging_2/equipment/davids_cloak_5",
+  "style": "hypixel_skyblock:legendary",
+  "glint": false
  },
  "DAY_CRYSTAL": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/uncategorized/day_crystal"
+  "model": "hypixel_skyblock:item/uncategorized/day_crystal",
+  "glint": false
  },
  "DEFUSE_KIT": {
-  "base": "shears"
+  "base": "shears",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": true
+ },
+ "DERELICT_ASHE": {
+  "base": "gunpowder",
+  "model": "hypixel_skyblock:item/slayer/blaze/tokens/derelict_ashe",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "DEVOUR_RING": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "DIAMOND": {
+  "base": "diamond",
+  "style": "hypixel_skyblock:common",
+  "glint": false
  },
  "DISPLACED_LEECH": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/power_stones/displaced_leech"
+  "model": "hypixel_skyblock:item/power_stones/displaced_leech",
+  "glint": false
+ },
+ "DIVER_FRAGMENT": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/uncategorized/emperors_skull",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "DOJO_BLUE_BELT": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/uncategorized/dojo_blue_belt"
+  "model": "hypixel_skyblock:item/uncategorized/dojo_blue_belt",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "DRACONIC_TALISMAN": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "DRAGON_SHORTBOW": {
   "base": "bow",
-  "model": "hypixel_skyblock:item/island_relevant/combat_3/dragon_shortbow"
+  "model": "hypixel_skyblock:item/island_relevant/combat_3/dragon_shortbow",
+  "style": "hypixel_skyblock:epic",
+  "glint": true
  },
  "DUNGEONBREAKER": {
-  "base": "diamond_pickaxe"
+  "base": "diamond_pickaxe",
+  "style": "hypixel_skyblock:special",
+  "glint": true
+ },
+ "DUNGEON_CHEST_KEY": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/uncategorized/dungeon_chest_key",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "DUNGEON_DECOY": {
+  "base": "polar_bear_spawn_egg",
+  "model": "hypixel_skyblock:item/uncategorized/decoy",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "DUNGEON_STONE": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:legendary",
+  "glint": false
+ },
+ "DUNGEON_TRAP": {
+  "base": "heavy_weighted_pressure_plate",
+  "model": "hypixel_skyblock:item/uncategorized/trap",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "DUSTGRAIN": {
-  "base": "player_head"
+  "base": "player_head",
+  "glint": false
  },
  "DWARVEN_METAL_DETECTOR": {
-  "base": "iron_hoe"
+  "base": "iron_hoe",
+  "style": "hypixel_skyblock:special",
+  "glint": false
+ },
+ "DWARVEN_OS_BLOCK_BRAN": {
+  "base": "player_head",
+  "glint": false
  },
  "DWARVEN_OS_GEMSTONE_GRAHAMS": {
-  "base": "player_head"
+  "base": "player_head",
+  "glint": false
+ },
+ "DWARVEN_OS_METALLIC_MINIS": {
+  "base": "player_head",
+  "glint": false
+ },
+ "DWARVEN_OS_ORE_OATS": {
+  "base": "player_head",
+  "glint": false
  },
  "DYE_CHOCOLATE": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
  },
  "EERIE_TOY": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
  },
  "EERIE_TREAT": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "EGGLOCATOR": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:common",
+  "glint": false
  },
  "EMBER_BOOTS": {
-  "base": "chainmail_boots"
+  "base": "chainmail_boots",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
  },
  "EMBER_CHESTPLATE": {
-  "base": "chainmail_chestplate"
+  "base": "chainmail_chestplate",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
  },
  "EMBER_FRAGMENT": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "EMBER_HELMET": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
  },
  "EMBER_LEGGINGS": {
-  "base": "chainmail_leggings"
+  "base": "chainmail_leggings",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
+ },
+ "EMERALD": {
+  "base": "emerald",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "EMERALD_RING": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "ENCHANTED_BONE": {
-  "base": "bone"
+  "base": "bone",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": true
  },
  "ENCHANTED_BOOK": {
-  "base": "enchanted_book"
+  "base": "enchanted_book",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "ENCHANTED_COAL": {
+  "base": "coal",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "ENCHANTED_COAL_BLOCK": {
+  "base": "coal_block",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "ENCHANTED_COBBLESTONE": {
+  "base": "cobblestone",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "ENCHANTED_DIAMOND": {
+  "base": "diamond",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "ENCHANTED_DIAMOND_BLOCK": {
+  "base": "diamond_block",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "ENCHANTED_EMERALD": {
+  "base": "emerald",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "ENCHANTED_EMERALD_BLOCK": {
+  "base": "emerald_block",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "ENCHANTED_ENDER_PEARL": {
+  "base": "ender_pearl",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": true
+ },
+ "ENCHANTED_ENDSTONE": {
+  "base": "end_stone",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "ENCHANTED_FLINT": {
+  "base": "flint",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "ENCHANTED_GLACITE": {
+  "base": "packed_ice",
+  "model": "hypixel_skyblock:item/glacite/glacite/glacite",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "ENCHANTED_GLOWSTONE": {
+  "base": "glowstone",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "ENCHANTED_GLOWSTONE_DUST": {
+  "base": "glowstone_dust",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "ENCHANTED_GOLD": {
+  "base": "gold_ingot",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "ENCHANTED_GOLD_BLOCK": {
+  "base": "gold_block",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "ENCHANTED_HARD_STONE": {
+  "base": "stone",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "ENCHANTED_ICE": {
+  "base": "ice",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "ENCHANTED_IRON": {
+  "base": "iron_ingot",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "ENCHANTED_IRON_BLOCK": {
+  "base": "iron_block",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "ENCHANTED_JACK_O_LANTERN": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": true
+ },
+ "ENCHANTED_LAPIS_LAZULI": {
+  "base": "lapis_lazuli",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "ENCHANTED_LAPIS_LAZULI_BLOCK": {
+  "base": "lapis_block",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "ENCHANTED_MITHRIL": {
+  "base": "prismarine_crystals",
+  "model": "hypixel_skyblock:item/uncategorized/mithril",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "ENCHANTED_MYCELIUM": {
+  "base": "mycelium",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "ENCHANTED_MYCELIUM_CUBE": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/uncategorized/enchanted_mycelium_cube",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "ENCHANTED_NETHERRACK": {
+  "base": "netherrack",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "ENCHANTED_OBSIDIAN": {
+  "base": "obsidian",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "ENCHANTED_PACKED_ICE": {
+  "base": "packed_ice",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "ENCHANTED_PUMPKIN": {
-  "base": "carved_pumpkin"
+  "base": "carved_pumpkin",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": true
+ },
+ "ENCHANTED_QUARTZ": {
+  "base": "quartz",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "ENCHANTED_QUARTZ_BLOCK": {
+  "base": "quartz_block",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "ENCHANTED_REDSTONE": {
+  "base": "redstone",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "ENCHANTED_REDSTONE_BLOCK": {
+  "base": "redstone_block",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "ENCHANTED_RED_SAND": {
+  "base": "red_sand",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "ENCHANTED_RED_SAND_CUBE": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/uncategorized/enchanted_red_sand_cube",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "ENCHANTED_ROTTEN_FLESH": {
+  "base": "rotten_flesh",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": true
+ },
+ "ENCHANTED_SAND": {
+  "base": "sand",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "ENCHANTED_SNOW_BLOCK": {
+  "base": "snow_block",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "ENCHANTED_SULPHUR": {
+  "base": "glowstone_dust",
+  "model": "hypixel_skyblock:item/uncategorized/sulphur",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "ENCHANTED_SULPHUR_CUBE": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/uncategorized/enchanted_sulphur_cube",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "ENCHANTED_TITANIUM": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/uncategorized/titanium",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
+ },
+ "ENCHANTED_TUNGSTEN": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/glacite/tungsten/tungsten",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "ENCHANTED_UMBER": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/glacite/umber/umber",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "ENDER_NECKLACE": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/island_relevant/combat_3/equipment/ender_necklace",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
+ },
+ "ENDER_STONE": {
+  "base": "end_stone",
+  "style": "hypixel_skyblock:common",
+  "glint": false
  },
  "END_STONE_SHULKER": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/power_stones/end_stone_shulker"
+  "model": "hypixel_skyblock:item/power_stones/end_stone_shulker",
+  "glint": false
  },
  "EPOCH_CAKE_YELLOW": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "EXPERIENCE_ARTIFACT": {
+  "base": "enchanted_book",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
  },
  "EXPIRED_PUMPKIN": {
-  "base": "player_head"
+  "base": "player_head",
+  "glint": false
  },
  "EXPLOSIVE_BOW": {
   "base": "bow",
-  "model": "hypixel_skyblock:item/uncategorized/explosive_bow"
+  "model": "hypixel_skyblock:item/uncategorized/explosive_bow",
+  "style": "hypixel_skyblock:epic",
+  "glint": true
+ },
+ "FAIRY_BOOTS": {
+  "base": "leather_boots",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "FAIRY_CHESTPLATE": {
+  "base": "leather_chestplate",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "FAIRY_HELMET": {
+  "base": "leather_helmet",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "FAIRY_LEGGINGS": {
+  "base": "leather_leggings",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "FARMER_ORB": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "FARMING_TALISMAN": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "FEAST_FLASK": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
+ },
+ "FEATHER_ARTIFACT": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "FEL_PEARL": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/uncategorized/fel_pearl",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "FENCE_GATE": {
-  "base": "oak_fence_gate"
+  "base": "oak_fence_gate",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "FERMENTO_ARTIFACT": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "FERMENTO_BOOTS": {
-  "base": "leather_boots"
+  "base": "leather_boots",
+  "style": "hypixel_skyblock:legendary",
+  "glint": true
  },
  "FERMENTO_CHESTPLATE": {
-  "base": "leather_chestplate"
+  "base": "leather_chestplate",
+  "style": "hypixel_skyblock:legendary",
+  "glint": true
  },
  "FERMENTO_HELMET": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:legendary",
+  "glint": true
  },
  "FERMENTO_LEGGINGS": {
-  "base": "leather_leggings"
+  "base": "leather_leggings",
+  "style": "hypixel_skyblock:legendary",
+  "glint": true
  },
  "FINAL_DESTINATION_BOOTS": {
-  "base": "leather_boots"
+  "base": "leather_boots",
+  "style": "hypixel_skyblock:legendary",
+  "glint": true
  },
  "FINAL_DESTINATION_CHESTPLATE": {
-  "base": "leather_chestplate"
+  "base": "leather_chestplate",
+  "style": "hypixel_skyblock:legendary",
+  "glint": true
  },
  "FINAL_DESTINATION_HELMET": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:legendary",
+  "glint": true
  },
  "FINAL_DESTINATION_LEGGINGS": {
-  "base": "leather_leggings"
+  "base": "leather_leggings",
+  "style": "hypixel_skyblock:legendary",
+  "glint": true
  },
  "FINE_FLOUR": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/community_center/mayor/finnegan/fine_flour"
+  "model": "hypixel_skyblock:item/community_center/mayor/finnegan/fine_flour",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "FIRE_TALISMAN": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:common",
+  "glint": false
  },
  "FISHY_TREAT": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "FISH_AFFINITY_TALISMAN": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
+ },
+ "FLINT": {
+  "base": "flint",
+  "style": "hypixel_skyblock:common",
+  "glint": false
  },
  "FORAGING_1_TRAVEL_SCROLL": {
-  "base": "map"
+  "base": "map",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "FORAGING_WISDOM_BOOSTER": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/boosters/common/booster_foraging_wisdom"
+  "model": "hypixel_skyblock:item/boosters/common/booster_foraging_wisdom",
+  "style": "hypixel_skyblock:common",
+  "glint": false
  },
  "FRENCH_BREAD": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:special",
+  "glint": false
+ },
+ "FROGCOIN": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/fishing/misc/frogcoin",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "FROZEN_CHICKEN": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "FUNGI_CUTTER": {
   "base": "iron_hoe",
-  "model": "hypixel_skyblock:item/jacob/fungi_cutter"
+  "model": "hypixel_skyblock:item/jacob/fungi_cutter",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": true
  },
  "FURBALL": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/power_stones/furball"
+  "model": "hypixel_skyblock:item/power_stones/furball",
+  "glint": false
  },
  "GAUNTLET_OF_CONTAGION": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/uncategorized/gauntlet_of_contagion"
+  "model": "hypixel_skyblock:item/uncategorized/gauntlet_of_contagion",
+  "style": "hypixel_skyblock:epic",
+  "glint": true
+ },
+ "GENERAL_MEDALLION": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "GHOUL_BUSTER": {
   "base": "iron_hoe",
-  "model": "hypixel_skyblock:item/great_spook/ghoul_buster"
+  "model": "hypixel_skyblock:item/great_spook/ghoul_buster",
+  "style": "hypixel_skyblock:epic",
+  "glint": true
+ },
+ "GIANT_FRAGMENT_BIGFOOT": {
+  "base": "lead",
+  "model": "hypixel_skyblock:item/uncategorized/bigfoots_bola",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
+ },
+ "GIANT_FRAGMENT_BOULDER": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/uncategorized/jolly_pink_rock",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
+ },
+ "GIANT_FRAGMENT_LASER": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/uncategorized/lasr_eye",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
  },
  "GIFT_COMPASS": {
-  "base": "compass"
+  "base": "compass",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "GLACIAL_ARTIFACT": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "GLACIAL_FRAGMENT": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/island_relevant/winter/glacial_fragment",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
+ },
+ "GLACITE": {
+  "base": "packed_ice",
+  "model": "hypixel_skyblock:item/glacite/glacite/glacite",
+  "style": "hypixel_skyblock:common",
+  "glint": false
  },
  "GLACITE_SHARD": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/power_stones/glacite_shard"
+  "model": "hypixel_skyblock:item/power_stones/glacite_shard",
+  "glint": false
  },
  "GLOOMLOCK_GRIMOIRE": {
-  "base": "book"
+  "base": "book",
+  "style": "hypixel_skyblock:epic",
+  "glint": true
+ },
+ "GLOSSY_GEMSTONE": {
+  "base": "purple_dye",
+  "model": "hypixel_skyblock:item/community_center/mayor/cole/glossy_gemstone",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
  },
  "GLOSSY_MINERAL_BOOTS": {
-  "base": "leather_boots"
+  "base": "leather_boots",
+  "style": "hypixel_skyblock:legendary",
+  "glint": false
  },
  "GLOSSY_MINERAL_CHESTPLATE": {
-  "base": "leather_chestplate"
+  "base": "leather_chestplate",
+  "style": "hypixel_skyblock:legendary",
+  "glint": false
  },
  "GLOSSY_MINERAL_HELMET": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:legendary",
+  "glint": true
  },
  "GLOSSY_MINERAL_LEGGINGS": {
-  "base": "leather_leggings"
+  "base": "leather_leggings",
+  "style": "hypixel_skyblock:legendary",
+  "glint": false
+ },
+ "GLOWING_MUSHROOM": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/island_relevant/farming_1/glowing_mushroom",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "GLOWSTONE_DUST": {
+  "base": "glowstone_dust",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "GLOWSTONE_DUST_DISTILLATE": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/slayer/blaze/minion/fuel/distillate/glowstone_distillate",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "GOD_POTION_2": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:special",
+  "glint": true
  },
  "GOLDEN_APPLE:1": {
-  "base": "enchanted_golden_apple"
+  "base": "enchanted_golden_apple",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "GOLDEN_TOOTH": {
+  "base": "gold_nugget",
+  "model": "hypixel_skyblock:item/slayer/wolf/golden_tooth",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "GOLD_GIFT_TALISMAN": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:legendary",
+  "glint": false
+ },
+ "GOLD_INGOT": {
+  "base": "gold_ingot",
+  "style": "hypixel_skyblock:common",
+  "glint": false
  },
  "GOLD_RECORD": {
-  "base": "music_disc_13"
+  "base": "music_disc_13",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "GOLD_SPADE": {
-  "base": "golden_shovel"
+  "base": "golden_shovel",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "GOLEM_POPPY": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/uncategorized/ancient_rose",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "GRAND_EXP_BOTTLE": {
-  "base": "experience_bottle"
+  "base": "experience_bottle",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "GRAPPLING_HOOK": {
-  "base": "fishing_rod"
+  "base": "fishing_rod",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "GRAVEL": {
+  "base": "gravel",
+  "style": "hypixel_skyblock:common",
+  "glint": false
  },
  "GRAVITY_TALISMAN": {
-  "base": "player_head"
+  "base": "player_head",
+  "glint": false
+ },
+ "GREAT_SPOOK_ARTIFACT": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "GREAT_SPOOK_BELT": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/great_spook/great_spook_belt"
+  "model": "hypixel_skyblock:item/great_spook/great_spook_belt",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
  },
  "GREAT_SPOOK_BOOTS": {
-  "base": "leather_boots"
+  "base": "leather_boots",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
  },
  "GREAT_SPOOK_CHESTPLATE": {
-  "base": "leather_chestplate"
+  "base": "leather_chestplate",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
  },
  "GREAT_SPOOK_CLOAK": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/great_spook/great_spook_cloak"
+  "model": "hypixel_skyblock:item/great_spook/great_spook_cloak",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
  },
  "GREAT_SPOOK_GLOVES": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/great_spook/great_spook_gloves"
+  "model": "hypixel_skyblock:item/great_spook/great_spook_gloves",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
  },
  "GREAT_SPOOK_HELMET": {
-  "base": "leather_helmet"
+  "base": "leather_helmet",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
  },
  "GREAT_SPOOK_LEGGINGS": {
-  "base": "leather_leggings"
+  "base": "leather_leggings",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
  },
  "GREAT_SPOOK_NECKLACE": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/great_spook/great_spook_necklace"
+  "model": "hypixel_skyblock:item/great_spook/great_spook_necklace",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
  },
  "GREAT_SPOOK_REFORGING_MANUAL": {
-  "base": "book"
+  "base": "book",
+  "style": "hypixel_skyblock:epic",
+  "glint": true
+ },
+ "GREAT_SPOOK_STAFF": {
+  "base": "dead_bush",
+  "model": "hypixel_skyblock:item/great_spook/great_spook_staff",
+  "style": "hypixel_skyblock:legendary",
+  "glint": false
+ },
+ "GREEN_CANDY": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "GREEN_GIFT": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "HALF_EATEN_MUSHROOM": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/fishing/misc/half_eaten_mushroom",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "HANDY_BLOOD_CHALICE": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "HARD_STONE": {
+  "base": "stone",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "HASTE_ARTIFACT": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
  },
  "HAY_BLOCK": {
-  "base": "hay_block"
+  "base": "hay_block",
+  "style": "hypixel_skyblock:common",
+  "glint": false
  },
  "HAZMAT_ENDERMAN": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/power_stones/hazmat_enderman"
+  "model": "hypixel_skyblock:item/power_stones/hazmat_enderman",
+  "glint": false
+ },
+ "HEALING_RING": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "HEALING_TISSUE": {
+  "base": "rotten_flesh",
+  "model": "hypixel_skyblock:item/uncategorized/healing_tissue",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "HEAVY_BOOTS": {
-  "base": "leather_boots"
+  "base": "leather_boots",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "HEAVY_LEGGINGS": {
-  "base": "leather_leggings"
+  "base": "leather_leggings",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "HELIX": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/glacite/fossils/helix_fossil",
+  "style": "hypixel_skyblock:legendary",
+  "glint": false
  },
  "HELIX_ARMOR_BOOTS": {
-  "base": "leather_boots"
+  "base": "leather_boots",
+  "style": "hypixel_skyblock:epic",
+  "glint": true
  },
  "HELIX_ARMOR_CHESTPLATE": {
-  "base": "leather_chestplate"
+  "base": "leather_chestplate",
+  "style": "hypixel_skyblock:epic",
+  "glint": true
  },
  "HELIX_ARMOR_HELMET": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:epic",
+  "glint": true
  },
  "HELIX_ARMOR_LEGGINGS": {
-  "base": "leather_leggings"
+  "base": "leather_leggings",
+  "style": "hypixel_skyblock:epic",
+  "glint": true
  },
  "HELIX_CHOPPER": {
   "base": "stone_axe",
-  "model": "hypixel_skyblock:item/island_relevant/foraging_3/axes/helix_chopper"
+  "model": "hypixel_skyblock:item/island_relevant/foraging_3/axes/helix_chopper",
+  "style": "hypixel_skyblock:legendary",
+  "glint": false
+ },
+ "HEMOBOMB": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
+ },
+ "HEMOGLASS": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "HEMOVIBE": {
+  "base": "redstone_ore",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "HILT_OF_TRUE_ICE": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/uncategorized/hilt_of_true_ice"
+  "model": "hypixel_skyblock:item/uncategorized/hilt_of_true_ice",
+  "style": "hypixel_skyblock:legendary",
+  "glint": true
+ },
+ "HOE_OF_GREATEST_TILLING": {
+  "base": "iron_hoe",
+  "model": "hypixel_skyblock:item/island_relevant/garden/hoe_of_greatest_tilling",
+  "style": "hypixel_skyblock:epic",
+  "glint": true
  },
  "HOLY_FRAGMENT": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/uncategorized/holy_dragon_fragment"
+  "model": "hypixel_skyblock:item/uncategorized/holy_dragon_fragment",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
  },
  "HONEY_JAR": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/island_relevant/garden/pests/honey_jar"
+  "model": "hypixel_skyblock:item/island_relevant/garden/pests/honey_jar",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "HOPE_OF_THE_RESISTANCE": {
   "base": "sunflower",
-  "model": "hypixel_skyblock:item/uncategorized/staff_of_the_rising_sun"
+  "model": "hypixel_skyblock:item/uncategorized/staff_of_the_rising_sun",
+  "style": "hypixel_skyblock:epic",
+  "glint": true
  },
  "HOT_CHOCOLATE_MIXIN": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "HUNTER_TALISMAN": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "ICE": {
+  "base": "ice",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "ICE_HUNK": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/uncategorized/hunk_of_ice",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "ICHTHYIC_BELT": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/island_relevant/crimson_isle/fishing_equipment/ichthyic_belt"
+  "model": "hypixel_skyblock:item/island_relevant/crimson_isle/fishing_equipment/ichthyic_belt",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "ICHTHYIC_CLOAK": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/island_relevant/crimson_isle/fishing_equipment/ichthyic_cloak"
+  "model": "hypixel_skyblock:item/island_relevant/crimson_isle/fishing_equipment/ichthyic_cloak",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "ICHTHYIC_GLOVES": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/island_relevant/crimson_isle/fishing_equipment/ichthyic_gloves"
+  "model": "hypixel_skyblock:item/island_relevant/crimson_isle/fishing_equipment/ichthyic_gloves",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "ICY_SINKER": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/fishing/rod_part/sinker/icy_sinker"
+  "model": "hypixel_skyblock:item/fishing/rod_part/sinker/icy_sinker",
+  "style": "hypixel_skyblock:common",
+  "glint": false
  },
  "IMPLOSION_BELT": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/uncategorized/implosion_belt"
+  "model": "hypixel_skyblock:item/uncategorized/implosion_belt",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
  },
  "INFINI_VACUUM_HOOVERIUS": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/island_relevant/garden/vacuum/infini_vacuum_hooverius"
+  "model": "hypixel_skyblock:item/island_relevant/garden/vacuum/infini_vacuum_hooverius",
+  "style": "hypixel_skyblock:legendary",
+  "glint": false
+ },
+ "INFLATABLE_JERRY": {
+  "base": "polar_bear_spawn_egg",
+  "model": "hypixel_skyblock:item/uncategorized/inflatable_jerry",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "INK_SACK": {
+  "base": "ink_sac",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "INK_SACK:4": {
+  "base": "lapis_lazuli",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "INTIMIDATION_RELIC": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
  },
  "INTIMIDATION_TALISMAN": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "IRON_INGOT": {
+  "base": "iron_ingot",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "JACOBS_TICKET": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/jacob/jacobs_ticket",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "JACOBUS_REGISTER": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:legendary",
+  "glint": false
+ },
+ "JAKE_PLUSHIE": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "JERRY_BOX_PURPLE": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
+ },
+ "JERRY_TALISMAN_BLUE": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "JUICY_SPRAYONATOR": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/island_relevant/garden/pests/juicy_sprayonator",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "JUJU_SHORTBOW": {
   "base": "bow",
-  "model": "hypixel_skyblock:item/slayer/enderman/weapons/juju_shortbow"
+  "model": "hypixel_skyblock:item/slayer/enderman/weapons/juju_shortbow",
+  "style": "hypixel_skyblock:legendary",
+  "glint": true
+ },
+ "JUNGLE_AMULET": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "JUNGLE_KEY": {
   "base": "tripwire_hook",
-  "model": "hypixel_skyblock:item/uncategorized/jungle_key"
+  "model": "hypixel_skyblock:item/uncategorized/jungle_key",
+  "style": "hypixel_skyblock:epic",
+  "glint": true
+ },
+ "JUNK_ARTIFACT": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "KING_TALISMAN": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "KISMET_FEATHER": {
+  "base": "feather",
+  "model": "hypixel_skyblock:item/community_center/bits_shop/kismet_feather",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "KUUDRA_SHOP_ITEM": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:special",
+  "glint": false
+ },
+ "LANTERN_OF_THE_DEAD": {
+  "base": "redstone_lamp",
+  "style": "hypixel_skyblock:special",
+  "glint": true
+ },
+ "LARGE_AGRONOMY_SACK": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
  },
  "LARGE_COMBAT_SACK": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
+ },
+ "LARGE_DUNGEON_SACK": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:legendary",
+  "glint": false
+ },
+ "LARGE_ENCHANTED_AGRONOMY_SACK": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
+ },
+ "LARGE_ENCHANTED_FISHING_SACK": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
+ },
+ "LARGE_ENCHANTED_FORAGING_SACK": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
+ },
+ "LARGE_ENCHANTED_MINING_SACK": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
+ },
+ "LARGE_FISHING_SACK": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
+ },
+ "LARGE_FISH_BOWL": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "LARGE_FORAGING_SACK": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
+ },
+ "LARGE_MINING_SACK": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
+ },
+ "LARGE_WINTER_SACK": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "LAVA_TALISMAN": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "LIVID_FRAGMENT": {
+  "base": "nether_brick",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "LOTUS": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/collections/lotus/lotus",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "LOTUS_BRACELET": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/island_relevant/garden/equipment/lotus/lotus_bracelet"
+  "model": "hypixel_skyblock:item/island_relevant/garden/equipment/lotus/lotus_bracelet",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "LOTUS_NECKLACE": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/island_relevant/garden/equipment/lotus/lotus_necklace"
+  "model": "hypixel_skyblock:item/island_relevant/garden/equipment/lotus/lotus_necklace",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "LUCKY_HOOF": {
+  "base": "iron_horse_armor",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "LUSH_ARTIFACT": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
  },
  "LUXURIOUS_SPOOL": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/power_stones/luxurious_spool"
+  "model": "hypixel_skyblock:item/power_stones/luxurious_spool",
+  "glint": false
  },
  "MACHINE_GUN_BOW": {
   "base": "bow",
-  "model": "hypixel_skyblock:item/uncategorized/machine_gun_shortbow"
+  "model": "hypixel_skyblock:item/uncategorized/machine_gun_shortbow",
+  "style": "hypixel_skyblock:rare",
+  "glint": true
  },
  "MAGICAL_LAVA_BUCKET": {
-  "base": "lava_bucket"
+  "base": "lava_bucket",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": true
  },
  "MAGICAL_WATER_BUCKET": {
-  "base": "water_bucket"
+  "base": "water_bucket",
+  "style": "hypixel_skyblock:common",
+  "glint": true
+ },
+ "MAGMA_CREAM_DISTILLATE": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/slayer/blaze/minion/fuel/distillate/magma_cream_distillate",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "MAGNETIC_TALISMAN": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "MANA_FLUX_POWER_ORB": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "MANGROVE_GRIPPERS": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/island_relevant/foraging_2/equipment/mangrove/mangrove_grippers"
+  "model": "hypixel_skyblock:item/island_relevant/foraging_2/equipment/mangrove/mangrove_grippers",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "MANGROVE_LOCKET": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/island_relevant/foraging_2/equipment/mangrove/mangrove_locket"
+  "model": "hypixel_skyblock:item/island_relevant/foraging_2/equipment/mangrove/mangrove_locket",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "MANGROVE_VINE": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/island_relevant/foraging_2/equipment/mangrove/mangrove_vine"
+  "model": "hypixel_skyblock:item/island_relevant/foraging_2/equipment/mangrove/mangrove_vine",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "MASTER_SKULL_TIER_4": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "MEDIUM_COMBAT_SACK": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "MEDIUM_GEMSTONE_SACK": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "MEDIUM_SLAYER_SACK": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "MELODY_HAIR": {
+  "base": "string",
+  "style": "hypixel_skyblock:epic",
+  "glint": true
+ },
+ "MIMIC_FRAGMENT": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/uncategorized/mimic_fragment",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "MINERAL_BOOTS": {
-  "base": "leather_boots"
+  "base": "leather_boots",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
  },
  "MINERAL_CHESTPLATE": {
-  "base": "leather_chestplate"
+  "base": "leather_chestplate",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
  },
  "MINERAL_HELMET": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
  },
  "MINERAL_LEGGINGS": {
-  "base": "leather_leggings"
+  "base": "leather_leggings",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
+ },
+ "MINERAL_TALISMAN": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "MINE_TALISMAN": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "MIRIA_COUPON": {
+  "base": "name_tag",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "MITHRIL_ORE": {
+  "base": "prismarine_crystals",
+  "model": "hypixel_skyblock:item/uncategorized/mithril",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "MOBY_DUCK_COLLECTOR_EDITION": {
+  "base": "book",
+  "glint": true
+ },
+ "MOLTEN_POWDER": {
+  "base": "blaze_powder",
+  "model": "hypixel_skyblock:item/slayer/blaze/tokens/molten_powder",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "MOONGLADE_ARTIFACT": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "MOONGLADE_RING": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "MYCEL": {
+  "base": "mycelium",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "NETHERRACK": {
+  "base": "netherrack",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "NETHERRACK_LOOKING_SUNSHADE": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "NETHER_STALK_DISTILLATE": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/slayer/blaze/minion/fuel/distillate/nether_wart_distillate",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "NEW_YEAR_CAKE": {
-  "base": "cake"
+  "base": "cake",
+  "style": "hypixel_skyblock:special",
+  "glint": true
  },
  "NEW_YEAR_CAKE_BAG": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "NIGHT_CRYSTAL": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/uncategorized/night_crystal",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "NIGHT_VISION_CHARM": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "NOPE_THE_FISH": {
+  "base": "salmon",
+  "style": "hypixel_skyblock:special",
+  "glint": true
+ },
+ "NULL_ATOM": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/slayer/enderman/crafts/null_atom",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "NULL_OVOID": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/slayer/enderman/null_ovoid",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "NULL_SPHERE": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/slayer/enderman/null_sphere",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "NURSE_SHARK_TOOTH": {
+  "base": "ghast_tear",
+  "model": "hypixel_skyblock:item/community_center/mayor/marina/nurse_shark_tooth",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "NUTCRACKER_BOOTS": {
-  "base": "leather_boots"
+  "base": "leather_boots",
+  "style": "hypixel_skyblock:legendary",
+  "glint": true
  },
  "NUTCRACKER_CHESTPLATE": {
-  "base": "leather_chestplate"
+  "base": "leather_chestplate",
+  "style": "hypixel_skyblock:legendary",
+  "glint": true
  },
  "NUTCRACKER_HELMET": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:legendary",
+  "glint": true
  },
  "NUTCRACKER_KNIGHT": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
  },
  "NUTCRACKER_LEGGINGS": {
-  "base": "leather_leggings"
+  "base": "leather_leggings",
+  "style": "hypixel_skyblock:legendary",
+  "glint": true
  },
  "OBFUSCATED_FISH_1_BRONZE": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/fishing/trophy/lava/obfuscated_fish_1_bronze"
+  "model": "hypixel_skyblock:item/fishing/trophy/lava/obfuscated_fish_1_bronze",
+  "style": "hypixel_skyblock:common",
+  "glint": false
  },
  "OBFUSCATED_FISH_1_GOLD": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/fishing/trophy/lava/obfuscated_fish_1_gold"
+  "model": "hypixel_skyblock:item/fishing/trophy/lava/obfuscated_fish_1_gold",
+  "style": "hypixel_skyblock:common",
+  "glint": false
  },
  "OBFUSCATED_FISH_1_SILVER": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/fishing/trophy/lava/obfuscated_fish_1_silver"
+  "model": "hypixel_skyblock:item/fishing/trophy/lava/obfuscated_fish_1_silver",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "OBSIDIAN": {
+  "base": "obsidian",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "OIL_BARREL": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/uncategorized/oil_barrel",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "OLD_LEATHER_BOOT": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/fishing/junk/old_leather_boot",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
  },
  "ORNATE_ZOMBIE_SWORD": {
   "base": "golden_sword",
-  "model": "hypixel_skyblock:item/uncategorized/ornate_zombie_sword"
+  "model": "hypixel_skyblock:item/uncategorized/ornate_zombie_sword",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
+ },
+ "OVERDRIVE_GARDEN_CHIP": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/island_relevant/garden/chips/overdrive_chip",
+  "glint": false
  },
  "OVERFLUX_POWER_ORB": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
+ },
+ "PACKED_ICE": {
+  "base": "packed_ice",
+  "style": "hypixel_skyblock:common",
+  "glint": false
  },
  "PARK_CAVE_TRAVEL_SCROLL": {
-  "base": "map"
+  "base": "map",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
+ },
+ "PARTY_GIFT": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "PARTY_HAT_CRAB": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:special",
+  "glint": false
  },
  "PARTY_HAT_CRAB_ANIMATED": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:special",
+  "glint": false
  },
  "PARTY_HAT_SLOTH": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:special",
+  "glint": false
  },
  "PELT_BELT": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/island_relevant/farming_1/pelt_belt"
+  "model": "hypixel_skyblock:item/island_relevant/farming_1/pelt_belt",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
  },
  "PERSONAL_COMPACTOR_7000": {
-  "base": "dropper"
+  "base": "dropper",
+  "style": "hypixel_skyblock:legendary",
+  "glint": true
  },
  "PERSONAL_DELETOR_7000": {
-  "base": "dispenser"
+  "base": "dispenser",
+  "style": "hypixel_skyblock:legendary",
+  "glint": true
+ },
+ "PESTHUNTER_RELIC": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:legendary",
+  "glint": false
  },
  "PET": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:legendary",
+  "glint": false
  },
  "PET_ITEM_FARMING_SKILL_BOOST_UNCOMMON": {
-  "base": "iron_hoe"
+  "base": "iron_hoe",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": true
+ },
+ "PET_ITEM_FORAGING_SKILL_BOOST_EPIC": {
+  "base": "iron_axe",
+  "style": "hypixel_skyblock:epic",
+  "glint": true
  },
  "PET_ITEM_SPOOKY_CUPCAKE": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "PET_SKIN_ROCK_NORTH_STAR": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:mythic",
+  "glint": false
  },
  "PET_SKIN_SKELETON_SANTA": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
  },
  "PICKONIMBUS": {
   "base": "diamond_pickaxe",
-  "model": "hypixel_skyblock:item/uncategorized/pickonimbus_2000"
+  "model": "hypixel_skyblock:item/uncategorized/pickonimbus_2000",
+  "style": "hypixel_skyblock:epic",
+  "glint": true
+ },
+ "PIGS_FOOT": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "PLANT_DIAGNOSTICS_TOOL": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/island_relevant/garden/greenhouse/plant_diagnostics_tool",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "PLASMA": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/uncategorized/plasma",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "PLASTIC_SHOVEL": {
+  "base": "iron_shovel",
+  "style": "hypixel_skyblock:special",
+  "glint": true
  },
  "PLUMBER_SPONGE": {
-  "base": "sponge"
+  "base": "sponge",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "POCKET_ESPRESSO_MACHINE": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:common",
+  "glint": false
  },
  "POTATO_TALISMAN": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:common",
+  "glint": false
  },
  "POTION": {
-  "base": "potion"
+  "base": "potion",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "POWER_RING": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "POWER_WITHER_BOOTS": {
-  "base": "leather_boots"
+  "base": "leather_boots",
+  "style": "hypixel_skyblock:mythic",
+  "glint": false
  },
  "POWER_WITHER_CHESTPLATE": {
-  "base": "leather_chestplate"
+  "base": "leather_chestplate",
+  "style": "hypixel_skyblock:mythic",
+  "glint": false
  },
  "POWER_WITHER_LEGGINGS": {
-  "base": "leather_leggings"
+  "base": "leather_leggings",
+  "style": "hypixel_skyblock:mythic",
+  "glint": false
+ },
+ "PREHISTORIC_EGG": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/uncategorized/prehistoric_egg",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "PRESSURE_ARTIFACT": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "PRESTIGE_CHOCOLATE_REALM": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:legendary",
+  "glint": false
  },
  "PRIMORDIAL_HELMET": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:mythic",
+  "glint": false
  },
  "PRISMAPUMP": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/jacob/prismapump"
+  "model": "hypixel_skyblock:item/jacob/prismapump",
+  "style": "hypixel_skyblock:rare",
+  "glint": true
+ },
+ "PRISMARINE_CRYSTALS": {
+  "base": "prismarine_crystals",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "PRISMARINE_SHARD": {
+  "base": "prismarine_shard",
+  "style": "hypixel_skyblock:common",
+  "glint": false
  },
  "PROMISING_AXE": {
   "base": "iron_axe",
-  "model": "hypixel_skyblock:item/uncategorized/promising_axe"
+  "model": "hypixel_skyblock:item/uncategorized/promising_axe",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "PUMPKIN_DICER_3": {
   "base": "golden_axe",
-  "model": "hypixel_skyblock:item/island_relevant/garden/pumpkin_dicer_3"
+  "model": "hypixel_skyblock:item/island_relevant/garden/pumpkin_dicer_3",
+  "style": "hypixel_skyblock:legendary",
+  "glint": false
+ },
+ "PURPLE_CANDY": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
+ },
+ "QUARTZ": {
+  "base": "quartz",
+  "style": "hypixel_skyblock:common",
+  "glint": false
  },
  "RANCHERS_BOOTS": {
-  "base": "leather_boots"
+  "base": "leather_boots",
+  "style": "hypixel_skyblock:legendary",
+  "glint": false
+ },
+ "RAREFINDER_GARDEN_CHIP": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/island_relevant/garden/chips/rarefinder_chip",
+  "glint": false
+ },
+ "RAW_FISH": {
+  "base": "cod",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "RAW_FISH:1": {
+  "base": "salmon",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "RAW_FISH:2": {
+  "base": "tropical_fish",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "RAW_FISH:3": {
+  "base": "pufferfish",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "RAW_SOULFLOW": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/uncategorized/raw_soulflow",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "RAZOR_SHARP_SHARK_TOOTH_NECKLACE": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:legendary",
+  "glint": false
  },
  "REAPER_SCYTHE": {
   "base": "diamond_hoe",
-  "model": "hypixel_skyblock:item/slayer/zombie/weapons/reaper_scythe"
+  "model": "hypixel_skyblock:item/slayer/zombie/weapons/reaper_scythe",
+  "style": "hypixel_skyblock:mythic",
+  "glint": true
+ },
+ "REDSTONE": {
+  "base": "redstone",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "RED_CLAW_ARTIFACT": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
+ },
+ "RED_GIFT": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "REFINED_MINERAL": {
+  "base": "light_blue_dye",
+  "model": "hypixel_skyblock:item/community_center/mayor/cole/refined_mineral",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "REMNANT_OF_THE_EYE": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/uncategorized/remnant_of_the_eye",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
  },
  "RESPIRATION_ARTIFACT": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "REVENANT_CATALYST": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/slayer/zombie/catalysts/revenant_catalyst",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
+ },
+ "REVENANT_FLESH": {
+  "base": "rotten_flesh",
+  "model": "hypixel_skyblock:item/slayer/zombie/revenant_flesh",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "REVENANT_VISCERA": {
+  "base": "cooked_porkchop",
+  "model": "hypixel_skyblock:item/slayer/zombie/revenant_viscera",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "REVERSE_REFORGE_STONE_CORE": {
+  "base": "clay_ball",
+  "model": "minecraft:popped_chorus_fruit",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "RIFT_NECKLACE_OUTSIDE": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/island_relevant/rift/equipment/necklace/rift_necklace_outside"
+  "model": "hypixel_skyblock:item/island_relevant/rift/equipment/necklace/rift_necklace_outside",
+  "style": "hypixel_skyblock:legendary",
+  "glint": false
  },
  "ROCK_CANDY": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/power_stones/rock_candy"
+  "model": "hypixel_skyblock:item/power_stones/rock_candy",
+  "glint": false
  },
  "ROD_OF_THE_SEA": {
   "base": "fishing_rod",
-  "model": "hypixel_skyblock:item/fishing/rod/rod_of_the_sea"
+  "model": "hypixel_skyblock:item/fishing/rod/rod_of_the_sea",
+  "style": "hypixel_skyblock:mythic",
+  "glint": true
  },
  "ROTTEN_CHESTPLATE": {
-  "base": "leather_chestplate"
+  "base": "leather_chestplate",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "RUNAANS_BOW": {
   "base": "bow",
-  "model": "hypixel_skyblock:item/uncategorized/runaans_bow"
+  "model": "hypixel_skyblock:item/uncategorized/runaans_bow",
+  "style": "hypixel_skyblock:legendary",
+  "glint": true
+ },
+ "RUNEBLADE_TALISMAN": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "RUNE_SACK": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:legendary",
+  "glint": false
+ },
+ "RUSTY_COIN": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/fishing/junk/rusty_coin",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "RUSTY_SPOON": {
-  "base": "wooden_shovel"
+  "base": "wooden_shovel",
+  "style": "hypixel_skyblock:special",
+  "glint": false
  },
  "SAFARI_BELT": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/island_relevant/safari/safari_belt_rare"
+  "model": "hypixel_skyblock:item/island_relevant/safari/safari_belt_rare",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "SAFETY_BADGE": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:common",
+  "glint": false
  },
  "SAM_SCYTHE": {
   "base": "iron_hoe",
-  "model": "hypixel_skyblock:item/island_relevant/garden/tools/sam_scythe"
+  "model": "hypixel_skyblock:item/island_relevant/garden/tools/sam_scythe",
+  "style": "hypixel_skyblock:common",
+  "glint": true
+ },
+ "SAND": {
+  "base": "sand",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "SAND:1": {
+  "base": "red_sand",
+  "style": "hypixel_skyblock:common",
+  "glint": false
  },
  "SATIN_TROUSERS": {
-  "base": "leather_leggings"
+  "base": "leather_leggings",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "SCARF_FRAGMENT": {
+  "base": "poppy",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "SCARF_THESIS": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
+ },
+ "SCAVENGER_TALISMAN": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:common",
+  "glint": false
  },
  "SCORCHED_BOOKS": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/power_stones/scorched_books"
+  "model": "hypixel_skyblock:item/power_stones/scorched_books",
+  "glint": false
+ },
+ "SEA_CREATURE_ARTIFACT": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "SEEDS": {
-  "base": "wheat_seeds"
+  "base": "wheat_seeds",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "SHARK_FIN": {
+  "base": "prismarine_shard",
+  "model": "hypixel_skyblock:item/community_center/mayor/marina/shark_fin",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "SHEEP_GENERATOR_11": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "SIGN": {
-  "base": "oak_sign"
+  "base": "oak_sign",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "SINGING_FISH": {
+  "base": "salmon",
+  "style": "hypixel_skyblock:special",
+  "glint": true
  },
  "SKELETON_GRUNT_BOOTS": {
-  "base": "leather_boots"
+  "base": "leather_boots",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
  },
  "SKELETON_GRUNT_HELMET": {
-  "base": "leather_helmet"
+  "base": "leather_helmet",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
+ },
+ "SKELETON_SOLDIER_BOOTS": {
+  "base": "leather_boots",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
  },
  "SKELETON_SOLDIER_CHESTPLATE": {
-  "base": "leather_chestplate"
+  "base": "leather_chestplate",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
+ },
+ "SKELETON_TALISMAN": {
+  "base": "skeleton_skull",
+  "style": "hypixel_skyblock:common",
+  "glint": false
  },
  "SKYBLOCK_MENU": {
-  "base": "nether_star"
+  "base": "nether_star",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "SLIME_GENERATOR_11": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "SMALL_BAIT_SACK": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "SMALL_MUTATIONS_SACK": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "SMALL_POCKET_BLACK_HOLE": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "SMOOTH_BRICK": {
-  "base": "stone_bricks"
+  "base": "stone_bricks",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "SNOW_BALL": {
+  "base": "snowball",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "SNOW_BLOCK": {
+  "base": "snow_block",
+  "style": "hypixel_skyblock:common",
+  "glint": false
  },
  "SNOW_GENERATOR_1": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "SNOW_HOWITZER": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:legendary",
+  "glint": false
  },
  "SNOW_SUIT_HELMET": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
  },
  "SORROW_BOOTS": {
-  "base": "chainmail_boots"
+  "base": "chainmail_boots",
+  "style": "hypixel_skyblock:legendary",
+  "glint": true
  },
  "SORROW_CHESTPLATE": {
-  "base": "chainmail_chestplate"
+  "base": "chainmail_chestplate",
+  "style": "hypixel_skyblock:legendary",
+  "glint": true
  },
  "SORROW_HELMET": {
-  "base": "chainmail_helmet"
+  "base": "chainmail_helmet",
+  "style": "hypixel_skyblock:legendary",
+  "glint": true
  },
  "SORROW_LEGGINGS": {
-  "base": "chainmail_leggings"
+  "base": "chainmail_leggings",
+  "style": "hypixel_skyblock:legendary",
+  "glint": true
+ },
+ "SOULFLOW": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/slayer/enderman/soulflow",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "SOUL_CAMPFIRE_TALISMAN_23": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:legendary",
+  "glint": false
+ },
+ "SOWLEDGE_GARDEN_CHIP": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/island_relevant/garden/chips/sowledge_chip",
+  "glint": false
+ },
+ "SPEEDY_LINE": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/fishing/rod_part/line/speedy_line",
+  "glint": false
+ },
+ "SPEED_ARTIFACT": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "SPIDER_ARTIFACT": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
+ },
+ "SPIDER_CATALYST": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/slayer/spider/spider_catalyst",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "SPIRIT_LEAP": {
+  "base": "ender_pearl",
+  "model": "hypixel_skyblock:item/island_relevant/dungeons/spirit_leap",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "SPONGE": {
+  "base": "sponge",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "SPOOKY_DISC": {
+  "base": "music_disc_cat",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "SPOOKY_PIE": {
+  "base": "pumpkin_pie",
+  "style": "hypixel_skyblock:special",
+  "glint": true
  },
  "SQUEAKY_MOUSEMAT": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/uncategorized/squeaky_mousemat"
+  "model": "hypixel_skyblock:item/uncategorized/squeaky_mousemat",
+  "style": "hypixel_skyblock:legendary",
+  "glint": false
  },
  "STAINED_GLASS:3": {
-  "base": "light_blue_stained_glass"
+  "base": "light_blue_stained_glass",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "STARFALL": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/uncategorized/starfall",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "STARRED_SHADOW_FURY": {
   "base": "diamond_sword",
-  "model": "hypixel_skyblock:item/uncategorized/shadow_fury_fragged"
+  "model": "hypixel_skyblock:item/uncategorized/shadow_fury_fragged",
+  "style": "hypixel_skyblock:mythic",
+  "glint": true
  },
  "STARTER_LAVA_ROD": {
   "base": "fishing_rod",
-  "model": "hypixel_skyblock:item/fishing/rod/starter_lava_rod"
+  "model": "hypixel_skyblock:item/fishing/rod/starter_lava_rod",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": true
+ },
+ "STONE": {
+  "base": "stone",
+  "style": "hypixel_skyblock:common",
+  "glint": true
  },
  "STONK_PICKAXE": {
   "base": "golden_pickaxe",
-  "model": "hypixel_skyblock:item/uncategorized/stonk"
+  "model": "hypixel_skyblock:item/uncategorized/stonk",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
  },
  "STORM_THE_FISH": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:special",
+  "glint": true
  },
  "STRETCHING_STICKS": {
   "base": "stick",
-  "model": "hypixel_skyblock:item/island_relevant/foraging_2/stretching_sticks"
+  "model": "hypixel_skyblock:item/island_relevant/foraging_2/stretching_sticks",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "SULPHUR_ORE": {
+  "base": "glowstone_dust",
+  "model": "hypixel_skyblock:item/uncategorized/sulphur",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "SUNFLOWER_OIL": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/island_relevant/garden/greenhouse/sunflower/sunflower_oil",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "SUPERBOOM_TNT": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/uncategorized/superboom_tnt",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "SUPREME_CHOCOLATE_BAR": {
-  "base": "player_head"
+  "base": "player_head",
+  "glint": false
+ },
+ "SURVIVOR_CUBE": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "SYNTHESIZER_V2": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/uncategorized/synthesizer_v2"
+  "model": "hypixel_skyblock:item/uncategorized/synthesizer_v2",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
  },
  "TARANTULA_BOOTS": {
-  "base": "leather_boots"
+  "base": "leather_boots",
+  "style": "hypixel_skyblock:epic",
+  "glint": true
+ },
+ "TARANTULA_CATALYST": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/combat_1/tarantula_catalyst",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
  },
  "TARANTULA_CHESTPLATE": {
-  "base": "leather_chestplate"
+  "base": "leather_chestplate",
+  "style": "hypixel_skyblock:epic",
+  "glint": true
  },
  "TARANTULA_LEGGINGS": {
-  "base": "leather_leggings"
+  "base": "leather_leggings",
+  "style": "hypixel_skyblock:epic",
+  "glint": true
+ },
+ "TARANTULA_SILK": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/slayer/spider/tarantula_silk",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "TARANTULA_TALISMAN": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
+ },
+ "TARANTULA_WEB": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/slayer/spider/tarantula_web",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "TELEPORT_PAD": {
-  "base": "end_portal_frame"
+  "base": "end_portal_frame",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": true
  },
  "THEORETICAL_HOE_CARROT_2": {
   "base": "iron_hoe",
-  "model": "hypixel_skyblock:item/jacob/hoes/theoretical_hoe_carrot_2"
+  "model": "hypixel_skyblock:item/jacob/hoes/theoretical_hoe_carrot_2",
+  "style": "hypixel_skyblock:rare",
+  "glint": true
  },
  "THEORETICAL_HOE_WHEAT_2": {
   "base": "iron_hoe",
-  "model": "hypixel_skyblock:item/jacob/hoes/theoretical_hoe_wheat_2"
+  "model": "hypixel_skyblock:item/jacob/hoes/theoretical_hoe_wheat_2",
+  "style": "hypixel_skyblock:rare",
+  "glint": true
+ },
+ "THORN_FRAGMENT": {
+  "base": "ghast_tear",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "THUNDERBOLT_NECKLACE": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/island_relevant/crimson_isle/thunder_armor/thunderbolt_necklace"
+  "model": "hypixel_skyblock:item/island_relevant/crimson_isle/thunder_armor/thunderbolt_necklace",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
  },
  "THUNDER_BOOTS": {
-  "base": "leather_boots"
+  "base": "leather_boots",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
  },
  "THUNDER_CHESTPLATE": {
-  "base": "leather_chestplate"
+  "base": "leather_chestplate",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
  },
  "THUNDER_HELMET": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:epic",
+  "glint": true
  },
  "THUNDER_LEGGINGS": {
-  "base": "leather_leggings"
+  "base": "leather_leggings",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
+ },
+ "TIGER_SHARK_TOOTH": {
+  "base": "ghast_tear",
+  "model": "hypixel_skyblock:item/community_center/mayor/marina/tiger_shark_tooth",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
+ },
+ "TITANIUM_ORE": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/uncategorized/titanium",
+  "glint": false
+ },
+ "TITANIUM_RING": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "TORN_CLOTH": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/fishing/misc/torn_cloth",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "TORRHUS_RING": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/island_relevant/foraging_3/accessories/torrhus/torrhus_ring"
+  "model": "hypixel_skyblock:item/island_relevant/foraging_3/accessories/torrhus/torrhus_ring",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "TOXIC_ARROW_POISON": {
+  "base": "lime_dye",
+  "model": "hypixel_skyblock:item/slayer/spider/toxic_arrow_poison",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "TRAINING_WEIGHTS": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "TRANSMISSION_TUNER": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
+ },
+ "TRAPPER_CREST": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "TRAP_DOOR": {
-  "base": "oak_trapdoor"
+  "base": "oak_trapdoor",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "TREASURE_RING": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
  },
  "TREASURE_TALISMAN": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "TREASURITE": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/uncategorized/treasurite",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
+ },
+ "TREECAPITATOR_AXE": {
+  "base": "golden_axe",
+  "model": "hypixel_skyblock:item/island_relevant/foraging_2/axes/treecapitator",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
  },
  "TREE_THE_FISH": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/island_relevant/foraging_2/fish_family/tree_the_fish"
+  "model": "hypixel_skyblock:item/island_relevant/foraging_2/fish_family/tree_the_fish",
+  "style": "hypixel_skyblock:special",
+  "glint": false
+ },
+ "TUNGSTEN": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/glacite/tungsten/tungsten",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "TWILIGHT_ARROW_POISON": {
+  "base": "purple_dye",
+  "model": "hypixel_skyblock:item/slayer/enderman/twilight_arrow_poison",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "UMBER": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/glacite/umber/umber",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "UNDEAD_CATALYST": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/slayer/zombie/catalysts/undead_catalyst",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "VACCINE_TALISMAN": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:common",
+  "glint": false
  },
  "VANQUISHED_GHAST_CLOAK": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/uncategorized/vanquished_ghast_cloak"
+  "model": "hypixel_skyblock:item/uncategorized/vanquished_ghast_cloak",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
+ },
+ "VILLAGE_TALISMAN": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:common",
+  "glint": false
  },
  "VINYL_BEETLE": {
-  "base": "music_disc_mellohi"
+  "base": "music_disc_mellohi",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "VINYL_BUZZIN_BEATS": {
-  "base": "music_disc_ward"
+  "base": "music_disc_ward",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "VINYL_CICADA_SYMPHONY": {
+  "base": "music_disc_blocks",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "VINYL_CRICKET_CHOIR": {
-  "base": "music_disc_chirp"
+  "base": "music_disc_chirp",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "VINYL_DYNAMITES": {
-  "base": "music_disc_strad"
+  "base": "music_disc_strad",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "VINYL_EARTHWORM_ENSEMBLE": {
-  "base": "music_disc_mall"
+  "base": "music_disc_mall",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "VINYL_FIREFLY": {
   "base": "music_disc_blocks",
-  "model": "minecraft:music_disc_pigstep"
+  "model": "minecraft:music_disc_pigstep",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "VINYL_PRAY_FOR_ME": {
   "base": "music_disc_mellohi",
-  "model": "minecraft:music_disc_creator"
+  "model": "minecraft:music_disc_creator",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "VINYL_PRETTY_FLY": {
-  "base": "music_disc_stal"
+  "base": "music_disc_stal",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "VINYL_RODENT_REVOLUTION": {
-  "base": "music_disc_13"
+  "base": "music_disc_13",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "VINYL_WINGS_OF_HARMONY": {
-  "base": "music_disc_wait"
+  "base": "music_disc_wait",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "VITAMIN_DEATH": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/power_stones/vitamin_death"
+  "model": "hypixel_skyblock:item/power_stones/vitamin_death",
+  "glint": false
  },
  "VOIDEDGE_KATANA": {
   "base": "blaze_rod",
-  "model": "hypixel_skyblock:item/slayer/enderman/weapons/katanas/voidedge_katana"
+  "model": "hypixel_skyblock:item/slayer/enderman/weapons/katanas/voidedge_katana",
+  "style": "hypixel_skyblock:rare",
+  "glint": true
+ },
+ "VOLCANIC_ROCK": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
+ },
+ "VOLTA": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/uncategorized/volta",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "VOTER_BADGE": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "WALNUT": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "WARDEN_HELMET": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:mythic",
+  "glint": false
+ },
+ "WATER_LILY": {
+  "base": "lily_pad",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "WEDDING_RING_9": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:legendary",
+  "glint": false
  },
  "WHEAT": {
-  "base": "wheat"
+  "base": "wheat",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "WHITE_GIFT": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "WINTER_FRAGMENT": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:epic",
+  "glint": false
+ },
+ "WISHING_COMPASS": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/uncategorized/wishing_compass",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "WITHER_BOOTS": {
+  "base": "leather_boots",
+  "style": "hypixel_skyblock:legendary",
+  "glint": false
+ },
+ "WITHER_CATALYST": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/uncategorized/wither_catalyst",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "WITHER_CHESTPLATE": {
+  "base": "leather_chestplate",
+  "style": "hypixel_skyblock:legendary",
+  "glint": false
+ },
+ "WITHER_HELMET": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:legendary",
+  "glint": true
+ },
+ "WITHER_LEGGINGS": {
+  "base": "leather_leggings",
+  "style": "hypixel_skyblock:legendary",
+  "glint": false
+ },
+ "WOLF_PAW": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "WOLF_RING": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
+ },
+ "WOLF_TOOTH": {
+  "base": "ghast_tear",
+  "model": "hypixel_skyblock:item/slayer/wolf/wolf_tooth",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
  },
  "WOOD": {
-  "base": "oak_planks"
+  "base": "oak_planks",
+  "style": "hypixel_skyblock:common",
+  "glint": false
+ },
+ "WOOD_TALISMAN": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "WORM_MEMBRANE": {
+  "base": "rotten_flesh",
+  "model": "hypixel_skyblock:item/uncategorized/worm_membrane",
+  "style": "hypixel_skyblock:uncommon",
+  "glint": false
+ },
+ "WRIGGLING_LARVA": {
+  "base": "paper",
+  "model": "hypixel_skyblock:item/island_relevant/garden/pests/wriggling_larva",
+  "glint": false
  },
  "YOUNG_DRAGON_BOOTS": {
-  "base": "leather_boots"
+  "base": "leather_boots",
+  "style": "hypixel_skyblock:legendary",
+  "glint": true
  },
  "YOUNG_DRAGON_CHESTPLATE": {
-  "base": "leather_chestplate"
+  "base": "leather_chestplate",
+  "style": "hypixel_skyblock:legendary",
+  "glint": true
  },
  "YOUNG_DRAGON_HELMET": {
-  "base": "player_head"
+  "base": "player_head",
+  "style": "hypixel_skyblock:legendary",
+  "glint": true
  },
  "YOUNG_DRAGON_LEGGINGS": {
-  "base": "leather_leggings"
+  "base": "leather_leggings",
+  "style": "hypixel_skyblock:legendary",
+  "glint": true
+ },
+ "ZOMBIE_ARTIFACT": {
+  "base": "player_head",
+  "style": "hypixel_skyblock:rare",
+  "glint": false
  },
  "ZORROS_CAPE": {
   "base": "paper",
-  "model": "hypixel_skyblock:item/events/easter/zorros_cape"
+  "model": "hypixel_skyblock:item/events/easter/zorros_cape",
+  "style": "hypixel_skyblock:legendary",
+  "glint": false
  }
 }

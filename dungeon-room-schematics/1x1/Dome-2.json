@@ -1,0 +1,98 @@
+{
+  "name": "Dome-2",
+  "category": "1x1",
+  "identified": true,
+  "score": 0.9812,
+  "coverage": 0.9976,
+  "runnerUp": {
+    "name": "1x1/Carpets-1",
+    "score": 0.4582
+  },
+  "shape": "1x1",
+  "cells": [
+    {
+      "i": 3,
+      "j": 1
+    }
+  ],
+  "size": {
+    "x": 31,
+    "y": 52,
+    "z": 31
+  },
+  "orientation": "already in skeleton orientation",
+  "worldRotationFromCanonical": 0,
+  "appliedRotation": 0,
+  "world": {
+    "x": -104,
+    "z": -168,
+    "sizeX": 31,
+    "sizeZ": 31,
+    "yMin": 56,
+    "yMax": 107
+  },
+  "floorYWorld": 56,
+  "doorways": [
+    {
+      "side": "north",
+      "along": [
+        12,
+        17
+      ],
+      "y": [
+        10,
+        17
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "red_wool",
+      "blocks": 29,
+      "leadsToRoom": true
+    },
+    {
+      "side": "south",
+      "along": [
+        12,
+        18
+      ],
+      "y": [
+        10,
+        17
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "spruce_planks",
+      "blocks": 30,
+      "leadsToRoom": true
+    },
+    {
+      "side": "west",
+      "along": [
+        13,
+        17
+      ],
+      "y": [
+        10,
+        17
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "spruce_planks",
+      "blocks": 28,
+      "leadsToRoom": true
+    }
+  ],
+  "blockEntities": {
+    "skull": 8,
+    "chest": 1
+  },
+  "schematic": "1x1/Dome-2.schem",
+  "version": "26.1.2",
+  "dataVersion": 4790
+}

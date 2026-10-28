@@ -30,11 +30,8 @@ module.exports.player = function (player, serv, { version }) {
     } else if (status === 5) {
       // TODO: Shoot arrow / finish eating
     } else if (status === 6) {
-      const currentSlot = player.inventory.slots[36 + player.heldItemSlot]
-      const offhand = player.inventory.slots[45]
-
-      player.inventory.updateSlot(36 + player.heldItemSlot, offhand)
-      player.inventory.updateSlot(45, currentSlot)
+      // swap item with offhand: the offhand is disabled (as on Hypixel). inventory.js answers by re-sending the inventory;
+      // this used to swap the held item into slot 45, which the offhand lock then discarded, deleting the item.
     } else {
       let pos = new Vec3(location.x, location.y, location.z)
 

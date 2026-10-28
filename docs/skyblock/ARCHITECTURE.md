@@ -32,6 +32,7 @@ Status: design + first backend milestone. Everything below is tagged
 | `skyblock-stats` | modifier collection, stat totals, derived stats, breakdown data | rendering, item movement |
 | `skyblock-profile` | read-only summary data (skills, pets, calendar) for display | state |
 | `skyblock-ui` | **locked** 9×6 menu windows drawn from `ProfileState` + stats: SkyBlock Menu (star), Stats & Equipment, Your Stats Breakdown, `Stats ➜ X`, `X ➜ Flat Bonuses / Additive Buffs`; `/stats`, `/sbmenu`. Static texts/icons/layouts come from `data/ui-specs.json` (generated from the recordings) | state, stat maths |
+| `skyblock-resourcepack` | the only setting is the pack's **URL** (default: Hypixel's SkyBlock pack). It downloads the pack once to get the SHA-1 the packet needs (cached per URL in `skyblock-data/resourcepack/`) and sends Add Resource Pack (forced, with prompt) to every player on join; `/resourcepack` re-sends. Items carry the Hypixel pack's `item_model` / `tooltip_style` ids, so the pack is what makes them render | state |
 | `skyblock-menu`, `skyblock-personalize` | the old byte-**replay** menus. **Superseded by `skyblock-ui` — do not load them together** (both claim the star, `/stats` and `window_click`) | — |
 
 Load order in `settings.plugins` does not matter; plugins talk through `serv.hypixel`, `serv.skyblock.core`, `player.skyblock.profile` and events.
@@ -41,7 +42,8 @@ Load order in `settings.plugins` does not matter; plugins talk through `serv.hyp
   "hypixel-api": { "key": "…" },
   "skyblock-core": { "dir": "skyblock-data/profiles" },
   "skyblock-stats": {},
-  "skyblock-ui": {}
+  "skyblock-ui": {},
+  "skyblock-resourcepack": { "url": "https://resourcepacks.hypixel.net/SkyBlock/b9f0ff91-1baa-48d1-b122-29ca9f810f14/84.zip" }
 }
 ```
 
@@ -80,6 +82,23 @@ true def   = TD / (TD + 100)                         32 / 132 = 24.2 %
 SB level   = +5 Health per level, level = floor(xp/100)   307 × 5 = 1,535
 ```
 Categories that appear (count in recording): Basic 50, Skill 20, Enchantment 21, Accessory Bag 19, Slayer 16, Potion Effect 12, Essence Shop 12, Exportation 12, Attribute 11, SkyBlock Levels 10, Bestiary 9, Innate 9, Uncategorized 9, Ability/Passive 5, Gemstone 4, Reforge 4, Attachment 4, Armor 8, Equipment 3, Item Ability (Passive) 2, HOTM 1, Consumable 1, Thaumaturgist Power 1. Kinds seen: **Flat**, **Additive**. (`tools/modifier-catalog.js` regenerates this.)
+
+### 3.4 Built-in inventory plugin — fixes this project depends on (RECORDED protocol, vanilla semantics)
+`src/lib/plugins/inventory.js` was written for 1.8 and is corrected for 26.1:
+- **Equipment slot ids** in `entity_equipment` are version dependent (1.8: boots 1 … head 4; 1.9+: main 0, **off hand 1**, boots 2, legs 3, chest 4, head 5). The old table put boots in the off hand and shifted every other piece.
+- **Held item**: the hotbar lives at window slots 36–44 (the old code used the hotbar number as a window slot, overwriting the armour mapping for hotbar slots 5–8) and `heldItem` is read-only in prismarine-entity (it is `equipment[0]`), so the held item is set through `setEquipment(0, …)`.
+- **Click modes**: shift-click and number keys were skipped (and `prismarine-windows` needs `click.item`, which current packets do not carry — now taken from the server's own inventory); drag and double-click are unimplemented upstream (`src/lib/windowClicks.js`). Anything that cannot be applied re-sends the whole inventory (`player.resyncInventory()`), so the client can never silently differ from the server — the cause of "inventory reverts when a menu opens".
+
+### 3.4 Fixes made to the built-in inventory plugin (`src/lib/plugins/inventory.js`)
+- Equipment slot ids were the 1.8 table (boots = 1). On 1.9+ slot 1 is the **off hand** (main 0, off 1, boots 2, legs 3, chest 4, head 5), so boots showed in the off hand and armour pieces were shifted. Now version-aware.
+- The held item used the window slot number (0-8) instead of the hotbar (36-44) and broadcast a stale `heldItem`. `player.heldItem` is a read-only getter of `equipment[0]` (prismarine-entity), so the held item is kept via `setEquipment(0, …)`.
+- Shift-click and number-key clicks were skipped, and `prismarine-windows` needs `click.item` (not present in current packets) to apply them; drag and double click are unimplemented there (`src/lib/windowClicks.js` adds them). Any click that cannot be applied now re-sends the whole inventory (`player.resyncInventory()`), so the client can never drift from the server's state.
+
+- **Component loss:** `prismarine-windows` builds new stacks with `new Item(type, count, metadata, nbt)` when a click splits a stack or places one item, dropping name, lore and custom data (a right-clicked star became a plain nether star). Stacks made by a click now inherit the components of the stack they came from.
+- **Offhand is disabled** (recorded: every inventory window Hypixel sends has slot 45 empty): the swap key (`block_dig` status 6), clicks on slot 45, number-key 40 and drags over slot 45 are cancelled and the client re-synced; nothing can fill the slot.
+- **SkyBlock Menu star:** clicking it in the inventory screen opens the menu and never picks it up (recorded: empty cursor + `open_window "SkyBlock Menu"`). It cannot be moved by any click mode (only left/right clicks were recorded; the other modes just keep it in place).
+- **Entity metadata was never sent on 1.20.2+** (`sendMetadata` returned early), so sneaking and sprinting never reached other players. It now is, sprint/crouch are one flags byte, and crouching also sets the pose (metadata 6 = 5).
+- Recorded and not yet reproduced: shift-clicking armour in the inventory screen equips it (Hypixel answers with `set_slot` for both slots, then a full re-sync).
 
 ## 4. State model
 
@@ -136,11 +155,15 @@ Provider roadmap, each validated against the recorded breakdown pages before it 
 | Skill | `skills.json` unlocks + member skill xp | **done, verified**: reproduces the recorded Farming 202 / Fishing 192 / Carpentry 34 Health and Mining 102 Defense |
 | Basic / Enchantment / Reforge / Gemstone / Ability | item lore parentheses + `ExtraAttributes` | lore split is derivable; recompute-from-attributes needs rules (§8) |
 | Accessory Bag + Thaumaturgist Power | bag items, magical power, tuning | needs accessory-bag recordings |
-| Bestiary, Slayer, Attribute, HOTM, Essence Shop, Exportation, Potion | member data | values RECORDED per page; formulas not yet extracted |
-| Pet | active pet + level | needs pet recordings |
+| Attribute | `attributes.stacks` + NEU shard files (§10) | **done, verified**: 32 of 32 distinct recorded Attribute rows (incl. additive, per-unique-rarity, per-digit and Echo boosts), with conditions evaluated against a context |
+| Bestiary, Slayer, HOTM/HOTF, Essence Shop, Exportation, Potion | member data | values RECORDED per page; formulas not yet extracted — see §10 for what NEU does and does not hold |
+| Pet | active pet + level | pet **levels** verified (97/97, §10); pet stats per level (NEU `petnums.json`) not yet used; needs a Pets-menu recording of the stat effect |
 
 ## 6. Menu frontend (built: stats screens)
 A menu is a factory `(ctx) → { title, items[54], click(info) }`; `click` returns `'reopen'` (new window id, RECORDED), `'close'`, or nothing (the window is re-sent and the cursor emptied, so **nothing in a menu can be moved by the client**). While a menu is open `player.skyblockMenu` is set, which makes the built-in inventory plugin ignore `window_click` (without it every menu click was applied to the real inventory — the "menu behaves like a chest" bug). Renderers must reproduce names/lore from state (not from the capture). The captured screens remain the **test oracle**: for the recorded account state a renderer's output must equal the recorded window. Screens in the recordings: SkyBlock Menu, Stats & Equipment, Your Stats Breakdown (+ per-stat Flat/Additive, grouped, 2-page), Active Effects, Pets/Autopet, Storage, Ender Chest (1–4), Backpacks, Loadouts, Armor Sets, Equipment Sets, Accessory Bag Thaumaturgy, Stats Tuning, Skills, Collections, SkyBlock Leveling, Bank, Fast Travel, Calendar, Settings (+subpages), Booster Cookie, Recipe Book, Catacombs, Heart of the Mountain / Forest.
+
+### 6.2 Storage (menuspackets2.txt)
+`Storage`, `Ender Chest (n/N)` and `<Backpack> (Slot #n)`, reachable from the SkyBlock Menu (Storage), `/storage`, `/enderchest [n]`, `/backpack [n]`. Verified against the recording: **Storage 54/54 slots identical**, ender chest page 2 53/53, backpack pages 38/38 and 44/45 — the only differences are weapon lore lines Hypixel re-renders from live stats (ability damage). Windows are **not always six rows**: a 36-slot backpack is a 5-row window (control row + its slots; the player inventory follows at `size`), so the window manager supports any row count. Navigation controls (First/Previous only after page 1, Next/Last only before the last page) and the "Locked Page" / "Backpack Slot N" items are reproduced. **View-only**: the recording has navigation clicks only, so moving items in or out, changing a page icon and removing a backpack are deliberately not implemented.
 
 ### 6.1 Verified against the recordings (real account)
 | Screen | Result (`tools/verify-menus.js`, `tools/verify-pages.js`, `test/recordedMenus.test.js`) |
@@ -150,12 +173,23 @@ A menu is a factory `(ctx) → { title, items[54], click(info) }`; `click` retur
 | Your Stats Breakdown | layout, titles, icons, derived lines (damage reduction, EHP, multipliers, …) identical in shape; values differ where sources are missing |
 | Modifier pages | layout, paging, controls, row format identical; rows only for sources that exist (§5) |
 
+Slot 2 of Stats & Equipment shows **the item in your hand**, exactly as it is in the inventory (recorded with the star and with a sword; 27/27 lore lines identical). Stats from the held item count (see §8 #12).
+
 Equipment lore rule (derived from the 4 recorded pieces, asserted by test): the menu shows the item without "Right-click to equip!", "This item can be reforged!" and the blank line between them.
 
 ## 7. Tooling (all read your recordings with the same protocol code the server uses)
 `tools/capture.js` (decoder; compiles a private copy of the protocol so the `jukebox_playable` fix cannot leak into the server) · `timeline.js` · `nav-map.js` (click → next screen) · `dumpwin.js` / `rawwin.js <capture> <open#>` · `window-diff.js` · `modifier-catalog.js` · `modifiers.js` · `extract-ui-specs.js` and `extract-item-models.js` (regenerate `skyblock-ui/data/ui-specs.json` and `hypixel-api/data/item-models.json` from more recordings) · `verify-stats.js` · `verify-modifiers.js` · `verify-menus.js` · `verify-pages.js`.
 
 ## 8. Open questions — recordings needed (the code refuses or omits these today)
+
+**Added with the storage / pets / loadouts recordings**
+23. **Ender chest window size.** Pages 1-3 are 6-row windows (page 3 holds only 23 items), but the empty page 4 is a **2-row** window. The API has no per-page size, so the rule is unknown; all pages are 6 rows today (page 4 therefore differs). Record an ender chest with items only on page 4, and one with a half-full last page.
+24. **Context differs between recordings.** (Evidence found with the NEU data, `node tools/contexts.js`:) the 31 Attribute rows of `menuspackets2` are reproduced exactly only when the player is at **night and NOT on a Foraging Island**; the held-item recording is **on a Foraging Island** (Forest Strength "while on Foraging Islands" appears there only). The first two recordings contain too few conditional rows to tell. Stats context is therefore `{ time, island }` (default night / none, configurable); deriving it from the world (time of day, island type) is not done. **Strike-through differs between recordings.** `statsmenupackets` / `sclogs` strike the mining, farming and foraging fortune stats; `menuspackets2` and the held-item recording strike none. The scoreboard cannot be read from the packets. Tell me where you stood in each (or record Stats & Equipment at 3+ places); until then `"skyblock-ui": { "strikeFrom": "<recording file name>" }` picks a recorded set, default = the latest (none).
+25. **Pets** (`Pets`, `Choose Pet`, `Autopet`, `Exp Sharing`) and the **Pet line of Loadouts** need pet levels (`[Lvl 100]`) and, for the pet items, stats/abilities per type and level. None of that is in the API or the resources supplied (the API gives only type, tier, exp and held item). Needed: the pet leveling table per rarity and the per-type pet stats/lore data (the NEU-REPO `constants/pets.json` / `petnums.json` kind of data). Not guessed.
+26. **Loadouts / Armor Sets / Equipment Sets**: the screens and the Ready ⇄ Equipped slot state are recorded and every line except the pet line comes from the API (`loadout.armor`, `loadout.equipment`, `loadouts[].armor_set_id / equipment_set_id / name / pet / favoredBait`), but the recording shows **no inventory change** when a set is equipped, so what happens to the worn armour and equipment is unknown. Record: equip a set / loadout and then open the inventory (or press Stats & Equipment) before and after.
+27. **Stats & Equipment slot 2 with an empty hand**: never recorded (stays empty).
+28. **Moving items in storage** (ender chest, backpacks, sacks, bags): not in the recording.
+29. Weapon lore is re-rendered by Hypixel from live stats (ability damage lines); no formula available, so those lines show the imported text.
 
 **Added with the menus**
 16. Stat-category buttons strike through stats (`§7§m…`). The recording shows *which* stats, not *why* (Mining Fortune, Farming Fortune, Sweep… but not Mining Speed/Pristine). Record Stats & Equipment in other places (Dwarven Mines, Garden, a foraging island, a dungeon) so the rule can be derived. Today the recorded set is replayed.
@@ -185,7 +219,7 @@ Equipment lore rule (derived from the 4 recorded pieces, asserted by test): the 
 11. Active effects: how durations count down and expire, stacking rules.
 
 **Stats**
-12. The Stats menu with a **different held item** (does the held weapon add to Strength/Damage?) and with a dungeon item.
+12. The Stats menu with a **different held item** — today any held item with stats counts unless it is armour, equipment, an accessory or a pet (the recordings contain no stat page with a held weapon or tool, so this is **unverified**; every recorded page has the SkyBlock Menu star in hand). Record it holding a sword, a pickaxe, an axe, a fishing rod, a bow and nothing; also Hypixel-specific inventory behaviour (shift-click into armour/equipment slots, number-key swaps) if it differs from vanilla: only swords (`weapon` role) add their stats when held today; whether tools, bows, rods and other items do is not in the recordings (no recorded stat page lists a held item). Record the Stats menu holding a sword, a pickaxe, an axe, a fishing rod, a bow and nothing. Originally: (does the held weapon add to Strength/Damage?) and with a dungeon item.
 13. Any stat page with a **Multiplicative** section (none seen) and the page opened with `Group By Category` ON.
 14. One breakdown page for **every** category in §3.3 that was not opened (Accessory Bag, Pet, HOTM, Essence Shop…).
 
@@ -198,3 +232,40 @@ Equipment lore rule (derived from the 4 recorded pieces, asserted by test): the 
 3. ✅ Modifier model + skills/SkyBlock-level providers; menus for the stats screens (this milestone). Gate: `verify-stats`, `verify-modifiers`, `verify-menus`, `verify-pages`.
 4. Remaining stat sources (§8 #20) as recordings/data arrive.
 5. Accessory bag + storage services and menus, then the remaining SkyBlock Menu sections (today they show their recorded items, static, with only Stats & Equipment wired).
+
+
+## 10. NotEnoughUpdates-REPO files (data the simulator reads)
+
+Source: the community NotEnoughUpdates-REPO (MIT licence, notice kept in `src/plugins/skyblock-stats/data/neu/LICENSE`). The 9,000-file repo is **not** shipped: `node tools/extract-neu.js <path to the repo>` reduces what is used to a few JSON files in `src/plugins/skyblock-stats/data/neu/` (re-run it to update; `meta.json` there lists every NEU file read). A NEU file counts as *in use* only if code reads its data **and** it reproduces something Hypixel was recorded showing.
+
+### In use
+
+| NEU file | Provides | Read by | Verified against the recordings |
+|---|---|---|---|
+| `constants/attribute_shards.json` (325 attributes) | attribute list, rarity, family, per-rarity level thresholds (`attribute_levelling`) | `lib/providers/attributes.js` via `data/neu/attributes.json` | **32 of 32** distinct recorded Attribute modifier rows reproduced (`node tools/verify-neu.js Attribute attributes`) |
+| `items/ATTRIBUTE_SHARD_*;1.json` (325 files) | what each attribute grants per level (flat `+N Stat`, additive `Your X is increased by +N%`), its condition (night/day, island type, against mobs / pests / activities) and special rules (per unique rarity owned, per digit of a collection, Echo boosts) — parsed from the shard lore | same | same; level 4 from 20 stacks (+8 Health), Unlimited Fortitude 0.6 %, Unity is Strength 7.8, Helix Collector 70, Tracking 5.3 |
+| `constants/pets.json` | `pet_levels`, `pet_rarity_offset`, `custom_pet_leveling`, `id_to_display_name` | `lib/pets.js` (`petLevel`, `petName`) via `data/neu/pets.json` | **97 of 97** recorded pets get their recorded `[Lvl N]`. No menu consumes it yet (Pets / Loadouts are not built; §8 #25-26) |
+
+Attribute conditions: `during the night/day` and `while on <X> Islands` are checked against `ctx.context` (`time`, `island`); any other condition (`against <mobs>` — which is why the Resistance attributes add nothing to Defense, as recorded — `on Pests`, `if …`, `while <activity>`) is not modelled and the effect is not counted.
+
+### Inspected, not used yet (nothing reads them; nothing here is verified)
+
+| NEU file | What it holds | Could feed |
+|---|---|---|
+| `constants/petnums.json` | per-pet-type stat numbers by level (88 pets) | Pet stat modifiers; Pets menu lore |
+| `constants/leveling.json` | skill XP tables and caps, `slayer_xp` thresholds, slayer names | slayer **level** from slayer XP. The **stat reward per slayer level is not in it** (nor in `bonuses.json`), so Slayer modifiers remain open |
+| `constants/bonuses.json` | `pet_rewards` (pet score → Magic Find), `pet_value`, `bonus_stats` | Pet Score magic find |
+| `constants/sblevels.json` | SkyBlock level tasks/XP categories and colours | not the per-level stat rewards (those are still the two recorded relations in §5) |
+| `constants/bestiary.json` | brackets and mob lists | Bestiary level; how it becomes the recorded +Health is not in it |
+| `constants/essenceshops.json`, `constants/hotmlayout.json` | essence shop perks, HotM layout | Essence Shop / HOTM modifiers (needs the player's perk levels from the API and a check against the recorded rows) |
+| `constants/reforges.json`, `reforgestones.json`, `gemstones.json`, `enchants.json` | reforge stats per rarity, gemstone stats, enchant lists | recomputing items instead of reading their imported lore (needed once items can change) |
+| `constants/misc.json` | `base_stats`, `tier_colors`, `item_types`, `slayer_cost`, … | base (Innate) stats; rarity colours |
+| `constants/resource_pack.json` | `item_models` removed/renamed lists (both empty today) | keeping recorded `item_model` ids current |
+| `items/*.json` (8,937 files) | item definitions: lore, NBT, internal names | item stat sources beyond the attribute shards; pet items |
+
+### Not relevant to what is built
+`itemsOverlay/`, `mobs/`, `mining/` and the `constants` files for fairy souls, garden, museum, calendar, islands, zones, trophy fish, bazaar, skymart, hoppity, rift guide, weight, rng score, dyes, george, abiphone, animated skulls, carnival, parents, legacy rainbow names, glacite waypoints, sacks.
+
+### What the NEU data settled
+- Pet levels, Attributes: done above.
+- It does **not** contain Slayer stat rewards, the SkyBlock-level stat rewards or the Bestiary-to-stat rule — those still need recordings (§8 #20).

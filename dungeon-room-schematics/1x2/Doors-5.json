@@ -1,0 +1,68 @@
+{
+  "name": "Doors-5",
+  "category": "1x2",
+  "identified": true,
+  "score": 0.9449,
+  "coverage": 0.9976,
+  "runnerUp": {
+    "name": "1x2/Skull-2",
+    "score": 0.1221
+  },
+  "shape": "1x2",
+  "cells": [
+    {
+      "i": 0,
+      "j": 0
+    },
+    {
+      "i": 1,
+      "j": 0
+    }
+  ],
+  "size": {
+    "x": 63,
+    "y": 54,
+    "z": 31
+  },
+  "orientation": "already in skeleton orientation",
+  "worldRotationFromCanonical": 0,
+  "appliedRotation": 0,
+  "world": {
+    "x": -200,
+    "z": -200,
+    "sizeX": 63,
+    "sizeZ": 31,
+    "yMin": 46,
+    "yMax": 99
+  },
+  "floorYWorld": 46,
+  "doorways": [
+    {
+      "side": "east",
+      "along": [
+        13,
+        17
+      ],
+      "y": [
+        20,
+        27
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "cobblestone",
+      "blocks": 28,
+      "leadsToRoom": true
+    }
+  ],
+  "blockEntities": {
+    "skull": 80,
+    "banner": 22,
+    "dispenser": 8,
+    "sign": 9
+  },
+  "schematic": "1x2/Doors-5.schem",
+  "version": "26.1.2",
+  "dataVersion": 4790
+}

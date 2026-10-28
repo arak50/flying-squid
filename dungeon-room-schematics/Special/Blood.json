@@ -1,0 +1,61 @@
+{
+  "name": "1x1_cell-3-0",
+  "category": "unidentified",
+  "identified": false,
+  "score": 0.4142,
+  "coverage": 0.517,
+  "runnerUp": {
+    "name": "1x1/Hanging-Vines-1",
+    "score": 0.3565
+  },
+  "shape": "1x1",
+  "cells": [
+    {
+      "i": 3,
+      "j": 0
+    }
+  ],
+  "size": {
+    "x": 31,
+    "y": 35,
+    "z": 31
+  },
+  "orientation": "world orientation (room not identified)",
+  "worldRotationFromCanonical": null,
+  "appliedRotation": 0,
+  "world": {
+    "x": -104,
+    "z": -200,
+    "sizeX": 31,
+    "sizeZ": 31,
+    "yMin": 66,
+    "yMax": 100
+  },
+  "floorYWorld": 66,
+  "doorways": [
+    {
+      "side": "south",
+      "along": [
+        12,
+        17
+      ],
+      "y": [
+        0,
+        7
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "red_wool",
+      "blocks": 29,
+      "leadsToRoom": true
+    }
+  ],
+  "blockEntities": {
+    "skull": 2
+  },
+  "schematic": "unidentified/1x1_cell-3-0.schem",
+  "version": "26.1.2",
+  "dataVersion": 4790
+}

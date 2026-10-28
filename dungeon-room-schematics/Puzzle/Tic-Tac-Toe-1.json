@@ -1,0 +1,59 @@
+{
+  "name": "Tic-Tac-Toe-1",
+  "category": "Puzzle",
+  "identified": true,
+  "score": 0.9977,
+  "coverage": 0.9993,
+  "runnerUp": {
+    "name": "1x1/Banners-1",
+    "score": 0.8249
+  },
+  "shape": "1x1",
+  "cells": [
+    {
+      "i": 3,
+      "j": 3
+    }
+  ],
+  "size": {
+    "x": 31,
+    "y": 35,
+    "z": 31
+  },
+  "orientation": "already in skeleton orientation",
+  "worldRotationFromCanonical": 0,
+  "appliedRotation": 0,
+  "world": {
+    "x": -104,
+    "z": -104,
+    "sizeX": 31,
+    "sizeZ": 31,
+    "yMin": 66,
+    "yMax": 100
+  },
+  "floorYWorld": 66,
+  "doorways": [
+    {
+      "side": "north",
+      "along": [
+        12,
+        17
+      ],
+      "y": [
+        0,
+        7
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "cobblestone",
+      "blocks": 29,
+      "leadsToRoom": true
+    }
+  ],
+  "blockEntities": {},
+  "schematic": "Puzzle/Tic-Tac-Toe-1.schem",
+  "version": "26.1.2",
+  "dataVersion": 4790
+}

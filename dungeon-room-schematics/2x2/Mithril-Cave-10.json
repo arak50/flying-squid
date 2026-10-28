@@ -1,0 +1,94 @@
+{
+  "name": "Mithril-Cave-10",
+  "category": "2x2",
+  "identified": true,
+  "score": 0.9861,
+  "coverage": 0.9987,
+  "runnerUp": {
+    "name": "2x2/Museum-5",
+    "score": 0.2324
+  },
+  "shape": "2x2",
+  "cells": [
+    {
+      "i": 1,
+      "j": 2
+    },
+    {
+      "i": 2,
+      "j": 2
+    },
+    {
+      "i": 1,
+      "j": 3
+    },
+    {
+      "i": 2,
+      "j": 3
+    }
+  ],
+  "size": {
+    "x": 63,
+    "y": 104,
+    "z": 63
+  },
+  "orientation": "already in skeleton orientation",
+  "worldRotationFromCanonical": 0,
+  "appliedRotation": 0,
+  "world": {
+    "x": -168,
+    "z": -136,
+    "sizeX": 63,
+    "sizeZ": 63,
+    "yMin": 24,
+    "yMax": 127
+  },
+  "floorYWorld": 24,
+  "doorways": [
+    {
+      "side": "east",
+      "along": [
+        44,
+        49
+      ],
+      "y": [
+        42,
+        49
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "stone_bricks",
+      "blocks": 29,
+      "leadsToRoom": true
+    },
+    {
+      "side": "west",
+      "along": [
+        12,
+        18
+      ],
+      "y": [
+        42,
+        49
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "cobblestone",
+      "blocks": 30,
+      "leadsToRoom": true
+    }
+  ],
+  "blockEntities": {
+    "skull": 226,
+    "sign": 139,
+    "chest": 3,
+    "dispenser": 22
+  },
+  "schematic": "2x2/Mithril-Cave-10.schem",
+  "version": "26.1.2",
+  "dataVersion": 4790
+}

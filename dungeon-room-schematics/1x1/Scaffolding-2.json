@@ -1,0 +1,79 @@
+{
+  "name": "Scaffolding-2",
+  "category": "1x1",
+  "identified": true,
+  "score": 0.9935,
+  "coverage": 0.9981,
+  "runnerUp": {
+    "name": "1x1/Mushroom-1",
+    "score": 0.4266
+  },
+  "shape": "1x1",
+  "cells": [
+    {
+      "i": 3,
+      "j": 2
+    }
+  ],
+  "size": {
+    "x": 31,
+    "y": 34,
+    "z": 31
+  },
+  "orientation": "already in skeleton orientation",
+  "worldRotationFromCanonical": 0,
+  "appliedRotation": 0,
+  "world": {
+    "x": -104,
+    "z": -136,
+    "sizeX": 31,
+    "sizeZ": 31,
+    "yMin": 66,
+    "yMax": 99
+  },
+  "floorYWorld": 66,
+  "doorways": [
+    {
+      "side": "south",
+      "along": [
+        12,
+        17
+      ],
+      "y": [
+        0,
+        7
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "red_terracotta",
+      "blocks": 41,
+      "leadsToRoom": true
+    },
+    {
+      "side": "west",
+      "along": [
+        12,
+        18
+      ],
+      "y": [
+        0,
+        7
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "cobblestone",
+      "blocks": 42,
+      "leadsToRoom": true
+    }
+  ],
+  "blockEntities": {
+    "skull": 36
+  },
+  "schematic": "1x1/Scaffolding-2.schem",
+  "version": "26.1.2",
+  "dataVersion": 4790
+}

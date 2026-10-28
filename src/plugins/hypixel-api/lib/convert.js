@@ -127,6 +127,7 @@ function createConverter (registry, resources) {
     const n = { type: base, count: sb.count || 1, name: name || null, lore: lore || [], extra: null, extraNbt: null, model: known && known.model ? known.model : null, style: null, skin: null, skinSig: null, skinId: null, color: null, glint: false, ench: null, unbreakable: false }
     const foot = parseFooter(n.lore)
     if (foot && foot.rarity) n.style = 'hypixel_skyblock:' + String(foot.rarity).toLowerCase().replace(/\s+/g, '_')
+    else if (known && known.style) n.style = known.style // items without a rarity line (the star, ...): what the server was recorded sending
     if (sb.extra && Object.keys(sb.extra).length && tag.value.ExtraAttributes) {
       const slim = slimCompound(tag.value.ExtraAttributes)
       n.extra = untyped(slim)
@@ -142,6 +143,7 @@ function createConverter (registry, resources) {
       if (!n.ench.length) { n.ench = null; n.glint = true }
     } else n.glint = !!(list || (res && res.glowing))
     n.unbreakable = !!(tag && tag.value.Unbreakable)
+    if (known && known.glint !== undefined && !n.ench) n.glint = known.glint // what the server was recorded sending for this item
     stats.converted++
     return n
   }
@@ -157,6 +159,7 @@ function createConverter (registry, resources) {
     }
     if (n.name !== null && n.name !== undefined) add('custom_name', legacyToComponent(n.name))
     if (n.lore && n.lore.length) add('lore', n.lore.map(legacyToComponent))
+    // item_model / tooltip_style point into the Hypixel resource pack: the skyblock-resourcepack plugin sends it to players
     if (n.model) add('item_model', n.model)
     if (n.extraNbt) add('custom_data', readNbt(n.extraNbt))
     else if (n.extra && Object.keys(n.extra).length) add('custom_data', typedCompound(n.extra))

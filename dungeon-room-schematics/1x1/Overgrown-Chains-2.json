@@ -1,0 +1,80 @@
+{
+  "name": "Overgrown-Chains-2",
+  "category": "1x1",
+  "identified": true,
+  "score": 0.9323,
+  "coverage": 0.9978,
+  "runnerUp": {
+    "name": "1x1/Small-Stairs-2",
+    "score": 0.1794
+  },
+  "shape": "1x1",
+  "cells": [
+    {
+      "i": 0,
+      "j": 2
+    }
+  ],
+  "size": {
+    "x": 31,
+    "y": 45,
+    "z": 31
+  },
+  "orientation": "normalized to skeleton orientation (rotated 270 deg clockwise from world)",
+  "worldRotationFromCanonical": 90,
+  "appliedRotation": 270,
+  "world": {
+    "x": -200,
+    "z": -136,
+    "sizeX": 31,
+    "sizeZ": 31,
+    "yMin": 63,
+    "yMax": 107
+  },
+  "floorYWorld": 63,
+  "doorways": [
+    {
+      "side": "east",
+      "along": [
+        12,
+        17
+      ],
+      "y": [
+        3,
+        10
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "stone_bricks",
+      "blocks": 29,
+      "leadsToRoom": true
+    },
+    {
+      "side": "west",
+      "along": [
+        12,
+        17
+      ],
+      "y": [
+        3,
+        10
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "stone_bricks",
+      "blocks": 29,
+      "leadsToRoom": true
+    }
+  ],
+  "blockEntities": {
+    "skull": 73,
+    "dispenser": 18
+  },
+  "schematic": "1x1/Overgrown-Chains-2.schem",
+  "version": "26.1.2",
+  "dataVersion": 4790
+}

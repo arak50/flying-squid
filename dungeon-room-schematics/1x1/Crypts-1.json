@@ -1,0 +1,80 @@
+{
+  "name": "Crypts-1",
+  "category": "1x1",
+  "identified": true,
+  "score": 0.9829,
+  "coverage": 0.9982,
+  "runnerUp": {
+    "name": "Puzzle/Creeper-Room",
+    "score": 0.5321
+  },
+  "shape": "1x1",
+  "cells": [
+    {
+      "i": 1,
+      "j": 2
+    }
+  ],
+  "size": {
+    "x": 31,
+    "y": 53,
+    "z": 31
+  },
+  "orientation": "normalized to skeleton orientation (rotated 180 deg clockwise from world)",
+  "worldRotationFromCanonical": 180,
+  "appliedRotation": 180,
+  "world": {
+    "x": -168,
+    "z": -136,
+    "sizeX": 31,
+    "sizeZ": 31,
+    "yMin": 56,
+    "yMax": 108
+  },
+  "floorYWorld": 56,
+  "doorways": [
+    {
+      "side": "north",
+      "along": [
+        12,
+        17
+      ],
+      "y": [
+        10,
+        17
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "stone_bricks",
+      "blocks": 29,
+      "leadsToRoom": true
+    },
+    {
+      "side": "south",
+      "along": [
+        13,
+        18
+      ],
+      "y": [
+        10,
+        17
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "stone_bricks",
+      "blocks": 29,
+      "leadsToRoom": true
+    }
+  ],
+  "blockEntities": {
+    "skull": 5,
+    "dispenser": 16
+  },
+  "schematic": "1x1/Crypts-1.schem",
+  "version": "26.1.2",
+  "dataVersion": 4790
+}

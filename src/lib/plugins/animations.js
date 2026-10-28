@@ -8,13 +8,29 @@ module.exports.player = function (player, serv) {
     })
   )
 
+  // Entity flags (metadata 0, a bitmask: 0x02 crouching, 0x08 sprinting) and, from 1.14, the pose (metadata 6: 5 = crouching).
+  // Sprinting and crouching must be combined into one byte; writing them separately made each cancel the other.
+  const FLAG_CROUCHING = 0x02
+  const FLAG_SPRINTING = 0x08
+  const modernMetadata = serv.registry.version['>=']('1.20.2')
+  player.metaFlags = player.metaFlags || 0
+  player.crouching = false
+
+  function sendEntityState () {
+    const data = [{ key: 0, type: modernMetadata ? 'byte' : 0, value: player.metaFlags }]
+    if (modernMetadata) data.push({ key: 6, type: 'pose', value: player.crouching ? 5 : 0 })
+    player.setAndUpdateMetadata(data)
+  }
+
   function setSprinting (sprinting) {
-    player.setAndUpdateMetadata([{ key: 0, type: 0, value: sprinting ? 0x08 : 0x00 }])
+    player.metaFlags = sprinting ? (player.metaFlags | FLAG_SPRINTING) : (player.metaFlags & ~FLAG_SPRINTING)
+    sendEntityState()
   }
 
   function setCrouching (crouching) {
-    player.setAndUpdateMetadata([{ key: 0, type: 0, value: crouching ? 0x02 : 0x00 }])
     player.crouching = crouching
+    player.metaFlags = crouching ? (player.metaFlags | FLAG_CROUCHING) : (player.metaFlags & ~FLAG_CROUCHING)
+    sendEntityState()
   }
 
   // Depending on the protocol version the action id is either a number or a mapped name

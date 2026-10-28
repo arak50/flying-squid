@@ -1,0 +1,141 @@
+{
+  "name": "Red-Blue-4",
+  "category": "1x3",
+  "identified": true,
+  "score": 0.9898,
+  "coverage": 0.9954,
+  "runnerUp": {
+    "name": "1x3/Gravel-6",
+    "score": 0.1688
+  },
+  "shape": "1x3",
+  "cells": [
+    {
+      "i": 1,
+      "j": 1
+    },
+    {
+      "i": 2,
+      "j": 1
+    },
+    {
+      "i": 3,
+      "j": 1
+    }
+  ],
+  "size": {
+    "x": 95,
+    "y": 34,
+    "z": 31
+  },
+  "orientation": "already in skeleton orientation",
+  "worldRotationFromCanonical": 0,
+  "appliedRotation": 0,
+  "world": {
+    "x": -168,
+    "z": -168,
+    "sizeX": 95,
+    "sizeZ": 31,
+    "yMin": 66,
+    "yMax": 99
+  },
+  "floorYWorld": 66,
+  "doorways": [
+    {
+      "side": "north",
+      "along": [
+        44,
+        49
+      ],
+      "y": [
+        0,
+        7
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "cobblestone",
+      "blocks": 29,
+      "leadsToRoom": true
+    },
+    {
+      "side": "south",
+      "along": [
+        13,
+        17
+      ],
+      "y": [
+        0,
+        7
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "coal_block",
+      "blocks": 40,
+      "leadsToRoom": true
+    },
+    {
+      "side": "south",
+      "along": [
+        44,
+        49
+      ],
+      "y": [
+        0,
+        7
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "stone_bricks",
+      "blocks": 29,
+      "leadsToRoom": true
+    },
+    {
+      "side": "south",
+      "along": [
+        76,
+        81
+      ],
+      "y": [
+        0,
+        7
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "infested_chiseled_stone_bricks",
+      "blocks": 41,
+      "leadsToRoom": true
+    },
+    {
+      "side": "west",
+      "along": [
+        13,
+        18
+      ],
+      "y": [
+        0,
+        7
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "cobblestone",
+      "blocks": 29,
+      "leadsToRoom": true
+    }
+  ],
+  "blockEntities": {
+    "skull": 120
+  },
+  "schematic": "1x3/Red-Blue-4.schem",
+  "version": "26.1.2",
+  "dataVersion": 4790
+}

@@ -1,0 +1,3687 @@
+{
+ "levelling": {
+  "COMMON": [
+   1,
+   3,
+   5,
+   6,
+   7,
+   8,
+   10,
+   14,
+   18,
+   24
+  ],
+  "UNCOMMON": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   12,
+   16
+  ],
+  "RARE": [
+   1,
+   2,
+   3,
+   3,
+   4,
+   4,
+   5,
+   6,
+   8,
+   12
+  ],
+  "EPIC": [
+   1,
+   1,
+   2,
+   2,
+   3,
+   3,
+   4,
+   4,
+   5,
+   7
+  ],
+  "LEGENDARY": [
+   1,
+   1,
+   1,
+   2,
+   2,
+   2,
+   3,
+   3,
+   4,
+   5
+  ]
+ },
+ "attributes": {
+  "nature_elemental": {
+   "name": "Nature Elemental",
+   "rarity": "COMMON",
+   "family": [
+    "Elemental"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Health",
+     "per": 2
+    }
+   ]
+  },
+  "fog_elemental": {
+   "name": "Fog Elemental",
+   "rarity": "COMMON",
+   "family": [
+    "Elemental"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Intelligence",
+     "per": 1
+    }
+   ]
+  },
+  "light_elemental": {
+   "name": "Light Elemental",
+   "rarity": "COMMON",
+   "family": [
+    "Elemental"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Strength",
+     "per": 1
+    }
+   ]
+  },
+  "nocturnal_animal": {
+   "name": "Nocturnal Animal",
+   "rarity": "COMMON",
+   "family": [
+    "Phantom"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Sweep",
+     "per": 1
+    }
+   ],
+   "cond": {
+    "time": "night"
+   }
+  },
+  "cheapstake": {
+   "name": "Cheapstake",
+   "rarity": "COMMON",
+   "family": [
+    "Tropical Fish"
+   ],
+   "effects": []
+  },
+  "animal_resistance": {
+   "name": "Animal Resistance",
+   "rarity": "COMMON",
+   "family": [
+    "Cave Dweller"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Defense",
+     "per": 4
+    }
+   ],
+   "cond": {
+    "other": true
+   }
+  },
+  "moonglade_mastery": {
+   "name": "Moonglade Mastery",
+   "rarity": "COMMON",
+   "family": [
+    "Phantom"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Fig Fortune",
+     "per": 10
+    },
+    {
+     "kind": "flat",
+     "stat": "Mangrove Fortune",
+     "per": 10
+    }
+   ]
+  },
+  "aquatic_resistance": {
+   "name": "Aquatic Resistance",
+   "rarity": "COMMON",
+   "family": [
+    "Trash Lover"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Defense",
+     "per": 4
+    }
+   ],
+   "cond": {
+    "other": true
+   }
+  },
+  "experience": {
+   "name": "Experience",
+   "rarity": "COMMON",
+   "family": [
+    "Lapis"
+   ],
+   "effects": []
+  },
+  "mossy_box": {
+   "name": "Mossy Box",
+   "rarity": "COMMON",
+   "family": [
+    "Shulker"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Block Fortune",
+     "per": 5
+    }
+   ]
+  },
+  "forest_fishing": {
+   "name": "Forest Fishing",
+   "rarity": "COMMON",
+   "family": [
+    "Tropical Fish"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Fishing Speed",
+     "per": 3
+    }
+   ],
+   "cond": {
+    "island": "Foraging"
+   }
+  },
+  "skeletal_ruler": {
+   "name": "Skeletal Ruler",
+   "rarity": "COMMON",
+   "family": [],
+   "effects": []
+  },
+  "fortunate_farmer": {
+   "name": "Fortunate Farmer",
+   "rarity": "COMMON",
+   "family": [
+    "Bug",
+    "Trash Lover"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Farming Fortune",
+     "per": 2.5
+    }
+   ]
+  },
+  "hunter": {
+   "name": "Creature Fisher",
+   "rarity": "COMMON",
+   "family": [],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Sea Creature Chance",
+     "per": 0.5
+    }
+   ]
+  },
+  "arachno_resistance": {
+   "name": "Arthropod Resistance",
+   "rarity": "COMMON",
+   "family": [
+    "Spider"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Defense",
+     "per": 4
+    }
+   ],
+   "cond": {
+    "other": true
+   }
+  },
+  "happy_box": {
+   "name": "Happy Box",
+   "rarity": "COMMON",
+   "family": [
+    "Shulker"
+   ],
+   "effects": [],
+   "cond": {
+    "other": true
+   }
+  },
+  "yummy": {
+   "name": "Yummy",
+   "rarity": "COMMON",
+   "family": [],
+   "effects": []
+  },
+  "undead_resistance": {
+   "name": "Undead Resistance",
+   "rarity": "COMMON",
+   "family": [],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Defense",
+     "per": 4
+    }
+   ],
+   "cond": {
+    "other": true
+   }
+  },
+  "fig_sharpening": {
+   "name": "Fig Sharpening",
+   "rarity": "COMMON",
+   "family": [
+    "Bird",
+    "Trash Lover"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Sweep towards Fig Trees",
+     "per": 5
+    }
+   ]
+  },
+  "unity_is_strength": {
+   "name": "Unity is Strength",
+   "rarity": "COMMON",
+   "family": [
+    "Frog",
+    "Amphibian"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Sweep",
+     "per": 0.02
+    }
+   ],
+   "special": {
+    "perUniqueRarity": "COMMON"
+   }
+  },
+  "ender_resistance": {
+   "name": "Ender Resistance",
+   "rarity": "COMMON",
+   "family": [],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Defense",
+     "per": 4
+    }
+   ],
+   "cond": {
+    "other": true
+   }
+  },
+  "hitman_cooldown": {
+   "name": "Hitman Cooldown",
+   "rarity": "COMMON",
+   "family": [
+    "Crime"
+   ],
+   "effects": []
+  },
+  "bucket_lover": {
+   "name": "Bucket Lover",
+   "rarity": "COMMON",
+   "family": [
+    "Axolotl",
+    "Amphibian"
+   ],
+   "effects": []
+  },
+  "tree_lurker": {
+   "name": "Tree Lurker",
+   "rarity": "COMMON",
+   "family": [
+    "Bird"
+   ],
+   "effects": []
+  },
+  "visitor_bait": {
+   "name": "Visitor Speed",
+   "rarity": "COMMON",
+   "family": [],
+   "effects": []
+  },
+  "lotus_trophy": {
+   "name": "Lotus Trophy",
+   "rarity": "COMMON",
+   "family": [
+    "Tropical Fish"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Trophy Chance",
+     "per": 1
+    }
+   ],
+   "cond": {
+    "other": true
+   }
+  },
+  "midas_touch": {
+   "name": "Midas Touch",
+   "rarity": "COMMON",
+   "family": [],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Coin",
+     "per": 1
+    }
+   ]
+  },
+  "crop_speed": {
+   "name": "Crop Speed",
+   "rarity": "COMMON",
+   "family": [
+    "Bug",
+    "Trash Lover"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Crop Growth",
+     "per": 1
+    }
+   ],
+   "cond": {
+    "other": true
+   }
+  },
+  "forest_strength": {
+   "name": "Forest Strength",
+   "rarity": "COMMON",
+   "family": [
+    "Tropical Fish"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Strength",
+     "per": 5
+    }
+   ],
+   "cond": {
+    "island": "Foraging"
+   }
+  },
+  "blazing_resistance": {
+   "name": "Blazing Resistance",
+   "rarity": "COMMON",
+   "family": [],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Defense",
+     "per": 4
+    }
+   ],
+   "cond": {
+    "other": true
+   }
+  },
+  "woodland_resistance": {
+   "name": "Woodland Resistance",
+   "rarity": "COMMON",
+   "family": [
+    "Bug"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Defense",
+     "per": 4
+    }
+   ],
+   "cond": {
+    "other": true
+   }
+  },
+  "fisherman": {
+   "name": "Fisherman",
+   "rarity": "COMMON",
+   "family": [
+    "Squid"
+   ],
+   "effects": []
+  },
+  "yog_membrane": {
+   "name": "Yog Membrane",
+   "rarity": "COMMON",
+   "family": [],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Heat Resistance",
+     "per": 1
+    }
+   ]
+  },
+  "owl_friend": {
+   "name": "Owl Friend",
+   "rarity": "COMMON",
+   "family": [
+    "Bird"
+   ],
+   "effects": []
+  },
+  "decent_karma": {
+   "name": "Decent Karma",
+   "rarity": "COMMON",
+   "family": [
+    "Reptile",
+    "Lizard"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Hunting Fortune towards COMMON Attributes",
+     "per": 2
+    }
+   ]
+  },
+  "rotten_pickaxe": {
+   "name": "Rotten Pickaxe",
+   "rarity": "COMMON",
+   "family": [
+    "Cave Dweller"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Mining Speed",
+     "per": 3
+    }
+   ]
+  },
+  "fortunate_miner": {
+   "name": "Fortunate Miner",
+   "rarity": "COMMON",
+   "family": [
+    "Cave Dweller"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Mining Fortune",
+     "per": 2.5
+    }
+   ]
+  },
+  "lake_fishing": {
+   "name": "Lake Fishing",
+   "rarity": "COMMON",
+   "family": [
+    "Tropical Fish"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Fishing Speed",
+     "per": 3
+    }
+   ],
+   "cond": {
+    "island": "Fishing"
+   }
+  },
+  "mythological_resistance": {
+   "name": "Mythological Resistance",
+   "rarity": "COMMON",
+   "family": [],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Defense",
+     "per": 4
+    }
+   ],
+   "cond": {
+    "other": true
+   }
+  },
+  "queen_tracker": {
+   "name": "Queen Tracker",
+   "rarity": "COMMON",
+   "family": [
+    "Bug"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Tracking towards Queen Ants",
+     "per": 0.5
+    }
+   ]
+  },
+  "cave_fishing": {
+   "name": "Cave Fishing",
+   "rarity": "COMMON",
+   "family": [
+    "Tropical Fish",
+    "Cave Dweller"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Fishing Speed",
+     "per": 3
+    }
+   ],
+   "cond": {
+    "island": "Mining"
+   }
+  },
+  "frozen_resistance": {
+   "name": "Frozen Resistance",
+   "rarity": "COMMON",
+   "family": [
+    "Arctic"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Defense",
+     "per": 4
+    }
+   ],
+   "cond": {
+    "other": true
+   }
+  },
+  "gold_box": {
+   "name": "Gold Box",
+   "rarity": "COMMON",
+   "family": [
+    "Shulker"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Ore Fortune",
+     "per": 5
+    }
+   ]
+  },
+  "skeletal_resistance": {
+   "name": "Skeletal Resistance",
+   "rarity": "COMMON",
+   "family": [],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Defense",
+     "per": 4
+    }
+   ],
+   "cond": {
+    "other": true
+   }
+  },
+  "honey_speed": {
+   "name": "Honey Speed",
+   "rarity": "COMMON",
+   "family": [],
+   "effects": []
+  },
+  "subterranean_resistance": {
+   "name": "Subterranean Resistance",
+   "rarity": "COMMON",
+   "family": [
+    "Cave Dweller"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Defense",
+     "per": 4
+    }
+   ],
+   "cond": {
+    "other": true
+   }
+  },
+  "arcane_resistance": {
+   "name": "Arcane Resistance",
+   "rarity": "COMMON",
+   "family": [],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Defense",
+     "per": 4
+    }
+   ],
+   "cond": {
+    "other": true
+   }
+  },
+  "rabbit_youth": {
+   "name": "Rabbit Youth",
+   "rarity": "COMMON",
+   "family": [],
+   "effects": []
+  },
+  "foraging_speed": {
+   "name": "Foraging Speed",
+   "rarity": "COMMON",
+   "family": [],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Speed",
+     "per": 3
+    }
+   ],
+   "cond": {
+    "island": "Foraging"
+   }
+  },
+  "torrhus_mastery": {
+   "name": "Torrhus Mastery",
+   "rarity": "COMMON",
+   "family": [],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Helix Fortune",
+     "per": 10
+    }
+   ]
+  },
+  "diurnal_animal": {
+   "name": "Diurnal Animal",
+   "rarity": "COMMON",
+   "family": [],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Sweep",
+     "per": 1
+    }
+   ],
+   "cond": {
+    "time": "day"
+   }
+  },
+  "torrhus_diver": {
+   "name": "Torrhus Diver",
+   "rarity": "COMMON",
+   "family": [
+    "Tropical Fish"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Pressure Resistance",
+     "per": 0.5
+    }
+   ],
+   "cond": {
+    "other": true
+   }
+  },
+  "airborne_resistance": {
+   "name": "Airborne Resistance",
+   "rarity": "COMMON",
+   "family": [
+    "Bird"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Defense",
+     "per": 4
+    }
+   ],
+   "cond": {
+    "other": true
+   }
+  },
+  "chocolate_speed": {
+   "name": "Chocolate Speed",
+   "rarity": "COMMON",
+   "family": [],
+   "effects": []
+  },
+  "honey_haul": {
+   "name": "Honey Haul",
+   "rarity": "COMMON",
+   "family": [
+    "Bug"
+   ],
+   "effects": []
+  },
+  "honey_luck": {
+   "name": "Honey Luck",
+   "rarity": "COMMON",
+   "family": [
+    "Bug"
+   ],
+   "effects": []
+  },
+  "earth_elemental": {
+   "name": "Earth Elemental",
+   "rarity": "EPIC",
+   "family": [
+    "Elemental"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Health",
+     "per": 2
+    }
+   ]
+  },
+  "frost_elemental": {
+   "name": "Frost Elemental",
+   "rarity": "EPIC",
+   "family": [
+    "Elemental"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Intelligence",
+     "per": 1
+    }
+   ]
+  },
+  "wind_elemental": {
+   "name": "Wind Elemental",
+   "rarity": "EPIC",
+   "family": [
+    "Elemental"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Strength",
+     "per": 1
+    }
+   ]
+  },
+  "foraging_wisdom": {
+   "name": "Foraging Wisdom",
+   "rarity": "EPIC",
+   "family": [
+    "Panda"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Foraging Wisdom",
+     "per": 0.5
+    }
+   ]
+  },
+  "excellent_karma": {
+   "name": "Excellent Karma",
+   "rarity": "EPIC",
+   "family": [
+    "Reptile",
+    "Lizard"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Hunting Fortune towards EPIC Attributes",
+     "per": 1
+    }
+   ]
+  },
+  "echo_of_resistance": {
+   "name": "Echo of Resistance",
+   "rarity": "EPIC",
+   "family": [
+    "Reptile",
+    "Croco"
+   ],
+   "effects": []
+  },
+  "berry_mogul": {
+   "name": "Berry Mogul",
+   "rarity": "EPIC",
+   "family": [
+    "Frog",
+    "Amphibian"
+   ],
+   "effects": []
+  },
+  "pickaxe_cooldown": {
+   "name": "Pickaxe Cooldown",
+   "rarity": "EPIC",
+   "family": [
+    "Cave Dweller",
+    "Elusive"
+   ],
+   "effects": []
+  },
+  "hunters_suppress": {
+   "name": "Hunter's Suppress",
+   "rarity": "EPIC",
+   "family": [
+    "Reptile",
+    "Serpent"
+   ],
+   "effects": []
+  },
+  "echo_of_atomized": {
+   "name": "Echo of Atomized",
+   "rarity": "EPIC",
+   "family": [
+    "Reptile",
+    "Scaled"
+   ],
+   "effects": []
+  },
+  "lucky_rod": {
+   "name": "Lucky Rod",
+   "rarity": "EPIC",
+   "family": [
+    "Eel",
+    "Amphibian"
+   ],
+   "effects": []
+  },
+  "special_upgrades": {
+   "name": "Special Upgrades",
+   "rarity": "EPIC",
+   "family": [
+    "Elusive"
+   ],
+   "effects": []
+  },
+  "lunar_power": {
+   "name": "Lunar Power",
+   "rarity": "EPIC",
+   "family": [
+    "Bug"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Farming Fortune",
+     "per": 5
+    }
+   ],
+   "cond": {
+    "time": "night"
+   }
+  },
+  "trophy_hunter": {
+   "name": "Trophy Hunter",
+   "rarity": "EPIC",
+   "family": [
+    "Eel",
+    "Amphibian"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Trophy Chance",
+     "per": 2
+    }
+   ]
+  },
+  "deep_technique": {
+   "name": "Deep Technique",
+   "rarity": "EPIC",
+   "family": [
+    "Cave Dweller"
+   ],
+   "effects": []
+  },
+  "sack_size": {
+   "name": "Sack Size",
+   "rarity": "EPIC",
+   "family": [
+    "Shulker"
+   ],
+   "effects": []
+  },
+  "fishing_speed": {
+   "name": "Fishing Speed",
+   "rarity": "EPIC",
+   "family": [],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Fishing Speed",
+     "per": 3
+    }
+   ]
+  },
+  "blazing": {
+   "name": "Infernal Ruler",
+   "rarity": "EPIC",
+   "family": [],
+   "effects": [],
+   "cond": {
+    "other": true
+   }
+  },
+  "sky_high": {
+   "name": "Sky High",
+   "rarity": "EPIC",
+   "family": [
+    "Phantom"
+   ],
+   "effects": []
+  },
+  "fishing_experience": {
+   "name": "Sea Wisdom",
+   "rarity": "EPIC",
+   "family": [],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Fishing Wisdom",
+     "per": 0.5
+    }
+   ]
+  },
+  "reborn": {
+   "name": "Reborn",
+   "rarity": "EPIC",
+   "family": [],
+   "effects": []
+  },
+  "echo_of_essence": {
+   "name": "Echo of Essence",
+   "rarity": "EPIC",
+   "family": [
+    "Reptile",
+    "Scaled"
+   ],
+   "effects": []
+  },
+  "outstanding_fisher": {
+   "name": "Outstanding Fisher",
+   "rarity": "EPIC",
+   "family": [
+    "Crustacean"
+   ],
+   "effects": []
+  },
+  "faker": {
+   "name": "Faker",
+   "rarity": "EPIC",
+   "family": [
+    "Elusive",
+    "Poltergeist"
+   ],
+   "effects": []
+  },
+  "slayer_progress": {
+   "name": "Slayer Progress",
+   "rarity": "EPIC",
+   "family": [
+    "Elusive"
+   ],
+   "effects": []
+  },
+  "shell": {
+   "name": "Shell",
+   "rarity": "EPIC",
+   "family": [
+    "Reptile",
+    "Turtle"
+   ],
+   "effects": []
+  },
+  "warrior": {
+   "name": "Warrior",
+   "rarity": "EPIC",
+   "family": [
+    "Elusive"
+   ],
+   "effects": []
+  },
+  "why_not_more": {
+   "name": "Why Not More",
+   "rarity": "EPIC",
+   "family": [
+    "Bird"
+   ],
+   "effects": []
+  },
+  "echo_of_ruler": {
+   "name": "Echo of Ruler",
+   "rarity": "EPIC",
+   "family": [
+    "Reptile",
+    "Croco"
+   ],
+   "effects": []
+  },
+  "solar_power": {
+   "name": "Solar Power",
+   "rarity": "EPIC",
+   "family": [
+    "Bug"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Farming Fortune",
+     "per": 5
+    }
+   ],
+   "cond": {
+    "time": "day"
+   }
+  },
+  "echo_of_hunter": {
+   "name": "Echo of Hunter",
+   "rarity": "EPIC",
+   "family": [],
+   "effects": []
+  },
+  "veil": {
+   "name": "Veil",
+   "rarity": "EPIC",
+   "family": [
+    "Cave Dweller"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "True Defense",
+     "per": 1
+    }
+   ]
+  },
+  "mana_regeneration": {
+   "name": "Mana Regeneration",
+   "rarity": "EPIC",
+   "family": [],
+   "effects": []
+  },
+  "hunt_wisdom": {
+   "name": "Hunt Wisdom",
+   "rarity": "EPIC",
+   "family": [
+    "Reptile",
+    "Turtle"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Hunting Wisdom",
+     "per": 0.5
+    }
+   ]
+  },
+  "cavern_wisdom": {
+   "name": "Cavern Wisdom",
+   "rarity": "EPIC",
+   "family": [
+    "Cave Dweller"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Mining Wisdom",
+     "per": 0.5
+    }
+   ]
+  },
+  "garden_wisdom": {
+   "name": "Garden Wisdom",
+   "rarity": "EPIC",
+   "family": [
+    "Bug"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Farming Wisdom",
+     "per": 0.5
+    }
+   ]
+  },
+  "big_game_hunter": {
+   "name": "Mythological Tracker",
+   "rarity": "EPIC",
+   "family": [],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Tracking",
+     "per": 0.5
+    }
+   ]
+  },
+  "king_of_greed": {
+   "name": "King of Greed",
+   "rarity": "EPIC",
+   "family": [],
+   "effects": []
+  },
+  "ghastly_distraction": {
+   "name": "Ghastly Distraction",
+   "rarity": "EPIC",
+   "family": [],
+   "effects": []
+  },
+  "foragers_fortune": {
+   "name": "Forager's Fortune",
+   "rarity": "EPIC",
+   "family": [],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Magic Find",
+     "per": 0.5
+    }
+   ],
+   "cond": {
+    "island": "Foraging"
+   }
+  },
+  "devouring_spread": {
+   "name": "Devouring Spread",
+   "rarity": "EPIC",
+   "family": [
+    "Cave Dweller"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Gemstone Spread",
+     "per": 0.25
+    }
+   ]
+  },
+  "divine_rabbit_luck": {
+   "name": "Divine Rabbit Luck",
+   "rarity": "EPIC",
+   "family": [
+    "Crime"
+   ],
+   "effects": []
+  },
+  "fishers_fortune": {
+   "name": "Fisher's Fortune",
+   "rarity": "EPIC",
+   "family": [
+    "Crustacean",
+    "Elusive"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Magic Find",
+     "per": 0.5
+    }
+   ],
+   "cond": {
+    "island": "Fishing"
+   }
+  },
+  "attack_speed": {
+   "name": "Attack Speed",
+   "rarity": "EPIC",
+   "family": [
+    "Demon"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Attack Speed",
+     "per": 1
+    }
+   ]
+  },
+  "honey_refill": {
+   "name": "Honey Refill",
+   "rarity": "EPIC",
+   "family": [
+    "Bug"
+   ],
+   "effects": []
+  },
+  "catacombs_explorer": {
+   "name": "Catacombs Explorer",
+   "rarity": "EPIC",
+   "family": [
+    "Demon"
+   ],
+   "effects": []
+  },
+  "lathering_greed": {
+   "name": "Lathering Greed",
+   "rarity": "EPIC",
+   "family": [
+    "Bug",
+    "Elusive"
+   ],
+   "effects": []
+  },
+  "catacombs_graduate": {
+   "name": "Catacombs Graduate",
+   "rarity": "EPIC",
+   "family": [],
+   "effects": []
+  },
+  "dominance": {
+   "name": "Dominance",
+   "rarity": "EPIC",
+   "family": [],
+   "effects": [],
+   "cond": {
+    "other": true
+   }
+  },
+  "social_wisdom": {
+   "name": "Social Wisdom",
+   "rarity": "EPIC",
+   "family": [],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Social Wisdom",
+     "per": 0.5
+    }
+   ]
+  },
+  "glossy_fortune": {
+   "name": "Glossy Fortune",
+   "rarity": "EPIC",
+   "family": [
+    "Cave Dweller"
+   ],
+   "effects": []
+  },
+  "royal_riches": {
+   "name": "Royal Riches",
+   "rarity": "EPIC",
+   "family": [
+    "Poltergeist",
+    "Cave Dweller"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Mining Speed",
+     "per": 5
+    },
+    {
+     "kind": "flat",
+     "stat": "Ore Fortune",
+     "per": 2.5
+    }
+   ],
+   "cond": {
+    "other": true
+   }
+  },
+  "freezing_spread": {
+   "name": "Freezing Spread",
+   "rarity": "EPIC",
+   "family": [
+    "Arctic"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Gemstone Spread",
+     "per": 0.5
+    },
+    {
+     "kind": "flat",
+     "stat": "Cold Resistance you have",
+     "per": 29
+    }
+   ],
+   "cond": {
+    "other": true
+   }
+  },
+  "shadow_elemental": {
+   "name": "Shadow Elemental",
+   "rarity": "LEGENDARY",
+   "family": [
+    "Elemental"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Health",
+     "per": 2
+    }
+   ]
+  },
+  "snow_elemental": {
+   "name": "Snow Elemental",
+   "rarity": "LEGENDARY",
+   "family": [
+    "Elemental"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Intelligence",
+     "per": 1
+    }
+   ]
+  },
+  "storm_elemental": {
+   "name": "Storm Elemental",
+   "rarity": "LEGENDARY",
+   "family": [
+    "Elemental"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Strength",
+     "per": 1
+    }
+   ]
+  },
+  "reptiloid": {
+   "name": "Reptiloid",
+   "rarity": "LEGENDARY",
+   "family": [
+    "Reptile"
+   ],
+   "effects": []
+  },
+  "loch_hook": {
+   "name": "Loch Hook",
+   "rarity": "LEGENDARY",
+   "family": [
+    "Reptile"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Double Hook Chance",
+     "per": 0.5
+    }
+   ],
+   "cond": {
+    "island": "Foraging"
+   }
+  },
+  "echo_of_echoes": {
+   "name": "Echo of Echoes",
+   "rarity": "LEGENDARY",
+   "family": [
+    "Reptile",
+    "Croco"
+   ],
+   "effects": [],
+   "special": {
+    "boostsStat": {
+     "stat": "Echo",
+     "pct": 5
+    }
+   }
+  },
+  "echo_of_wisdom": {
+   "name": "Echo of Wisdom",
+   "rarity": "LEGENDARY",
+   "family": [
+    "Reptile",
+    "Scaled"
+   ],
+   "effects": []
+  },
+  "cloak_improvement": {
+   "name": "Cloak Improvement",
+   "rarity": "LEGENDARY",
+   "family": [
+    "Reptile",
+    "Turtle"
+   ],
+   "effects": []
+  },
+  "fortitude": {
+   "name": "Unlimited Fortitude",
+   "rarity": "LEGENDARY",
+   "family": [],
+   "effects": [
+    {
+     "kind": "additive",
+     "stat": "Defense",
+     "per": 0.2
+    }
+   ]
+  },
+  "egg_finder": {
+   "name": "Egg Finder",
+   "rarity": "LEGENDARY",
+   "family": [
+    "Crime"
+   ],
+   "effects": []
+  },
+  "charmed": {
+   "name": "Charmed",
+   "rarity": "LEGENDARY",
+   "family": [
+    "Eel",
+    "Amphibian"
+   ],
+   "effects": []
+  },
+  "book_wisdom": {
+   "name": "Book Wisdom",
+   "rarity": "LEGENDARY",
+   "family": [
+    "Lapis"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Enchanting Wisdom",
+     "per": 0.5
+    }
+   ]
+  },
+  "wart_eater": {
+   "name": "Wart Eater",
+   "rarity": "LEGENDARY",
+   "family": [
+    "Bug"
+   ],
+   "effects": [],
+   "cond": {
+    "other": true
+   }
+  },
+  "payback": {
+   "name": "Payback",
+   "rarity": "LEGENDARY",
+   "family": [],
+   "effects": []
+  },
+  "mending": {
+   "name": "Vitality",
+   "rarity": "LEGENDARY",
+   "family": [
+    "Demon"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Vitality",
+     "per": 1
+    }
+   ]
+  },
+  "maximal_torment": {
+   "name": "Unlimited Torment",
+   "rarity": "LEGENDARY",
+   "family": [],
+   "effects": [
+    {
+     "kind": "additive",
+     "stat": "Intelligence",
+     "per": 0.1
+    }
+   ]
+  },
+  "pity": {
+   "name": "Pity",
+   "rarity": "LEGENDARY",
+   "family": [
+    "Demon"
+   ],
+   "effects": []
+  },
+  "star_bait": {
+   "name": "Star Bait",
+   "rarity": "LEGENDARY",
+   "family": [
+    "Demon"
+   ],
+   "effects": []
+  },
+  "echo_of_tracking": {
+   "name": "Echo of Tracking",
+   "rarity": "LEGENDARY",
+   "family": [
+    "Demon",
+    "Elemental"
+   ],
+   "effects": [],
+   "special": {
+    "boostsStat": {
+     "stat": "Tracker",
+     "pct": 2
+    }
+   }
+  },
+  "splendor": {
+   "name": "Splendor",
+   "rarity": "LEGENDARY",
+   "family": [
+    "Bird"
+   ],
+   "effects": [],
+   "cond": {
+    "other": true
+   }
+  },
+  "life_regeneration": {
+   "name": "Help From Above",
+   "rarity": "LEGENDARY",
+   "family": [],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Health Regen",
+     "per": 1.25
+    }
+   ]
+  },
+  "wings_of_destiny": {
+   "name": "Wings of Destiny",
+   "rarity": "LEGENDARY",
+   "family": [
+    "Demon",
+    "Bird"
+   ],
+   "effects": []
+  },
+  "tuning_box": {
+   "name": "Tuning Box",
+   "rarity": "LEGENDARY",
+   "family": [
+    "Shulker"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Tuning Points",
+     "per": 1
+    }
+   ]
+  },
+  "double_hook": {
+   "name": "Crimson Hook",
+   "rarity": "LEGENDARY",
+   "family": [
+    "Creation",
+    "Elusive"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Double Hook Chance",
+     "per": 0.5
+    }
+   ],
+   "cond": {
+    "island": "Combat"
+   }
+  },
+  "matriarch_cubs": {
+   "name": "Matriarch Cubs",
+   "rarity": "LEGENDARY",
+   "family": [
+    "Demon"
+   ],
+   "effects": []
+  },
+  "magic_find": {
+   "name": "Magic Find",
+   "rarity": "LEGENDARY",
+   "family": [],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Magic Find",
+     "per": 0.5
+    }
+   ]
+  },
+  "hunter_karma": {
+   "name": "Hunter's Karma",
+   "rarity": "LEGENDARY",
+   "family": [
+    "Reptile",
+    "Turtle"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Hunting Fortune",
+     "per": 1
+    }
+   ]
+  },
+  "elite": {
+   "name": "Elite",
+   "rarity": "LEGENDARY",
+   "family": [
+    "Dragon"
+   ],
+   "effects": [],
+   "cond": {
+    "other": true
+   }
+  },
+  "pet_wisdom": {
+   "name": "Pet Wisdom",
+   "rarity": "LEGENDARY",
+   "family": [
+    "Bird"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Taming Wisdom",
+     "per": 0.5
+    }
+   ]
+  },
+  "starborn": {
+   "name": "Starborn",
+   "rarity": "LEGENDARY",
+   "family": [],
+   "effects": []
+  },
+  "veteran": {
+   "name": "Veteran",
+   "rarity": "LEGENDARY",
+   "family": [
+    "Dragon"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Combat Wisdom",
+     "per": 1
+    }
+   ]
+  },
+  "rare_bird": {
+   "name": "Tracking",
+   "rarity": "LEGENDARY",
+   "family": [
+    "Bird"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Tracking",
+     "per": 0.5
+    }
+   ]
+  },
+  "queenly_echo": {
+   "name": "Queenly Echo",
+   "rarity": "LEGENDARY",
+   "family": [],
+   "effects": [],
+   "special": {
+    "boostsStat": {
+     "stat": "Visitor",
+     "pct": 5
+    }
+   }
+  },
+  "unlimited_power": {
+   "name": "Unlimited Power",
+   "rarity": "LEGENDARY",
+   "family": [
+    "Demon",
+    "Dragon"
+   ],
+   "effects": [
+    {
+     "kind": "additive",
+     "stat": "Strength",
+     "per": 0.1
+    }
+   ]
+  },
+  "treasure_fisher": {
+   "name": "Treasure Fisher",
+   "rarity": "LEGENDARY",
+   "family": [
+    "Crustacean"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Treasure Chance",
+     "per": 0.1
+    }
+   ]
+  },
+  "unlimited_energy": {
+   "name": "Unlimited Energy",
+   "rarity": "LEGENDARY",
+   "family": [
+    "Demon",
+    "Dragon"
+   ],
+   "effects": [
+    {
+     "kind": "additive",
+     "stat": "Crit Damage",
+     "per": 0.1
+    }
+   ]
+  },
+  "tough_claws": {
+   "name": "Tough Claws",
+   "rarity": "LEGENDARY",
+   "family": [],
+   "effects": []
+  },
+  "ultimate_dna": {
+   "name": "Ultimate DNA",
+   "rarity": "LEGENDARY",
+   "family": [],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Mining Fortune",
+     "per": 1
+    }
+   ]
+  },
+  "almighty": {
+   "name": "Almighty Echo",
+   "rarity": "LEGENDARY",
+   "family": [
+    "Demon",
+    "Dragon"
+   ],
+   "effects": [],
+   "special": {
+    "boostsStat": {
+     "stat": "Unlimited",
+     "pct": 5
+    }
+   }
+  },
+  "echo_of_elemental": {
+   "name": "Echo of Elemental",
+   "rarity": "LEGENDARY",
+   "family": [
+    "Elemental"
+   ],
+   "effects": []
+  },
+  "cocoon_chance": {
+   "name": "Cocoon Chance",
+   "rarity": "LEGENDARY",
+   "family": [
+    "Spider"
+   ],
+   "effects": []
+  },
+  "groovy_radar": {
+   "name": "Groovy Radar",
+   "rarity": "LEGENDARY",
+   "family": [
+    "Bug"
+   ],
+   "effects": []
+  },
+  "bayou_biter": {
+   "name": "Bayou Hook",
+   "rarity": "LEGENDARY",
+   "family": [],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Double Hook Chance",
+     "per": 0.5
+    }
+   ],
+   "cond": {
+    "island": "Fishing"
+   }
+  },
+  "miracle_chance": {
+   "name": "Miracle Chance",
+   "rarity": "LEGENDARY",
+   "family": [
+    "Miracle",
+    "Bug"
+   ],
+   "effects": []
+  },
+  "flora": {
+   "name": "Unique Bonus",
+   "rarity": "LEGENDARY",
+   "family": [],
+   "effects": []
+  },
+  "slayer_discount": {
+   "name": "Slayer Discount",
+   "rarity": "LEGENDARY",
+   "family": [],
+   "effects": []
+  },
+  "greenhouse_speed": {
+   "name": "Greenhouse Speed",
+   "rarity": "LEGENDARY",
+   "family": [
+    "Poltergeist"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Growth Speed",
+     "per": 0.1
+    }
+   ]
+  },
+  "cold_resistance": {
+   "name": "Cold Resistance",
+   "rarity": "LEGENDARY",
+   "family": [
+    "Arctic"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Cold Resistance",
+     "per": 0.5
+    }
+   ]
+  },
+  "forest_elemental": {
+   "name": "Forest Elemental",
+   "rarity": "RARE",
+   "family": [
+    "Elemental"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Health",
+     "per": 2
+    }
+   ]
+  },
+  "torrent_elemental": {
+   "name": "Torrent Elemental",
+   "rarity": "RARE",
+   "family": [
+    "Elemental"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Intelligence",
+     "per": 1
+    }
+   ]
+  },
+  "lightning_elemental": {
+   "name": "Lightning Elemental",
+   "rarity": "RARE",
+   "family": [
+    "Elemental"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Strength",
+     "per": 1
+    }
+   ]
+  },
+  "animal_expertise": {
+   "name": "Animal Expertise",
+   "rarity": "RARE",
+   "family": [
+    "Panda"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Foraging Fortune",
+     "per": 10
+    }
+   ]
+  },
+  "frog_legs": {
+   "name": "Frog Legs",
+   "rarity": "RARE",
+   "family": [
+    "Frog",
+    "Amphibian"
+   ],
+   "effects": []
+  },
+  "ice_essence": {
+   "name": "Essence of Ice",
+   "rarity": "RARE",
+   "family": [],
+   "effects": []
+  },
+  "beacon_zealot": {
+   "name": "Beacon Zealot",
+   "rarity": "RARE",
+   "family": [
+    "Bug"
+   ],
+   "effects": []
+  },
+  "great_karma": {
+   "name": "Great Karma",
+   "rarity": "RARE",
+   "family": [
+    "Reptile",
+    "Lizard"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Hunting Fortune towards RARE Attributes",
+     "per": 1
+    }
+   ]
+  },
+  "hunters_pressure": {
+   "name": "Hunter's Pressure",
+   "rarity": "RARE",
+   "family": [
+    "Reptile",
+    "Serpent"
+   ],
+   "effects": []
+  },
+  "fancy_visit": {
+   "name": "Fancy Visit",
+   "rarity": "RARE",
+   "family": [
+    "Bug"
+   ],
+   "effects": []
+  },
+  "moonglade_serendipity": {
+   "name": "Moonglade Serendipity",
+   "rarity": "RARE",
+   "family": [
+    "Treasure Fish"
+   ],
+   "effects": []
+  },
+  "catacomb_box": {
+   "name": "Catacombs Box",
+   "rarity": "RARE",
+   "family": [
+    "Shulker"
+   ],
+   "effects": []
+  },
+  "bone_font": {
+   "name": "Bone Font",
+   "rarity": "RARE",
+   "family": [
+    "Lapis"
+   ],
+   "effects": []
+  },
+  "crop_bug": {
+   "name": "Crop Bug",
+   "rarity": "RARE",
+   "family": [
+    "Bug",
+    "Trash Lover"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Overbloom",
+     "per": 1
+    }
+   ]
+  },
+  "humanoid_ruler": {
+   "name": "Undead Fortune",
+   "rarity": "RARE",
+   "family": [
+    "Drowned"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Magic Find",
+     "per": 0.5
+    }
+   ],
+   "cond": {
+    "other": true
+   }
+  },
+  "helix_sharpening": {
+   "name": "Helix Sharpening",
+   "rarity": "RARE",
+   "family": [
+    "Bird"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Sweep towards Helix Trees",
+     "per": 15
+    }
+   ]
+  },
+  "atomized_mithril": {
+   "name": "Atomized Mithril",
+   "rarity": "RARE",
+   "family": [],
+   "effects": []
+  },
+  "kuudra_box": {
+   "name": "Kuudra's Box",
+   "rarity": "RARE",
+   "family": [
+    "Shulker"
+   ],
+   "effects": []
+  },
+  "dwarven_serendipity": {
+   "name": "Dwarven Serendipity",
+   "rarity": "RARE",
+   "family": [
+    "Treasure Fish"
+   ],
+   "effects": []
+  },
+  "spider_essence": {
+   "name": "Essence of Arthropods",
+   "rarity": "RARE",
+   "family": [
+    "Spider"
+   ],
+   "effects": []
+  },
+  "cookie_eater": {
+   "name": "Cookie Eater",
+   "rarity": "RARE",
+   "family": [
+    "Bug"
+   ],
+   "effects": []
+  },
+  "crimson_essence": {
+   "name": "Essence of Crimson",
+   "rarity": "RARE",
+   "family": [],
+   "effects": []
+  },
+  "undead_essence": {
+   "name": "Essence of Unliving",
+   "rarity": "RARE",
+   "family": [],
+   "effects": []
+  },
+  "catacombs_cap": {
+   "name": "Catacombs Cap",
+   "rarity": "RARE",
+   "family": [],
+   "effects": [],
+   "cond": {
+    "other": true
+   }
+  },
+  "crystal_serendipity": {
+   "name": "Crystal Serendipity",
+   "rarity": "RARE",
+   "family": [
+    "Treasure Fish"
+   ],
+   "effects": []
+  },
+  "deadeye": {
+   "name": "Deadeye",
+   "rarity": "RARE",
+   "family": [],
+   "effects": []
+  },
+  "atomized_crystals": {
+   "name": "Atomized Crystals",
+   "rarity": "RARE",
+   "family": [
+    "Cave Dweller"
+   ],
+   "effects": []
+  },
+  "diamond_frog": {
+   "name": "Diamond Frog",
+   "rarity": "RARE",
+   "family": [
+    "Squid"
+   ],
+   "effects": []
+  },
+  "quartz_speed": {
+   "name": "Quartz Speed",
+   "rarity": "RARE",
+   "family": [
+    "Cave Dweller"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Mining Speed",
+     "per": 10
+    }
+   ],
+   "cond": {
+    "other": true
+   }
+  },
+  "accessory_size": {
+   "name": "Accessory Size",
+   "rarity": "RARE",
+   "family": [
+    "Shulker"
+   ],
+   "effects": []
+  },
+  "winter_serendipity": {
+   "name": "Winter's Serendipity",
+   "rarity": "RARE",
+   "family": [
+    "Treasure Fish"
+   ],
+   "effects": []
+  },
+  "lifeline": {
+   "name": "Lifeline",
+   "rarity": "RARE",
+   "family": [],
+   "effects": []
+  },
+  "chop": {
+   "name": "Chop",
+   "rarity": "RARE",
+   "family": [
+    "Bird"
+   ],
+   "effects": []
+  },
+  "rabbit_crew": {
+   "name": "Rabbit Crew",
+   "rarity": "RARE",
+   "family": [],
+   "effects": []
+  },
+  "breeze": {
+   "name": "Breeze",
+   "rarity": "RARE",
+   "family": [],
+   "effects": []
+  },
+  "battle_tracker": {
+   "name": "Battle Tracker",
+   "rarity": "RARE",
+   "family": [],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Tracking",
+     "per": 0.5
+    }
+   ],
+   "cond": {
+    "island": "Combat"
+   }
+  },
+  "ignition": {
+   "name": "Ignition",
+   "rarity": "RARE",
+   "family": [],
+   "effects": []
+  },
+  "pretty_clothes": {
+   "name": "Visitor Copper",
+   "rarity": "RARE",
+   "family": [
+    "Bug"
+   ],
+   "effects": []
+  },
+  "extreme_pressure": {
+   "name": "Extreme Pressure",
+   "rarity": "RARE",
+   "family": [
+    "Squid"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Pressure Resistance",
+     "per": 1
+    }
+   ]
+  },
+  "pure_reptile": {
+   "name": "Pure Reptile",
+   "rarity": "RARE",
+   "family": [
+    "Reptile",
+    "Croco"
+   ],
+   "effects": []
+  },
+  "animal_fortune": {
+   "name": "Animal Fortune",
+   "rarity": "RARE",
+   "family": [],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Magic Find",
+     "per": 0.5
+    }
+   ],
+   "cond": {
+    "other": true
+   }
+  },
+  "berry_enjoyer": {
+   "name": "Berry Enjoyer",
+   "rarity": "RARE",
+   "family": [
+    "Frog",
+    "Amphibian"
+   ],
+   "effects": []
+  },
+  "forest_essence": {
+   "name": "Essence of the Forest",
+   "rarity": "RARE",
+   "family": [
+    "Phantom"
+   ],
+   "effects": []
+  },
+  "deep_diving": {
+   "name": "Deep Diving",
+   "rarity": "RARE",
+   "family": [],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Respiration",
+     "per": 1
+    }
+   ]
+  },
+  "atomized_glacite": {
+   "name": "Atomized Glacite",
+   "rarity": "RARE",
+   "family": [
+    "Cave Dweller"
+   ],
+   "effects": []
+  },
+  "fungy_luck": {
+   "name": "Fungy Luck",
+   "rarity": "RARE",
+   "family": [
+    "Cave Dweller"
+   ],
+   "effects": []
+  },
+  "eelastic": {
+   "name": "Eelastic",
+   "rarity": "RARE",
+   "family": [
+    "Eel",
+    "Amphibian"
+   ],
+   "effects": [],
+   "cond": {
+    "other": true
+   }
+  },
+  "hunters_grasp": {
+   "name": "Hunter's Grasp",
+   "rarity": "RARE",
+   "family": [
+    "Reptile",
+    "Serpent"
+   ],
+   "effects": []
+  },
+  "critter_fortune": {
+   "name": "Critter Fortune",
+   "rarity": "RARE",
+   "family": [],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Magic Find",
+     "per": 0.5
+    }
+   ],
+   "cond": {
+    "other": true
+   }
+  },
+  "blazing_fortune": {
+   "name": "Blazing Fortune",
+   "rarity": "RARE",
+   "family": [],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Magic Find",
+     "per": 1
+    }
+   ]
+  },
+  "dragon_essence": {
+   "name": "Essence of Dragons",
+   "rarity": "RARE",
+   "family": [
+    "Dragon"
+   ],
+   "effects": []
+  },
+  "battle_experience": {
+   "name": "Battle Experience",
+   "rarity": "RARE",
+   "family": [
+    "Bird"
+   ],
+   "effects": []
+  },
+  "crimson_serendipity": {
+   "name": "Crimson Serendipity",
+   "rarity": "RARE",
+   "family": [
+    "Treasure Fish"
+   ],
+   "effects": []
+  },
+  "wither_essence": {
+   "name": "Essence of Wither",
+   "rarity": "RARE",
+   "family": [],
+   "effects": []
+  },
+  "echo_of_sharpening": {
+   "name": "Echo of Sharpening",
+   "rarity": "RARE",
+   "family": [
+    "Reptile",
+    "Scaled"
+   ],
+   "effects": []
+  },
+  "construct_fortune": {
+   "name": "Construct Fortune",
+   "rarity": "RARE",
+   "family": [
+    "Creation",
+    "Elusive"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Magic Find",
+     "per": 0.5
+    }
+   ],
+   "cond": {
+    "other": true
+   }
+  },
+  "mythological_fortune": {
+   "name": "Mythological Fortune",
+   "rarity": "RARE",
+   "family": [],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Magic Find",
+     "per": 0.5
+    }
+   ],
+   "cond": {
+    "other": true
+   }
+  },
+  "cubic_fortune": {
+   "name": "Cubic Fortune",
+   "rarity": "RARE",
+   "family": [],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Magic Find",
+     "per": 0.5
+    }
+   ],
+   "cond": {
+    "other": true
+   }
+  },
+  "boot_fisher": {
+   "name": "Boot Fisher",
+   "rarity": "RARE",
+   "family": [
+    "Bug",
+    "Trash Lover"
+   ],
+   "effects": []
+  },
+  "sleepy_spread": {
+   "name": "Sleepy Spread",
+   "rarity": "RARE",
+   "family": [],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Mining Spread",
+     "per": 1
+    }
+   ]
+  },
+  "flying_fortune": {
+   "name": "Flying Fortune",
+   "rarity": "RARE",
+   "family": [
+    "Bird"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Magic Find",
+     "per": 0.5
+    }
+   ]
+  },
+  "thunder_speed": {
+   "name": "Thunder Speed",
+   "rarity": "RARE",
+   "family": [
+    "Elusive"
+   ],
+   "effects": []
+  },
+  "cavernous_tracker": {
+   "name": "Cavernous Tracker",
+   "rarity": "RARE",
+   "family": [
+    "Bug",
+    "Cave Dweller"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Tracking",
+     "per": 0.5
+    }
+   ],
+   "cond": {
+    "island": "Mining"
+   }
+  },
+  "floor_fortune": {
+   "name": "Floor Fortune",
+   "rarity": "RARE",
+   "family": [],
+   "effects": []
+  },
+  "scrap_chance": {
+   "name": "Scrap Chance",
+   "rarity": "RARE",
+   "family": [
+    "Cave Dweller"
+   ],
+   "effects": [],
+   "cond": {
+    "other": true
+   }
+  },
+  "elusive_fortune": {
+   "name": "Elusive Fortune",
+   "rarity": "RARE",
+   "family": [
+    "Poltergeist"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Magic Find",
+     "per": 0.5
+    }
+   ]
+  },
+  "great_treasure": {
+   "name": "Great Treasure",
+   "rarity": "RARE",
+   "family": [
+    "Crustacean"
+   ],
+   "effects": []
+  },
+  "subterranean_fortune": {
+   "name": "Subterranean Fortune",
+   "rarity": "RARE",
+   "family": [
+    "Reptile",
+    "Lizard"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Magic Find",
+     "per": 0.5
+    }
+   ]
+  },
+  "woodland_fortune": {
+   "name": "Woodland Fortune",
+   "rarity": "RARE",
+   "family": [
+    "Shulker"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Magic Find",
+     "per": 0.5
+    }
+   ]
+  },
+  "greedy_goblin": {
+   "name": "Greedy Goblin",
+   "rarity": "RARE",
+   "family": [
+    "Treasure Fish"
+   ],
+   "effects": []
+  },
+  "frozen_fortune": {
+   "name": "Frozen Fortune",
+   "rarity": "RARE",
+   "family": [
+    "Arctic"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Magic Find",
+     "per": 0.5
+    }
+   ]
+  },
+  "arcane_fortune": {
+   "name": "Arcane Fortune",
+   "rarity": "RARE",
+   "family": [
+    "Shulker"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Magic Find",
+     "per": 0.5
+    }
+   ]
+  },
+  "underwater_tracker": {
+   "name": "Underwater Tracker",
+   "rarity": "RARE",
+   "family": [],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Tracking",
+     "per": 0.5
+    }
+   ],
+   "cond": {
+    "island": "Fishing"
+   }
+  },
+  "refined_luck": {
+   "name": "Refined Luck",
+   "rarity": "RARE",
+   "family": [
+    "Cave Dweller"
+   ],
+   "effects": []
+  },
+  "foraging_tracker": {
+   "name": "Foraging Tracker",
+   "rarity": "RARE",
+   "family": [
+    "Panda"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Tracking",
+     "per": 0.5
+    }
+   ],
+   "cond": {
+    "island": "Foraging"
+   }
+  },
+  "torrhus_serendipity": {
+   "name": "Torrhus Serendipity",
+   "rarity": "RARE",
+   "family": [
+    "Treasure Fish"
+   ],
+   "effects": []
+  },
+  "mutation_serendipity": {
+   "name": "Mutation Serendipity",
+   "rarity": "RARE",
+   "family": [],
+   "effects": [],
+   "cond": {
+    "other": true
+   }
+  },
+  "forest_serendipity": {
+   "name": "Forest Serendipity",
+   "rarity": "RARE",
+   "family": [
+    "Poltergeist"
+   ],
+   "effects": []
+  },
+  "essence_of_fossils": {
+   "name": "Essence of Fossils",
+   "rarity": "RARE",
+   "family": [
+    "Dinosaur"
+   ],
+   "effects": []
+  },
+  "arthropod_fortune": {
+   "name": "Arthropod Fortune",
+   "rarity": "RARE",
+   "family": [
+    "Spider",
+    "Elusive"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Magic Find",
+     "per": 0.5
+    }
+   ],
+   "cond": {
+    "other": true
+   }
+  },
+  "atomized_whispers": {
+   "name": "Atomized Whispers",
+   "rarity": "RARE",
+   "family": [],
+   "effects": []
+  },
+  "aquatic_fortune": {
+   "name": "Aquatic Fortune",
+   "rarity": "RARE",
+   "family": [
+    "Bug"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Magic Find",
+     "per": 0.5
+    }
+   ],
+   "cond": {
+    "other": true
+   }
+  },
+  "rekindle": {
+   "name": "Rekindle",
+   "rarity": "RARE",
+   "family": [],
+   "effects": []
+  },
+  "echo_of_buckets": {
+   "name": "Echo of Buckets",
+   "rarity": "RARE",
+   "family": [
+    "Axolotl"
+   ],
+   "effects": [],
+   "special": {
+    "boostsStat": {
+     "stat": "Bucket",
+     "pct": 2
+    }
+   }
+  },
+  "mythic_rabbit_luck": {
+   "name": "Mythic Rabbit Luck",
+   "rarity": "RARE",
+   "family": [
+    "Crime"
+   ],
+   "effects": []
+  },
+  "first_sweep": {
+   "name": "First Sweep",
+   "rarity": "RARE",
+   "family": [
+    "Poltergeist"
+   ],
+   "effects": []
+  },
+  "axe_cooldown": {
+   "name": "Axe Cooldown",
+   "rarity": "RARE",
+   "family": [],
+   "effects": []
+  },
+  "wood_elemental": {
+   "name": "Wood Elemental",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Elemental"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Health",
+     "per": 2
+    }
+   ]
+  },
+  "pest_cooldown": {
+   "name": "Pest Cooldown",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Bug",
+    "Trash Lover"
+   ],
+   "effects": []
+  },
+  "enchanted_farmer": {
+   "name": "Enchanted Farmer",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Bug",
+    "Trash Lover"
+   ],
+   "effects": [],
+   "cond": {
+    "other": true
+   }
+  },
+  "legendary_rabbit_luck": {
+   "name": "Legendary Rabbit Luck",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Crime"
+   ],
+   "effects": []
+  },
+  "water_elemental": {
+   "name": "Water Elemental",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Elemental"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Intelligence",
+     "per": 1
+    }
+   ]
+  },
+  "stone_elemental": {
+   "name": "Stone Elemental",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Elemental"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Strength",
+     "per": 1
+    }
+   ]
+  },
+  "fig_collector": {
+   "name": "Fig Collector",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Bird"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Fig Fortune",
+     "per": 1
+    }
+   ],
+   "special": {
+    "digitsOf": {
+     "collection": "FIG_LOG",
+     "max": 10000000
+    }
+   }
+  },
+  "gold_bait": {
+   "name": "Gold Bait",
+   "rarity": "UNCOMMON",
+   "family": [],
+   "effects": []
+  },
+  "mountain_climber": {
+   "name": "Mountain Climber",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Cave Dweller"
+   ],
+   "effects": []
+  },
+  "bigger_box": {
+   "name": "Bigger Box",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Shulker"
+   ],
+   "effects": []
+  },
+  "good_karma": {
+   "name": "Good Karma",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Reptile",
+    "Lizard"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Hunting Fortune towards UNCOMMON Attributes",
+     "per": 2
+    }
+   ]
+  },
+  "echo_of_boxes": {
+   "name": "Echo of Boxes",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Reptile",
+    "Serpent"
+   ],
+   "effects": [],
+   "special": {
+    "boostsStat": {
+     "stat": "Box",
+     "pct": 2
+    }
+   }
+  },
+  "pest_luck": {
+   "name": "Pest Luck",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Trash Lover",
+    "Elusive"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Overbloom",
+     "per": 0.5
+    }
+   ],
+   "cond": {
+    "other": true
+   }
+  },
+  "forest_trap": {
+   "name": "Forest Trap",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Frog",
+    "Amphibian"
+   ],
+   "effects": []
+  },
+  "mana_steal": {
+   "name": "Mana Steal",
+   "rarity": "UNCOMMON",
+   "family": [],
+   "effects": []
+  },
+  "humanoid_ruler_new": {
+   "name": "Humanoid Ruler",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Drowned"
+   ],
+   "effects": [],
+   "cond": {
+    "other": true
+   }
+  },
+  "dragon_shortbow_improvement": {
+   "name": "Dragon Shortbow Improvement",
+   "rarity": "UNCOMMON",
+   "family": [],
+   "effects": [],
+   "cond": {
+    "other": true
+   }
+  },
+  "mangrove_sharpening": {
+   "name": "Mangrove Sharpening",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Bird"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Sweep towards Mangrove Trees",
+     "per": 10
+    }
+   ]
+  },
+  "witchs_fortune": {
+   "name": "Witch's Fortune",
+   "rarity": "UNCOMMON",
+   "family": [],
+   "effects": []
+  },
+  "speed": {
+   "name": "Speed",
+   "rarity": "UNCOMMON",
+   "family": [],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Speed",
+     "per": 1
+    }
+   ]
+  },
+  "pest_fortune": {
+   "name": "Pest Fortune",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Bug",
+    "Trash Lover"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Farming Fortune",
+     "per": 5
+    }
+   ],
+   "cond": {
+    "other": true
+   }
+  },
+  "lost_and_found": {
+   "name": "Lost and Found",
+   "rarity": "UNCOMMON",
+   "family": [],
+   "effects": [],
+   "cond": {
+    "other": true
+   }
+  },
+  "hunters_fangs": {
+   "name": "Hunter's Fang",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Reptile",
+    "Serpent"
+   ],
+   "effects": []
+  },
+  "insect_power": {
+   "name": "Pest Ruler",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Bug"
+   ],
+   "effects": [],
+   "cond": {
+    "other": true
+   }
+  },
+  "lily_tracker": {
+   "name": "Lily Tracker",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Frog",
+    "Amphibian"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Tracking",
+     "per": 1
+    }
+   ]
+  },
+  "undead": {
+   "name": "Undead Ruler",
+   "rarity": "UNCOMMON",
+   "family": [],
+   "effects": [],
+   "cond": {
+    "other": true
+   }
+  },
+  "strong_arms": {
+   "name": "Strong Arms",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Panda"
+   ],
+   "effects": []
+  },
+  "dwarven_training": {
+   "name": "Dwarven Training",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Cave Dweller"
+   ],
+   "effects": []
+  },
+  "life_recovery": {
+   "name": "Life Recovery",
+   "rarity": "UNCOMMON",
+   "family": [],
+   "effects": []
+  },
+  "mangrove_collector": {
+   "name": "Mangrove Collector",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Bird",
+    "Trash Lover"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Mangrove Fortune",
+     "per": 1
+    }
+   ],
+   "special": {
+    "digitsOf": {
+     "collection": "MANGROVE_LOG",
+     "max": 10000000
+    }
+   }
+  },
+  "spirit_axe": {
+   "name": "Woodland Ruler",
+   "rarity": "UNCOMMON",
+   "family": [],
+   "effects": [],
+   "cond": {
+    "other": true
+   }
+  },
+  "combo": {
+   "name": "Combo",
+   "rarity": "UNCOMMON",
+   "family": [],
+   "effects": []
+  },
+  "strong_legs": {
+   "name": "Strong Legs",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Panda"
+   ],
+   "effects": []
+  },
+  "infection": {
+   "name": "Infection",
+   "rarity": "UNCOMMON",
+   "family": [],
+   "effects": []
+  },
+  "arachno": {
+   "name": "Arthropod Ruler",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Spider"
+   ],
+   "effects": [],
+   "cond": {
+    "other": true
+   }
+  },
+  "kat_favorite": {
+   "name": "Kat's Favorite",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Bird"
+   ],
+   "effects": []
+  },
+  "ender": {
+   "name": "Ender Ruler",
+   "rarity": "UNCOMMON",
+   "family": [],
+   "effects": [],
+   "cond": {
+    "other": true
+   }
+  },
+  "magmatic_ruler": {
+   "name": "Magmatic Ruler",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Drowned"
+   ],
+   "effects": [],
+   "cond": {
+    "other": true
+   }
+  },
+  "battle_frog": {
+   "name": "Battle Frog",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Frog",
+    "Amphibian"
+   ],
+   "effects": []
+  },
+  "infiltration": {
+   "name": "Infiltration",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Trash Lover"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Farming Fortune",
+     "per": 3
+    }
+   ],
+   "cond": {
+    "other": true
+   }
+  },
+  "golden_frog": {
+   "name": "Golden Frog",
+   "rarity": "UNCOMMON",
+   "family": [],
+   "effects": []
+  },
+  "frozen_ruler": {
+   "name": "Frozen Ruler",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Arctic"
+   ],
+   "effects": [],
+   "cond": {
+    "other": true
+   }
+  },
+  "foraging_frog": {
+   "name": "Foraging Frog",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Frog",
+    "Amphibian"
+   ],
+   "effects": []
+  },
+  "compost_speed": {
+   "name": "Compost Speed",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Trash Lover"
+   ],
+   "effects": []
+  },
+  "battle_arachnid": {
+   "name": "Battle Arachnid",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Spider"
+   ],
+   "effects": []
+  },
+  "airborne_ruler": {
+   "name": "Airborne Ruler",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Bird"
+   ],
+   "effects": [],
+   "cond": {
+    "other": true
+   }
+  },
+  "flexible_fisher": {
+   "name": "Flexible Fisher",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Elusive"
+   ],
+   "effects": [],
+   "cond": {
+    "other": true
+   }
+  },
+  "arcane_ruler": {
+   "name": "Arcane Ruler",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Poltergeist"
+   ],
+   "effects": [],
+   "cond": {
+    "other": true
+   }
+  },
+  "buckle_fisher": {
+   "name": "Buckle Fisher",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Bug",
+    "Trash Lover"
+   ],
+   "effects": []
+  },
+  "titanoboa_tracker": {
+   "name": "Titanoboa Tracker",
+   "rarity": "UNCOMMON",
+   "family": [],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Tracking towards Titanoboa",
+     "per": 0.5
+    }
+   ]
+  },
+  "zealot_tracker": {
+   "name": "Zealot Tracker",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Demon"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Tracking towards Special Zealots",
+     "per": 0.5
+    }
+   ]
+  },
+  "visitor_honey": {
+   "name": "Visitor Honey",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Bug"
+   ],
+   "effects": []
+  },
+  "yeti_tracker": {
+   "name": "Yeti Tracker",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Squid"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Tracking towards Yeti",
+     "per": 0.5
+    }
+   ]
+  },
+  "soul_snatcher": {
+   "name": "Soul Snatcher",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Phantom"
+   ],
+   "effects": [],
+   "cond": {
+    "other": true
+   }
+  },
+  "bucket_greed": {
+   "name": "Bucket Greed",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Axolotl"
+   ],
+   "effects": [],
+   "cond": {
+    "other": true
+   }
+  },
+  "honey_serendipity": {
+   "name": "Honey Serendipity",
+   "rarity": "UNCOMMON",
+   "family": [],
+   "effects": [],
+   "cond": {
+    "other": true
+   }
+  },
+  "subterranean_ruler": {
+   "name": "Subterranean Ruler",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Cave Dweller"
+   ],
+   "effects": [],
+   "cond": {
+    "other": true
+   }
+  },
+  "lily_puncher": {
+   "name": "Lily Puncher",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Reptile",
+    "Turtle"
+   ],
+   "effects": []
+  },
+  "mythological_ruler": {
+   "name": "Mythological Ruler",
+   "rarity": "UNCOMMON",
+   "family": [],
+   "effects": [],
+   "cond": {
+    "other": true
+   }
+  },
+  "builder_discount": {
+   "name": "Builder Discount",
+   "rarity": "UNCOMMON",
+   "family": [],
+   "effects": []
+  },
+  "starlyn_training": {
+   "name": "Starlyn Training",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Tropical Fish"
+   ],
+   "effects": []
+  },
+  "visitor_compost": {
+   "name": "Visitor Compost",
+   "rarity": "UNCOMMON",
+   "family": [],
+   "effects": []
+  },
+  "bartender_discount": {
+   "name": "Bartender Discount",
+   "rarity": "UNCOMMON",
+   "family": [],
+   "effects": []
+  },
+  "combat_trap": {
+   "name": "Combat Trap",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Frog"
+   ],
+   "effects": []
+  },
+  "visitor_cheese": {
+   "name": "Visitor Cheese",
+   "rarity": "UNCOMMON",
+   "family": [],
+   "effects": []
+  },
+  "galatea_training": {
+   "name": "Galatea Training",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Tropical Fish"
+   ],
+   "effects": []
+  },
+  "bayou_treasure": {
+   "name": "Bayou Treasure",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Creation"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Treasure Chance",
+     "per": 0.1
+    }
+   ],
+   "cond": {
+    "other": true
+   }
+  },
+  "visitor_plant": {
+   "name": "Visitor Plant",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Panda",
+    "Elusive"
+   ],
+   "effects": []
+  },
+  "animal_ruler": {
+   "name": "Animal Ruler",
+   "rarity": "UNCOMMON",
+   "family": [],
+   "effects": [],
+   "cond": {
+    "other": true
+   }
+  },
+  "tiki_tracker": {
+   "name": "Tiki Tracker",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Creation"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Tracking towards Wiki Tiki",
+     "per": 0.5
+    }
+   ]
+  },
+  "fiesta_fortune": {
+   "name": "Fiesta Fortune",
+   "rarity": "UNCOMMON",
+   "family": [],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Gemstone Fortune",
+     "per": 5
+    }
+   ],
+   "cond": {
+    "other": true
+   }
+  },
+  "construct_ruler": {
+   "name": "Construct Ruler",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Creation"
+   ],
+   "effects": [],
+   "cond": {
+    "other": true
+   }
+  },
+  "forest_felling": {
+   "name": "Helix Timber",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Bird"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Timber",
+     "per": 0.1
+    }
+   ]
+  },
+  "mite_spawner": {
+   "name": "Mite Spawner",
+   "rarity": "UNCOMMON",
+   "family": [],
+   "effects": [],
+   "cond": {
+    "other": true
+   }
+  },
+  "elusive_ruler": {
+   "name": "Elusive Ruler",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Bug",
+    "Elusive"
+   ],
+   "effects": [],
+   "cond": {
+    "other": true
+   }
+  },
+  "helix_collector": {
+   "name": "Helix Collector",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Bird"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Helix Fortune",
+     "per": 1
+    }
+   ],
+   "special": {
+    "digitsOf": {
+     "collection": "HELIX_LOG",
+     "max": 10000000
+    }
+   }
+  },
+  "ticket_discount": {
+   "name": "Ticket Discount",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Bug"
+   ],
+   "effects": []
+  },
+  "visitor_dung": {
+   "name": "Visitor Dung",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Bug",
+    "Trash Lover"
+   ],
+   "effects": []
+  },
+  "sprayonator_serendipity": {
+   "name": "Sprayonator Serendipity",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Trash Lover"
+   ],
+   "effects": []
+  },
+  "bonus_pest_chance": {
+   "name": "Bonus Pest Chance",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Trash Lover"
+   ],
+   "effects": [
+    {
+     "kind": "flat",
+     "stat": "Bonus Pest Chance",
+     "per": 1
+    }
+   ]
+  },
+  "filter_upgrade": {
+   "name": "Filter Upgrade",
+   "rarity": "UNCOMMON",
+   "family": [
+    "Trash Lover"
+   ],
+   "effects": []
+  }
+ }
+}

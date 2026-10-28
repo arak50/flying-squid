@@ -2,7 +2,7 @@
 const { EventEmitter } = require('events')
 const { ArrayContainer, inventoryContainer, armorContainer } = require('./container')
 
-const VERSION = 2 // 2: neutral items carry model/style/enchantments/signatures/typed custom_data
+const VERSION = 3 // 2: neutral items carry model/style/enchantments/signatures/typed custom_data; 3: backpack icons
 
 /**
  * The single source of truth for one player's SkyBlock profile (see docs/skyblock/ARCHITECTURE.md).

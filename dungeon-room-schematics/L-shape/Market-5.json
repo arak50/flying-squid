@@ -1,0 +1,142 @@
+{
+  "name": "Market-5",
+  "category": "L-shape",
+  "identified": true,
+  "score": 0.9697,
+  "coverage": 0.9973,
+  "runnerUp": {
+    "name": "L-shape/Chambers-5",
+    "score": 0.2661
+  },
+  "shape": "L-shape",
+  "cells": [
+    {
+      "i": 1,
+      "j": 0
+    },
+    {
+      "i": 1,
+      "j": 1
+    },
+    {
+      "i": 2,
+      "j": 1
+    }
+  ],
+  "size": {
+    "x": 63,
+    "y": 44,
+    "z": 63
+  },
+  "orientation": "already in skeleton orientation",
+  "worldRotationFromCanonical": 0,
+  "appliedRotation": 0,
+  "world": {
+    "x": -168,
+    "z": -200,
+    "sizeX": 63,
+    "sizeZ": 63,
+    "yMin": 56,
+    "yMax": 99
+  },
+  "floorYWorld": 56,
+  "doorways": [
+    {
+      "side": "east",
+      "along": [
+        45,
+        50
+      ],
+      "y": [
+        10,
+        17
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "stone_bricks",
+      "blocks": 29,
+      "leadsToRoom": true
+    },
+    {
+      "side": "south",
+      "along": [
+        12,
+        17
+      ],
+      "y": [
+        10,
+        17
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "stone_bricks",
+      "blocks": 29,
+      "leadsToRoom": true
+    },
+    {
+      "side": "south",
+      "along": [
+        31,
+        31
+      ],
+      "y": [
+        10,
+        17
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "infested_chiseled_stone_bricks",
+      "blocks": 41,
+      "leadsToRoom": true
+    },
+    {
+      "side": "south",
+      "along": [
+        44,
+        49
+      ],
+      "y": [
+        10,
+        17
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "stone_bricks",
+      "blocks": 41,
+      "leadsToRoom": true
+    },
+    {
+      "side": "west",
+      "along": [
+        44,
+        49
+      ],
+      "y": [
+        10,
+        17
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "spruce_planks",
+      "blocks": 29,
+      "leadsToRoom": true
+    }
+  ],
+  "blockEntities": {
+    "skull": 40,
+    "dispenser": 10
+  },
+  "schematic": "L-shape/Market-5.schem",
+  "version": "26.1.2",
+  "dataVersion": 4790
+}

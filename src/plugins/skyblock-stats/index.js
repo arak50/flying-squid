@@ -69,7 +69,10 @@ module.exports.server = function (serv) {
 module.exports.player = function (player, serv) {
   const settings = this.settings || {}
   const sb = player.skyblock = player.skyblock || {}
-  const stats = sb.stats = new PlayerStats(player, serv.skyblock.engine, { context: settings.context })
+  // The situation some stats depend on. Default = the one the recordings were taken in: night, not on a Foraging/Mining/Farming island
+  // (menuspackets2: its 31 recorded Attribute rows are reproduced exactly). "island": 'Foraging' | 'Mining' | 'Farming' | null.
+  const context = Object.assign({ time: 'night', island: null }, settings.context)
+  const stats = sb.stats = new PlayerStats(player, serv.skyblock.engine, { context })
   sb.runtime = {}
 
   stats.on('change', ({ result, changes, reason }) => {

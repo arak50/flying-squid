@@ -29,9 +29,9 @@ function menuLore (lore) {
   return out.filter((l, i) => !(strip(l).trim() === '' && i > 0 && strip(out[i - 1]).trim() === ''))
 }
 
-function statLine (spec, value) {
+function statLine (spec, value, struck = false) {
   const v = fmt(value) + (spec.suffix || '')
-  return spec.struck ? ` §7§m${spec.glyph} ${spec.name} ${v}` : ` §${spec.color}${spec.glyph} ${spec.name} §f${v}`
+  return struck ? ` §7§m${spec.glyph} ${spec.name} ${v}` : ` §${spec.color}${spec.glyph} ${spec.name} §f${v}`
 }
 
 const valueOf = (stats, name) => { const id = resolveStatName(name); return stats ? stats.get((id && id.id) || id) || 0 : 0 }
@@ -40,7 +40,10 @@ module.exports = function statsEquipment (ctx) {
   const { specs, build, profile, stats, conv, core, member } = ctx
   const items = new Array(54).fill(null)
   for (const s of FILLER) items[s] = build(specs.items.filler)
-  items[2] = build(specs.items.skyblockStar)
+  // Slot 2 is the item in the player's hand, shown exactly as it is in the inventory (recorded with the star and with a sword).
+  // What it shows for an empty hand was never recorded, so it stays empty.
+  const inHand = profile.container('inventory').get(ctx.player.heldItemSlot || 0)
+  if (inHand) items[2] = build(conv.neutralFromItem(inHand))
   if (specs.items.goBack) items[48] = build({ ...specs.items.goBack, lore: ['§7To SkyBlock Menu'] })
   if (specs.items.close) items[49] = build(specs.items.close)
 
@@ -51,7 +54,7 @@ module.exports = function statsEquipment (ctx) {
 
   for (const c of Object.values(specs.categories)) {
     const lore = [...c.desc]
-    for (const s of c.stats) lore.push(statLine(s, valueOf(stats, s.name)))
+    for (const s of c.stats) lore.push(statLine(s, valueOf(stats, s.name), ctx.isStruck(s.name)))
     lore.push(...c.footer)
     items[c.slot] = build({ ...c.base, lore })
   }

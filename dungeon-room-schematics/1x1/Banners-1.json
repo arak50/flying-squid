@@ -1,0 +1,99 @@
+{
+  "name": "Banners-1",
+  "category": "1x1",
+  "identified": true,
+  "score": 0.9943,
+  "coverage": 0.9971,
+  "runnerUp": {
+    "name": "1x1/Sloth-1",
+    "score": 0.8886
+  },
+  "shape": "1x1",
+  "cells": [
+    {
+      "i": 2,
+      "j": 0
+    }
+  ],
+  "size": {
+    "x": 31,
+    "y": 34,
+    "z": 31
+  },
+  "orientation": "normalized to skeleton orientation (rotated 90 deg clockwise from world)",
+  "worldRotationFromCanonical": 270,
+  "appliedRotation": 90,
+  "world": {
+    "x": -136,
+    "z": -200,
+    "sizeX": 31,
+    "sizeZ": 31,
+    "yMin": 66,
+    "yMax": 99
+  },
+  "floorYWorld": 66,
+  "doorways": [
+    {
+      "side": "north",
+      "along": [
+        13,
+        17
+      ],
+      "y": [
+        0,
+        7
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "cobblestone",
+      "blocks": 28,
+      "leadsToRoom": true
+    },
+    {
+      "side": "south",
+      "along": [
+        12,
+        17
+      ],
+      "y": [
+        0,
+        7
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "spruce_planks",
+      "blocks": 29,
+      "leadsToRoom": true
+    },
+    {
+      "side": "west",
+      "along": [
+        12,
+        17
+      ],
+      "y": [
+        0,
+        7
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "cobblestone",
+      "blocks": 29,
+      "leadsToRoom": true
+    }
+  ],
+  "blockEntities": {
+    "skull": 2,
+    "banner": 2,
+    "sign": 2
+  },
+  "schematic": "1x1/Banners-1.schem",
+  "version": "26.1.2",
+  "dataVersion": 4790
+}

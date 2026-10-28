@@ -1,0 +1,61 @@
+{
+  "name": "1x1_cell-2-0",
+  "category": "unidentified",
+  "identified": false,
+  "score": 0.4771,
+  "coverage": 0.5738,
+  "runnerUp": {
+    "name": "1x1/Logs-4",
+    "score": 0.4768
+  },
+  "shape": "1x1",
+  "cells": [
+    {
+      "i": 2,
+      "j": 0
+    }
+  ],
+  "size": {
+    "x": 31,
+    "y": 35,
+    "z": 31
+  },
+  "orientation": "world orientation (room not identified)",
+  "worldRotationFromCanonical": null,
+  "appliedRotation": 0,
+  "world": {
+    "x": -136,
+    "z": -200,
+    "sizeX": 31,
+    "sizeZ": 31,
+    "yMin": 66,
+    "yMax": 100
+  },
+  "floorYWorld": 66,
+  "doorways": [
+    {
+      "side": "south",
+      "along": [
+        13,
+        17
+      ],
+      "y": [
+        0,
+        7
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "stone_bricks",
+      "blocks": 28,
+      "leadsToRoom": true
+    }
+  ],
+  "blockEntities": {
+    "skull": 42
+  },
+  "schematic": "unidentified/1x1_cell-2-0.schem",
+  "version": "26.1.2",
+  "dataVersion": 4790
+}

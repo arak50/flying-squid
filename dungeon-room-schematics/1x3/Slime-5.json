@@ -1,0 +1,88 @@
+{
+  "name": "Slime-5",
+  "category": "1x3",
+  "identified": true,
+  "score": 0.9866,
+  "coverage": 0.9984,
+  "runnerUp": {
+    "name": "1x3/Diagonal-4",
+    "score": 0.2463
+  },
+  "shape": "1x3",
+  "cells": [
+    {
+      "i": 0,
+      "j": 1
+    },
+    {
+      "i": 0,
+      "j": 2
+    },
+    {
+      "i": 0,
+      "j": 3
+    }
+  ],
+  "size": {
+    "x": 95,
+    "y": 68,
+    "z": 31
+  },
+  "orientation": "normalized to skeleton orientation (rotated 90 deg clockwise from world)",
+  "worldRotationFromCanonical": 270,
+  "appliedRotation": 90,
+  "world": {
+    "x": -200,
+    "z": -168,
+    "sizeX": 31,
+    "sizeZ": 95,
+    "yMin": 41,
+    "yMax": 108
+  },
+  "floorYWorld": 41,
+  "doorways": [
+    {
+      "side": "east",
+      "along": [
+        12,
+        18
+      ],
+      "y": [
+        25,
+        32
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "spruce_planks",
+      "blocks": 30,
+      "leadsToRoom": true
+    },
+    {
+      "side": "south",
+      "along": [
+        77,
+        82
+      ],
+      "y": [
+        25,
+        32
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "spruce_planks",
+      "blocks": 29,
+      "leadsToRoom": true
+    }
+  ],
+  "blockEntities": {
+    "skull": 20,
+    "trapped_chest": 1
+  },
+  "schematic": "1x3/Slime-5.schem",
+  "version": "26.1.2",
+  "dataVersion": 4790
+}

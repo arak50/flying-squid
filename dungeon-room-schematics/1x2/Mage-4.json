@@ -1,0 +1,66 @@
+{
+  "name": "Mage-4",
+  "category": "1x2",
+  "identified": true,
+  "score": 0.9948,
+  "coverage": 0.998,
+  "runnerUp": {
+    "name": "1x2/Gold-1",
+    "score": 0.2869
+  },
+  "shape": "1x2",
+  "cells": [
+    {
+      "i": 3,
+      "j": 0
+    },
+    {
+      "i": 3,
+      "j": 1
+    }
+  ],
+  "size": {
+    "x": 63,
+    "y": 51,
+    "z": 31
+  },
+  "orientation": "normalized to skeleton orientation (rotated 270 deg clockwise from world)",
+  "worldRotationFromCanonical": 90,
+  "appliedRotation": 270,
+  "world": {
+    "x": -104,
+    "z": -200,
+    "sizeX": 31,
+    "sizeZ": 63,
+    "yMin": 59,
+    "yMax": 109
+  },
+  "floorYWorld": 59,
+  "doorways": [
+    {
+      "side": "south",
+      "along": [
+        45,
+        50
+      ],
+      "y": [
+        7,
+        14
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "stone_bricks",
+      "blocks": 29,
+      "leadsToRoom": true
+    }
+  ],
+  "blockEntities": {
+    "banner": 8,
+    "skull": 1
+  },
+  "schematic": "1x2/Mage-4.schem",
+  "version": "26.1.2",
+  "dataVersion": 4790
+}

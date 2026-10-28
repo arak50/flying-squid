@@ -1,0 +1,59 @@
+{
+  "name": "Creeper-Room",
+  "category": "Puzzle",
+  "identified": true,
+  "score": 0.999,
+  "coverage": 0.9994,
+  "runnerUp": {
+    "name": "1x1/Redstone-Key-3",
+    "score": 0.7613
+  },
+  "shape": "1x1",
+  "cells": [
+    {
+      "i": 3,
+      "j": 3
+    }
+  ],
+  "size": {
+    "x": 31,
+    "y": 45,
+    "z": 31
+  },
+  "orientation": "normalized to skeleton orientation (rotated 90 deg clockwise from world)",
+  "worldRotationFromCanonical": 270,
+  "appliedRotation": 90,
+  "world": {
+    "x": -104,
+    "z": -104,
+    "sizeX": 31,
+    "sizeZ": 31,
+    "yMin": 56,
+    "yMax": 100
+  },
+  "floorYWorld": 56,
+  "doorways": [
+    {
+      "side": "north",
+      "along": [
+        13,
+        18
+      ],
+      "y": [
+        10,
+        17
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "stone_bricks",
+      "blocks": 29,
+      "leadsToRoom": true
+    }
+  ],
+  "blockEntities": {},
+  "schematic": "Puzzle/Creeper-Room.schem",
+  "version": "26.1.2",
+  "dataVersion": 4790
+}

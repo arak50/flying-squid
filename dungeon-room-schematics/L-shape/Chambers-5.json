@@ -1,0 +1,72 @@
+{
+  "name": "Chambers-5",
+  "category": "L-shape",
+  "identified": true,
+  "score": 0.9959,
+  "coverage": 0.9987,
+  "runnerUp": {
+    "name": "L-shape/Market-5",
+    "score": 0.2701
+  },
+  "shape": "L-shape",
+  "cells": [
+    {
+      "i": 2,
+      "j": 2
+    },
+    {
+      "i": 2,
+      "j": 3
+    },
+    {
+      "i": 3,
+      "j": 3
+    }
+  ],
+  "size": {
+    "x": 63,
+    "y": 48,
+    "z": 63
+  },
+  "orientation": "already in skeleton orientation",
+  "worldRotationFromCanonical": 0,
+  "appliedRotation": 0,
+  "world": {
+    "x": -136,
+    "z": -136,
+    "sizeX": 63,
+    "sizeZ": 63,
+    "yMin": 52,
+    "yMax": 99
+  },
+  "floorYWorld": 52,
+  "doorways": [
+    {
+      "side": "north",
+      "along": [
+        12,
+        17
+      ],
+      "y": [
+        14,
+        21
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "stone_bricks",
+      "blocks": 29,
+      "leadsToRoom": true
+    }
+  ],
+  "blockEntities": {
+    "skull": 232,
+    "dispenser": 25,
+    "banner": 48,
+    "sign": 6
+  },
+  "schematic": "L-shape/Chambers-5.schem",
+  "version": "26.1.2",
+  "dataVersion": 4790
+}

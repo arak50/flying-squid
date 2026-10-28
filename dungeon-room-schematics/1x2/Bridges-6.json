@@ -1,0 +1,84 @@
+{
+  "name": "Bridges-6",
+  "category": "1x2",
+  "identified": true,
+  "score": 0.9349,
+  "coverage": 0.9964,
+  "runnerUp": {
+    "name": "1x2/Pressure-Plates-6",
+    "score": 0.232
+  },
+  "shape": "1x2",
+  "cells": [
+    {
+      "i": 0,
+      "j": 0
+    },
+    {
+      "i": 0,
+      "j": 1
+    }
+  ],
+  "size": {
+    "x": 63,
+    "y": 69,
+    "z": 31
+  },
+  "orientation": "normalized to skeleton orientation (rotated 270 deg clockwise from world)",
+  "worldRotationFromCanonical": 90,
+  "appliedRotation": 270,
+  "world": {
+    "x": -200,
+    "z": -200,
+    "sizeX": 31,
+    "sizeZ": 63,
+    "yMin": 45,
+    "yMax": 113
+  },
+  "floorYWorld": 45,
+  "doorways": [
+    {
+      "side": "east",
+      "along": [
+        12,
+        17
+      ],
+      "y": [
+        21,
+        28
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "stone_bricks",
+      "blocks": 29,
+      "leadsToRoom": true
+    },
+    {
+      "side": "north",
+      "along": [
+        45,
+        50
+      ],
+      "y": [
+        21,
+        28
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "stone_bricks",
+      "blocks": 29,
+      "leadsToRoom": true
+    }
+  ],
+  "blockEntities": {
+    "skull": 139,
+    "dispenser": 15
+  },
+  "schematic": "1x2/Bridges-6.schem",
+  "version": "26.1.2",
+  "dataVersion": 4790
+}

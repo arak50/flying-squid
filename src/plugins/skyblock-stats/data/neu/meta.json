@@ -1,0 +1,20 @@
+{
+ "generatedFrom": "NotEnoughUpdates-REPO",
+ "files": [
+  {
+   "file": "constants/attribute_shards.json",
+   "count": 325,
+   "purpose": "attribute list, rarity, level thresholds (attribute_levelling)"
+  },
+  {
+   "file": "items/ATTRIBUTE_SHARD_*;1.json",
+   "count": 325,
+   "purpose": "the stat each attribute grants per level, parsed from the shard lore"
+  },
+  {
+   "file": "constants/pets.json",
+   "count": 119,
+   "purpose": "pet level table, per-rarity offset, custom max levels, display names"
+  }
+ ]
+}

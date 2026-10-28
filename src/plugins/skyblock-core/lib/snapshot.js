@@ -37,7 +37,11 @@ function profileFromSnapshot (uuid, snap, conv) {
   add('potionBag', toItems(d.potionBag))
   add('quiver', toItems(d.quiver))
   add('fishingBag', toItems(d.fishingBag))
-  for (const bp of d.backpacks) add('backpack:' + bp.slot, toItems(bp.items))
+  for (const bp of d.backpacks) {
+    add('backpack:' + bp.slot, toItems(bp.items))
+    const icon = (d.containers['backpack_icons/' + bp.slot] || [])[0] // the backpack item shown in the Storage window
+    if (icon) add('backpackIcon:' + bp.slot, toItems([icon]), 1)
+  }
 
   for (const [id, set] of Object.entries(loadout.armor || {})) {
     const s = decodeSet(set, ARMOR_KEYS)

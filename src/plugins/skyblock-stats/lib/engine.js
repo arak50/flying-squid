@@ -1,10 +1,11 @@
 'use strict'
 const { STATS } = require('../../hypixel-api/lib/statDefs')
 
-const GROUP_ORDER = ['base', 'sb_level', 'skills', 'slayer', 'perks', 'armor', 'held', 'equipment', 'accessories', 'accessory_power', 'tuning', 'pets', 'effects']
+const GROUP_ORDER = ['base', 'sb_level', 'skills', 'attributes', 'slayer', 'perks', 'armor', 'held', 'equipment', 'accessories', 'accessory_power', 'tuning', 'pets', 'effects']
 const GROUP_LABEL = {
   base: 'Base',
   sb_level: 'SkyBlock Level',
+  attributes: 'Attributes',
   skills: 'Skills',
   slayer: 'Slayers',
   perks: 'Perks',
@@ -151,6 +152,7 @@ function createDefaultEngine (opts) {
   return new StatEngine(opts)
     .use(require('./providers/skills'))
     .use(require('./providers/sbLevel'))
+    .use(require('./providers/attributes'))
     .use(require('./providers/items'))
     .use(require('./providers/accessories'))
     .use(require('./providers/power')) // must follow accessories (needs magical power)

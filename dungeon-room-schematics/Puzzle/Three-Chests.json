@@ -1,0 +1,61 @@
+{
+  "name": "Three-Chests",
+  "category": "Puzzle",
+  "identified": true,
+  "score": 0.9988,
+  "coverage": 0.9997,
+  "runnerUp": {
+    "name": "1x1/Arrow-Trap-1",
+    "score": 0.779
+  },
+  "shape": "1x1",
+  "cells": [
+    {
+      "i": 0,
+      "j": 3
+    }
+  ],
+  "size": {
+    "x": 31,
+    "y": 36,
+    "z": 31
+  },
+  "orientation": "already in skeleton orientation",
+  "worldRotationFromCanonical": 0,
+  "appliedRotation": 0,
+  "world": {
+    "x": -200,
+    "z": -104,
+    "sizeX": 31,
+    "sizeZ": 31,
+    "yMin": 65,
+    "yMax": 100
+  },
+  "floorYWorld": 65,
+  "doorways": [
+    {
+      "side": "north",
+      "along": [
+        13,
+        18
+      ],
+      "y": [
+        1,
+        8
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "stone_bricks",
+      "blocks": 29,
+      "leadsToRoom": true
+    }
+  ],
+  "blockEntities": {
+    "skull": 12
+  },
+  "schematic": "Puzzle/Three-Chests.schem",
+  "version": "26.1.2",
+  "dataVersion": 4790
+}

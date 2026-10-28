@@ -1,0 +1,111 @@
+{
+  "name": "Quartz-Knight-7",
+  "category": "1x4",
+  "identified": true,
+  "score": 0.982,
+  "coverage": 0.998,
+  "runnerUp": {
+    "name": "1x4/Waterfall-8",
+    "score": 0.1522
+  },
+  "shape": "1x4",
+  "cells": [
+    {
+      "i": 0,
+      "j": 0
+    },
+    {
+      "i": 0,
+      "j": 1
+    },
+    {
+      "i": 0,
+      "j": 2
+    },
+    {
+      "i": 0,
+      "j": 3
+    }
+  ],
+  "size": {
+    "x": 127,
+    "y": 59,
+    "z": 31
+  },
+  "orientation": "normalized to skeleton orientation (rotated 270 deg clockwise from world)",
+  "worldRotationFromCanonical": 90,
+  "appliedRotation": 270,
+  "world": {
+    "x": -200,
+    "z": -200,
+    "sizeX": 31,
+    "sizeZ": 127,
+    "yMin": 41,
+    "yMax": 99
+  },
+  "floorYWorld": 41,
+  "doorways": [
+    {
+      "side": "north",
+      "along": [
+        12,
+        17
+      ],
+      "y": [
+        25,
+        32
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "cobblestone",
+      "blocks": 29,
+      "leadsToRoom": true
+    },
+    {
+      "side": "north",
+      "along": [
+        44,
+        49
+      ],
+      "y": [
+        25,
+        32
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "stone_bricks",
+      "blocks": 29,
+      "leadsToRoom": true
+    },
+    {
+      "side": "north",
+      "along": [
+        76,
+        82
+      ],
+      "y": [
+        25,
+        32
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "cobblestone",
+      "blocks": 30,
+      "leadsToRoom": true
+    }
+  ],
+  "blockEntities": {
+    "skull": 141,
+    "chest": 2,
+    "dispenser": 12
+  },
+  "schematic": "1x4/Quartz-Knight-7.schem",
+  "version": "26.1.2",
+  "dataVersion": 4790
+}

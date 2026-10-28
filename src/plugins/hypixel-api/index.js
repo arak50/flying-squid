@@ -155,11 +155,6 @@ module.exports.player = function (player, serv) {
   const sb = player.skyblock = player.skyblock || {}
   sb.imported = false
 
-  // flying-squid's inventory plugin calls player.setEquipment but nothing defines it
-  if (!player.setEquipment) {
-    player.setEquipment = (slot, item) => { if (player.entity) { player.entity.equipment = player.entity.equipment || []; player.entity.equipment[slot] = item || undefined } }
-  }
-
   // the inventory window exists once builtin plugins have run; 'spawned' fires after login finished
   player.once('spawned', async () => {
     if (!serv.hypixel || !serv.hypixel._importOnJoin) return

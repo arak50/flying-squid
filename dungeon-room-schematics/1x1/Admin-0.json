@@ -1,0 +1,79 @@
+{
+  "name": "Admin-0",
+  "category": "1x1",
+  "identified": true,
+  "score": 0.9874,
+  "coverage": 0.9899,
+  "runnerUp": {
+    "name": "Puzzle/Blaze-Room-1-Low",
+    "score": 0.2256
+  },
+  "shape": "1x1",
+  "cells": [
+    {
+      "i": 1,
+      "j": 1
+    }
+  ],
+  "size": {
+    "x": 31,
+    "y": 47,
+    "z": 31
+  },
+  "orientation": "already in skeleton orientation",
+  "worldRotationFromCanonical": 0,
+  "appliedRotation": 0,
+  "world": {
+    "x": -168,
+    "z": -168,
+    "sizeX": 31,
+    "sizeZ": 31,
+    "yMin": 66,
+    "yMax": 112
+  },
+  "floorYWorld": 66,
+  "doorways": [
+    {
+      "side": "east",
+      "along": [
+        13,
+        17
+      ],
+      "y": [
+        0,
+        7
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "spruce_planks",
+      "blocks": 28,
+      "leadsToRoom": true
+    },
+    {
+      "side": "west",
+      "along": [
+        12,
+        17
+      ],
+      "y": [
+        0,
+        7
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "stone_bricks",
+      "blocks": 29,
+      "leadsToRoom": true
+    }
+  ],
+  "blockEntities": {
+    "skull": 38
+  },
+  "schematic": "1x1/Admin-0.schem",
+  "version": "26.1.2",
+  "dataVersion": 4790
+}

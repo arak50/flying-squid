@@ -8,8 +8,10 @@
 const nbt = require('prismarine-nbt')
 
 const MENU_SIZE = 54
-const invIndexOfSlot = slot => (slot >= 81 ? slot - 81 : slot - 54 + 9) // window slot (54-89) -> profile 'inventory' index
-const slotOfInvIndex = i => (i < 9 ? 81 + i : 54 + (i - 9))
+// The player's inventory follows the menu's own slots: main 9-35 first, then the hotbar. A menu has `rows` rows (default 6).
+const invIndexOfSlot = (slot, size = MENU_SIZE) => (slot >= size + 27 ? slot - size - 27 : slot - size + 9) // window slot -> profile 'inventory' index
+const slotOfInvIndex = (i, size = MENU_SIZE) => (i < 9 ? size + 27 + i : size + (i - 9))
+const menuSize = menu => (menu.rows || 6) * 9
 
 class WindowManager {
   constructor (serv) { this.serv = serv; this.Item = null }
@@ -34,7 +36,7 @@ class WindowManager {
     const id = ui.next; ui.next = ui.next % 100 + 1
     ui.win = { id, menu, factory, stateId: 0 }
     player.skyblockMenu = player.sbMenu = { windowId: id } // built-in inventory plugin ignores window_click while this is set
-    player._client.write('open_window', { windowId: id, inventoryType: 5, windowTitle: nbt.comp({ text: nbt.string(menu.title) }) })
+    player._client.write('open_window', { windowId: id, inventoryType: (menu.rows || 6) - 1, windowTitle: nbt.comp({ text: nbt.string(menu.title) }) })
     this._send(player)
   }
 
@@ -51,10 +53,11 @@ class WindowManager {
 
   _items (player, win) {
     const Item = this.serv.skyblock.ui.Item
-    const out = win.menu.items.slice(0, MENU_SIZE)
-    while (out.length < MENU_SIZE) out.push(null)
+    const size = menuSize(win.menu)
+    const out = win.menu.items.slice(0, size)
+    while (out.length < size) out.push(null)
     const inv = player.skyblock && player.skyblock.profile ? player.skyblock.profile.container('inventory') : null
-    for (let i = 0; i < 36; i++) out[slotOfInvIndex(i)] = inv ? inv.get(i) : null
+    for (let i = 0; i < 36; i++) out[slotOfInvIndex(i, size)] = inv ? inv.get(i) : null
     return out.map(it => Item.toNotch(it))
   }
 
@@ -73,20 +76,25 @@ class WindowManager {
   _click (player, pkt) {
     const w = player.ui.win
     if (!w || pkt.windowId !== w.id) return
-    let result
     try {
+      let result
       // only plain left/right clicks are understood; shift-click, drags, number keys, drops were not recorded
       if (pkt.mode === 0 && (pkt.mouseButton === 0 || pkt.mouseButton === 1)) {
-        result = pkt.slot >= 0 && pkt.slot < MENU_SIZE
+        const size = menuSize(w.menu)
+        result = pkt.slot >= 0 && pkt.slot < size
           ? w.menu.click({ player, slot: pkt.slot, button: pkt.mouseButton, area: 'menu' })
-          : (pkt.slot >= MENU_SIZE && pkt.slot < 90 ? w.menu.click({ player, slot: pkt.slot, button: pkt.mouseButton, area: 'inventory', index: invIndexOfSlot(pkt.slot) }) : undefined)
+          : (pkt.slot >= size && pkt.slot < size + 36 ? w.menu.click({ player, slot: pkt.slot, button: pkt.mouseButton, area: 'inventory', index: invIndexOfSlot(pkt.slot, size) }) : undefined)
       }
-    } catch (e) { this.serv.err?.(`[skyblock-ui] ${w.menu.title}: ${e.stack}`) }
-    if (player.ui.win !== w) return // the click already opened another menu
-    if (result === 'reopen') this.open(player, w.factory)
-    else if (result === 'close') this.close(player)
-    else this.resync(player)
+      if (player.ui.win !== w) return // the click already opened another menu
+      if (result === 'reopen') this.open(player, w.factory)
+      else if (result === 'close') this.close(player)
+      else this.resync(player)
+    } catch (e) {
+      // an exception in a packet handler would make the server kick the player; log it and close the menu instead
+      this.serv.err?.(`[skyblock-ui] ${w.menu.title}: ${e.stack}`)
+      try { player.chat('§cThat menu hit an error and was closed.'); if (player.ui.win) this.close(player) } catch { /* connection gone */ }
+    }
   }
 }
 
-module.exports = { WindowManager, MENU_SIZE, invIndexOfSlot, slotOfInvIndex }
+module.exports = { WindowManager, MENU_SIZE, invIndexOfSlot, slotOfInvIndex, menuSize }

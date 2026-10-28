@@ -36,6 +36,8 @@ const ROLE = {
   SHEARS: 'tool'
 }
 const HELD_ROLES = new Set(['weapon', 'tool'])
+// never count while held: worn pieces, accessories, pets
+const NOT_HELD = new Set(['armor', 'equipment', 'accessory', 'pet', 'pet_item'])
 
 class SbItem {
   /** @param {{id,count,damage,nbt,tag}} raw  entry produced by nbt.decodeInventory */
@@ -79,7 +81,8 @@ class SbItem {
   /** Does this item contribute stats while held in the hotbar? */
   get countsWhenHeld () {
     const r = this.role
-    return HELD_ROLES.has(r) || (r === 'unknown' && this.hasStats)
+    // UNVERIFIED for roles outside HELD_ROLES: the recordings contain no stat page with a held item (ARCHITECTURE §8 #12)
+    return !NOT_HELD.has(r) && (HELD_ROLES.has(r) || this.hasStats)
   }
 
   toJSON () { return { id: this.id, name: this.name, rarity: this.rarity, role: this.role, count: this.count } }

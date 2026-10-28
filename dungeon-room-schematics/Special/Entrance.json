@@ -1,0 +1,61 @@
+{
+  "name": "1x1_cell-2-3",
+  "category": "unidentified",
+  "identified": false,
+  "score": 0.3797,
+  "coverage": 0.5947,
+  "runnerUp": {
+    "name": "1x1/Tombstone-2",
+    "score": 0.3761
+  },
+  "shape": "1x1",
+  "cells": [
+    {
+      "i": 2,
+      "j": 3
+    }
+  ],
+  "size": {
+    "x": 31,
+    "y": 34,
+    "z": 31
+  },
+  "orientation": "world orientation (room not identified)",
+  "worldRotationFromCanonical": null,
+  "appliedRotation": 0,
+  "world": {
+    "x": -136,
+    "z": -104,
+    "sizeX": 31,
+    "sizeZ": 31,
+    "yMin": 66,
+    "yMax": 99
+  },
+  "floorYWorld": 66,
+  "doorways": [
+    {
+      "side": "north",
+      "along": [
+        12,
+        17
+      ],
+      "y": [
+        0,
+        7
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "infested_chiseled_stone_bricks",
+      "blocks": 41,
+      "leadsToRoom": true
+    }
+  ],
+  "blockEntities": {
+    "skull": 6
+  },
+  "schematic": "unidentified/1x1_cell-2-3.schem",
+  "version": "26.1.2",
+  "dataVersion": 4790
+}

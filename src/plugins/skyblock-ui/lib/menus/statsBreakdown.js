@@ -79,7 +79,7 @@ function page (ctx, category) {
   const st = settings(ctx)
   const c = calc(ctx)
   const items = new Array(54).fill(null).map((_, i) => (ROW_SLOTS.includes(i) ? null : build(specs.items.filler)))
-  const header = { ...(sp ? sp.header : cat.base), lore: [...cat.desc, ...cat.stats.map(s => statLine(s, valueOf(stats, s.name)))] }
+  const header = { ...(sp ? sp.header : cat.base), lore: [...cat.desc, ...cat.stats.map(s => statLine(s, valueOf(stats, s.name), ctx.isStruck(s.name)))] }
   items[4] = build(header)
   const rows = cat.stats.filter(s => st.showAll || valueOf(stats, s.name) !== 0)
   const bySlot = {}
@@ -101,7 +101,10 @@ function page (ctx, category) {
       if (slot === 50) { st.showAll = !st.showAll; return 'reopen' }
       const spec = bySlot[slot]; if (!spec) return
       const m = c.mods[statId(spec.name)]
-      if (m && m.additive.length) ctx.ui.open(cx => overview(cx, spec.name, category))
+      // recorded: these stats open their overview page, all others go straight to Flat Bonuses; stats never seen fall back to "has additive buffs"
+      const nav = ctx.specs.statNav || { overview: [], direct: [] }
+      const goOverview = nav.overview.includes(spec.name) || (!nav.direct.includes(spec.name) && m && m.additive.length)
+      if (goOverview) ctx.ui.open(cx => overview(cx, spec.name, category))
       else ctx.ui.open(cx => modifiers(cx, spec.name, 'flat', 1, category))
     }
   }

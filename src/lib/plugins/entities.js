@@ -37,14 +37,17 @@ module.exports.server = function (serv) {
 }
 
 module.exports.entity = function (entity, serv) {
+  // 1.20.2+ writes the entry type as its name ('byte', 'pose', ...); older callers pass the numeric id
+  const modern = serv.registry.version['>=']('1.20.2')
+  let typeNames = null
+  if (modern) {
+    try { typeNames = serv.registry.protocol.types.entityMetadataEntry[1][1].type[1].mappings } catch { /* keep numeric */ }
+  }
   entity.sendMetadata = (data) => {
-    if (serv.registry.version['>=']('1.20.2')) {
-      // todo: fix in mcdata
-      return
-    }
+    const metadata = typeNames ? data.map(e => ({ ...e, type: typeof e.type === 'number' ? typeNames[e.type] : e.type })) : data
     entity._writeOthersNearby('entity_metadata', {
       entityId: entity.id,
-      metadata: data
+      metadata
     })
   }
 
