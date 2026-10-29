@@ -137,5 +137,210 @@
   },
   "schematic": "1x3/Red-Blue-4.schem",
   "version": "26.1.2",
-  "dataVersion": 4790
+  "dataVersion": 4790,
+  "doorSlots": {
+    "mapLayer": 33,
+    "cells": [
+      {
+        "i": 0,
+        "j": 0
+      },
+      {
+        "i": 1,
+        "j": 0
+      },
+      {
+        "i": 2,
+        "j": 0
+      }
+    ],
+    "slots": [
+      {
+        "side": "north",
+        "cell": {
+          "i": 0,
+          "j": 0
+        },
+        "along": [
+          13,
+          17
+        ],
+        "state": "allowed"
+      },
+      {
+        "side": "north",
+        "cell": {
+          "i": 1,
+          "j": 0
+        },
+        "along": [
+          45,
+          49
+        ],
+        "state": "allowed"
+      },
+      {
+        "side": "north",
+        "cell": {
+          "i": 2,
+          "j": 0
+        },
+        "along": [
+          77,
+          81
+        ],
+        "state": "allowed"
+      },
+      {
+        "side": "east",
+        "cell": {
+          "i": 2,
+          "j": 0
+        },
+        "along": [
+          13,
+          17
+        ],
+        "state": "allowed"
+      },
+      {
+        "side": "south",
+        "cell": {
+          "i": 0,
+          "j": 0
+        },
+        "along": [
+          13,
+          17
+        ],
+        "state": "allowed"
+      },
+      {
+        "side": "south",
+        "cell": {
+          "i": 1,
+          "j": 0
+        },
+        "along": [
+          45,
+          49
+        ],
+        "state": "allowed"
+      },
+      {
+        "side": "south",
+        "cell": {
+          "i": 2,
+          "j": 0
+        },
+        "along": [
+          77,
+          81
+        ],
+        "state": "allowed"
+      },
+      {
+        "side": "west",
+        "cell": {
+          "i": 0,
+          "j": 0
+        },
+        "along": [
+          13,
+          17
+        ],
+        "state": "allowed"
+      }
+    ],
+    "allowed": [
+      {
+        "side": "north",
+        "cell": {
+          "i": 0,
+          "j": 0
+        },
+        "along": [
+          13,
+          17
+        ]
+      },
+      {
+        "side": "north",
+        "cell": {
+          "i": 1,
+          "j": 0
+        },
+        "along": [
+          45,
+          49
+        ]
+      },
+      {
+        "side": "north",
+        "cell": {
+          "i": 2,
+          "j": 0
+        },
+        "along": [
+          77,
+          81
+        ]
+      },
+      {
+        "side": "east",
+        "cell": {
+          "i": 2,
+          "j": 0
+        },
+        "along": [
+          13,
+          17
+        ]
+      },
+      {
+        "side": "south",
+        "cell": {
+          "i": 0,
+          "j": 0
+        },
+        "along": [
+          13,
+          17
+        ]
+      },
+      {
+        "side": "south",
+        "cell": {
+          "i": 1,
+          "j": 0
+        },
+        "along": [
+          45,
+          49
+        ]
+      },
+      {
+        "side": "south",
+        "cell": {
+          "i": 2,
+          "j": 0
+        },
+        "along": [
+          77,
+          81
+        ]
+      },
+      {
+        "side": "west",
+        "cell": {
+          "i": 0,
+          "j": 0
+        },
+        "along": [
+          13,
+          17
+        ]
+      }
+    ]
+  }
 }

@@ -15,6 +15,13 @@
  *                   door_var1  -> wither doors (critical path, coal-block plug)
  *                   var2/3/4   -> every other (branch) door, picked per door from the seed
  *
+ * Door slots: every room's .json may carry `doorSlots` (made by dungeon-doorway-sync from the blue/lime/red door map painted
+ * on top of the room): per outer edge of each cell whether a doorway may be generated there (lime = 'allowed', red = 'forbidden',
+ * 'unmarked'). The generator only uses 'allowed' edges: it prefers templates and rotations whose allowed edges cover the doors
+ * the layout needs, and where two rooms touch along several cell pairs it moves a door that sits on a blocked edge to the pair
+ * with the fewest blocked ends (ideally allowed on both sides). Without `doorSlots` in a room's .json that room behaves as before. options.doorSlots = false switches
+ * all of this off (the exact previous behaviour: same seed => same door cells as the HTML).
+ *
  * World coordinates: grid cell (gx,gz) covers blocks [gx*32 .. gx*32+30] on x/z; the 1-block gap between cells
  * is where doors sit. Door base is y=66 (same as the real dungeon). Needs a flattened version (1.13+).
  */
@@ -98,7 +105,7 @@ function tryGenerate (r, floor) {
   const doors = []
   const link = (a, b, wither) => {
     const s = pairs.get(Math.min(a, b) + '-' + Math.max(a, b)); const [f, t] = s[Math.floor(r() * s.length)]
-    doors.push({ a, b, from: f, to: t, wither }); rooms[a].deg++; rooms[b].deg++
+    doors.push({ a, b, from: f, to: t, wither, alts: s }); rooms[a].deg++; rooms[b].deg++ // alts: every [from,to] cell pair along the shared border
   }
   path.forEach((id, i) => { if (i) link(path[i - 1], id, true) })
   const conn = new Set(path)
@@ -114,7 +121,7 @@ function tryGenerate (r, floor) {
   const ys = act.map(c => c[0]); const xs = act.map(c => c[1]); const y0 = Math.min(...ys); const x0 = Math.min(...xs)
   const h = Math.max(...ys) - y0 + 1; const w = Math.max(...xs) - x0 + 1
   const sh = ([y, x]) => [y - y0, x - x0]
-  rooms.forEach(q => { q.cells = q.cells.map(sh) }); doors.forEach(d => { d.from = sh(d.from); d.to = sh(d.to) })
+  rooms.forEach(q => { q.cells = q.cells.map(sh) }); doors.forEach(d => { d.from = sh(d.from); d.to = sh(d.to); d.alts = d.alts.map(([f, t]) => [sh(f), sh(t)]) })
   return { floor, width: w, height: h, rooms, doors, critical: path }
 }
 function generateLayout (floor, seed) {
@@ -266,7 +273,15 @@ function loadTemplates (dir) {
       const key = edgeKey(cell[0], cell[1], side); if (seenD.has(key)) continue; seenD.add(key)
       doorways.push({ x: cell[0], z: cell[1], side, material: d.material })
     }
-    return { name: meta.category === 'unidentified' || !meta.name ? file.replace(/\.schem$/, '') : meta.name, file, sc, cells, doorways, y0: meta.floorYWorld ?? DOOR_Y0, rots: {} }
+    // door map (see header): cell i/j are in the schematic's own frame, like `cells`; null = this room has no door map
+    let slots = null
+    if (meta.doorSlots && Array.isArray(meta.doorSlots.slots)) {
+      const have = new Set(cells.map(c => c.join(',')))
+      slots = meta.doorSlots.slots.filter(sl => sl.cell && have.has(sl.cell.i + ',' + sl.cell.j) && DIRS.includes(sl.side))
+        .map(sl => ({ x: sl.cell.i, z: sl.cell.j, side: sl.side, state: sl.state }))
+      if (!slots.length) slots = null
+    }
+    return { name: meta.category === 'unidentified' || !meta.name ? file.replace(/\.schem$/, '') : meta.name, file, sc, cells, doorways, slots, y0: meta.floorYWorld ?? DOOR_Y0, rots: {} }
   }
   for (const cat of fs.readdirSync(dir)) {
     const cd = path.join(dir, cat); if (!fs.statSync(cd).isDirectory() || cat === 'Doors') continue
@@ -333,73 +348,129 @@ function buildDungeon (registry, opts) {
   const bt = new BlockTable(registry, { ...opts, skullBlocks: heads })
   const layout = generateLayout(floor, seed)
   const rng = mulberry32((seed ^ 0x9e3779b9) + floor * 7919) // separate stream: template choice never disturbs the layout
-  const pickFrom = (list, used) => { let c = list.filter(t => !used.has(t.name)); if (!c.length) c = list; const t = c[Math.floor(rng() * c.length)]; used.add(t.name); return t }
+  const useSlots = opts.doorSlots !== false
 
-  // ---- 6a. template per room -----------------------------------------------------------------------
+  // ---- 6a. door edges per room (grid frame) --------------------------------------------------------
+  // (only needs the layout, so it runs before the templates are chosen: the doors a room needs decide which templates fit)
+  const sideOf = (a, b) => a[0] === b[0] ? (b[1] > a[1] ? 'east' : 'west') : (b[0] > a[0] ? 'south' : 'north') // cells are [z,x]
+  const owns = (q, c) => q.cells.some(k => k[0] === c[0] && k[1] === c[1])
+  layout.doors.forEach((d, i) => {
+    d.id = i
+    d.kind = (layout.rooms[d.a].type === T.BLOOD || layout.rooms[d.b].type === T.BLOOD) ? 'blood'
+      : (layout.rooms[d.a].type === T.ENTRANCE || layout.rooms[d.b].type === T.ENTRANCE) ? 'entrance' : d.wither ? 'wither' : 'normal'
+  })
+  const assignNeed = () => {
+    for (const q of layout.rooms) q.need = new Map()
+    for (const d of layout.doors) {
+      const [fz, fx] = d.from; const [tz, tx] = d.to
+      // 'from' is simply the first cell the layout scan met: it may belong to either room
+      d.rf = owns(layout.rooms[d.a], d.from) ? layout.rooms[d.a] : layout.rooms[d.b]
+      d.rt = d.rf === layout.rooms[d.a] ? layout.rooms[d.b] : layout.rooms[d.a]
+      d.rf.need.set(edgeKey(fx, fz, sideOf(d.from, d.to)), d)
+      d.rt.need.set(edgeKey(tx, tz, sideOf(d.to, d.from)), d)
+    }
+  }
+  assignNeed()
+  for (const q of layout.rooms) { q.gx0 = Math.min(...q.cells.map(c => c[1])); q.gz0 = Math.min(...q.cells.map(c => c[0])) }
+
+  // ---- 6b. the ways a template can sit in a room: rotations that fit its cells, with doorways and door-map slots rotated along
+  const fitRotations = (t, q) => {
+    const pk = cellsKey(q.cells.map(([z, x]) => [x - q.gx0, z - q.gz0])); const out = []
+    for (let k = 0; k < 4; k++) {
+      if (cellsKey(rotCells(t.cells, k)) !== pk) continue
+      let nw = Math.max(...t.cells.map(c => c[0])) + 1; let nh = Math.max(...t.cells.map(c => c[1])) + 1
+      let cs = t.cells.map(a => a.slice()); let dw = t.doorways.map(d => ({ ...d })); let sl = t.slots ? t.slots.map(d => ({ ...d })) : null
+      const turn = d => { const [x, z] = rotCell([d.x, d.z], nw, nh); return { ...d, x, z, side: rotDir(d.side, 1) } }
+      for (let i = 0; i < k; i++) { cs = cs.map(a => rotCell(a, nw, nh)); dw = dw.map(turn); if (sl) sl = sl.map(turn);[nw, nh] = [nh, nw] }
+      const mx = Math.min(...cs.map(a => a[0])); const mz = Math.min(...cs.map(a => a[1]))
+      dw.forEach(d => { d.x -= mx; d.z -= mz }); if (sl) sl.forEach(d => { d.x -= mx; d.z -= mz })
+      out.push({
+        k, dw, have: new Set(dw.map(d => edgeKey(d.x + q.gx0, d.z + q.gz0, d.side))),
+        slotState: sl ? new Map(sl.map(d => [edgeKey(d.x + q.gx0, d.z + q.gz0, d.side), d.state])) : null // edge -> 'allowed' | 'forbidden' | 'unmarked'
+      })
+    }
+    return out
+  }
+  // doors the room needs on an edge its door map does not allow (rooms/rotations without a door map: none)
+  const blockedEdges = (r, q) => { if (!useSlots || !r.slotState) return 0; let n = 0; for (const key of q.need.keys()) if (r.slotState.get(key) !== 'allowed') n++; return n }
+
+  // ---- 6c. template per room -----------------------------------------------------------------------
+  const pickFrom = (list, used, q) => {
+    let pool = list
+    if (useSlots && q) { // keep the templates whose allowed edges can take every door this room needs
+      pool = list.filter(t => !t.slots || fitRotations(t, q).some(r => blockedEdges(r, q) === 0))
+      if (!pool.length && list.length) { pool = list; warnings.push(`room ${q.id}: no ${q.kind} template allows doors at all the edges this room needs`) }
+    }
+    let c = pool.filter(t => !used.has(t.name)); if (!c.length) c = pool; const t = c[Math.floor(rng() * c.length)]; used.add(t.name); return t
+  }
   const used = new Set(); let blaze = false; const warnings = []
   for (const q of layout.rooms) {
     const kind = shapeKind(q.cells.map(([z, x]) => [x, z]))
+    q.kind = kind // set first: pickFrom reports it
     let t = null
     if (q.type === T.ENTRANCE) t = lib.special.entrance
     else if (q.type === T.BLOOD) t = lib.special.blood
     else if (q.type === T.FAIRY) t = lib.special.fairy
     else if (q.type === T.YELLOW) t = lib.special.boss_1 || lib.special.boss
-    else if (q.type === T.PUZZLE) { const pool = lib.puzzle.filter(x => !(blaze && /Blaze-Room/.test(x.name))); t = pool.length ? pickFrom(pool, used) : null; if (t && /Blaze-Room/.test(t.name)) blaze = true } else if (q.type === T.TRAP) {
+    else if (q.type === T.PUZZLE) { const pool = lib.puzzle.filter(x => !(blaze && /Blaze-Room/.test(x.name))); t = pool.length ? pickFrom(pool, used, q) : null; if (t && /Blaze-Room/.test(t.name)) blaze = true } else if (q.type === T.TRAP) {
       t = null; warnings.push('no Trap schematics supplied: trap room(s) use a normal 1x1 template')
-      const pool = lib.byShape['1x1'] || []; if (pool.length) t = pickFrom(pool, used)
+      const pool = lib.byShape['1x1'] || []; if (pool.length) t = pickFrom(pool, used, q)
     } else {
       const pool = lib.byShape[kind] || []
       if (!pool.length) warnings.push(`no ${kind} schematic: room ${q.id} left empty`)
-      else t = pickFrom(pool, used)
+      else t = pickFrom(pool, used, q)
     }
-    q.template = t; q.kind = kind
+    q.template = t
   }
 
-  // ---- 6b. door edges per room (grid frame) --------------------------------------------------------
-  const sideOf = (a, b) => a[0] === b[0] ? (b[1] > a[1] ? 'east' : 'west') : (b[0] > a[0] ? 'south' : 'north') // cells are [z,x]
-  for (const q of layout.rooms) q.need = new Map()
-  layout.doors.forEach((d, i) => {
-    d.id = i
-    d.kind = (layout.rooms[d.a].type === T.BLOOD || layout.rooms[d.b].type === T.BLOOD) ? 'blood'
-      : (layout.rooms[d.a].type === T.ENTRANCE || layout.rooms[d.b].type === T.ENTRANCE) ? 'entrance' : d.wither ? 'wither' : 'normal'
-    const [fz, fx] = d.from; const [tz, tx] = d.to
-    const owns = (q, c) => q.cells.some(k => k[0] === c[0] && k[1] === c[1])
-    // 'from' is simply the first cell the layout scan met: it may belong to either room
-    d.rf = owns(layout.rooms[d.a], d.from) ? layout.rooms[d.a] : layout.rooms[d.b]
-    d.rt = d.rf === layout.rooms[d.a] ? layout.rooms[d.b] : layout.rooms[d.a]
-    d.rf.need.set(edgeKey(fx, fz, sideOf(d.from, d.to)), d)
-    d.rt.need.set(edgeKey(tx, tz, sideOf(d.to, d.from)), d)
-  })
-
-  // ---- 6c. choose rotation: maximise built-in doorways that coincide with required doors -------------
-  const SIDE_ROT = { north: 0, east: 1, south: 2, west: 3 }
+  // ---- 6d. choose rotation: avoid doors on edges the door map forbids, then maximise built-in doorways that coincide with required doors
   for (const q of layout.rooms) {
     const t = q.template; if (!t) continue
-    const gx0 = Math.min(...q.cells.map(c => c[1])); const gz0 = Math.min(...q.cells.map(c => c[0]))
-    q.gx0 = gx0; q.gz0 = gz0
-    const placed = q.cells.map(([z, x]) => [x - gx0, z - gz0]); const pk = cellsKey(placed)
     let best = null
-    for (let k = 0; k < 4; k++) {
-      if (cellsKey(rotCells(t.cells, k)) !== pk) continue
-      // rotate the template's doorways into the placed frame
-      let nw = Math.max(...t.cells.map(c => c[0])) + 1; let nh = Math.max(...t.cells.map(c => c[1])) + 1
-      let cs = t.cells.map(a => a.slice()); let dw = t.doorways.map(d => ({ ...d }))
-      for (let i = 0; i < k; i++) {
-        cs = cs.map(a => rotCell(a, nw, nh)); dw = dw.map(d => { const [x, z] = rotCell([d.x, d.z], nw, nh); return { ...d, x, z, side: rotDir(d.side, 1) } });[nw, nh] = [nh, nw]
-      }
-      const mx = Math.min(...cs.map(a => a[0])); const mz = Math.min(...cs.map(a => a[1])); dw.forEach(d => { d.x -= mx; d.z -= mz })
-      const have = new Set(dw.map(d => edgeKey(d.x + gx0, d.z + gz0, d.side)))
-      let matched = 0; for (const key of q.need.keys()) if (have.has(key)) matched++
-      const unused = dw.length - matched
-      const score = matched * 1000 - unused * 10 + rng()
-      if (!best || score > best.score) best = { k, score, dw, have, matched }
+    for (const r of fitRotations(t, q)) {
+      let matched = 0; for (const key of q.need.keys()) if (r.have.has(key)) matched++
+      const unused = r.dw.length - matched
+      const score = matched * 1000 - unused * 10 - blockedEdges(r, q) * 100000 + rng()
+      if (!best || score > best.score) best = { ...r, score, matched }
     }
     if (!best) { warnings.push(`room ${q.id}: no rotation of ${t.name} fits its cells`); q.template = null; continue }
     q.rot = best.k; q.doorways = best.dw; q.have = best.have; q.matched = best.matched
-    q.addedDoors = [...q.need.keys()].filter(k => !best.have.has(k)).length
+    q.slotState = best.slotState // also kept when door slots are off, so the stats can show what the map would have said
   }
 
-  // ---- 6d. world buffer -----------------------------------------------------------------------------
+  // ---- 6e. door map: where two rooms touch along several cell pairs, move a door that sits on an edge the map does not allow
+  //          to the pair with the fewest blocked ends (ideally allowed on both sides; then preferring edges with a built-in doorway)
+  let rerouted = 0
+  if (useSlots) {
+    for (const d of layout.doors) {
+      if (!d.alts || d.alts.length < 2) continue
+      const A = layout.rooms[d.a]; const B = layout.rooms[d.b]
+      const cost = ([f, t]) => {
+        const rf = owns(A, f) ? A : B; const rt = rf === A ? B : A; let c = 0
+        for (const [q, cell, other] of [[rf, f, t], [rt, t, f]]) {
+          if (!q.slotState) continue
+          const key = edgeKey(cell[1], cell[0], sideOf(cell, other))
+          if (q.slotState.get(key) !== 'allowed') c += 1000; else if (!q.have.has(key)) c += 1
+        }
+        return c
+      }
+      const cur = [d.from, d.to]; if (cost(cur) < 1000) continue
+      let best = cur; let bc = cost(cur)
+      for (const alt of d.alts) { const c = cost(alt); if (c < bc) { best = alt; bc = c } }
+      if (best !== cur) { d.from = best[0]; d.to = best[1]; d.rerouted = true; rerouted++ }
+    }
+    if (rerouted) assignNeed()
+  }
+  for (const q of layout.rooms) { if (q.template) q.addedDoors = [...q.need.keys()].filter(k => !q.have.has(k)).length }
+  // doors that still sit on an edge the door map does not allow
+  const slotStats = { slotRooms: layout.rooms.filter(q => q.slotState).length, doorsRerouted: rerouted, doorsOnBlockedSlots: 0 }
+  for (const q of layout.rooms) {
+    q.blockedDoors = 0; if (!q.slotState) continue
+    for (const [key, d] of q.need) if (q.slotState.get(key) !== 'allowed') { q.blockedDoors++; slotStats.doorsOnBlockedSlots++; d.onBlockedSlot = true }
+  }
+  if (useSlots && slotStats.doorsOnBlockedSlots) warnings.push(`${slotStats.doorsOnBlockedSlots} door end(s) sit on an edge the room's door map does not allow (no allowed alternative)`)
+
+  // ---- 6f. world buffer -----------------------------------------------------------------------------
   const gw = layout.width; const gh = layout.height
   const SX = gw * P - 1; const SZ = gh * P - 1
   let yMin = 60; let yMax = 80
@@ -438,7 +509,7 @@ function buildDungeon (registry, opts) {
   }
   const airBox = (g, d) => { for (let w = -1; w <= 1; w++) for (let y = 69; y <= 72; y++) { if (get(g.ex - g.dx * d + (g.dx === 0 ? w : 0), y, g.ez - g.dz * d + (g.dz === 0 ? w : 0)) !== 0) return false } return true }
 
-  const stats = { addedDoors: 0, tunnels: 0, tunnelBlind: 0, sealed: 0, matchedDoors: 0 }
+  const stats = { addedDoors: 0, tunnels: 0, tunnelBlind: 0, sealed: 0, matchedDoors: 0, ...slotStats }
   // rooms
   for (const q of layout.rooms) {
     if (!q.template) continue
@@ -488,7 +559,7 @@ function buildDungeon (registry, opts) {
   }
   if (bt.missing.size) warnings.push('blocks missing from this version: ' + [...bt.missing.keys()].join(', '))
 
-  // ---- 6e. spawn: open spot in the Entrance room closest to its centre --------------------------------
+  // ---- 6g. spawn: open spot in the Entrance room closest to its centre --------------------------------
   const ent = layout.rooms.find(q => q.type === T.ENTRANCE)
   const ecx = ent.gx0 * P + MID; const ecz = ent.gz0 * P + MID; let spawn = { x: ecx + 0.5, y: 70, z: ecz + 0.5 }
   const standable = (x, y, z) => get(x, y - 1, z) !== 0 && get(x, y, z) === 0 && get(x, y + 1, z) === 0 && get(x, y + 2, z) === 0
@@ -603,12 +674,13 @@ function exportLayout (dg) {
     rooms: L.rooms.map(q => ({
       id: q.id, type: NAME[q.type], shape: q.kind, template: q.template ? q.template.name : null, rotationQuarterTurns: q.rot ?? null,
       cells: q.cells.map(([z, x]) => ({ x, z })), blockMin: { x: q.gx0 * P, z: q.gz0 * P },
-      doorsRequired: q.need.size, doorsAddedByGenerator: q.addedDoors ?? 0
+      doorsRequired: q.need.size, doorsAddedByGenerator: q.addedDoors ?? 0,
+      hasDoorMap: !!q.slotState, doorsOnBlockedSlots: q.blockedDoors ?? 0
     })),
     doors: L.doors.map(d => {
       const ew = d.from[0] === d.to[0]; const [fz, fx] = d.from; const [tz, tx] = d.to
       return {
-        rooms: [d.a, d.b], kind: d.kind, schematic: d.style, axis: ew ? 'east-west' : 'north-south',
+        rooms: [d.a, d.b], kind: d.kind, schematic: d.style, axis: ew ? 'east-west' : 'north-south', rerouted: !!d.rerouted, onBlockedSlot: !!d.onBlockedSlot,
         center: { x: ew ? Math.max(fx, tx) * P - 1 : fx * P + MID, y: DOOR_Y0, z: ew ? fz * P + MID : Math.max(fz, tz) * P - 1 },
         tunnelsCarved: d.tunnels || 0
       }

@@ -62,5 +62,160 @@
   },
   "schematic": "1x2/Mage-4.schem",
   "version": "26.1.2",
-  "dataVersion": 4790
+  "dataVersion": 4790,
+  "doorSlots": {
+    "mapLayer": 50,
+    "cells": [
+      {
+        "i": 0,
+        "j": 0
+      },
+      {
+        "i": 1,
+        "j": 0
+      }
+    ],
+    "slots": [
+      {
+        "side": "north",
+        "cell": {
+          "i": 0,
+          "j": 0
+        },
+        "along": [
+          13,
+          17
+        ],
+        "state": "allowed"
+      },
+      {
+        "side": "north",
+        "cell": {
+          "i": 1,
+          "j": 0
+        },
+        "along": [
+          45,
+          49
+        ],
+        "state": "allowed"
+      },
+      {
+        "side": "east",
+        "cell": {
+          "i": 1,
+          "j": 0
+        },
+        "along": [
+          13,
+          17
+        ],
+        "state": "allowed"
+      },
+      {
+        "side": "south",
+        "cell": {
+          "i": 0,
+          "j": 0
+        },
+        "along": [
+          13,
+          17
+        ],
+        "state": "allowed"
+      },
+      {
+        "side": "south",
+        "cell": {
+          "i": 1,
+          "j": 0
+        },
+        "along": [
+          45,
+          49
+        ],
+        "state": "allowed"
+      },
+      {
+        "side": "west",
+        "cell": {
+          "i": 0,
+          "j": 0
+        },
+        "along": [
+          13,
+          17
+        ],
+        "state": "allowed"
+      }
+    ],
+    "allowed": [
+      {
+        "side": "north",
+        "cell": {
+          "i": 0,
+          "j": 0
+        },
+        "along": [
+          13,
+          17
+        ]
+      },
+      {
+        "side": "north",
+        "cell": {
+          "i": 1,
+          "j": 0
+        },
+        "along": [
+          45,
+          49
+        ]
+      },
+      {
+        "side": "east",
+        "cell": {
+          "i": 1,
+          "j": 0
+        },
+        "along": [
+          13,
+          17
+        ]
+      },
+      {
+        "side": "south",
+        "cell": {
+          "i": 0,
+          "j": 0
+        },
+        "along": [
+          13,
+          17
+        ]
+      },
+      {
+        "side": "south",
+        "cell": {
+          "i": 1,
+          "j": 0
+        },
+        "along": [
+          45,
+          49
+        ]
+      },
+      {
+        "side": "west",
+        "cell": {
+          "i": 0,
+          "j": 0
+        },
+        "along": [
+          13,
+          17
+        ]
+      }
+    ]
+  }
 }

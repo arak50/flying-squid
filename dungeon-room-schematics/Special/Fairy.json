@@ -2,11 +2,11 @@
   "name": "1x1_cell-2-1",
   "category": "unidentified",
   "identified": false,
-  "score": 0.3808,
-  "coverage": 0.4463,
+  "score": 0.3794,
+  "coverage": 0.4448,
   "runnerUp": {
     "name": "1x1/Waterfall-2",
-    "score": 0.378
+    "score": 0.3791
   },
   "shape": "1x1",
   "cells": [
@@ -34,10 +34,28 @@
   "floorYWorld": 62,
   "doorways": [
     {
-      "side": "west",
+      "side": "east",
       "along": [
         13,
-        18
+        17
+      ],
+      "y": [
+        4,
+        11
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "spruce_planks",
+      "blocks": 28,
+      "leadsToRoom": true
+    },
+    {
+      "side": "north",
+      "along": [
+        13,
+        17
       ],
       "y": [
         4,
@@ -48,39 +66,32 @@
         73
       ],
       "material": "stone_bricks",
-      "blocks": 41,
+      "blocks": 28,
+      "leadsToRoom": true
+    },
+    {
+      "side": "west",
+      "along": [
+        13,
+        17
+      ],
+      "y": [
+        4,
+        11
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "spruce_planks",
+      "blocks": 28,
       "leadsToRoom": true
     }
   ],
   "blockEntities": {
-    "skull": 2
+    "skull": 4
   },
-  "schematic": "fairy.schem",
+  "schematic": "unidentified/1x1_cell-2-1.schem",
   "version": "26.1.2",
-  "dataVersion": 4790,
-  "unified": {
-    "sources": [
-      "fairy.schem",
-      "Fairy_2312.schem"
-    ],
-    "base": "fairy.schem",
-    "minShare": 1,
-    "doorwaysRemoved": [
-      {
-        "side": "east",
-        "along": [
-          13,
-          17
-        ],
-        "y": [
-          4,
-          11
-        ],
-        "door": "door_var1",
-        "doorMatch": 0.773,
-        "wallMaterial": "stone",
-        "blocksChanged": 69
-      }
-    ]
-  }
+  "dataVersion": 4790
 }
