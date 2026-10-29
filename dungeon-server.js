@@ -105,6 +105,7 @@ const settings = {
     "skyblock-stats": {},
     "skyblock-ui": {},
     "skyblock-core": {},
+    "dungeon-map": {},
     "skyblock-resourcepack": { "url": "https://resourcepacks.hypixel.net/SkyBlock/d8e24365-a992-480e-a1dc-7e95688f0b15/84.zip" }
   },
   worldFolder: undefined, // the dungeon is deterministic; nothing to persist (set a folder here to save player edits)
@@ -117,6 +118,8 @@ generation: {
 const server = mcServer.createMCServer(settings)
 server.on('pluginsReady', () => {
 const { Vec3 } = require('vec3')
+// the dungeon-map plugin reads the floor from here when a "dungeonStart" event carries no layout of its own
+server.dungeon = { get layout () { return builtDungeon ? generator.exportLayout(builtDungeon) : null } }
 // our spawn replaces flying-squid's random surface search (there is no surface here)
 server.getSpawnPoint = async () => { const s = builtDungeon ? builtDungeon.spawn : { x: 0, y: 70, z: 0 }; return new Vec3(s.x, s.y, s.z) }
 })
