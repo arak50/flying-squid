@@ -15,6 +15,7 @@ function statLore (s, opts) {
   lines.push('§8Breakdown')
   let lastGroup = null
   for (const b of s.breakdown) {
+    if (b.kind === 'cap') continue
     if (b.kind === 'mult') { lines.push(`§7${GROUP_LABEL[b.group] || b.group}: §d+${fmt(b.amount)}%`); continue }
     if (b.group === 'base') { lines.push(`§7Base: §f${signed(b.amount)}`); continue }
     if (b.group !== lastGroup) { lines.push(`§7${GROUP_LABEL[b.group] || b.group}: §f${signed(s.breakdown.filter(x => x.group === b.group && x.kind !== 'mult').reduce((a, x) => a + x.amount, 0))}`); lastGroup = b.group }

@@ -69,6 +69,7 @@ function buildModifiers (result, items) {
   for (const [stat, s] of Object.entries(result.stats)) {
     const flat = []; const additive = []; const sources = []
     for (const e of s.breakdown) {
+      if (e.kind === 'cap') continue
       const kind = e.kind === 'mult' ? 'additive' : 'flat'
       if (ITEM_GROUPS[e.group] && e.itemId) {
         const item = find(e.group, e)

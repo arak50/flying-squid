@@ -1,0 +1,9 @@
+{
+ "generatedFrom": "SkyCryptWebsite/SkyCrypt",
+ "license": "MIT (see LICENSE)",
+ "head": "ref: refs/heads/development",
+ "files": [
+  "common/constants/{bonuses,misc,potions}.js",
+  "src/constants/{leveling,misc,pets,bestiary}.js"
+ ]
+}

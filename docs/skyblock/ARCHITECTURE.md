@@ -83,6 +83,26 @@ SB level   = +5 Health per level, level = floor(xp/100)   307 × 5 = 1,535
 ```
 Categories that appear (count in recording): Basic 50, Skill 20, Enchantment 21, Accessory Bag 19, Slayer 16, Potion Effect 12, Essence Shop 12, Exportation 12, Attribute 11, SkyBlock Levels 10, Bestiary 9, Innate 9, Uncategorized 9, Ability/Passive 5, Gemstone 4, Reforge 4, Attachment 4, Armor 8, Equipment 3, Item Ability (Passive) 2, HOTM 1, Consumable 1, Thaumaturgist Power 1. Kinds seen: **Flat**, **Additive**. (`tools/modifier-catalog.js` regenerates this.)
 
+### 3.5 Health and Mana pools (`skyblock-vitals`; wiki-sourced, checked 2026-10-31, not yet from a recording)
+```
+health regen   every 2 s:  (MaxHealth/100 + 1.5) x HealthRegen/100        wiki.hypixel.net/Stats ("Regen interval: Every 2 seconds", avg +1.2 HP/s at 100 HP)
+healing        x Vitality/100 for every heal source ("increases your incoming healing, including health regen")
+mana           max = 100 + Intelligence; +2% of max per second (+ % bonuses: Mana Flux orb +50, Overflux +100, Plasmaflux +125, Wisp pet, Mana Regeneration attribute)
+               max drops below current -> excess removed; max rises -> no refill
+overflow       separate pool, max 780, never regenerates, spent when Mana alone cannot pay; conversions overwrite it
+damage         x (1 - D/(D+100)); true damage uses True Defense
+vanilla hearts the same fraction of 20 as Health/MaxHealth (never 0 while alive); food held at 20
+```
+One wiki mirror says the regen interval is 1 s; the official Stats page and the in-game text say 2 s, which is what is implemented. UNVERIFIED: the action-bar string format and rounding, whether Overflow pays the whole cost or only the shortfall, whether mana refills on respawn, and Mana Regen (a Rift-only stat) - record the action bar over a few seconds after using an ability.
+
+### 3.6 Speed (`skyblock-speed`; wiki-sourced, checked 2026-10-31)
+```
+movement_speed attribute = 0.1 x Speed/100       Speed 100 = vanilla walking (4.317 blocks/s), sprint x1.3 is added by the client
+Speed cap       400 by default; cap bonuses (Racing Helmet -> 500, Black Cat +100, ...) are engine contributions of kind 'cap'
+hard ceiling    5x vanilla (wiki: Minecraft limit) whatever the stat says; Rift uses rift_speed
+```
+UNVERIFIED: that Hypixel really sends 0.1 x Speed/100 (record the `entity_update_attributes` packet for your own player after changing Speed), and the lore lines that raise the cap (not parsed from items yet: use `addEffect({ caps: { speed: 100 } })`). Flying speed is not touched.
+
 ### 3.4 Built-in inventory plugin — fixes this project depends on (RECORDED protocol, vanilla semantics)
 `src/lib/plugins/inventory.js` was written for 1.8 and is corrected for 26.1:
 - **Equipment slot ids** in `entity_equipment` are version dependent (1.8: boots 1 … head 4; 1.9+: main 0, **off hand 1**, boots 2, legs 3, chest 4, head 5). The old table put boots in the off hand and shifted every other piece.

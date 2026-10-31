@@ -1,13 +1,17 @@
 'use strict'
 const { STATS } = require('../../hypixel-api/lib/statDefs')
 
-const GROUP_ORDER = ['base', 'sb_level', 'skills', 'attributes', 'slayer', 'perks', 'armor', 'held', 'equipment', 'accessories', 'accessory_power', 'tuning', 'pets', 'effects']
+const GROUP_ORDER = ['base', 'sb_level', 'skills', 'attributes', 'slayer', 'bestiary', 'essence_shop', 'pet_score', 'perks', 'armor', 'held', 'equipment', 'accessories', 'accessory_power', 'tuning', 'pets', 'potions', 'effects']
 const GROUP_LABEL = {
   base: 'Base',
   sb_level: 'SkyBlock Level',
   attributes: 'Attributes',
   skills: 'Skills',
   slayer: 'Slayers',
+  bestiary: 'Bestiary',
+  essence_shop: 'Essence Shop',
+  pet_score: 'Pet Score',
+  potions: 'Potion Effects',
   perks: 'Perks',
   armor: 'Armor',
   held: 'Held Item',
@@ -83,24 +87,28 @@ class StatEngine {
         cap: def.cap,
         flat: def.base,
         multPct: 0,
+        capBonus: 0,
         sources: def.base ? [{ group: 'base', label: 'Base', amount: def.base, kind: 'flat' }] : []
       }
     }
     for (const c of contributions) {
       const s = stats[c.stat]
       if (!s) continue
-      if (c.kind === 'mult') s.multPct += c.amount
+      if (c.kind === 'cap') s.capBonus += c.amount // raises the stat's cap (Racing Helmet, Black Cat, ...), not its value
+      else if (c.kind === 'mult') s.multPct += c.amount
       else s.flat += c.amount
       s.sources.push(c)
     }
 
     const byGroup = {}
     for (const s of Object.values(stats)) {
+      if (s.cap != null) s.cap += s.capBonus
       s.raw = s.flat * (1 + s.multPct / 100)
       s.total = (this.applyCaps && s.cap != null) ? Math.min(s.raw, s.cap) : s.raw
       s.capped = s.cap != null && s.raw > s.cap
       s.breakdown = mergeSources(s.sources)
       for (const b of s.breakdown) {
+        if (b.kind === 'cap') continue
         const g = (byGroup[b.group] = byGroup[b.group] || {})
         g[s.id] = (g[s.id] || 0) + b.amount
       }
@@ -153,6 +161,12 @@ function createDefaultEngine (opts) {
     .use(require('./providers/skills'))
     .use(require('./providers/sbLevel'))
     .use(require('./providers/attributes'))
+    .use(require('./providers/catacombs'))
+    .use(require('./providers/slayer'))
+    .use(require('./providers/bestiary'))
+    .use(require('./providers/essence'))
+    .use(require('./providers/misc'))
+    .use(require('./providers/potions'))
     .use(require('./providers/items'))
     .use(require('./providers/accessories'))
     .use(require('./providers/power')) // must follow accessories (needs magical power)

@@ -1,0 +1,136 @@
+{
+ "petValue": {
+  "common": 1,
+  "uncommon": 2,
+  "rare": 3,
+  "epic": 4,
+  "legendary": 5,
+  "mythic": 6
+ },
+ "petRewards": {
+  "0": {
+   "magic_find": 0
+  },
+  "10": {
+   "magic_find": 1
+  },
+  "25": {
+   "magic_find": 2
+  },
+  "50": {
+   "magic_find": 3
+  },
+  "75": {
+   "magic_find": 4
+  },
+  "100": {
+   "magic_find": 5
+  },
+  "130": {
+   "magic_find": 6
+  },
+  "175": {
+   "magic_find": 7
+  },
+  "225": {
+   "magic_find": 8
+  },
+  "275": {
+   "magic_find": 9
+  },
+  "325": {
+   "magic_find": 10
+  },
+  "375": {
+   "magic_find": 11
+  },
+  "450": {
+   "magic_find": 12
+  },
+  "500": {
+   "magic_find": 13
+  }
+ },
+ "ignored": [
+  "FRACTURED_MONTEZUMA_SOUL"
+ ],
+ "maxLevel": {
+  "ARMADILLO": 100,
+  "BAT": 100,
+  "BLAZE": 100,
+  "CHICKEN": 100,
+  "HORSE": 100,
+  "JERRY": 100,
+  "OCELOT": 100,
+  "PIGMAN": 100,
+  "RABBIT": 100,
+  "SHEEP": 100,
+  "SILVERFISH": 100,
+  "WITHER_SKELETON": 100,
+  "SKELETON_HORSE": 100,
+  "WOLF": 100,
+  "ENDERMAN": 100,
+  "PHOENIX": 100,
+  "MAGMA_CUBE": 100,
+  "FLYING_FISH": 100,
+  "BLUE_WHALE": 100,
+  "TIGER": 100,
+  "LION": 100,
+  "PARROT": 100,
+  "SNOWMAN": 100,
+  "TURTLE": 100,
+  "BEE": 100,
+  "ENDER_DRAGON": 100,
+  "GUARDIAN": 100,
+  "SQUID": 100,
+  "GIRAFFE": 100,
+  "ELEPHANT": 100,
+  "MONKEY": 100,
+  "SPIDER": 100,
+  "ENDERMITE": 100,
+  "GHOUL": 100,
+  "JELLYFISH": 100,
+  "PIG": 100,
+  "ROCK": 100,
+  "SKELETON": 100,
+  "ZOMBIE": 100,
+  "DOLPHIN": 100,
+  "BABY_YETI": 100,
+  "MEGALODON": 100,
+  "GOLEM": 100,
+  "HOUND": 100,
+  "TARANTULA": 100,
+  "BLACK_CAT": 100,
+  "SPIRIT": 100,
+  "GRIFFIN": 100,
+  "MITHRIL_GOLEM": 100,
+  "GRANDMA_WOLF": 100,
+  "RAT": 100,
+  "BAL": 100,
+  "SCATHA": 100,
+  "GOLDEN_DRAGON": 200,
+  "AMMONITE": 100,
+  "BINGO": 100,
+  "MOOSHROOM_COW": 100,
+  "SNAIL": 100,
+  "KUUDRA": 100,
+  "DROPLET_WISP": 100,
+  "FROST_WISP": 100,
+  "GLACIAL_WISP": 100,
+  "SUBZERO_WISP": 100,
+  "REINDEER": 100,
+  "RIFT_FERRET": 100,
+  "FRACTURED_MONTEZUMA_SOUL": 100,
+  "EERIE": 100,
+  "SLUG": 100,
+  "OWL": 100,
+  "TYRANNOSAURUS": 100,
+  "SPINOSAURUS": 100,
+  "GOBLIN": 100,
+  "ANKYLOSAURUS": 100,
+  "PENGUIN": 100,
+  "MAMMOTH": 100,
+  "MOLE": 100,
+  "GLACITE_GOLEM": 100
+ }
+}

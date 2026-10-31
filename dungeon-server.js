@@ -107,7 +107,10 @@ const settings = {
     "skyblock-core": {},
     "dungeon-map": {},
     "skyblock-teleport": {},
-    "skyblock-resourcepack": { "url": "https://resourcepacks.hypixel.net/SkyBlock/d8e24365-a992-480e-a1dc-7e95688f0b15/84.zip" }
+    "skyblock-resourcepack": { "url": "https://resourcepacks.hypixel.net/SkyBlock/d8e24365-a992-480e-a1dc-7e95688f0b15/84.zip" },
+    "skyblock-vitals": {},
+    "skyblock-speed":{},
+    "mob-ai": { "activeRange": 32 }
   },
   worldFolder: undefined, // the dungeon is deterministic; nothing to persist (set a folder here to save player edits)
   motd: `Catacombs floor ${floor} seed ${seedArg}\nflying-squid`,
