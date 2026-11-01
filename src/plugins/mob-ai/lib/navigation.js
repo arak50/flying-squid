@@ -27,6 +27,7 @@ class Navigation {
     this.finished = false
     this.failed = false
     this.swimUp = false // set by SwimGoal each tick it runs
+    this.strafeCmd = null // set by a goal each tick it wants to side-step (skeleton bow strafing)
   }
 
   get isMoving () { return !!this.pending || (!!this.path && this.index < this.path.length) }
@@ -74,6 +75,12 @@ class Navigation {
       this.failed = true
     })
   }
+
+  /**
+   * Walk relative to a direction for one tick without pathfinding. `forward` / `side` are vanilla's
+   * strafe inputs (e.g. 0.5, -0.5); (dx, dz) is the horizontal direction that counts as "forward".
+   */
+  strafe (forward, side, dx, dz) { this.strafeCmd = { forward, side, dx, dz } }
 
   stop () {
     this.token++
@@ -143,6 +150,19 @@ class Navigation {
       }
     }
 
+    let strafing = false
+    if (this.strafeCmd) {
+      const { forward, side, dx, dz } = this.strafeCmd
+      this.strafeCmd = null
+      const len = Math.hypot(dx, dz) || 1
+      const fx = dx / len
+      const fz = dz / len
+      const sp = ai.speed(1) * dt
+      mx += (fx * forward + -fz * side) * sp // the right-hand side of a facing (fx, fz) is (-fz, fx)
+      mz += (fz * forward + fx * side) * sp
+      strafing = true
+    }
+
     // knockback from the stock combat code, decaying like friction
     const kb = ai.kb
     if (kb.x !== 0 || kb.z !== 0) {
@@ -167,8 +187,13 @@ class Navigation {
       }
       return true
     }
+    // free-form strafing has no planned path, so make sure there is ground to stand on (no stepping off ledges)
+    const hasFloor = async (x, z) => !strafing ||
+      await view.isSolid(world, Math.floor(x), feetY - 1, Math.floor(z)) ||
+      await view.isSolid(world, Math.floor(x), feetY - 2, Math.floor(z))
+    const canStep = async (x, z) => await canEnter(x, z, feetY) && await hasFloor(x, z)
     if (mx !== 0 || mz !== 0) {
-      if (await canEnter(pos.x + mx, pos.z + mz, feetY)) { nx += mx; nz += mz; moved = true } else if (mx !== 0 && await canEnter(pos.x + mx, pos.z, feetY)) { nx += mx; moved = true } else if (mz !== 0 && await canEnter(pos.x, pos.z + mz, feetY)) { nz += mz; moved = true }
+      if (await canStep(pos.x + mx, pos.z + mz)) { nx += mx; nz += mz; moved = true } else if (mx !== 0 && await canStep(pos.x + mx, pos.z)) { nx += mx; moved = true } else if (mz !== 0 && await canStep(pos.x, pos.z + mz)) { nz += mz; moved = true }
     }
 
     // ---- vertical -------------------------------------------------------------------------

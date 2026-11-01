@@ -84,6 +84,21 @@ class BlockView {
     return v
   }
 
+  /** Forget a cached cell (the block there changed). */
+  invalidate (world, x, y, z) {
+    const c = this.worlds.get(world)
+    if (!c) return
+    const key = x + ',' + y + ',' + z
+    c.cur.delete(key)
+    c.prev.delete(key)
+  }
+
+  /** Like cell() but always reads the world (and refreshes the cache). */
+  async cellFresh (world, x, y, z) {
+    this.invalidate(world, x, y, z)
+    return this.cell(world, x, y, z)
+  }
+
   async isSolid (world, x, y, z) { return ((await this.cell(world, x, y, z)) & Cell.SOLID) !== 0 }
 
   /** Cell a mob can occupy: not solid and not harmful. */

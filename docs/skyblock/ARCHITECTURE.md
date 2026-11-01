@@ -83,17 +83,30 @@ SB level   = +5 Health per level, level = floor(xp/100)   307 × 5 = 1,535
 ```
 Categories that appear (count in recording): Basic 50, Skill 20, Enchantment 21, Accessory Bag 19, Slayer 16, Potion Effect 12, Essence Shop 12, Exportation 12, Attribute 11, SkyBlock Levels 10, Bestiary 9, Innate 9, Uncategorized 9, Ability/Passive 5, Gemstone 4, Reforge 4, Attachment 4, Armor 8, Equipment 3, Item Ability (Passive) 2, HOTM 1, Consumable 1, Thaumaturgist Power 1. Kinds seen: **Flat**, **Additive**. (`tools/modifier-catalog.js` regenerates this.)
 
-### 3.5 Health and Mana pools (`skyblock-vitals`; wiki-sourced, checked 2026-10-31, not yet from a recording)
+### 3.5 Health and Mana pools (`skyblock-vitals`; pool rules wiki-sourced, checked 2026-10-31; the `update_health` packet is RECORDED)
 ```
 health regen   every 2 s:  (MaxHealth/100 + 1.5) x HealthRegen/100        wiki.hypixel.net/Stats ("Regen interval: Every 2 seconds", avg +1.2 HP/s at 100 HP)
 healing        x Vitality/100 for every heal source ("increases your incoming healing, including health regen")
 mana           max = 100 + Intelligence; +2% of max per second (+ % bonuses: Mana Flux orb +50, Overflux +100, Plasmaflux +125, Wisp pet, Mana Regeneration attribute)
-               max drops below current -> excess removed; max rises -> no refill
+               RECORDED: stored mana is NOT cut when max falls, only the display is min(mana, max) (550/610 -> 460/460 -> 550/610); regen waits while stored >= max
 overflow       separate pool, max 780, never regenerates, spent when Mana alone cannot pay; conversions overwrite it
 damage         x (1 - D/(D+100)); true damage uses True Defense
-vanilla hearts the same fraction of 20 as Health/MaxHealth (never 0 while alive); food held at 20
+vanilla hearts the same fraction of the full value as Health/MaxHealth (never 0 while alive); food held at 20
+update_health  RECORDED (Hypixel, protocol 26.1, 229 packets): in SkyBlock always 40.0 / food 20 / saturation 20.0 (bytes 68 42200000 14 41A00000),
+               re-sent unconditionally every ~300 ms (223 packets over 62 s, median 0.299 s, max 0.486 s). The lobby before it sent 20.0 / 20 / 5.0.
+               Implemented as heartsFull 40, saturation 20, healthRefreshMs 300 (test/skyblockVitals.test.js replays the recorded bytes).
+max_health     RECORDED: attribute generic.max_health = 40 arrives together with the first update_health of 40.0 (it was 20 in the lobby); sent on start/spawn/respawn
+action bar     RECORDED (Hypixel, protocol 26.1, 131 System Chat packets with overlay=true, one per ~0.5 s: median 0.507, p10 0.469, p90 0.600; purely periodic):
+                 §c4,124/4,124\uE010     §a1,008§a\uE008 Defense     §b953/953\uE003 Mana     <- plain text component, 5-space separators, trailing 5 spaces
+                 §64,499/4,124\uE010     §7\uE067 §bColosseum     §b687/953\uE003 Mana     <- gold = absorption (health + absorption over max); the zone replaces Defense for ~2-2.5 s
+                 §c...\uE010     §a1,008§a\uE008 Defense     §c§lNOT ENOUGH MANA        <- replaces only the mana segment, no trailing spaces, until ~1.3-1.4 s after the last failed attempt
+               Glyphs are the statDefs `icon` values (E010 health, E008 defense, E003 intelligence, E067 zone). test/fixtures/actionbar-recorded.json holds all 87 distinct strings;
+               the tests render each one back byte for byte.
 ```
-One wiki mirror says the regen interval is 1 s; the official Stats page and the in-game text say 2 s, which is what is implemented. UNVERIFIED: the action-bar string format and rounding, whether Overflow pays the whole cost or only the shortfall, whether mana refills on respawn, and Mana Regen (a Rift-only stat) - record the action bar over a few seconds after using an ability.
+One wiki mirror says the regen interval is 1 s, the official Stats page and the in-game text say 2 s (implemented). RECORDED but NOT modelled: health regen. The bar showed +45 HP at x.0 s and +96 HP at x.5 s for max 4,124 (141 HP/s) and mana +28/s at max 953, +21/s at max 610 (2% of max does not explain either; the buff sources
+are unknown), so the 2 s formula above underestimates this player by a large factor; one tick source alone already runs at 1 s, not 2 s. Feed the real regen stats into the engine rather than changing the formula.
+Not seen in the recording (UNVERIFIED, kept opt-in or inert): the overflow segment, a "-N Mana (ability)" flash (none appeared across ~25 mana spends, so `manaFlash` is off by default), rounding of displayed numbers,
+whether health is also kept when max rises again (only mana was observed), what triggers the zone segment (nothing in the repo calls `vitals.showZone`) and what grants absorption (`vitals.setAbsorption` exists, no source).
 
 ### 3.6 Speed (`skyblock-speed`; wiki-sourced, checked 2026-10-31)
 ```

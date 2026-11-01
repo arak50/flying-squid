@@ -18,6 +18,9 @@
 const { BlockView } = require('./lib/blockView')
 const { Pathfinder } = require('./lib/pathfinder')
 const { MobAI } = require('./lib/mobAI')
+const { ProjectileManager } = require('./lib/projectiles')
+const { attachPlayerBow } = require('./lib/playerBow')
+const bowMath = require('./lib/bow')
 const { Goal, GoalSelector, Control } = require('./lib/goalSelector')
 const goals = require('./lib/goals')
 const { profiles, NO_GROUND_AI, normalise } = require('./lib/profiles')
@@ -31,6 +34,8 @@ const DEFAULTS = {
   maxPathNodes: 200,
   undeadBurnInSun: true,
   aiForUnknownMobs: false, // give unlisted land mobs wander + look-at-player
+  playerBows: true, // vanilla bow draw / release for players (core has an empty TODO for it)
+  arrowLifetime: 1200, // ticks an arrow may fly or stay stuck before it despawns
   patchRegistry: true, // 26.1: let serv.spawnMob create cows, zombies etc. (see patchMobRegistry below)
   debug: false
 }
@@ -54,6 +59,7 @@ module.exports.server = function (serv, options) {
   const config = Object.assign({}, DEFAULTS, (this && this.settings) || {})
   const view = new BlockView(serv.registry)
   const pathfinder = new Pathfinder(view)
+  const projectiles = new ProjectileManager(serv, view, config)
   const allProfiles = Object.assign({}, profiles)
 
   if (config.patchRegistry) {
@@ -73,6 +79,8 @@ module.exports.server = function (serv, options) {
     config,
     view,
     pathfinder,
+    projectiles,
+    Item: projectiles.Item,
     takePathBudget () { return pathBudget-- > 0 },
     debug (msg) { if (config.debug) serv.info(`[mob-ai] ${msg}`) }
   }
@@ -106,8 +114,22 @@ module.exports.server = function (serv, options) {
     }
     serv.spawnMob.mobAIWrapped = true
   }
-  if (serv.pluginsReady) wrapSpawnMob()
-  else serv.once('pluginsReady', wrapSpawnMob)
+  // Every block change goes through serv.setBlock: drop the cached cell so arrows and pathfinding see it at once.
+  function wrapSetBlock () {
+    if (typeof serv.setBlock !== 'function' || serv.setBlock.mobAIWrapped) return
+    const original = serv.setBlock
+    serv.setBlock = async function (world, position, ...rest) {
+      const forget = () => view.invalidate(world, Math.floor(position.x), Math.floor(position.y), Math.floor(position.z))
+      forget()
+      const result = await original.call(this, world, position, ...rest)
+      forget()
+      return result
+    }
+    serv.setBlock.mobAIWrapped = true
+  }
+  const wrapCore = () => { wrapSpawnMob(); wrapSetBlock() }
+  if (serv.pluginsReady) wrapCore()
+  else serv.once('pluginsReady', wrapCore)
 
   function release (id) {
     const ai = controllers.get(id)
@@ -131,7 +153,18 @@ module.exports.server = function (serv, options) {
     return best
   }
 
+  let arrowsRunning = false
   serv.on('tick', delta => {
+    view.tick() // shared block cache: advance once per server tick
+
+    // arrows fly even when the mob AI is switched off
+    if (!arrowsRunning && projectiles.count) {
+      arrowsRunning = true
+      projectiles.tick()
+        .catch(err => serv.err?.(`[mob-ai] projectile tick failed: ${err.stack || err}`))
+        .finally(() => { arrowsRunning = false })
+    }
+
     if (!config.enabled || running) return // skip a tick rather than queue work behind a slow one
     running = true
     const dt = Math.min(0.1, Math.max(0.02, delta || 0.05)) // seconds since the previous server tick
@@ -141,7 +174,6 @@ module.exports.server = function (serv, options) {
   })
 
   async function tickAll (dt) {
-    view.tick()
     pathBudget = config.maxPathfindsPerTick
 
     const players = serv.players.filter(p => p.world && p.position && !(config.ignoreSpectators && p.gameMode === 3))
@@ -192,13 +224,16 @@ module.exports.server = function (serv, options) {
     let active = 0
     let frozen = 0
     for (const ai of controllers.values()) ai.frozen ? frozen++ : active++
-    return { total: controllers.size, active, frozen, ignored: ignored.size }
+    return { total: controllers.size, active, frozen, ignored: ignored.size, arrows: projectiles.count }
   }
 
   serv.mobAI = {
     config,
     controllers,
     stats,
+    projectiles,
+    view,
+    bow: bowMath,
     Goal,
     GoalSelector,
     Control,
@@ -224,7 +259,7 @@ module.exports.server = function (serv, options) {
       switch (sub) {
         case '': case 'status': {
           const s = stats()
-          return `Mob AI ${config.enabled ? 'on' : 'off'}: ${s.total} mobs (${s.active} active, ${s.frozen} frozen); active range ${config.activeRange} blocks`
+          return `Mob AI ${config.enabled ? 'on' : 'off'}: ${s.total} mobs (${s.active} active, ${s.frozen} frozen), ${s.arrows} arrows in flight or stuck; active range ${config.activeRange} blocks`
         }
         case 'range':
           if (!(Number(arg) > 0)) return 'Usage: /mobai range <blocks>'
@@ -259,6 +294,8 @@ module.exports.server = function (serv, options) {
 }
 
 module.exports.player = function (player, serv) {
+  if (serv.mobAI && serv.mobAI.config.playerBows) attachPlayerBow(player, serv, { projectiles: serv.mobAI.projectiles })
+
   // A player hitting a mob provokes it: passive mobs panic, hostile and neutral mobs retaliate.
   player.on('attack', ({ attackedEntity } = {}, cancelled) => {
     if (cancelled || !attackedEntity || attackedEntity.type !== 'mob') return

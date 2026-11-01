@@ -9,6 +9,8 @@ module.exports.player = function (player, serv) {
 
     player.behavior('attack', {
       attackedEntity,
+      damageType: 'player_attack',
+      cause: player,
       velocity: attackedEntity.position.minus(player.position).plus(new Vec3(0, 0.5, 0)).scaled(5)
     }, (o) => o.attackedEntity.takeDamage(o))
   }
@@ -35,12 +37,41 @@ module.exports.player = function (player, serv) {
   })
 }
 
+// 1.19.4+ clients no longer know the old "take damage" animation id; hurt entities are shown with a damage_event
+// packet {entityId, sourceTypeId, sourceCauseId, sourceDirectId}. sourceTypeId is the index of the damage type in the
+// damage_type registry sent at login (resolved by name), cause/direct are entity id + 1 (0 = none).
+function damageTypeIds (registry) {
+  if (!registry.protocol?.play?.toClient?.types?.packet_damage_event) return null
+  const entry = registry.loginPacket?.dimensionCodec?.['minecraft:damage_type']
+  const list = Array.isArray(entry) ? entry : entry?.entries
+  if (!Array.isArray(list)) return null
+  const ids = {}
+  list.forEach((e, i) => { ids[String(e.key).replace(/^minecraft:/, '')] = i })
+  return ids
+}
+
 module.exports.entity = function (entity, serv) {
-  entity.takeDamage = ({ sound = 'game.player.hurt', damage = 1, velocity = new Vec3(0, 0, 0), maxVelocity = new Vec3(4, 4, 4), animation = true }) => {
+  // damageType: name of a vanilla damage type ('arrow', 'mob_attack', 'on_fire', ...), cause / direct: attacker and
+  // projectile entities. All three are optional.
+  entity.takeDamage = ({ sound = 'game.player.hurt', damage = 1, velocity = new Vec3(0, 0, 0), maxVelocity = new Vec3(4, 4, 4), animation = true, damageType = 'generic', cause = null, direct = null }) => {
+    const wasAlive = entity.health > 0
     entity.updateHealth(entity.health - damage)
     serv.playSound(sound, entity.world, entity.position)
 
     entity.sendVelocity(velocity, maxVelocity)
+
+    const ids = damageTypeIds(serv.registry)
+    if (animation && ids) {
+      entity._writeNearby('damage_event', {
+        entityId: entity.id,
+        sourceTypeId: ids[damageType] ?? ids.generic ?? 0,
+        sourceCauseId: cause ? cause.id + 1 : 0,
+        sourceDirectId: direct ? direct.id + 1 : (cause ? cause.id + 1 : 0)
+      })
+      if (wasAlive && entity.health <= 0) entity._writeNearby('entity_status', { entityId: entity.id, entityStatus: 3 })
+      if (entity.health <= 0 && entity.type !== 'player') { delete serv.entities[entity.id] }
+      return
+    }
 
     if (entity.health <= 0) {
       if (animation) {

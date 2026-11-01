@@ -87,9 +87,11 @@ class MeleeAttackGoal extends Goal {
   start () {
     this.repath = 0
     this.cooldown = 10
+    this.mob.setAggressive(true) // arms out
   }
 
   stop () {
+    this.mob.setAggressive(false)
     this.mob.nav.stop()
     if (!this.mob.targetValid(1.5)) this.mob.target = null
   }
@@ -120,47 +122,102 @@ class MeleeAttackGoal extends Goal {
 }
 
 // ---------------------------------------------------------------------------------------------
-/** Keeps its distance and shoots (skeletons). Uses a hitscan hit rather than a projectile entity. */
+/**
+ * RangedBowAttackGoal (vanilla skeleton AI). It walks towards the target until it is within `radius`
+ * blocks and has had line of sight for 20 ticks, then stands and strafes while it
+ * draws the bow for 20 ticks, shoots a real arrow, and waits `attackInterval` ticks
+ * (20 on hard, 40 otherwise) before drawing again. It gives up drawing after 3 s without line of sight.
+ */
 class RangedAttackGoal extends Goal {
-  constructor (mob, { speed = 1.0, minRange = 5, maxRange = 14, interval = 40 } = {}) {
+  constructor (mob, { speed = 1.0, radius = 15 } = {}) {
     super(mob, Control.MOVE | Control.LOOK)
-    Object.assign(this, { speedMul: speed, minRange, maxRange, interval })
-    this.cooldown = 0
+    this.speedMul = speed
+    this.radius = radius
+    this._reset()
+  }
+
+  _reset () {
+    this.seeTime = 0
+    this.attackTime = -1
+    this.strafingTime = -1
+    this.clockwise = false
+    this.backwards = false
     this.repath = 0
     this.sight = false
+    this.losPending = false
   }
+
+  get attackInterval () { return this.mob.difficulty() >= 3 ? 20 : 40 }
 
   canStart () { return this.mob.targetValid() }
   shouldContinue () { return this.mob.targetValid(1.2) }
-  start () { this.cooldown = 20; this.repath = 0 }
+
+  start () {
+    this._reset()
+    this.mob.setAggressive(true) // vanilla RangedBowAttackGoal.start: the skeleton raises the bow arm
+  }
+
   stop () {
+    this.mob.stopUsingItem()
+    this.mob.setAggressive(false)
     this.mob.nav.stop()
-    if (!this.mob.targetValid(1.2)) this.mob.target = null
+    this._reset()
   }
 
   tick () {
     const ai = this.mob
     const t = ai.target
     const p = ai.mob.position
-    ai.lookAt(t.position.offset(0, 1.5, 0))
-    this.cooldown = Math.max(0, this.cooldown - 1)
-    const dist = p.distanceTo(t.position)
-    if (--this.repath <= 0) {
-      this.repath = randInt(10, 16)
-      ai.hasLineOfSight(t).then(v => { this.sight = v })
-      if (dist > this.maxRange || !this.sight) {
-        ai.nav.moveTo(t.position, ai.speed(this.speedMul), { reachDist: this.maxRange * 0.7 })
-      } else if (dist < this.minRange) {
-        const away = p.minus(t.position)
-        const n = Math.hypot(away.x, away.z) || 1
-        ai.nav.moveTo(new Vec3(p.x + (away.x / n) * 6, p.y, p.z + (away.z / n) * 6), ai.speed(this.speedMul))
-      } else {
-        ai.nav.stop() // in the sweet spot: stand and shoot
-      }
+    const dx = t.position.x - p.x
+    const dy = t.position.y - p.y
+    const dz = t.position.z - p.z
+    const d2 = dx * dx + dy * dy + dz * dz
+    const r2 = this.radius * this.radius
+
+    // line of sight is an async block query: keep one in flight and use the latest answer
+    if (!this.losPending) {
+      this.losPending = true
+      ai.hasLineOfSight(t).then(v => { this.sight = v; this.losPending = false }, () => { this.losPending = false })
     }
-    if (this.sight && dist <= this.maxRange && this.cooldown === 0) {
-      this.cooldown = this.interval
-      ai.rangedAttack(t, dist)
+    const sees = this.sight
+    const hadSight = this.seeTime > 0
+    if (sees !== hadSight) this.seeTime = 0
+    if (sees) this.seeTime++
+    else this.seeTime--
+
+    if (d2 > r2 || this.seeTime < 20) {
+      if (--this.repath <= 0 || !ai.nav.isMoving) {
+        this.repath = 10
+        ai.nav.moveTo(t.position, ai.speed(this.speedMul), { reachDist: 2 })
+      }
+      this.strafingTime = -1
+    } else {
+      ai.nav.stop()
+      this.strafingTime++
+    }
+
+    if (this.strafingTime >= 20) {
+      if (Math.random() < 0.3) this.clockwise = !this.clockwise
+      if (Math.random() < 0.3) this.backwards = !this.backwards
+      this.strafingTime = 0
+    }
+    if (this.strafingTime > -1) {
+      if (d2 > r2 * 0.75) this.backwards = false
+      else if (d2 < r2 * 0.25) this.backwards = true
+      ai.nav.strafe(this.backwards ? -0.5 : 0.5, this.clockwise ? 0.5 : -0.5, dx, dz)
+    }
+    ai.lookAt(t.position.offset(0, 1.62, 0))
+
+    if (ai.isUsingItem) {
+      if (!sees && this.seeTime < -60) {
+        ai.stopUsingItem()
+      } else if (sees && ai.usingTicks >= 20) {
+        ai.stopUsingItem()
+        ai.shootArrow(t)
+        this.attackTime = this.attackInterval
+      }
+    } else if (--this.attackTime <= 0 && this.seeTime >= -60) {
+      ai.startUsingItem()
     }
   }
 }

@@ -57,22 +57,20 @@ const profiles = {
   zombie_villager: hostile({ burnsInSun: true, goals: [swim, [1, ai => new G.FleeSunGoal(ai)], targetNearest, melee(1), wander(0.8), look] }),
   skeleton: hostile({
     burnsInSun: true,
-    ranged: { damage: 3, accuracy: 0.75 },
+    holdsBow: true,
+    eyeHeight: 1.74,
     attributes: { maxHealth: 20, movementSpeed: 3.0, attackDamage: 3, followRange: 16, knockbackResistance: 0 },
     goals: [swim, fleeSun, targetNearest, [2, ai => new G.RangedAttackGoal(ai)], wander(0.8), look]
   }),
   stray: hostile({
-    ranged: { damage: 3, accuracy: 0.75 },
+    holdsBow: true,
+    eyeHeight: 1.74,
     attributes: { maxHealth: 20, movementSpeed: 3.0, attackDamage: 3, followRange: 16, knockbackResistance: 0 },
     goals: [swim, targetNearest, [2, ai => new G.RangedAttackGoal(ai)], wander(0.8), look]
   }),
   spider: hostile({ height: 1, reach: 1.5, neutralInDay: true, attributes: { maxHealth: 16, movementSpeed: 4.2, attackDamage: 2, followRange: 16, knockbackResistance: 0 } }),
   cave_spider: hostile({ height: 1, reach: 1.3, attributes: { maxHealth: 12, movementSpeed: 4.2, attackDamage: 2, followRange: 16, knockbackResistance: 0 } }),
   silverfish: hostile({ height: 1, reach: 1.2, attributes: { maxHealth: 8, movementSpeed: 4.0, attackDamage: 1, followRange: 16, knockbackResistance: 0 } }),
-  pillager: hostile({
-    ranged: { damage: 4, accuracy: 0.7 },
-    goals: [swim, targetNearest, [2, ai => new G.RangedAttackGoal(ai, { interval: 50, maxRange: 15 })], wander(0.8), look]
-  }),
   // creepers just stalk & look: the explosion is not implemented (it would need block destruction)
   creeper: passive({ type: 'hostile', height: 1.7, goals: [swim, wander(0.8), look] }),
 

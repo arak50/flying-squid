@@ -5,10 +5,16 @@
 //     otherwise                     -> Instant Transmission (range 8  + tuned_transmission, ahead of you)
 //   (the packet capture confirms 8 blocks for the plain right-click on an AOTV)
 // Add more items by adding rows (e.g. ETHERWARP_CONDUIT: ether only, ASPECT_OF_THE_LEECH_*: instant 3/4/5).
+//
+// `mana` is only the FALLBACK cost, used when the held item carries no tooltip cost (lib/mana.js reads "Mana Cost: N" from the
+// item's own lore, which already includes Ultimate Wise etc. - the sample profile's Warped AOTV says 19 / 74 and the recorded
+// mana drops are exactly 19 and 74). Fallbacks: the wiki's base costs, AOTE instant 50 and AOTV instant 45. The Ether base of
+// 90 is only what unmodified AOTVs show in player lore dumps - it is NOT verified against a recording.
+const ABILITY_NAMES = { instant: 'Instant Transmission', ether: 'Ether Transmission' }
 
 const TELEPORT_ITEMS = {
-  ASPECT_OF_THE_END: { instant: { range: 8 }, ether: { range: 57, requiresEthermerge: true } },
-  ASPECT_OF_THE_VOID: { instant: { range: 8 }, ether: { range: 57, requiresEthermerge: true } }
+  ASPECT_OF_THE_END: { instant: { range: 8, mana: 50 }, ether: { range: 57, mana: 90, requiresEthermerge: true } },
+  ASPECT_OF_THE_VOID: { instant: { range: 8, mana: 45 }, ether: { range: 57, mana: 90, requiresEthermerge: true } }
 }
 
 /**
@@ -16,17 +22,17 @@ const TELEPORT_ITEMS = {
  * @param {string} id        SkyBlock id (ExtraAttributes.id)
  * @param {object} extra     simplified ExtraAttributes
  * @param {boolean} sneaking
- * @returns {{ kind: 'instant'|'ether', range: number, itemId: string } | null}
+ * @returns {{ kind: 'instant'|'ether', range: number, itemId: string, name: string, defaultMana: number } | null}
  */
 function resolveAbility (table, id, extra, sneaking) {
   const def = table[id]
   if (!def) return null
   const tuned = Number(extra && extra.tuned_transmission) || 0
   if (def.ether && sneaking && (!def.ether.requiresEthermerge || (extra && Number(extra.ethermerge) === 1))) {
-    return { kind: 'ether', range: def.ether.range + tuned, itemId: id }
+    return { kind: 'ether', range: def.ether.range + tuned, itemId: id, name: ABILITY_NAMES.ether, defaultMana: def.ether.mana }
   }
-  if (def.instant) return { kind: 'instant', range: def.instant.range + tuned, itemId: id }
+  if (def.instant) return { kind: 'instant', range: def.instant.range + tuned, itemId: id, name: ABILITY_NAMES.instant, defaultMana: def.instant.mana }
   return null
 }
 
-module.exports = { TELEPORT_ITEMS, resolveAbility }
+module.exports = { TELEPORT_ITEMS, ABILITY_NAMES, resolveAbility }
