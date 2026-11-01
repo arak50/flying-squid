@@ -111,7 +111,8 @@ const settings = {
     "skyblock-vitals": {},
     "skyblock-speed":{},
     "projectile-motion": {},
-    "mob-ai": { "activeRange": 32 }
+    "mob-ai": { "activeRange": 32 },
+    "highlight-players": {}
   },
   worldFolder: undefined, // the dungeon is deterministic; nothing to persist (set a folder here to save player edits)
   motd: `Catacombs floor ${floor} seed ${seedArg}\nflying-squid`,

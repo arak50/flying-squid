@@ -35,7 +35,7 @@
  *   serv.skyblockTeleport.use(player)  run the held item's teleport as if the player right-clicked
  *   serv.on('skyblock:teleport', (player, { kind, from, to, itemId, mana, soulflow }))
  *
- * config: "skyblock-teleport": { "delayMs": 0, "landingYOffset": 0.05, "confirmTimeoutMs": 1000, "confirmRetries": 4,
+ * config: "skyblock-teleport": { "delayMs": 0, "landingYOffset": 0.05, "confirmTimeoutMs": 1000, "confirmRetries": 4, "positionSync": true,
  *           "mana": { "enabled": true },
  *           "messages": { "blocked": "There are blocks in the way!", "noTarget": null, "color": "red" },
  *           "sounds": { "enabled": true, "radius": 32, "idOffset": -1, "instant": {...}, "ether": {...} } }
@@ -70,16 +70,87 @@ function toByteAngle (deg) {
 
 module.exports.server = function (serv) {
   const user = this.settings || {}
-  const settings = Object.assign({ delayMs: 0, landingYOffset: 0.05, confirmTimeoutMs: 1000, confirmRetries: 4 }, user, {
+  const settings = Object.assign({ delayMs: 0, landingYOffset: 0.05, confirmTimeoutMs: 1000, confirmRetries: 4, positionSync: true }, user, {
     messages: mergeMessages(user.messages),
     sounds: mergeSounds(user.sounds),
     mana: Object.assign({ enabled: true }, user.mana)
   })
   let warnedNoVitals = false
 
+  const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms))
+
+  /**
+   * Tell the client which chunk it is standing in, like a vanilla server does whenever the player changes chunk.
+   * A vanilla client only keeps chunks within (view distance + 3) of this centre and only ticks (so only sends movement,
+   * which is what keeps other players seeing it at the right place) while its own chunk is loaded. Core sends the packet
+   * from a 'move' listener that compares against lastPositionPlayersUpdated, which core's spawn code has already moved to
+   * the new position for any hop over 2 blocks, so after a teleport the centre was never refreshed. Mineflayer ignores the
+   * centre, which is why bots never showed it. Must go out before the `position` packet.
+   */
+  function syncViewCenter (player, dest) {
+    if (!serv.supportFeature?.('updateViewPosition')) return
+    player._client.write('update_view_position', { chunkX: Math.floor(dest.x / 16), chunkZ: Math.floor(dest.z / 16) })
+  }
+
+  /**
+   * Core streams chunks from a 'move' listener and skips it while a previous pass is still running, so after several quick
+   * hops the area around the player can be left unsent. Once the running pass ends, start another if the player is now
+   * far from where the last one was centred.
+   */
+  function keepChunksCovered (player) {
+    const st = stateOf(player)
+    if (st.chunkWatch || typeof player.worldSendRestOfChunks !== 'function') return
+    st.chunkWatch = true
+    ;(async () => {
+      try {
+        for (let i = 0; i < 200 && !st.ended; i++) {
+          if (player.sendingChunks) { await sleep(50); continue }
+          const last = player.lastPositionChunkUpdated
+          if (last && player.position.distanceTo(last) <= 16) break
+          await player.worldSendRestOfChunks()
+        }
+      } catch (e) {
+        serv.err?.(`[skyblock-teleport] chunks: ${e.message}`)
+      } finally {
+        st.chunkWatch = false
+      }
+    })()
+  }
+
+  /**
+   * Make sure the chunk the player lands in is on the client before it is told to go there: a vanilla client doesn't tick
+   * (send movement) in a chunk it doesn't have, and core's streaming runs behind quick hops. Tracks which chunks core has
+   * sent through its sendChunk behaviour, and sends the landing chunk itself when it hasn't gone out (yet).
+   */
+  async function ensureArrivalChunk (player, dest) {
+    if (typeof player.sendChunk !== 'function' || !player.world || typeof player.world.getColumn !== 'function' || !player.loadedChunks) return
+    const st = stateOf(player)
+    if (!st.sentChunks) {
+      st.sentChunks = new Set()
+      player.on('sendChunk_done', (data) => { if (data) st.sentChunks.add(data.x + ',' + data.z) })
+      const unload = player._unloadChunk
+      if (typeof unload === 'function') {
+        player._unloadChunk = function (x, z, ...rest) { st.sentChunks.delete(x + ',' + z); return unload.call(this, x, z, ...rest) }
+      }
+    }
+    const cx = Math.floor(dest.x / 16)
+    const cz = Math.floor(dest.z / 16)
+    const id = cx + ',' + cz
+    if (st.sentChunks.has(id)) return
+    try {
+      const column = await player.world.getColumn(cx, cz)
+      if (!column) return
+      if (!player.loadedChunks[id]) serv._worldLoadPlayerChunk?.(cx, cz, player) // register it so core unloads it later
+      await player.sendChunk(cx, cz, column)
+      st.sentChunks.add(id)
+    } catch (e) {
+      serv.err?.(`[skyblock-teleport] arrival chunk ${id}: ${e.message}`)
+    }
+  }
+
   /** Per-player teleport bookkeeping: the unconfirmed teleport id (if any), its timer and the use() queue. */
   function stateOf (player) {
-    if (!player.sbTp) player.sbTp = { nextId: FIRST_TELEPORT_ID, pendingId: null, timer: null, retries: 0, queue: Promise.resolve(), guarded: false }
+    if (!player.sbTp) player.sbTp = { nextId: FIRST_TELEPORT_ID, pendingId: null, timer: null, retries: 0, queue: Promise.resolve(), guarded: false, chunkWatch: false, ended: false }
     return player.sbTp
   }
 
@@ -104,6 +175,32 @@ module.exports.server = function (serv) {
     player.sendPosition = function (position, onGround, teleport = false) {
       if (st.pendingId !== null && !teleport) return Promise.resolve()
       return original.call(this, position, onGround, teleport)
+    }
+
+    // What other players are sent for a jump of more than a few blocks. Core uses entity_teleport; a real server and the
+    // capture (874 Entity Position Sync, no Teleport Entity at all) use sync_entity_position. A vanilla client keeps the
+    // base its relative moves (move_entity_pos) are measured from, and the sync packet re-anchors it, so after an
+    // entity_teleport the next small move put observers back on the old chain: the player snapped back to where it was
+    // before the hop (every ether teleport; instant hops mostly stay under the relative-move limit).
+    if (settings.positionSync !== false && serv.registry?.protocol?.play?.toClient?.types?.packet_sync_entity_position) {
+      const writeOthers = player._writeOthersNearby
+      player._writeOthersNearby = function (name, params, ...rest) {
+        if (name === 'entity_teleport' && params && typeof params.dx === 'number') {
+          return writeOthers.call(this, 'sync_entity_position', {
+            entityId: params.entityId,
+            x: params.x,
+            y: params.y,
+            z: params.z,
+            dx: 0,
+            dy: 0,
+            dz: 0,
+            yaw: params.yaw,
+            pitch: params.pitch,
+            onGround: params.onGround
+          }, ...rest)
+        }
+        return writeOthers.call(this, name, params, ...rest)
+      }
     }
   }
 
@@ -283,8 +380,11 @@ module.exports.server = function (serv) {
         return null
       }
       player.position = dest
+      syncViewCenter(player, dest) // before the position packet, as a vanilla server orders them
+      await ensureArrivalChunk(player, dest)
       sendTeleportPacket(player, dest, { yaw, pitch, absoluteLook })
       playTeleportSound(serv, player, ability.kind, dest, settings.sounds)
+      keepChunksCovered(player)
 
       const result = { kind: ability.kind, from, to: dest, itemId: ability.itemId, range: ability.range, mana: paid, soulflow: ability.soulflow || 0 }
       api.hooks.onUse(player, ability, result)
@@ -307,7 +407,7 @@ module.exports.player = function (player, serv) {
     }
   })
   player._client.on('end', () => {
-    if (player.sbTp) { clearTimeout(player.sbTp.timer); player.sbTp.pendingId = null }
+    if (player.sbTp) { clearTimeout(player.sbTp.timer); player.sbTp.pendingId = null; player.sbTp.ended = true }
   })
 
   // Right-clicking sends use_item (main hand) whether or not a block is targeted; block_place is deliberately ignored so a
