@@ -112,6 +112,7 @@ const settings = {
     "skyblock-speed":{},
     "projectile-motion": {},
     "mob-ai": { "activeRange": 32 },
+    "dungeon-mobs": {},
     "highlight-players": {}
   },
   worldFolder: undefined, // the dungeon is deterministic; nothing to persist (set a folder here to save player edits)

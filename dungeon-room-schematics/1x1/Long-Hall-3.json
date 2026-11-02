@@ -1,0 +1,196 @@
+{
+  "name": "Long-Hall-3",
+  "category": "1x1",
+  "identified": true,
+  "score": 0.9636,
+  "coverage": 0.9986,
+  "runnerUp": {
+    "name": "1x1/Dueces-3",
+    "score": 0.3555
+  },
+  "shape": "1x1",
+  "cells": [
+    {
+      "i": 1,
+      "j": 0
+    }
+  ],
+  "size": {
+    "x": 31,
+    "y": 57,
+    "z": 31
+  },
+  "orientation": "normalized to skeleton orientation (rotated 90 deg clockwise from world)",
+  "worldRotationFromCanonical": 270,
+  "appliedRotation": 90,
+  "world": {
+    "x": -168,
+    "z": -200,
+    "sizeX": 31,
+    "sizeZ": 31,
+    "yMin": 51,
+    "yMax": 107
+  },
+  "floorYWorld": 51,
+  "doorways": [
+    {
+      "side": "south",
+      "along": [
+        12,
+        17
+      ],
+      "y": [
+        15,
+        22
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "red_terracotta",
+      "blocks": 41,
+      "leadsToRoom": true
+    },
+    {
+      "side": "west",
+      "along": [
+        13,
+        17
+      ],
+      "y": [
+        15,
+        22
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "coal_block",
+      "blocks": 40,
+      "leadsToRoom": true
+    }
+  ],
+  "blockEntities": {
+    "skull": 74,
+    "dispenser": 25
+  },
+  "schematic": "1x1/Long-Hall-3/Long-Hall-3.schem",
+  "version": "26.1.2",
+  "dataVersion": 4790,
+  "doorSlots": {
+    "mapLayer": 48,
+    "cells": [
+      {
+        "i": 0,
+        "j": 0
+      }
+    ],
+    "slots": [
+      {
+        "side": "north",
+        "cell": {
+          "i": 0,
+          "j": 0
+        },
+        "along": [
+          13,
+          17
+        ],
+        "state": "unmarked",
+        "versions": {
+          "allowed": 0,
+          "forbidden": 0,
+          "unmarked": 2
+        },
+        "conflict": false
+      },
+      {
+        "side": "east",
+        "cell": {
+          "i": 0,
+          "j": 0
+        },
+        "along": [
+          13,
+          17
+        ],
+        "state": "unmarked",
+        "versions": {
+          "allowed": 0,
+          "forbidden": 0,
+          "unmarked": 2
+        },
+        "conflict": false
+      },
+      {
+        "side": "south",
+        "cell": {
+          "i": 0,
+          "j": 0
+        },
+        "along": [
+          13,
+          17
+        ],
+        "state": "allowed",
+        "versions": {
+          "allowed": 2,
+          "forbidden": 0,
+          "unmarked": 0
+        },
+        "conflict": false
+      },
+      {
+        "side": "west",
+        "cell": {
+          "i": 0,
+          "j": 0
+        },
+        "along": [
+          13,
+          17
+        ],
+        "state": "allowed",
+        "versions": {
+          "allowed": 2,
+          "forbidden": 0,
+          "unmarked": 0
+        },
+        "conflict": false
+      }
+    ],
+    "allowed": [
+      {
+        "side": "south",
+        "cell": {
+          "i": 0,
+          "j": 0
+        },
+        "along": [
+          13,
+          17
+        ]
+      },
+      {
+        "side": "west",
+        "cell": {
+          "i": 0,
+          "j": 0
+        },
+        "along": [
+          13,
+          17
+        ]
+      }
+    ]
+  },
+  "unified": {
+    "sources": [
+      "1x1/Long-Hall-3/Long-Hall-3.schem",
+      "1x1/Long-Hall-3/Long-Hall-3_2.schem"
+    ],
+    "base": "1x1/Long-Hall-3/Long-Hall-3.schem",
+    "minShare": 1,
+    "doorwaysRemoved": []
+  }
+}

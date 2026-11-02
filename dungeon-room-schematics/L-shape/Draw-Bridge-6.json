@@ -1,0 +1,339 @@
+{
+  "name": "Draw-Bridge-6",
+  "category": "L-shape",
+  "identified": true,
+  "score": 0.9668,
+  "coverage": 0.9926,
+  "runnerUp": {
+    "name": "L-shape/Market-5",
+    "score": 0.254
+  },
+  "shape": "L-shape",
+  "cells": [
+    {
+      "i": 2,
+      "j": 2
+    },
+    {
+      "i": 3,
+      "j": 2
+    },
+    {
+      "i": 3,
+      "j": 3
+    }
+  ],
+  "size": {
+    "x": 63,
+    "y": 53,
+    "z": 63
+  },
+  "orientation": "normalized to skeleton orientation (rotated 180 deg clockwise from world)",
+  "worldRotationFromCanonical": 180,
+  "appliedRotation": 180,
+  "world": {
+    "x": -136,
+    "z": -136,
+    "sizeX": 63,
+    "sizeZ": 63,
+    "yMin": 56,
+    "yMax": 108
+  },
+  "floorYWorld": 56,
+  "doorways": [
+    {
+      "side": "south",
+      "along": [
+        45,
+        50
+      ],
+      "y": [
+        10,
+        17
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "spruce_planks",
+      "blocks": 29,
+      "leadsToRoom": true
+    },
+    {
+      "side": "south",
+      "along": [
+        45,
+        50
+      ],
+      "y": [
+        10,
+        17
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "cobblestone",
+      "blocks": 29,
+      "leadsToRoom": true
+    }
+  ],
+  "blockEntities": {
+    "dispenser": 14,
+    "skull": 33
+  },
+  "schematic": "L-shape/Draw-Bridge-6/Draw-Bridge-6.schem",
+  "version": "26.1.2",
+  "dataVersion": 4790,
+  "doorSlots": {
+    "mapLayer": 43,
+    "cells": [
+      {
+        "i": 0,
+        "j": 0
+      },
+      {
+        "i": 0,
+        "j": 1
+      },
+      {
+        "i": 1,
+        "j": 1
+      }
+    ],
+    "slots": [
+      {
+        "side": "north",
+        "cell": {
+          "i": 0,
+          "j": 0
+        },
+        "along": [
+          13,
+          17
+        ],
+        "state": "allowed",
+        "versions": {
+          "allowed": 2,
+          "forbidden": 0,
+          "unmarked": 0
+        },
+        "conflict": false
+      },
+      {
+        "side": "north",
+        "cell": {
+          "i": 1,
+          "j": 1
+        },
+        "along": [
+          45,
+          49
+        ],
+        "state": "allowed",
+        "versions": {
+          "allowed": 2,
+          "forbidden": 0,
+          "unmarked": 0
+        },
+        "conflict": false
+      },
+      {
+        "side": "east",
+        "cell": {
+          "i": 0,
+          "j": 0
+        },
+        "along": [
+          13,
+          17
+        ],
+        "state": "allowed",
+        "versions": {
+          "allowed": 2,
+          "forbidden": 0,
+          "unmarked": 0
+        },
+        "conflict": false
+      },
+      {
+        "side": "east",
+        "cell": {
+          "i": 1,
+          "j": 1
+        },
+        "along": [
+          45,
+          49
+        ],
+        "state": "allowed",
+        "versions": {
+          "allowed": 2,
+          "forbidden": 0,
+          "unmarked": 0
+        },
+        "conflict": false
+      },
+      {
+        "side": "south",
+        "cell": {
+          "i": 0,
+          "j": 1
+        },
+        "along": [
+          13,
+          17
+        ],
+        "state": "allowed",
+        "versions": {
+          "allowed": 2,
+          "forbidden": 0,
+          "unmarked": 0
+        },
+        "conflict": false
+      },
+      {
+        "side": "south",
+        "cell": {
+          "i": 1,
+          "j": 1
+        },
+        "along": [
+          45,
+          49
+        ],
+        "state": "allowed",
+        "versions": {
+          "allowed": 2,
+          "forbidden": 0,
+          "unmarked": 0
+        },
+        "conflict": false
+      },
+      {
+        "side": "west",
+        "cell": {
+          "i": 0,
+          "j": 0
+        },
+        "along": [
+          13,
+          17
+        ],
+        "state": "allowed",
+        "versions": {
+          "allowed": 2,
+          "forbidden": 0,
+          "unmarked": 0
+        },
+        "conflict": false
+      },
+      {
+        "side": "west",
+        "cell": {
+          "i": 0,
+          "j": 1
+        },
+        "along": [
+          45,
+          49
+        ],
+        "state": "unmarked",
+        "versions": {
+          "allowed": 0,
+          "forbidden": 0,
+          "unmarked": 2
+        },
+        "conflict": false
+      }
+    ],
+    "allowed": [
+      {
+        "side": "north",
+        "cell": {
+          "i": 0,
+          "j": 0
+        },
+        "along": [
+          13,
+          17
+        ]
+      },
+      {
+        "side": "north",
+        "cell": {
+          "i": 1,
+          "j": 1
+        },
+        "along": [
+          45,
+          49
+        ]
+      },
+      {
+        "side": "east",
+        "cell": {
+          "i": 0,
+          "j": 0
+        },
+        "along": [
+          13,
+          17
+        ]
+      },
+      {
+        "side": "east",
+        "cell": {
+          "i": 1,
+          "j": 1
+        },
+        "along": [
+          45,
+          49
+        ]
+      },
+      {
+        "side": "south",
+        "cell": {
+          "i": 0,
+          "j": 1
+        },
+        "along": [
+          13,
+          17
+        ]
+      },
+      {
+        "side": "south",
+        "cell": {
+          "i": 1,
+          "j": 1
+        },
+        "along": [
+          45,
+          49
+        ]
+      },
+      {
+        "side": "west",
+        "cell": {
+          "i": 0,
+          "j": 0
+        },
+        "along": [
+          13,
+          17
+        ]
+      }
+    ]
+  },
+  "unified": {
+    "sources": [
+      "L-shape/Draw-Bridge-6/Draw-Bridge-6.schem",
+      "L-shape/Draw-Bridge-6/Draw-Bridge-6_2.schem"
+    ],
+    "base": "L-shape/Draw-Bridge-6/Draw-Bridge-6.schem",
+    "minShare": 1,
+    "doorwaysRemoved": []
+  }
+}

@@ -1,0 +1,404 @@
+{
+  "name": "Pit-5",
+  "category": "1x4",
+  "identified": true,
+  "score": 0.972,
+  "coverage": 0.9973,
+  "runnerUp": {
+    "name": "1x4/Waterfall-8",
+    "score": 0.1315
+  },
+  "shape": "1x4",
+  "cells": [
+    {
+      "i": 0,
+      "j": 0
+    },
+    {
+      "i": 0,
+      "j": 1
+    },
+    {
+      "i": 0,
+      "j": 2
+    },
+    {
+      "i": 0,
+      "j": 3
+    }
+  ],
+  "size": {
+    "x": 127,
+    "y": 44,
+    "z": 31
+  },
+  "orientation": "normalized to skeleton orientation (rotated 270 deg clockwise from world)",
+  "worldRotationFromCanonical": 90,
+  "appliedRotation": 270,
+  "world": {
+    "x": -200,
+    "z": -200,
+    "sizeX": 31,
+    "sizeZ": 127,
+    "yMin": 56,
+    "yMax": 99
+  },
+  "floorYWorld": 56,
+  "doorways": [
+    {
+      "side": "north",
+      "along": [
+        45,
+        49
+      ],
+      "y": [
+        10,
+        17
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "spruce_planks",
+      "blocks": 40,
+      "leadsToRoom": true
+    },
+    {
+      "side": "north",
+      "along": [
+        109,
+        114
+      ],
+      "y": [
+        10,
+        17
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "infested_chiseled_stone_bricks",
+      "blocks": 41,
+      "leadsToRoom": true
+    }
+  ],
+  "blockEntities": {
+    "skull": 38
+  },
+  "schematic": "1x4/Pit-5/Pit-5.schem",
+  "version": "26.1.2",
+  "dataVersion": 4790,
+  "doorSlots": {
+    "mapLayer": 43,
+    "cells": [
+      {
+        "i": 0,
+        "j": 0
+      },
+      {
+        "i": 1,
+        "j": 0
+      },
+      {
+        "i": 2,
+        "j": 0
+      },
+      {
+        "i": 3,
+        "j": 0
+      }
+    ],
+    "slots": [
+      {
+        "side": "north",
+        "cell": {
+          "i": 0,
+          "j": 0
+        },
+        "along": [
+          13,
+          17
+        ],
+        "state": "allowed",
+        "versions": {
+          "allowed": 2,
+          "forbidden": 0,
+          "unmarked": 0
+        },
+        "conflict": false
+      },
+      {
+        "side": "north",
+        "cell": {
+          "i": 1,
+          "j": 0
+        },
+        "along": [
+          45,
+          49
+        ],
+        "state": "allowed",
+        "versions": {
+          "allowed": 2,
+          "forbidden": 0,
+          "unmarked": 0
+        },
+        "conflict": false
+      },
+      {
+        "side": "north",
+        "cell": {
+          "i": 2,
+          "j": 0
+        },
+        "along": [
+          77,
+          81
+        ],
+        "state": "allowed",
+        "versions": {
+          "allowed": 2,
+          "forbidden": 0,
+          "unmarked": 0
+        },
+        "conflict": false
+      },
+      {
+        "side": "north",
+        "cell": {
+          "i": 3,
+          "j": 0
+        },
+        "along": [
+          109,
+          113
+        ],
+        "state": "allowed",
+        "versions": {
+          "allowed": 2,
+          "forbidden": 0,
+          "unmarked": 0
+        },
+        "conflict": false
+      },
+      {
+        "side": "east",
+        "cell": {
+          "i": 3,
+          "j": 0
+        },
+        "along": [
+          13,
+          17
+        ],
+        "state": "unmarked",
+        "versions": {
+          "allowed": 0,
+          "forbidden": 0,
+          "unmarked": 2
+        },
+        "conflict": false
+      },
+      {
+        "side": "south",
+        "cell": {
+          "i": 0,
+          "j": 0
+        },
+        "along": [
+          13,
+          17
+        ],
+        "state": "allowed",
+        "versions": {
+          "allowed": 2,
+          "forbidden": 0,
+          "unmarked": 0
+        },
+        "conflict": false
+      },
+      {
+        "side": "south",
+        "cell": {
+          "i": 1,
+          "j": 0
+        },
+        "along": [
+          45,
+          49
+        ],
+        "state": "allowed",
+        "versions": {
+          "allowed": 2,
+          "forbidden": 0,
+          "unmarked": 0
+        },
+        "conflict": false
+      },
+      {
+        "side": "south",
+        "cell": {
+          "i": 2,
+          "j": 0
+        },
+        "along": [
+          77,
+          81
+        ],
+        "state": "allowed",
+        "versions": {
+          "allowed": 2,
+          "forbidden": 0,
+          "unmarked": 0
+        },
+        "conflict": false
+      },
+      {
+        "side": "south",
+        "cell": {
+          "i": 3,
+          "j": 0
+        },
+        "along": [
+          109,
+          113
+        ],
+        "state": "allowed",
+        "versions": {
+          "allowed": 2,
+          "forbidden": 0,
+          "unmarked": 0
+        },
+        "conflict": false
+      },
+      {
+        "side": "west",
+        "cell": {
+          "i": 0,
+          "j": 0
+        },
+        "along": [
+          13,
+          17
+        ],
+        "state": "allowed",
+        "versions": {
+          "allowed": 2,
+          "forbidden": 0,
+          "unmarked": 0
+        },
+        "conflict": false
+      }
+    ],
+    "allowed": [
+      {
+        "side": "north",
+        "cell": {
+          "i": 0,
+          "j": 0
+        },
+        "along": [
+          13,
+          17
+        ]
+      },
+      {
+        "side": "north",
+        "cell": {
+          "i": 1,
+          "j": 0
+        },
+        "along": [
+          45,
+          49
+        ]
+      },
+      {
+        "side": "north",
+        "cell": {
+          "i": 2,
+          "j": 0
+        },
+        "along": [
+          77,
+          81
+        ]
+      },
+      {
+        "side": "north",
+        "cell": {
+          "i": 3,
+          "j": 0
+        },
+        "along": [
+          109,
+          113
+        ]
+      },
+      {
+        "side": "south",
+        "cell": {
+          "i": 0,
+          "j": 0
+        },
+        "along": [
+          13,
+          17
+        ]
+      },
+      {
+        "side": "south",
+        "cell": {
+          "i": 1,
+          "j": 0
+        },
+        "along": [
+          45,
+          49
+        ]
+      },
+      {
+        "side": "south",
+        "cell": {
+          "i": 2,
+          "j": 0
+        },
+        "along": [
+          77,
+          81
+        ]
+      },
+      {
+        "side": "south",
+        "cell": {
+          "i": 3,
+          "j": 0
+        },
+        "along": [
+          109,
+          113
+        ]
+      },
+      {
+        "side": "west",
+        "cell": {
+          "i": 0,
+          "j": 0
+        },
+        "along": [
+          13,
+          17
+        ]
+      }
+    ]
+  },
+  "unified": {
+    "sources": [
+      "1x4/Pit-5/Pit-5.schem",
+      "1x4/Pit-5/Pit-5_2.schem"
+    ],
+    "base": "1x4/Pit-5/Pit-5.schem",
+    "minShare": 1,
+    "doorwaysRemoved": []
+  }
+}

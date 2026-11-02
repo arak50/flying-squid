@@ -1,0 +1,195 @@
+{
+  "name": "Blue-Skulls-1",
+  "category": "1x1",
+  "identified": true,
+  "score": 0.9982,
+  "coverage": 0.9992,
+  "runnerUp": {
+    "name": "1x1/Locked-Away-1",
+    "score": 0.5657
+  },
+  "shape": "1x1",
+  "cells": [
+    {
+      "i": 3,
+      "j": 1
+    }
+  ],
+  "size": {
+    "x": 31,
+    "y": 34,
+    "z": 31
+  },
+  "orientation": "normalized to skeleton orientation (rotated 270 deg clockwise from world)",
+  "worldRotationFromCanonical": 90,
+  "appliedRotation": 270,
+  "world": {
+    "x": -104,
+    "z": -168,
+    "sizeX": 31,
+    "sizeZ": 31,
+    "yMin": 66,
+    "yMax": 99
+  },
+  "floorYWorld": 66,
+  "doorways": [
+    {
+      "side": "south",
+      "along": [
+        12,
+        17
+      ],
+      "y": [
+        0,
+        7
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "spruce_planks",
+      "blocks": 29,
+      "leadsToRoom": true
+    },
+    {
+      "side": "west",
+      "along": [
+        12,
+        18
+      ],
+      "y": [
+        0,
+        7
+      ],
+      "worldY": [
+        66,
+        73
+      ],
+      "material": "stone_bricks",
+      "blocks": 30,
+      "leadsToRoom": true
+    }
+  ],
+  "blockEntities": {
+    "skull": 27
+  },
+  "schematic": "1x1/Blue-Skulls-1/Blue-Skulls-1.schem",
+  "version": "26.1.2",
+  "dataVersion": 4790,
+  "doorSlots": {
+    "mapLayer": 33,
+    "cells": [
+      {
+        "i": 0,
+        "j": 0
+      }
+    ],
+    "slots": [
+      {
+        "side": "north",
+        "cell": {
+          "i": 0,
+          "j": 0
+        },
+        "along": [
+          13,
+          17
+        ],
+        "state": "forbidden",
+        "versions": {
+          "allowed": 0,
+          "forbidden": 2,
+          "unmarked": 0
+        },
+        "conflict": false
+      },
+      {
+        "side": "east",
+        "cell": {
+          "i": 0,
+          "j": 0
+        },
+        "along": [
+          13,
+          17
+        ],
+        "state": "forbidden",
+        "versions": {
+          "allowed": 0,
+          "forbidden": 2,
+          "unmarked": 0
+        },
+        "conflict": false
+      },
+      {
+        "side": "south",
+        "cell": {
+          "i": 0,
+          "j": 0
+        },
+        "along": [
+          13,
+          17
+        ],
+        "state": "allowed",
+        "versions": {
+          "allowed": 2,
+          "forbidden": 0,
+          "unmarked": 0
+        },
+        "conflict": false
+      },
+      {
+        "side": "west",
+        "cell": {
+          "i": 0,
+          "j": 0
+        },
+        "along": [
+          13,
+          17
+        ],
+        "state": "allowed",
+        "versions": {
+          "allowed": 2,
+          "forbidden": 0,
+          "unmarked": 0
+        },
+        "conflict": false
+      }
+    ],
+    "allowed": [
+      {
+        "side": "south",
+        "cell": {
+          "i": 0,
+          "j": 0
+        },
+        "along": [
+          13,
+          17
+        ]
+      },
+      {
+        "side": "west",
+        "cell": {
+          "i": 0,
+          "j": 0
+        },
+        "along": [
+          13,
+          17
+        ]
+      }
+    ]
+  },
+  "unified": {
+    "sources": [
+      "1x1/Blue-Skulls-1/Blue-Skulls-1.schem",
+      "1x1/Blue-Skulls-1/Blue-Skulls-1_2.schem"
+    ],
+    "base": "1x1/Blue-Skulls-1/Blue-Skulls-1.schem",
+    "minShare": 1,
+    "doorwaysRemoved": []
+  }
+}

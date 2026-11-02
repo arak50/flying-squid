@@ -1,0 +1,86 @@
+{
+  "angry_archeologist": {
+    "file": "angry_archeologist.png",
+    "hash": "c48c783458e4cf8518e8ab5863fbc4cb948f90568eeb9a60d16c4fde2b96c033",
+    "slim": false,
+    "legacy": false,
+    "inCapture": true
+  },
+  "crypt_dreadlord": {
+    "file": "crypt_dreadlord.png",
+    "hash": "66f349270a3b851896cdad842f5eec6e140bd9119b75c074955c3be7865e27c7",
+    "slim": false,
+    "legacy": false,
+    "inCapture": true
+  },
+  "crypt_undead": {
+    "file": "crypt_undead.png",
+    "hash": "32e2d0ed14c23862666b405aefabc65a57a271e842fda5f4d19e6bc118ce0c94",
+    "slim": false,
+    "legacy": false,
+    "inCapture": false
+  },
+  "frozen_adventurer": {
+    "file": "frozen_adventurer.png",
+    "hash": "3dee50181dbc336d0d9035f622448c43daa7fdb5d7caaa91f67b3bc6486c3210",
+    "slim": false,
+    "legacy": true,
+    "inCapture": false
+  },
+  "king_midas": {
+    "file": "king_midas.png",
+    "hash": "62bca085750043503f5df9f7def824a2e3acfc27842bcd09d2b6695881e832f5",
+    "slim": false,
+    "legacy": false,
+    "inCapture": false
+  },
+  "lost_adventurer": {
+    "file": "lost_adventurer.png",
+    "hash": "36a0383a527803d99b662ad18bcac78c119250ebbfb14475b4eb4d4a662796b4",
+    "slim": false,
+    "legacy": true,
+    "inCapture": false
+  },
+  "lost_adventurer_1": {
+    "file": "lost_adventurer_1.png",
+    "hash": "e381a1875efeb2a260d357984c3e75a7dfbc7a22b582bfe9990421cbb445acc",
+    "slim": false,
+    "legacy": false,
+    "inCapture": false
+  },
+  "lost_adventurer_2": {
+    "file": "lost_adventurer_2.png",
+    "hash": "3a26cf66af42a48f6be52a0a48a8eb598f3a23639b7a5a8ee171c13999ee94c9",
+    "slim": false,
+    "legacy": false,
+    "inCapture": true
+  },
+  "prince_christian": {
+    "file": "prince_christian.png",
+    "hash": "4999123cf0a41477f706fc6a50891463e8cb50dcbdd2c81c652fcef6fdbde21c",
+    "slim": false,
+    "legacy": false,
+    "inCapture": false
+  },
+  "shadow_assassin": {
+    "file": "shadow_assassin.png",
+    "hash": "3399e00f404411e465d74388df132d51fe868ecf86f1c073faffa1d9172ec0f3",
+    "slim": false,
+    "legacy": false,
+    "inCapture": false
+  },
+  "skeletor_prime": {
+    "file": "skeletor_prime.png",
+    "hash": "1bd3a4f8e22db15e486acac5d456ff35f34ed9ab5c64eec057afd2866d559401",
+    "slim": false,
+    "legacy": false,
+    "inCapture": false
+  },
+  "zombie_commander": {
+    "file": "zombie_commander.png",
+    "hash": "e3976ef4f9d68cfc0f24f6b313713a5f2abbcfff32a27c514c1392dfe619191e",
+    "slim": false,
+    "legacy": false,
+    "inCapture": false
+  }
+}
