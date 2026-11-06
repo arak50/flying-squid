@@ -47,7 +47,9 @@ const schematicsDir = path.resolve(args.schematics || path.join(__dirname, 'dung
 if (!fs.existsSync(schematicsDir)) { console.error(`Schematics folder not found: ${schematicsDir}\nPass --schematics <dir> or put dungeon-room-schematics/ next to this script.`); process.exit(1) }
 
 const genOptions = {
-  dungeonSeed, floor, schematicsDir,
+  dungeonSeed,
+  floor,
+  schematicsDir,
   lighting: args.lighting || 'calculated',
   openDoors: !!args['open-doors'],
   heads: !args['no-heads'],
@@ -94,52 +96,55 @@ const settings = {
   logging: false,
   gameMode: parseInt(args.gamemode ?? '1', 10),
   'everybody-op': true,
-  'version': '26.1',
-  'plugins': {
-    "hypixel-api": {
-      "key": process.env.API_KEY,
-      "sampleFile": "./apiresponsesample.json",
-      "sampleMemberUuid": "88e266f9f6dd41028bda58e009ab1c3c",
-      "sampleMode": "fallback"
+  version: '26.1',
+  plugins: {
+    'hypixel-api': {
+      key: process.env.API_KEY,
+      sampleFile: './apiresponsesample.json',
+      sampleMemberUuid: '88e266f9f6dd41028bda58e009ab1c3c',
+      sampleMode: 'fallback'
     },
-    "skyblock-stats": {},
-    "skyblock-ui": {},
-    "skyblock-core": {},
-    "dungeon-map": {},
-    "skyblock-teleport": {},
-    "skyblock-resourcepack": { "url": "https://resourcepacks.hypixel.net/SkyBlock/d8e24365-a992-480e-a1dc-7e95688f0b15/84.zip" },
-    "skyblock-vitals": {},
-    "skyblock-speed":{},
-    "projectile-motion": {},
-    "mob-ai": { "activeRange": 32 },
-    "dungeon-mobs": {},
-    "highlight-players": {}
+    'skyblock-stats': {},
+    'skyblock-ui': {},
+    'skyblock-core': {},
+    'dungeon-map': {},
+    'skyblock-teleport': {},
+    'skyblock-resourcepack': { url: 'https://resourcepacks.hypixel.net/SkyBlock/d8e24365-a992-480e-a1dc-7e95688f0b15/84.zip' },
+    'skyblock-vitals': {},
+    'skyblock-speed': {},
+    'projectile-motion': {},
+    'mob-ai': { activeRange: 32 },
+    'dungeon-mobs': {},
+    'dungeon-spawner': { schematics: schematicsDir },
+    'dungeon-secrets': { schematics: schematicsDir },
+    'dungeon-run': { autoStart: true },
+    'highlight-players': {}
   },
   worldFolder: undefined, // the dungeon is deterministic; nothing to persist (set a folder here to save player edits)
   motd: `Catacombs floor ${floor} seed ${seedArg}\nflying-squid`,
-generation: {
-  name: path.resolve(__dirname, 'catacombs-generator.js'),
-  options: { ...genOptions, onBuilt: dg => { builtDungeon = dg; report(dg) } }
-}
+  generation: {
+    name: path.resolve(__dirname, 'catacombs-generator.js'),
+    options: { ...genOptions, onBuilt: dg => { builtDungeon = dg; report(dg) } }
+  }
 }
 const server = mcServer.createMCServer(settings)
 server.on('pluginsReady', () => {
-const { Vec3 } = require('vec3')
-// the dungeon-map plugin reads the floor from here when a "dungeonStart" event carries no layout of its own
-server.dungeon = { get layout () { return builtDungeon ? generator.exportLayout(builtDungeon) : null } }
-// our spawn replaces flying-squid's random surface search (there is no surface here)
-server.getSpawnPoint = async () => { const s = builtDungeon ? builtDungeon.spawn : { x: 0, y: 70, z: 0 }; return new Vec3(s.x, s.y, s.z) }
+  const { Vec3 } = require('vec3')
+  // the dungeon-map plugin reads the floor from here when a "dungeonStart" event carries no layout of its own
+  server.dungeon = { get layout () { return builtDungeon ? generator.exportLayout(builtDungeon) : null } }
+  // our spawn replaces flying-squid's random surface search (there is no surface here)
+  server.getSpawnPoint = async () => { const s = builtDungeon ? builtDungeon.spawn : { x: 0, y: 70, z: 0 }; return new Vec3(s.x, s.y, s.z) }
 })
 // flying-squid always sends `blockEntities: []` in map_chunk, so player heads would be invisible. Fill the list in on the way out.
 server.on('newPlayer', player => {
-const client = player._client; const write = client.write.bind(client)
-client.write = (name, params) => {
-  if (name === 'map_chunk' && builtDungeon && params && params.blockEntities && params.blockEntities.length === 0) {
-    const list = builtDungeon.blockEntitiesFor(params.x, params.z)
-    if (list.length) params = { ...params, blockEntities: list }
+  const client = player._client; const write = client.write.bind(client)
+  client.write = (name, params) => {
+    if (name === 'map_chunk' && builtDungeon && params && params.blockEntities && params.blockEntities.length === 0) {
+      const list = builtDungeon.blockEntitiesFor(params.x, params.z)
+      if (list.length) params = { ...params, blockEntities: list }
+    }
+    return write(name, params)
   }
-  return write(name, params)
-}
 })
 server.on('listening', port => console.log(`Server listening on port ${port} (Minecraft ${version}${settings['online-mode'] ? '' : ', offline mode'})`))
 server.on('error', e => { console.error(e); process.exit(1) })

@@ -11,13 +11,13 @@
 const fmt = n => Math.round(n).toLocaleString('en-US')
 
 /** JSON-style text component for a mob. */
-function nametagComponent ({ name, star = false, health, modifier = null, glyphs = [] }) {
+function nametagComponent ({ name, star = false, health, modifier = null, glyphs = [], nameColor = 'red' }) {
   const extra = []
   for (const g of glyphs) extra.push({ text: g.text, color: g.color || 'white' })
   if (star) extra.push({ text: '✯ ', color: 'gold' })
   extra.push(modifier
     ? { text: `${modifier} ${name}`, color: 'dark_gray' }
-    : { text: name, color: 'red' })
+    : { text: name, color: nameColor })
   if (health !== undefined) {
     extra.push({ text: ' ' })
     extra.push({ text: fmt(health), color: 'green' })
@@ -36,7 +36,7 @@ function toNbt (v) {
   if (typeof v === 'number') return { type: 'int', value: v }
   if (Array.isArray(v)) return { type: 'list', value: { type: 'compound', value: v.map(e => toNbt(e).value) } }
   const out = {}
-  for (const [k, x] of Object.entries(v)) out[k] = toNbt(x)
+  for (const [k, x] of Object.entries(v)) if (!(Array.isArray(x) && x.length === 0)) out[k] = toNbt(x) // the client refuses empty component lists
   return { type: 'compound', value: out }
 }
 

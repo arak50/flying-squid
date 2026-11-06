@@ -44,7 +44,15 @@ function fakeServ (extra = {}) {
   serv.spawnMob = (type, world, position) => {
     if (!serv.registry.mobs[type]) throw new Error('not in registry.mobs')
     const mob = {
-      id: ++id, type: 'mob', entityType: type, world, position, health: 20, metadata: [], equipment: [], uuid: 'uuid-' + id,
+      id: ++id,
+      type: 'mob',
+      entityType: type,
+      world,
+      position,
+      health: 20,
+      metadata: [],
+      equipment: [],
+      uuid: 'uuid-' + id,
       sendMetadata (e) { serv.sent.push([this.id, e]) },
       getNearby: () => serv.players,
       _writeOthersNearby (n, p) { serv.nearbyWrites.push([n, p]) }
@@ -138,7 +146,6 @@ assert.deepStrictEqual(componentToNbt({ text: 'a', extra: [{ text: 'b', color: '
   value: { text: { type: 'string', value: 'a' }, extra: { type: 'list', value: { type: 'compound', value: [{ text: { type: 'string', value: 'b' }, color: { type: 'string', value: 'red' } }] } } }
 })
 
-
 // ---- health bar follows mob.health ----
 {
   const m = dm.spawn('zombie_grunt', at, { star: true, modifier: null, health: 7000 })
@@ -220,6 +227,34 @@ assert.deepStrictEqual(componentToNbt({ text: 'a', extra: [{ text: 'b', color: '
   assert.strictEqual(skins.skinProfile('nope'), null)
   const p = skins.skinProfile(['lost_adventurer', 'lost_adventurer_1'], 'x', () => 0.99)
   assert.strictEqual(p.key, 'lost_adventurer_1')
+}
+
+// the Watcher's guardians: own skin, scale and gear from the capture
+{
+  const { mobs } = require('../lib/catalog')
+  const hp = { parasite: 12000, putrid: 20000, psycho: 20000, reaper: 20000, flamer: 16000, ooze: 14000, freak: 16000, mute: 12000 }
+  for (const [k, h] of Object.entries(hp)) {
+    const m = mobs['watcher_' + k]
+    assert.strictEqual(m.entity, 'player', k); assert.strictEqual(m.skin, 'watcher_' + k, k)
+    assert.strictEqual(m.health[0], h, k); assert.ok(m.scale > 0.27 && m.scale < 0.29, k); assert.ok(m.armor && Object.keys(m.armor).length >= 3 - (k === 'mute' ? 1 : 0), k)
+    assert.ok(skins.known().includes('watcher_' + k), k)
+  }
+}
+
+// skins/hashes.json: every skin key has its hash listed, hashes are unique, other hashes are kept apart
+{
+  const h = skins.hashes()
+  const hex = /^[0-9a-f]{1,64}$/
+  const seen = new Set()
+  for (const m of h.mobSkins) { assert.ok(hex.test(m.hash), m.hash); assert.ok(!seen.has(m.hash), 'duplicate ' + m.hash); seen.add(m.hash) }
+  for (const k of skins.known()) {
+    const m = h.mobSkins.find(x => x.key === k)
+    assert.ok(m, `${k} missing from hashes.json`)
+    assert.strictEqual(m.hash, JSON.parse(require('fs').readFileSync(require('path').join(skins.DIR, 'skins.json'), 'utf8'))[k].hash.replace(/^0+/, ''))
+  }
+  assert.ok(h.mobSkins.filter(m => !m.file && m.captureNames.length).length >= 9, 'capture-only mob profiles are listed')
+  assert.ok(h.otherHashes.length > 100)
+  for (const o of h.otherHashes) { assert.ok(hex.test(o.hash) && !seen.has(o.hash), 'other hash overlaps a mob skin: ' + o.hash); assert.ok(['player', 'head'].includes(o.kind)) }
 }
 
 // players: false falls back to the vanilla body, with the tag on the mob itself

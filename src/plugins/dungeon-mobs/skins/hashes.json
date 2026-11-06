@@ -1,0 +1,3285 @@
+{
+ "version": 1,
+ "note": "Mojang texture hashes (textures.minecraft.net/texture/<hash>, leading zeros dropped as Hypixel sends them). mobSkins = skins of mobs Hypixel draws as players: our skins/*.png plus the player-model mobs seen in the real-run capture. otherHashes = every other skin hash in that capture (kind player: tab-list/NPC players, head: skull items and blocks), kept for later use; none is used by the plugin yet.",
+ "source": "2026-11-02-17-13-23_sclogs capture (player_info, entity_equipment, set_slot, window_items, entity_metadata, map_chunk) and skins/skins.json",
+ "mobSkins": [
+  {
+   "hash": "c48c783458e4cf8518e8ab5863fbc4cb948f90568eeb9a60d16c4fde2b96c033",
+   "slim": false,
+   "key": "angry_archeologist",
+   "file": "angry_archeologist.png",
+   "mobs": [
+    "angry_archaeologist"
+   ],
+   "seenInCapture": true,
+   "captureNames": [
+    "Diamond Guy"
+   ]
+  },
+  {
+   "hash": "66f349270a3b851896cdad842f5eec6e140bd9119b75c074955c3be7865e27c7",
+   "slim": false,
+   "key": "crypt_dreadlord",
+   "file": "crypt_dreadlord.png",
+   "mobs": [
+    "crypt_dreadlord"
+   ],
+   "seenInCapture": true,
+   "captureNames": [
+    "Crypt Dreadlord",
+    "Crypt Souleater"
+   ]
+  },
+  {
+   "hash": "32e2d0ed14c23862666b405aefabc65a57a271e842fda5f4d19e6bc118ce0c94",
+   "slim": false,
+   "key": "crypt_undead",
+   "file": "crypt_undead.png",
+   "mobs": [
+    "admin",
+    "crypt_undead"
+   ],
+   "seenInCapture": false,
+   "captureNames": []
+  },
+  {
+   "hash": "3dee50181dbc336d0d9035f622448c43daa7fdb5d7caaa91f67b3bc6486c3210",
+   "slim": false,
+   "key": "frozen_adventurer",
+   "file": "frozen_adventurer.png",
+   "mobs": [
+    "frozen_adventurer"
+   ],
+   "seenInCapture": false,
+   "captureNames": []
+  },
+  {
+   "hash": "62bca085750043503f5df9f7def824a2e3acfc27842bcd09d2b6695881e832f5",
+   "slim": false,
+   "key": "king_midas",
+   "file": "king_midas.png",
+   "mobs": [
+    "king_midas"
+   ],
+   "seenInCapture": false,
+   "captureNames": []
+  },
+  {
+   "hash": "36a0383a527803d99b662ad18bcac78c119250ebbfb14475b4eb4d4a662796b4",
+   "slim": false,
+   "key": "lost_adventurer",
+   "file": "lost_adventurer.png",
+   "mobs": [
+    "lost_adventurer",
+    "redstone_warrior"
+   ],
+   "seenInCapture": false,
+   "captureNames": []
+  },
+  {
+   "hash": "e381a1875efeb2a260d357984c3e75a7dfbc7a22b582bfe9990421cbb445acc",
+   "slim": false,
+   "key": "lost_adventurer_1",
+   "file": "lost_adventurer_1.png",
+   "mobs": [
+    "lost_adventurer",
+    "redstone_warrior"
+   ],
+   "seenInCapture": true,
+   "captureNames": [
+    "Lost Adventurer"
+   ]
+  },
+  {
+   "hash": "3a26cf66af42a48f6be52a0a48a8eb598f3a23639b7a5a8ee171c13999ee94c9",
+   "slim": false,
+   "key": "lost_adventurer_2",
+   "file": "lost_adventurer_2.png",
+   "mobs": [
+    "lost_adventurer",
+    "redstone_warrior"
+   ],
+   "seenInCapture": false,
+   "captureNames": []
+  },
+  {
+   "hash": "4999123cf0a41477f706fc6a50891463e8cb50dcbdd2c81c652fcef6fdbde21c",
+   "slim": false,
+   "key": "prince_christian",
+   "file": "prince_christian.png",
+   "mobs": [
+    "prince"
+   ],
+   "seenInCapture": false,
+   "captureNames": []
+  },
+  {
+   "hash": "3399e00f404411e465d74388df132d51fe868ecf86f1c073faffa1d9172ec0f3",
+   "slim": false,
+   "key": "shadow_assassin",
+   "file": "shadow_assassin.png",
+   "mobs": [
+    "shadow_assassin"
+   ],
+   "seenInCapture": false,
+   "captureNames": []
+  },
+  {
+   "hash": "1bd3a4f8e22db15e486acac5d456ff35f34ed9ab5c64eec057afd2866d559401",
+   "slim": false,
+   "key": "skeletor_prime",
+   "file": "skeletor_prime.png",
+   "mobs": [
+    "skeletor_prime"
+   ],
+   "seenInCapture": false,
+   "captureNames": []
+  },
+  {
+   "hash": "e3976ef4f9d68cfc0f24f6b313713a5f2abbcfff32a27c514c1392dfe619191e",
+   "slim": false,
+   "key": "zombie_commander",
+   "file": "zombie_commander.png",
+   "mobs": [
+    "zombie_commander"
+   ],
+   "seenInCapture": false,
+   "captureNames": []
+  },
+  {
+   "hash": "5cccd53f5191c29a9dc8f0170fbdc4e59e66476aae33de27b468f1de1b7cf3b2",
+   "slim": false,
+   "key": "watcher_mute",
+   "file": null,
+   "mobs": [
+    "watcher_mute"
+   ],
+   "seenInCapture": true,
+   "captureNames": [
+    "Mute "
+   ]
+  },
+  {
+   "hash": "f4624a9a8c69ca204504abb043d47456cd9b09749a36357462303f276a229d4",
+   "slim": false,
+   "key": "watcher_putrid",
+   "file": null,
+   "mobs": [
+    "watcher_putrid"
+   ],
+   "seenInCapture": true,
+   "captureNames": [
+    "Putrid "
+   ]
+  },
+  {
+   "hash": "7d12b2ade413a6cd7cca3c95e961ba9f0ae7165fa41fc7b5d5f094a01240c609",
+   "slim": false,
+   "key": "watcher_freak",
+   "file": null,
+   "mobs": [
+    "watcher_freak"
+   ],
+   "seenInCapture": true,
+   "captureNames": [
+    "Freak "
+   ]
+  },
+  {
+   "hash": "aa23c8cde2943c84249de8351bc3540be5f8afaaba8b2cb032fc5acad78a269b",
+   "slim": false,
+   "key": "watcher_psycho",
+   "file": null,
+   "mobs": [
+    "watcher_psycho"
+   ],
+   "seenInCapture": true,
+   "captureNames": [
+    "Psycho "
+   ]
+  },
+  {
+   "hash": "67237eddaebdbbdaacfa912885560ccdc65da93b4c3d513532868ec23bb5b448",
+   "slim": false,
+   "key": "watcher_flamer",
+   "file": null,
+   "mobs": [
+    "watcher_flamer"
+   ],
+   "seenInCapture": true,
+   "captureNames": [
+    "Flamer "
+   ]
+  },
+  {
+   "hash": "9171f35b8f508142bd8c65417d0f324153ab9147739ee4d10dea733cc80eaa20",
+   "slim": false,
+   "key": "watcher_ooze",
+   "file": null,
+   "mobs": [
+    "watcher_ooze"
+   ],
+   "seenInCapture": true,
+   "captureNames": [
+    "Ooze "
+   ]
+  },
+  {
+   "hash": "a89f6303af85877610912dc04b8b1e89724752f0a7eea05ab6547e228179c06f",
+   "slim": true,
+   "key": "watcher_reaper",
+   "file": null,
+   "mobs": [
+    "watcher_reaper"
+   ],
+   "seenInCapture": true,
+   "captureNames": [
+    "Reaper "
+   ]
+  },
+  {
+   "hash": "4774871190c878c9a2c4496c1e10257c6c4ea13807d72c15d7ac6ab3a7a9a8dc",
+   "slim": false,
+   "key": "watcher_parasite",
+   "file": null,
+   "mobs": [
+    "watcher_parasite"
+   ],
+   "seenInCapture": true,
+   "captureNames": [
+    "Parasite "
+   ]
+  },
+  {
+   "hash": "869887018b2ab31b744375801bb0e75575d710628ee362e76918c4fda3e4b507",
+   "slim": false,
+   "key": "primal_fear",
+   "file": null,
+   "mobs": [],
+   "seenInCapture": true,
+   "captureNames": [
+    "Primal Fear"
+   ]
+  },
+  {
+   "hash": "f774534ac3567dedfe330c98b91bc28e1151005525a84e2b5d720cff62316d76",
+   "slim": false,
+   "key": "watcher_undead",
+   "file": null,
+   "mobs": [],
+   "seenInCapture": true,
+   "captureNames": [
+    "Undead "
+   ]
+  }
+ ],
+ "otherHashes": [
+  {
+   "hash": "10b9875cbf778c76ad37280a44802b2b510fdd2604253f9cfcb92bb84bac6568",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 1,
+    "window_items": 1
+   }
+  },
+  {
+   "hash": "1180376cbd9bcd6fdbe4974a3c1d1b66d1aed22acc670a12f7ee5ab976d18",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 1
+   }
+  },
+  {
+   "hash": "121d8d9ae5278e26bc4399923d25ccb9173e83748e9bad6df76314ba94369e",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 2
+   }
+  },
+  {
+   "hash": "12716ecbf5b8da00b05f316ec6af61e8bd02805b21eb8e440151468dc656549c",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 1
+   }
+  },
+  {
+   "hash": "13d63c93cdd6db2f1eff2e3c42cfea6d37fbf5bc2e3763720e8168642ec9da1",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 16
+   }
+  },
+  {
+   "hash": "1415d2c543e34bb88ede94d79b9427691fc9be72daad8831a9ef297180546e18",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 1,
+    "window_items": 1
+   }
+  },
+  {
+   "hash": "1447cad8e79e1ecab885ff89c07ee6d9fe8a2ba8d2ce649403c950810d837556",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 1
+   }
+  },
+  {
+   "hash": "1578b4af3fdd9151b850b13c67c4580224c7f60052713f2d151f7c15dc0d7b34",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 12
+   }
+  },
+  {
+   "hash": "16b90f4fa3ec106bfef21f3b75f541a18e4757674f7d58250fa7e74952f087dc",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_metadata": 27
+   }
+  },
+  {
+   "hash": "16c21eb6668fe31eec6630acc853adef897de5d0cdea60d8aabec71d98d2312e",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 5
+   }
+  },
+  {
+   "hash": "176286458dd1dfb11b892c3eb65360a6061cfa7ab3762c834a0f7e26801d32b0",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 1
+   }
+  },
+  {
+   "hash": "17d81286281b1c7b13420f70b0f43867aa38eee109b64c3a37b699ea05e8ec05",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 2
+   }
+  },
+  {
+   "hash": "17e3db64014a4788670e49ca7be3da41ff3fbbaf1c539584c635359a5cb60aab",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 1,
+    "window_items": 1
+   }
+  },
+  {
+   "hash": "18110f367a02de3e916bf124f5cb11796d7bddfd0749e8151a6a53d483d6d30e",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 6
+   }
+  },
+  {
+   "hash": "1824d454e0508c57e3fe8337030a0bc52e2065e19f02e30b457d352d4a312537",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 4
+   }
+  },
+  {
+   "hash": "18a2be157f2380931d697f1169af4eac09cfddaa4e052b53d76ef1cfd19cdaf",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 2
+   }
+  },
+  {
+   "hash": "18ae7046da98dcb33f3ed42f1dc41d08ac8dfa5db3a3860de5b1b5c056804187",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 1,
+    "window_items": 1
+   }
+  },
+  {
+   "hash": "18fd187468539e4a3a03bd958461fa2270f4d2453a3ec3cf0749f69a4dce3ffd",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 6
+   }
+  },
+  {
+   "hash": "193c27f9f87ddd4c54c419c6a952f60552079868f6d45952bf1d5ba3ebb25707",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 6
+   }
+  },
+  {
+   "hash": "19e40749900f4aa06500417107f0a9bfb6278350f30e865429d7064d6867987a",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 6
+   }
+  },
+  {
+   "hash": "19ecf656a537245559c8e3f4f04fbf4d59243524cdfbf919dbf56d72d21940f9",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 5
+   }
+  },
+  {
+   "hash": "1a11a7f11bcd5784903c5201d08261c4df8379109d6e611c1cd3ededf031afed",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 2,
+    "window_items": 2
+   }
+  },
+  {
+   "hash": "1ae3855f952cd4a03c148a946e3f812a5955ad35cbcb52627ea4acd47d3081",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 327
+   }
+  },
+  {
+   "hash": "1b4bf7a7a45d8ddeb470c961737ce9621148fce2cfe81459c311775cdab9",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 8
+   }
+  },
+  {
+   "hash": "1c6c30300564f8091125aa781e11cb360290d14982ee2b70150a1bf3413df651",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 2
+   }
+  },
+  {
+   "hash": "1c8627c03bf67ba0250e552825f34b681e5a70b2b5508d0f17ba3fec3d7747d6",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 7
+   }
+  },
+  {
+   "hash": "1e4be873e7c2eb2f106cea349b5fa64b814f819a9372781074fb5091c46deaec",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 1
+   }
+  },
+  {
+   "hash": "20de5e8974940375934d32f71c91ad2d5728d38e51647dcc8f39206c099a54c2",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 14,
+    "entity_equipment": 1,
+    "window_items": 19
+   }
+  },
+  {
+   "hash": "2181e440234df5657729e61b5e8dba8ebb560ef2f7ba781c4329eb31eb0e20bd",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 8
+   }
+  },
+  {
+   "hash": "221025434045bda7025b3e514b316a4b770c6faa4ba9adb4be3809526db77f9d",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 1,
+    "window_items": 1
+   }
+  },
+  {
+   "hash": "22523e15e9986355a1f851f43f750ee3f23c89ae123631da241f872ba7a781",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 2
+   }
+  },
+  {
+   "hash": "241860c4256a5b10bc2cda1ed0479dec579d12ed1499c9ff875645988b1e2530",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 4
+   }
+  },
+  {
+   "hash": "25dffc5e53c837385f5d7863935bc5afa3e4a8176ae52e2f8d7d797c952e3f",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 2
+   }
+  },
+  {
+   "hash": "26d7f896801d91fbaf70e436a0169f8c57209bdd63619abe62255f7a20f2a24d",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 5
+   }
+  },
+  {
+   "hash": "29319525825f1f30727eb940d3a06426bc4cec07fbd80af5cd146e3eb3879f68",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 6
+   }
+  },
+  {
+   "hash": "29747745c198bc9a6457c4751c3fd7388739806d0ea7631aaae05ed2f2843e0",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 8
+   }
+  },
+  {
+   "hash": "299ea120bd83d0c81a3c4627f5bce1b12fb03bcb57779c63dcc77e3f4ae8a793",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 14
+   }
+  },
+  {
+   "hash": "2a99d9ee6513aa88a3c456aba2bd1e17d134448fd11775bd1d55ef69aa77d230",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 7
+   }
+  },
+  {
+   "hash": "2b6f4401e35748cc0e73d7d07718a00f691f2ed22086df8d1403488e580840c2",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 4
+   }
+  },
+  {
+   "hash": "2bb7b385e0aa748a7c6efdf3bcf209928e82471cc36e954337767c5e3d2e150e",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 4
+   }
+  },
+  {
+   "hash": "2bbb2fa7a6ca087280ea0cb564b41ef1ae404a19f7a8128d3d28c519a85e063f",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 4
+   }
+  },
+  {
+   "hash": "2ce0746b12ee4053958e140ba29593272bd84ca34baf50d0d80b5bc3c615e9c6",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 1
+   }
+  },
+  {
+   "hash": "2e9f9b1fc014166cb46a093e5349b2bf6edd201b680d62e48dbf3af9b0459116",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 6
+   }
+  },
+  {
+   "hash": "2eedcffc6a11a3834a28849cc316af7a2752a376d536cf84039cf79108b167ae",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 20
+   }
+  },
+  {
+   "hash": "2f24ed6875304fa4a1f0c785b2cb6a6a72563e9f3e24ea55e18178452119aa66",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 7
+   }
+  },
+  {
+   "hash": "2f2cfaad6f8b62c992c3b55ce3169ffa4005aaee2db35a63f4b3790e4a596c35",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 28,
+    "window_items": 19
+   }
+  },
+  {
+   "hash": "307cefa20028878ef529d6b9208d2812010d086f961b964c328f09b3f6573d6",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 6,
+    "window_items": 9
+   }
+  },
+  {
+   "hash": "31539dbcd36f8772632e5739e2e51484edf373c558d6fb2c6b61b72b7caa",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 2
+   }
+  },
+  {
+   "hash": "3255327dd8e90afad681a19231665bea2bd06065a09d77ac1408837f9e0b242",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 2,
+    "window_items": 2
+   }
+  },
+  {
+   "hash": "33a0246d51350b770de27f1a1925b11cece57b3c9b209e2b6bf275d32d0154c3",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 1,
+    "window_items": 1
+   }
+  },
+  {
+   "hash": "3440d9ef2e02123c2031ae371f7c91861cbd626472ebd172851524f792032ae0",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 7
+   }
+  },
+  {
+   "hash": "351137e11443a8fbb05fcd3ccc1af9bd2303918f35448185e3ed96ef184da",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 8
+   }
+  },
+  {
+   "hash": "351c8aaf6e4d49edebb94517734a252576760a36b152295ac07dfbd0efcc40f0",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 5
+   }
+  },
+  {
+   "hash": "35f4b40cef9e017cd4112d26b62557f8c1d5b189da2e99534222bc8cec7d9196",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 2,
+    "window_items": 2
+   }
+  },
+  {
+   "hash": "361359381c439dc3bd0f49777db0d69c789f1b6d017873f24b2b8aff89db1223",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 7
+   }
+  },
+  {
+   "hash": "362e84da6d1333317eda7d759c3c110c2a2e620d7c91ff1d5c6bd42c15b796",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 2
+   }
+  },
+  {
+   "hash": "36a6bdd89d4756f8bcaa0ece0707a078d566c2abd97d039134e35481e015789d",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 6
+   }
+  },
+  {
+   "hash": "3700ffb5c97d57be37517573ef9dba469b601d54b7f355eb5cf54aa3d9696b4a",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 7
+   }
+  },
+  {
+   "hash": "377ade8afb257086fb1861da43c8ae468b8eb0578fada84303858517ba17217e",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 1,
+    "window_items": 1
+   }
+  },
+  {
+   "hash": "377d4a206d7757f479f332ec1a2bbbee57cef97568dd88df81f4864aee7d3d98",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 1
+   }
+  },
+  {
+   "hash": "37ceb8f0758e2d8ac49de6f977603c7bfc23fd82a8574810a45f5e97c6436d79",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 5
+   }
+  },
+  {
+   "hash": "38957d5023c937c4c41aa2412d43410bda23cf79a9f6ab36b76fef2d7c429",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 1,
+    "window_items": 1
+   }
+  },
+  {
+   "hash": "38f733a0b42828fde056a8ff5552505bd725b40351225ac8be2a5d018f46e5c6",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 5
+   }
+  },
+  {
+   "hash": "38ff473bd52b4db2c06f1ac87fe1367bce7574fac330ffac7956229f82efba1",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 1,
+    "entity_equipment": 1,
+    "window_items": 1
+   }
+  },
+  {
+   "hash": "39338a35acead2ebe5a0ce22588aea8fac96fb7f17cd315ceb07e7fe8e7d53e4",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 7
+   }
+  },
+  {
+   "hash": "3b48ec9c3e23a09e8aa2e1efbff9afb25e7315f9390984d01671dd0ae3c469ab",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 6
+   }
+  },
+  {
+   "hash": "3bcbbf94d603743a1e7147026e1c1240bd98fe87cc4ef04dcab51a31c30914fd",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 20,
+    "entity_equipment": 8
+   }
+  },
+  {
+   "hash": "3ce69d2ddcc81c9fc2e9948c92003eb0f7ebf0e7e952e801b7f2069dcee76d85",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 1,
+    "window_items": 1
+   }
+  },
+  {
+   "hash": "3e54a03f4485b8ba3b9eeec0de0e5b44e22cc6387e2d186245d7022d5e33c49e",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 2
+   }
+  },
+  {
+   "hash": "3f84156bfcfb9dfbaf00004d528e9c5166138e29abbe3938548cf061ea18ba08",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 5
+   }
+  },
+  {
+   "hash": "4099589796de185787ab92c3066d0d0af832ffad7153a42bb2e2d23598e7ea60",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 1,
+    "window_items": 1
+   }
+  },
+  {
+   "hash": "40aa91a4902cfac73a5dc45a1ab8954cff511a0a58d52e738a6548e2b2084618",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 1
+   }
+  },
+  {
+   "hash": "424be46d16d560340fe1dae3b87c390a6c53a8f0b582990208da6f40d0ad4ef1",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 5
+   }
+  },
+  {
+   "hash": "43a256d0513c1ea66afa964d61c68e9819b591362b031919a6fbb18433d242a",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 2
+   }
+  },
+  {
+   "hash": "44b653bbb727b5c865a8efc75092afe939e2c3e68613db9abae4f1b64f99f8",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 2
+   }
+  },
+  {
+   "hash": "475f70569731ae211fc97dbaa8d522cf8b77f8abb53a2d1e9f764a5bb793ead2",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 2
+   }
+  },
+  {
+   "hash": "47b2b1ddd38d088d9f586f075d968169daff050571d5218d9aacf91b66cfbf8e",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 6
+   }
+  },
+  {
+   "hash": "47f1bc3fa91cd86cf4ba7745586d67207b58e7cf27bdf7a717780843785bf9b5",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 1,
+    "window_items": 1
+   }
+  },
+  {
+   "hash": "483c1217218452ecbeec9eba057d76b814b63bdff210dabf124029df6eda61f1",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 1
+   }
+  },
+  {
+   "hash": "48a5a187f72e635d683c408a8159ebb482d2820d023834e8fca24b65f6d6bdc3",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 4
+   }
+  },
+  {
+   "hash": "49737e66ee48f22b11f6999d1d2b10e0fe41d2b93cb7eadc6b78c8facd3909a4",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 5
+   }
+  },
+  {
+   "hash": "49f7cec00afe9f7c624ae8df5c033cb419f6ea41017021b9befd91970b833a5c",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 18
+   }
+  },
+  {
+   "hash": "4ad0476e8671696af3a8949afa2a814b9bdde65eccd1a8b593aeeff5a0318d",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 2
+   }
+  },
+  {
+   "hash": "4be47fc1296785b400bbd7c40d29848dae373811d18673f7eb790ef95de77ff6",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 30
+   }
+  },
+  {
+   "hash": "4c27e3cb52a64968e60c861ef1ab84e0a0cb5f07be103ac78da67761731f00c8",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 1,
+    "window_items": 1
+   }
+  },
+  {
+   "hash": "4dc962ca4fdb7817c9c28604fca39d4c05cab1acdd036866096ea6498fcba95c",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 16
+   }
+  },
+  {
+   "hash": "4e4357c6be7aeb66cc8aeb513dca268edf2488acdd4da1e354d34b2316edae33",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 4
+   }
+  },
+  {
+   "hash": "4e794274c1bb197ad306540286a7aa952974f5661bccf2b725424f6ed79c7884",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 2
+   }
+  },
+  {
+   "hash": "4ef8efea450632d2753a38a23a4f1502a8a685f6e99bf69205ec04420fd64f6",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 1,
+    "window_items": 1
+   }
+  },
+  {
+   "hash": "4fd85a968334ffa874d63e8068c4d1835e29b8da17cf58d8de0a71338ecbf60",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 5
+   }
+  },
+  {
+   "hash": "50721f413a9e766a116b1adba3ee6b882aa67faedb730a7630cf36228794b2af",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 5
+   }
+  },
+  {
+   "hash": "511d782ab5006ec9e6444ad72a326bad543ff94e9ec0731a193175ecd3a8d1ee",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 7
+   }
+  },
+  {
+   "hash": "51967db5e3199916252021903cf4e9952ef7cec220faaca1ba79bafe5938bd80",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 2
+   }
+  },
+  {
+   "hash": "51997da64043b284822115643a654fdc4e8a7226664b48a4e1dbb557b5c0fe14",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 1
+   }
+  },
+  {
+   "hash": "51aae288ab9d5354fda4e395a36421bd261a9b6213dbb786d7ab39465e479ce9",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 1,
+    "window_items": 1
+   }
+  },
+  {
+   "hash": "52dd11da04252f76b6934bc26612f54f264f30eed74df89941209e191bebc0a2",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 4
+   }
+  },
+  {
+   "hash": "53ad79207c3f8bbf4b1d532cfe86dccb57d2c97aeeb51ef00a660afdceab5fa9",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 48
+   }
+  },
+  {
+   "hash": "540ac5dd2c6535e5a8271b954dc89a010cdaabd636e53a01f943366af929e7d3",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 5
+   }
+  },
+  {
+   "hash": "54bf893fc6defad218f7836efefbe636f1c2cc1bb650c82fccd99f2c1ee6",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 3
+   }
+  },
+  {
+   "hash": "5657cd5c2989ff97570fec4ddcdc6926a68a3393250c1be1f0b114a1db1",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 1,
+    "window_items": 1
+   }
+  },
+  {
+   "hash": "56fc854bb84cf4b7697297973e02b79bc10698460b51a639c60e5e417734e11",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 1
+   }
+  },
+  {
+   "hash": "5720917cda0567442617f2721e88be9d2ffbb0b26a3f4c2fe21655814d4f4476",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 2,
+    "window_items": 2
+   }
+  },
+  {
+   "hash": "5766a0d21d261c878763ca8264cd2dd0b17ecfac342411db07886b078e6cb013",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 3
+   }
+  },
+  {
+   "hash": "5a0e29cb59c8f3f3db07e91f1dc293935774dbe347935608fc96198178d17ac1",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 4
+   }
+  },
+  {
+   "hash": "5a2f67500a65f3ce79d34ec150de93df8f60ebe52e248f5e1cdb69b0726256f7",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 1,
+    "window_items": 1
+   }
+  },
+  {
+   "hash": "5a6314eac34416ce10ab22c2e1c4dcb472a3feb98d4e04d3fbbb85a9a471b18",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 80,
+    "entity_equipment": 10
+   }
+  },
+  {
+   "hash": "5a7834d46e7739bfdc942b660492d590f6f1034437c6e6804eadcc2e83152941",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 6
+   }
+  },
+  {
+   "hash": "5a79860aca799407c0faa10b1bbcf42998fad4ebcf31d7a214180826b4ac94e1",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 5
+   }
+  },
+  {
+   "hash": "5a85b6d364e8cd9dc777c0beed34e1af28d1bd6777a93852073c142a8ae17586",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 7
+   }
+  },
+  {
+   "hash": "5df4b3401a4d06ad66ac8b5c4d189618ae617f9c143071c8ac39a563cf4e4208",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 1,
+    "window_items": 1
+   }
+  },
+  {
+   "hash": "5e49985c3ce27dcc72b60bc4e0017316c71943715cecc97b3616d42a9d919ac1",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 3
+   }
+  },
+  {
+   "hash": "5ee4bb4821d0f5ed865c21090a80b5ee7d52268476ee25d389710f7cc9f110d6",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 14
+   }
+  },
+  {
+   "hash": "5f9185581b1efe813d3443ef6a301665558a54d6f138737d8d9ede91f108",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 2
+   }
+  },
+  {
+   "hash": "5ff17735c6614e8e9e4482d3180a361e9b46fb4ad75885345f03f573c01bebd4",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 5
+   }
+  },
+  {
+   "hash": "605fc4e2b68c45059afef3999e9a95aa3d8943597a7894e569397d6cf5d1672a",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 3
+   }
+  },
+  {
+   "hash": "6153ad8ea62b2328e1c037ad13ae462a751e5b828de876e2b2993c8009d5c887",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 4
+   }
+  },
+  {
+   "hash": "61ee9d225bc6d6ba287a6779e2894241bedb3044f5c03217fd764639a43457",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 22,
+    "entity_equipment": 2
+   }
+  },
+  {
+   "hash": "6217c56bbd77f647b8403803ed7ed982dd7afcf8a2ca4133d2c357ee0896efe2",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 1
+   }
+  },
+  {
+   "hash": "62512ac6cc5d8c7ae3dddeee2c429d4a2d6a8341bde056e18e5ae21011bbe643",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 1
+   }
+  },
+  {
+   "hash": "63438555e899bd9a051a95dbea49eb2ecfa52a69dbba8998f3673819e277fdf5",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 1,
+    "window_items": 1
+   }
+  },
+  {
+   "hash": "6446c0c9b18843d5b872c975d086bd3c9ad6fac34d6085a59789e9e29f0a4db6",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 5
+   }
+  },
+  {
+   "hash": "64c9ad5400fa660cbd121d4415a33e07fdf20ecf212a6bd4e68a43c7f646f5c4",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 1,
+    "window_items": 1
+   }
+  },
+  {
+   "hash": "6596ce5875c3dc5e9b98eef22b121ee100437320af8ffd328f31e81d2c943964",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 2
+   }
+  },
+  {
+   "hash": "66b1b59bc890c9c97527787dde20600c8b86f6b9912d51a6bfcdb0e4c2aa3c97",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 1,
+    "window_items": 1
+   }
+  },
+  {
+   "hash": "670718b8f288ea4efd523d172d4ba13cc3361513ac48af0e466300ceda7e8c2d",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 1
+   }
+  },
+  {
+   "hash": "68d09dbb2eea502f18a8496491b3fcc07cd77b59e36f48fba32aa373353cd052",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 4
+   }
+  },
+  {
+   "hash": "68d2183640218ab330ac56d2aab7e29a9790a545f691619e38578ea4a69ae0b6",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 1
+   }
+  },
+  {
+   "hash": "69198f410a10f99314aa0fbe9a3db10697bbc1c011f019507d96673c64217f5a",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 3
+   }
+  },
+  {
+   "hash": "69716e1fd3e1a180b1764dab9b12187b72337498acf365cb7153ba318f82a90c",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 6
+   }
+  },
+  {
+   "hash": "69a364f55460cda0aa47f553debc2215e5f9df8a7f674365cc371c42fc2394c7",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 5
+   }
+  },
+  {
+   "hash": "6a40675d333adcca75b35b6ba29b4fd7e5eaeb998395295385b494128715dab3",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 1,
+    "window_items": 1
+   }
+  },
+  {
+   "hash": "6b1ac7d7c8c1ae51b6ce40c654d1c755bf2c95458b7bfd13ab8e6e22cbe31dc6",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 1
+   }
+  },
+  {
+   "hash": "6becc645f129c8bc2faa4d8145481fab11ad2ee75749d628dcd999aa94e7",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 6
+   }
+  },
+  {
+   "hash": "6c52e992d54337cd9f90418a17fbf1e761e3016f45eb6c40527f61e7c3d169",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 1
+   }
+  },
+  {
+   "hash": "6e4e2cd202b432d90a8fb68c276f5b39e73209545ba09e61cdf7dbc567a78e3f",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 1
+   }
+  },
+  {
+   "hash": "71e1f3b418d1c152d207d7b73aa1d491a17f86d9a243f94a3564e93567f4d967",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 5
+   }
+  },
+  {
+   "hash": "734b9cf7018440e15cebc54a1542d6c2943ca0f1f487229cdc214592f232150",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 1
+   }
+  },
+  {
+   "hash": "73792d6867c5b9487464ea372cad0bd5e4230d883a6e8a512a5abfb4c414885",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 2
+   }
+  },
+  {
+   "hash": "73ecdb847e101849f335472ac02db0d88996a6918eee95796dcf86cb47f217e",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 2
+   }
+  },
+  {
+   "hash": "74114e2c17ed202309863b5f64e3d18b86ccf9ca3dbbea2b934ad6a5aaaf9d83",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 2
+   }
+  },
+  {
+   "hash": "751d055daab2344bae45a3442494a817186cd5b3ba1b38948f0be2d61d06c0ce",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 4
+   }
+  },
+  {
+   "hash": "76965e3fd619de6b0a7ce1673072520a9360378e1cb8c19d4baf0c86769d3764",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 1,
+    "window_items": 1
+   }
+  },
+  {
+   "hash": "783aaaee22868cafdaa1f6f4a0e56b0fdb64cd0aeaabd6e83818c312ebe66437",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 2
+   }
+  },
+  {
+   "hash": "785edb9cb426ae7052a05e544e7851b79a85aad99ac62db785b28d8e5b3",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 2
+   }
+  },
+  {
+   "hash": "7bf01c198f6e16965e230235cd22a5a9f4a40e40941234478948ff9a56e51775",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 14,
+    "window_items": 19
+   }
+  },
+  {
+   "hash": "7e9ba8d67e4161ef8e742fb7bf198b61412f24c2f82b5458108cde99293e77a1",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 2
+   }
+  },
+  {
+   "hash": "81d45a22fd5443ea40cef13b68b79b1fd2be20e885f5050eb8c6bf9b9094c9bf",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 5
+   }
+  },
+  {
+   "hash": "822d8e751c8f2fd4c8942c44bdb2f5ca4d8ae8e575ed3eb34c18a86e93b",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 1,
+    "window_items": 1
+   }
+  },
+  {
+   "hash": "83f69ef27f3120a51050e6be66a0e3f8e89af888d4806716bf86f590da638317",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 1
+   }
+  },
+  {
+   "hash": "846fc012198105099e08f29a9fb1fdc08767ac2fb1cf094c2015d1125f6df5b7",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 7
+   }
+  },
+  {
+   "hash": "863fd78222d5988c6be1cc9fa96e8528915bb69746464d238f936ebebb23c52",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 2
+   }
+  },
+  {
+   "hash": "87f041661251501cc4f26bc5ccddb80eddac5af849e16c757a33002e9d773552",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 6
+   }
+  },
+  {
+   "hash": "88b5c5faa05587ac1e97b6cfd59dfbf8fa47446c5cf2db45ea6e3fd8e51cb438",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 4
+   }
+  },
+  {
+   "hash": "8933eefab8fcb3fa0f47bb0399a508ef6c911dae4b114557f906897aecedf85a",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 16
+   }
+  },
+  {
+   "hash": "89a3544b4310f380c3988f6bb7a3733e92641f7d9ce2b50b9a4c35a41cbb0a1d",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 5
+   }
+  },
+  {
+   "hash": "8b115cdc45fd84f21fba7ac0f2bc77bc3b6302be670842f6e11f66eb557f13ee",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 2
+   }
+  },
+  {
+   "hash": "8c9111540fca1224dca6a69bf807b60c54d984e8791dd3ba2feea74eb088b07c",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 6
+   }
+  },
+  {
+   "hash": "8d9ccc670677d0cebaad4058d6aaf9acfab09abea5d86379a059902f2fe22655",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 4
+   }
+  },
+  {
+   "hash": "8e406f4b1311ecc998b4d7775579d8cc51846fa66f2e4b7637f5593dd8bcdc1e",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 1
+   }
+  },
+  {
+   "hash": "8fff506d4d2561bc3e0379df20cd9127a4f6a1c590e33b10f598f90d767367cd",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 4
+   }
+  },
+  {
+   "hash": "903485cb1cd882fdd7faaf1359ffc3bd4d5341c81c17e95527204e554dad8188",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 1,
+    "window_items": 1
+   }
+  },
+  {
+   "hash": "937f8f95c125757cbf767a11f52a4e6691ce18a25978c68cfa3910360fe",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 5
+   }
+  },
+  {
+   "hash": "9452abb9528bc3ad48ff2bb5256bf8c0fd144fabfe4c8e28ebf2ef29ee15f937",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 2
+   }
+  },
+  {
+   "hash": "94552bb1ac071f380e35c7102e4f0e9cb5200395b8a9b4686c72776571981fc3",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 7
+   }
+  },
+  {
+   "hash": "9636dee806ba47a2c40e95b57a12f37de6c2e677f2160132a07e24eeffa6",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 2
+   }
+  },
+  {
+   "hash": "96636ba6988ce9b40ddc749a09ce0fb939af526005995c18d323ac96625f0d6d",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 7
+   }
+  },
+  {
+   "hash": "968ed77ff460071ea69bc2a1d2136fb193b1dad6f7a9689cc801b93828d2993d",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 6
+   }
+  },
+  {
+   "hash": "96b2813d0fbd92c56b0f42d2d4af1b1e0c477fb3cdc59928eec3082db9225976",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 1
+   }
+  },
+  {
+   "hash": "983b30e9d135b05190eea2c3ac61e2ab55a2d81e1a58dbb26983a14082664",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 22
+   }
+  },
+  {
+   "hash": "98750a1c069d3250e80e958f56e70d97e678d63d045a57ec096de38eff113316",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 1
+   }
+  },
+  {
+   "hash": "9bbe721d7ad8ab965f08cbec0b834f779b5197f79da4aea3d13d253ece9dec2",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 3
+   }
+  },
+  {
+   "hash": "9c72c132073ec5a058218d6fbfb4a9970652ced9214d53f4f614b3902fd99a7a",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 3
+   }
+  },
+  {
+   "hash": "9cd3a58a5a4e93d024ba6fbb8d9b4d878efe9c009668bae5a3c925ab8af2361c",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 7
+   }
+  },
+  {
+   "hash": "9d90e777826a52461368e26d1b2e19bfa1ba582d602483e545f4124d0f731842",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 3
+   }
+  },
+  {
+   "hash": "9d9d80b79442cf1a3afeaa237bd6adaaacab0c28830fb36b5704cf4d9f5937c4",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 8
+   }
+  },
+  {
+   "hash": "9ecedf42a61e142313117728a1013329cf9f6717d6accc5a75fc044258045",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 1
+   }
+  },
+  {
+   "hash": "9ee72d3435c183dbdda2290cc8fcc9054b6e4d6e8f5338db4f4c1d9a30854b5d",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 3
+   }
+  },
+  {
+   "hash": "9f31c9b5a2bfe7443645b4e7e8ea408b04d554a9200b00afd574ce924b555ecb",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 4
+   }
+  },
+  {
+   "hash": "9f4297e76fe24f9d9012e41eb70c9e0e026985780376adabf561a4b2f7745e08",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 3
+   }
+  },
+  {
+   "hash": "9fd5f5a6cc552d237f7443f50b97b2ec033094cc08c59422b969f7a7e7048e06",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 4
+   }
+  },
+  {
+   "hash": "a0303aad15241ddc996953352ebd539074bf9b3b27bfa191cc4797185e6b34c7",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 2
+   }
+  },
+  {
+   "hash": "a074a7bd976fe6aba1624161793be547d54c835cf422243a851ba09d1e650553",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 1,
+    "window_items": 1
+   }
+  },
+  {
+   "hash": "a0e81ed07dfb0244d56f4d5f2b37553ec026fb4796f0fb0c57a8eb264983e1e0",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 2
+   }
+  },
+  {
+   "hash": "a1388248ac1a905acfec801729293ce5eba78eb89a703a2b9d87c1e5ac110474",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 4
+   }
+  },
+  {
+   "hash": "a1a81f9b0a1375681ae7d9df65e4d3723b1f0fa7443e76dd3bc63dd3864ff343",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 1,
+    "window_items": 1
+   }
+  },
+  {
+   "hash": "a1aa14de9c158d3513949c85cabb9e37848b984ec3fb5b44a3219f4fb58a00da",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 3
+   }
+  },
+  {
+   "hash": "a223e36ac13f0f71abcfbf0c96fdc2010cc3e11ff2b0d8112d0e63f4b4aaa0de",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 1,
+    "tile_entity_data": 1,
+    "window_items": 1
+   }
+  },
+  {
+   "hash": "a2938b295c0165463ff33475b42e2fc6c26da8f09ef84b5c57b99d3d386dbef5",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 5
+   }
+  },
+  {
+   "hash": "a2b54ac6bb1a3701a5456c7e067e675deaa8bb0d8595bbacab236a45557d3974",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 4
+   }
+  },
+  {
+   "hash": "a33898d014250f264f6984d11bf152ec4af6478384aec8ae46965bd2c4f6f929",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 2
+   }
+  },
+  {
+   "hash": "a3b693c20d9b641b13b84322129bc1a281f2c5b275fe8b1e2d11d0d4ee385915",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 6
+   }
+  },
+  {
+   "hash": "a6676a156b68e5b12f00de4dc2706001c3282ebbb064e555b1752c191e8808b6",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 3
+   }
+  },
+  {
+   "hash": "a67b47fbd37c6d9d8d22d973e7290e80852e9266a076fb7ab215afe91b81ed6c",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 2
+   }
+  },
+  {
+   "hash": "a93b29c10d82dc1483663bd1cd7ee7896dd3bdd5bce7b629536f0214ed9c0820",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 8
+   }
+  },
+  {
+   "hash": "ab436edb7b805e133f7d3489d46ce0636f7e1cb37b67689faa12e698dbbd7c66",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 6
+   }
+  },
+  {
+   "hash": "ab86da2e243c05dc0898b0cc5d3e64877173177e0a2394425cec100259cb4526",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 14
+   }
+  },
+  {
+   "hash": "ac91f9afd84f2365cee8a53b61b9442b28e4f0e25bc6b6b1badbcdafc3e30c49",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 8
+   }
+  },
+  {
+   "hash": "ad91926e4e595a7e800267ac705a4f1e58997d57f459e7921b97b66406ebad6d",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 8
+   }
+  },
+  {
+   "hash": "aebc508e9509813007aaca0a349cddbff16348c2d39acee9f243e1490578c910",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 1
+   }
+  },
+  {
+   "hash": "aec3ff563290b13ff3bcc36898af7eaa988b6cc18dc254147f58374afe9b21b9",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 1,
+    "window_items": 1
+   }
+  },
+  {
+   "hash": "af157aaea58154adac189606940f9689fbbd12d63a9cb6cb8a2c6096f3007ffa",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 5
+   }
+  },
+  {
+   "hash": "b0e2363c2d41a9d323ba625de8c0637063a36fe85a045de275a7b7739ded6051",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 1,
+    "window_items": 1
+   }
+  },
+  {
+   "hash": "b5ba76e02cab72fa7d8ac54ceec849976ab0b00a01068d68c266766bf70c3997",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 3
+   }
+  },
+  {
+   "hash": "b6a76cc22e7c2ab9c540d1244eadba581f5dd9e18f9adacf05280a5b48b8f618",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_metadata": 2,
+    "entity_equipment": 1
+   }
+  },
+  {
+   "hash": "b827aa5ca039399e0f6c526186eb1ac003f6c191abab57be28d1fd8500263215",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 2
+   }
+  },
+  {
+   "hash": "ba49f9de12c813329f38d0af2da0f32f32a6dcd52c3221d19090c256376c418c",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 11,
+    "entity_equipment": 3,
+    "window_items": 12
+   }
+  },
+  {
+   "hash": "bc37fd41d532e9fac79bb1724e7e28de3ea0213b8bff37648acdfeaf45d94c88",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 7
+   }
+  },
+  {
+   "hash": "bd1c82bd40c72631bc783f8986ccbb3fffccaa81afdf5365a353d6140bfca",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 2
+   }
+  },
+  {
+   "hash": "c0986da40c075cd4430e4ee5720e7aee149986301a5db19c55c1a1f66c97b37b",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 1
+   }
+  },
+  {
+   "hash": "c1aa836b9096c417903299a6c5ab41738c19648ac439fed4bcbe6c32605338dc",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 1
+   }
+  },
+  {
+   "hash": "c1b2dfe8ed5dffc5b1687bc1c249c39de2d8a6c3d90305c95f6d1a1a330a0b1",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 1,
+    "window_items": 1
+   }
+  },
+  {
+   "hash": "c1eb6df4736ae24dd12a3d00f91e6e3aa7ade6bbefb0978afef2f0f92461018f",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 1,
+    "window_items": 1
+   }
+  },
+  {
+   "hash": "c2fb5e8957e0163385e88e0654d0c55886d09acebaefa893e90eb4b3fa0ef9c",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 7
+   }
+  },
+  {
+   "hash": "c316a8b96cb9aeea5140dd936c6ebb964efcbfd71ae217d9f70888efb14e7c0",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 1,
+    "window_items": 1
+   }
+  },
+  {
+   "hash": "c3d14561bbd063f70424a8afcc37bfe9c74562ea36f7bfa3f23206830c64faf1",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 2
+   }
+  },
+  {
+   "hash": "c3e4c49ef05672357d4205d025e69765a331744ce2ece752b5e25111fe7f7363",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 5
+   }
+  },
+  {
+   "hash": "c3eb3e37e9873bfc176b9ed8ef4fbef833de144546bfaefdf24863c3eb87bb86",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 1,
+    "window_items": 1
+   }
+  },
+  {
+   "hash": "c57b8acd145bd3dfb1db94bdbed458fe1846a9c884822ca3ce81a4cf80",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 83
+   }
+  },
+  {
+   "hash": "c62f1da63bea712e6e845af5038b9b4ebd52461ad588d83675dacae8ec91",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 1
+   }
+  },
+  {
+   "hash": "c67d5d37cd64ce3fb57377d25d6152aa4ac2e37954248d5d91f88fbd791f4766",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 2
+   }
+  },
+  {
+   "hash": "c84757ec72612eeac19ccaf80b31c861c791f25d32dda3fb37f55205755a04",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 7
+   }
+  },
+  {
+   "hash": "c919e5b8d56f062a21d224de14af771e2f55d09b59e7b099d09daa57540b79cf",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 3
+   }
+  },
+  {
+   "hash": "c9d5409068320d4b56b293a74930d4313d66c6dd55ba6ec7119f1883b194f2b",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 1
+   }
+  },
+  {
+   "hash": "cb3c9e4fbeded05ba20d6cf2bd0b3ab7bb7d66768224d8012beb04acd9e84911",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 4
+   }
+  },
+  {
+   "hash": "cb852ba1584da9e5714859995451e4b94748c4dd63ae4543c15f9f8aec65c8",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 8
+   }
+  },
+  {
+   "hash": "cc84771b41e6471fdbbf62da48a4cd1a61b06257ed56d24d5b9354da2efb314b",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 6
+   }
+  },
+  {
+   "hash": "ce22391e35a3e5bcee89db312e874fdc9d9e7a6351314b82bda97fbd2be87eb8",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 5
+   }
+  },
+  {
+   "hash": "cec6a3db3bc27481113c589a2b954545c5b7a39d62bb17e512c1b995e69a5",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 2
+   }
+  },
+  {
+   "hash": "cf7f45222e97262b06c7fd8f81da2a9da90246ff504bc8bb9c661d3f23bd3722",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 1
+   }
+  },
+  {
+   "hash": "d006576fcbd55dba8d959a6961bbe69e390e1aa3fcba66b7b28d26bb029ecf3c",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 8
+   }
+  },
+  {
+   "hash": "d0de277e989a86e02f65c5e8f829f63a36a114c66976e254034ca92be928cb44",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 6
+   }
+  },
+  {
+   "hash": "d29a9f57267ed342a13e3ad3a240c4c5af5a1a36ab2de0d6c2a31af0e3cdde",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 2,
+    "window_items": 1
+   }
+  },
+  {
+   "hash": "d2b093a13cd5fd67a41748a898039f81b2bb37581930c250c8b25e74f1e63083",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 4
+   }
+  },
+  {
+   "hash": "d4cd9c707c7092d4759fe2b2b6a713215b6e39919ec4e7afb1ae2b6f8576674c",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 6
+   }
+  },
+  {
+   "hash": "d530898f182d468a69a68db2e72d89a57c0e824c9bb461c395e8ac98fe2b0854",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 1
+   }
+  },
+  {
+   "hash": "d5c119b64b72c5bf6ae1898924bbfbdfab5090484e5029195a72c384a42eecf6",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 4
+   }
+  },
+  {
+   "hash": "d7c33b5f48cb6b59ce842c13d0a38bbecf3947a0d12ab75ba5b7a2764db4d",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 2
+   }
+  },
+  {
+   "hash": "d7cc6687423d0570d556ac53e0676cb563bbdd9717cd8269bdebed6f6d4e7bf8",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 3,
+    "entity_equipment": 1,
+    "window_items": 1
+   }
+  },
+  {
+   "hash": "d964880551c492233689657f26a99e4fe61ad2af712b040272bad6c8f411",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 4
+   }
+  },
+  {
+   "hash": "da14ff912566d4719812788e633ba423d1db1449adfbb7061fafe74ba8809469",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 24
+   }
+  },
+  {
+   "hash": "db742beade426ed6c8af7da9716084701d983902eecb79a24af719a49308f360",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 6
+   }
+  },
+  {
+   "hash": "dbfe098c7366ffabac48f7d465027212f6a77edd73acafcad2c0875f11a031b2",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 1
+   }
+  },
+  {
+   "hash": "dc6bacd36ed60f533138e759c425946222b78eda6b616216f6dcc08e90d33e",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 2,
+    "window_items": 4
+   }
+  },
+  {
+   "hash": "dc93757fbefe1dc1aa3a22a1af6a16f8c93ea979c0ac2d0c2d838c749fc667a1",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 2
+   }
+  },
+  {
+   "hash": "debfd6f9d7810e52a9a108e401be3b08c206087cf4853e0c818676850d49676c",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 5
+   }
+  },
+  {
+   "hash": "dfa13032fa939f184daa6a4e11e6f3a913e48f250498165c5665ccf49c72a140",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 1
+   }
+  },
+  {
+   "hash": "e0ed94bf5fccdd9d3b7ca7fa38e2ceb501332e6b3353404276566b5216c1304f",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 4
+   }
+  },
+  {
+   "hash": "e108fb133004201bfb7989849f55ea9b303486b0ed3826ea6edc91cb75be2d3f",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 5
+   }
+  },
+  {
+   "hash": "e34a13b77369fc2292e62e76e3f9d74c2d1d58e747009eb96b9a1c5279956f41",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 5
+   }
+  },
+  {
+   "hash": "e3546b9e45057927b08a175384d5d0b3a5bc9cc81127b11f952a73554e846843",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 5
+   }
+  },
+  {
+   "hash": "e36e94f6c34a35465fce4a90f2e25976389eb9709a12273574ff70fd4daa6852",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 2,
+    "window_items": 2
+   }
+  },
+  {
+   "hash": "e37006283d2345d6f2b4e5780535472b8d2436625c1de394690e73d91e88207e",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 5
+   }
+  },
+  {
+   "hash": "e49ec7d82b1415acae2059f78cd1d1754b9de9b18ca59f609024c4af843d4d24",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 1,
+    "tile_entity_data": 2,
+    "entity_equipment": 3
+   }
+  },
+  {
+   "hash": "e529abc8830953f4d91edfff24695a9f62758fa4c51b29ac246c3749eaae89b3",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 3
+   }
+  },
+  {
+   "hash": "ea5bbf8ebd408834ecb6b88f80cb0540ec069997e1d5d58935e262b59c375f29",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 9
+   }
+  },
+  {
+   "hash": "ea84cc8818c293484fdaafc8fa2f0bf39e55733a247d68023df2c6c6b9b671d0",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 1,
+    "window_items": 1
+   }
+  },
+  {
+   "hash": "eae888927037f87a5539541a89cc5fa7d9c43c8dc5632698bad64b70244dd",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 12
+   }
+  },
+  {
+   "hash": "ebd477724589eaacd8a92abf22e51d900a4d9f36186b98f1e4d816a91ffd296",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 6
+   }
+  },
+  {
+   "hash": "edf44d4bdf00c0ee33bfe336c188080a0e0b7fe09ed88e08b53db970b60a70d6",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 1
+   }
+  },
+  {
+   "hash": "edfdb51cf229ee304f17ebf73c2adc16a4a2008f417ebe28cde4e0b445bc03f0",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 7
+   }
+  },
+  {
+   "hash": "ee8cb45614e83c1bdfc23f45364f6533a446a13b812d83038669ebc10305e3b5",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 1
+   }
+  },
+  {
+   "hash": "ef9f6a57d8f686fedd5185d178550913f48f91b57c9162d70d368b1fd9fe2b52",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 1,
+    "window_items": 1
+   }
+  },
+  {
+   "hash": "efec199b9a9137c582ce31e8e8bd180ca482649139afffcb84b24e446ea6b6ec",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 4
+   }
+  },
+  {
+   "hash": "f1d26142909bde6d9ab136fe8928dd67b662843d6c1813e108842c23f1c793bb",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 1,
+    "window_items": 1
+   }
+  },
+  {
+   "hash": "f2ba866c635bc1805065af8a0247dc77b50e9bcefd98be3f93e80c29f39f39aa",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 15
+   }
+  },
+  {
+   "hash": "f2ef09ad45e23f9884a9fc738e71e82f2484bf9bae124f5c5023bb961903c87b",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 7
+   }
+  },
+  {
+   "hash": "f37cae5c51eb1558ea828f58e0dff8e6b7b0b1a183d737eecf714661761",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 8
+   }
+  },
+  {
+   "hash": "f4559d75464b2e40a518e4de8e6cf3085f0a3ca0b1b7012614c4cd96fed60378",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 2
+   }
+  },
+  {
+   "hash": "f4d4aa924642303b7e58ed60d1097d6c9c60dff17c896d39863dc8e14ee10767",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 1
+   }
+  },
+  {
+   "hash": "f51b17d7ded6c7e8f3b2dac12378a6fc4e9228b911986f64c8af45837ae6d9e1",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 1,
+    "window_items": 1
+   }
+  },
+  {
+   "hash": "f551e62529417bbd45f35272ffacef5f1617a4677425671916870aab8bbbf230",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 4
+   }
+  },
+  {
+   "hash": "f687ad4a9ea8f2fd663c097fd9205749cc16f14ac12855fa6fb6928fbe9284a3",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 2
+   }
+  },
+  {
+   "hash": "f715ca0f742544ae3ca104297578c2ed700ea3a54980413512f5e7a0bc06729a",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 7
+   }
+  },
+  {
+   "hash": "f802e5f0a1f3bfaa548b6ea6438a31f211b66e8c03a4916f4f6f3fbbeaf5e219",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 1
+   }
+  },
+  {
+   "hash": "fa6df6ca9a454f183c3513dc851590163cc9a6d8773693153eff8189af6204f",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 2
+   }
+  },
+  {
+   "hash": "fb82156fae023b021e1c2275d4cb4c9940e989260d3862578ee27bdbc2b995aa",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 16
+   }
+  },
+  {
+   "hash": "fc42638744922b5fcf62cd9bf27eeab91b2e72d6c70e86cc5aa3883993e9d84",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "set_slot": 1,
+    "entity_equipment": 4,
+    "window_items": 1
+   }
+  },
+  {
+   "hash": "fca445749251bdd898fb83f667844e38a1dff79a1529f79a42447a0599310ea4",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 3
+   }
+  },
+  {
+   "hash": "fdffa64c4b9ae6463cf0e88633bdc754112e819ae4a5ab5ec5621b5a8a584028",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "map_chunk": 2
+   }
+  },
+  {
+   "hash": "fe303be7bd4448d36fdfbe36cdfa8febf5cd00d03e63cfdad89ec9a0cf6e8302",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 5
+   }
+  },
+  {
+   "hash": "ff184c19e725623d32828a0a4e741e86f135ac63dbc828ff3c8468338f3683b",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 3
+   }
+  },
+  {
+   "hash": "ff461c9bddb7ac5aff96929957c7e0eeb6fd2912c0b117b69510769b051fe73e",
+   "slim": false,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 3
+   }
+  },
+  {
+   "hash": "ff73a52248eb66d6b027b3109c36ae0fadbff658ace416e90c1eed0613e8d292",
+   "slim": true,
+   "kind": "head",
+   "seenIn": {
+    "entity_equipment": 4
+   }
+  },
+  {
+   "hash": "142eb46adef9a88941e8f67c5564316c0e9298e3a7ed37aa59597576305ca402",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "set_slot": 7,
+    "entity_equipment": 3,
+    "window_items": 11,
+    "player_info": 16
+   }
+  },
+  {
+   "hash": "14794b777f9bb348c50b19a500d968904c570054edc178a520c4e1a2da0d6587",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 1
+   }
+  },
+  {
+   "hash": "15417de7dc71efdc1b06677e39e7f09cf4dd3d4e4f8f011d512024c125217fc1",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 8
+   }
+  },
+  {
+   "hash": "1920672bbb9395f4d1e2b176e1769a9182e4c860205685dbc76ef20e8f4f0698",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 9
+   }
+  },
+  {
+   "hash": "1c52552341ee652d1fb134c2983765ac6f25103671711077af6aae8e80f5cba4",
+   "slim": true,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 3
+   }
+  },
+  {
+   "hash": "1e15bd4a2b0dbc8aa006d788c1b6791cc74f28bb3062f960146e67312f0b8f79",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "set_slot": 3,
+    "entity_equipment": 6,
+    "window_items": 3,
+    "player_info": 10
+   }
+  },
+  {
+   "hash": "293e647d48594c75d839c7a59f9d9c221547a3454b535f23200960a613129141",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 2
+   }
+  },
+  {
+   "hash": "2a8107114f49caa47d3264b269ca746fd3c3fc1243ea0fa11f6435974d4e37da",
+   "slim": true,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 2
+   }
+  },
+  {
+   "hash": "2e62d004436164eb46a8ccd2a06ce79282f97ebc077ebe08cbd865889b589759",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 7
+   }
+  },
+  {
+   "hash": "31f477eb1a7beee631c2ca64d06f8f68fa93a3386d04452ab27f43acdf1b60cb",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 2
+   }
+  },
+  {
+   "hash": "3a7a3094fb400d0fa88ef5186821ee249e029c39ca0dcd5802e7063e3dddb80e",
+   "slim": true,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 3
+   }
+  },
+  {
+   "hash": "3b1ec40f4120d4205a7836f0f610f89fd416a6c223abf90e1718b2ed751395a8",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 2
+   }
+  },
+  {
+   "hash": "3f8cdcf9073602a6fa51d252dec4f8dfe1ed4db0f58dd25d77a20b912e6a9c3f",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 2
+   }
+  },
+  {
+   "hash": "3faabe9f5b56afcff47170a0997087f146a91b2f471a278d1ea3bc874de5156",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 1
+   }
+  },
+  {
+   "hash": "43934183485667321c9ad58c4ad03377b020a8b7810c82ea3048bee8f0a259c4",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 5
+   }
+  },
+  {
+   "hash": "46acd06e8483b176e8ea39fc12fe105eb3a2a4970f5100057e9d84d4b60bdfa7",
+   "slim": true,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 9
+   }
+  },
+  {
+   "hash": "48bf0ccb6c44c346f03dfd452c8de88a28197142a040b0421e29e96090062971",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 6
+   }
+  },
+  {
+   "hash": "4acfae6c24872cdf44fd2d04312e8af2501f8a9f6d5e178c50c9f53c2f35f18b",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 3
+   }
+  },
+  {
+   "hash": "4ba3daab29536621c8533ef581f49df63c6de2aebab8ca0e51e5c024a281367f",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 2
+   }
+  },
+  {
+   "hash": "4bf86adeefdfcab342b6b91d0d1998372eb1259adce28ecac8be1207c1b342a2",
+   "slim": true,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 10
+   }
+  },
+  {
+   "hash": "4c36e7fdcfc6255c7b31cb2c869d378c119819d8e22f176d6739cf2e9ac28dbd",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 2
+   }
+  },
+  {
+   "hash": "551deebc135d0d29a91388406f6eeaff12b428f65968e326172d3f62fc02b32c",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 3
+   }
+  },
+  {
+   "hash": "615da46cbaeb5d90a7c3fc2e17214d42349b1dfdc517571071f81177ec3dba69",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 5
+   }
+  },
+  {
+   "hash": "6169cb615845219d899429eed66e0889f492482689f581a53c0f096accd41a13",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 3
+   }
+  },
+  {
+   "hash": "618e636cca6073478cad5d55d5dccdb285a6023dc6a0c3d9558ba9bde1b1e06b",
+   "slim": true,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 2
+   }
+  },
+  {
+   "hash": "6190a7b2bb13ae5823f6a1846f842c3489e2620a3665574a0fba975c39410922",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 1
+   }
+  },
+  {
+   "hash": "64f5a5ab6ae54df5ff6b68942765b1fc7f763f5f41ad24a984e11eb576facb",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 2
+   }
+  },
+  {
+   "hash": "654a63738130d23a75716d3442c5d23035a84fa3bc85261d0b3839e0fc19c4ff",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 3
+   }
+  },
+  {
+   "hash": "65b7e88b84681553636ed19cd8e819dd8ccd30bb1248b090da93b7c15b7a7815",
+   "slim": true,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 3
+   }
+  },
+  {
+   "hash": "677a2fb22b9e5a7529206439aea084134974713defa373691c2cec2f79316331",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 2
+   }
+  },
+  {
+   "hash": "6938d16a9a4b354d0b53eac0a8a45c9bb253379ac8fabe718a07d260ba14a7e8",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 3
+   }
+  },
+  {
+   "hash": "6ac6ca262d67bcfb3dbc924ba8215a18195497c780058a5749de674217721892",
+   "slim": true,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 3
+   }
+  },
+  {
+   "hash": "6f7e824c65f49a1687d4ec77b47acbba9fd1fb91a5ea7cd4e3a8a61c6a3e4c6b",
+   "slim": true,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 3
+   }
+  },
+  {
+   "hash": "71cc802ee525cfb34b22995b9d99a848a0294a0ab5c37014360ecce5e448985b",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 2
+   }
+  },
+  {
+   "hash": "752c6c08e8a04ba2c75d68f805b1e6700a6fb41bee362a64bb1710acb5038212",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 3
+   }
+  },
+  {
+   "hash": "7540d272558602b1bb6b44200efa68b086d6031e17084447bd7831a75fa4f125",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 10
+   }
+  },
+  {
+   "hash": "7a290e99b01f2175c3c8a456281c36134182b2a808b4161e8fd83dc9f7e01416",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 4
+   }
+  },
+  {
+   "hash": "7b4c6f5df3134adf4a7eae12fe22eb6aa102b6735221e7f5475c7bbec4237bb8",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 1
+   }
+  },
+  {
+   "hash": "84f131f8275fd5b1eb18135130aa2c81c4758126576976528339a54a3459d9a0",
+   "slim": true,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 3
+   }
+  },
+  {
+   "hash": "889c7f714d1e885a06264e3a4c47f549cceeffde3dce1ddd5ebdfe5bd4720",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 2
+   }
+  },
+  {
+   "hash": "8a4497244f2672bc37e538a55898e12c1ee1e6b7cedb0c7d096e21fbed5f6b66",
+   "slim": true,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 2
+   }
+  },
+  {
+   "hash": "8c1bd3ff34bf12a40617eff31d8e09b0ca90077c4b028d1b6e085f8c6c0dcd9c",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 1
+   }
+  },
+  {
+   "hash": "8ce42299e5b78af5cc376bc62851c2710330bdf94bd93742ac4e1b979fb20981",
+   "slim": true,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 2
+   }
+  },
+  {
+   "hash": "8d7019c1794cd441c5f129ffc197d0f683b55382a97178ed66a72f3863fbf5be",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "set_slot": 4,
+    "entity_equipment": 4,
+    "window_items": 5,
+    "player_info": 9
+   }
+  },
+  {
+   "hash": "90c55c4dc5ce0506a36ad87d3874d8f5bbf9c96864f1ca05da8aff37a1d459b9",
+   "slim": true,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 9
+   }
+  },
+  {
+   "hash": "90ffe85a103762b388a9fdc0935f0e1617c19f02341085f3c82fd863df6bd8b7",
+   "slim": true,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 3
+   }
+  },
+  {
+   "hash": "92e69f20eb3f309445f055b9166c01f81e800e605b7bc57bc84f61d1848d8385",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 2
+   }
+  },
+  {
+   "hash": "98bc2c53ff2d4066dddb1cfb746d5d56e15606e4424bd1e7bc8155f99b3ce06f",
+   "slim": true,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 2
+   }
+  },
+  {
+   "hash": "9a2062ce33c6fec427e1d13978d8cbac705b6d165669850bc641e777bb3755ca",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 3
+   }
+  },
+  {
+   "hash": "9a78d51a27e926cba17dbd1d88f51463d004625254992647ef4d486605afe3b1",
+   "slim": true,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 3
+   }
+  },
+  {
+   "hash": "9b56895b9659896ad647f58599238af532d46db9c1b0389b8bbeb70999dab33d",
+   "slim": true,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 7
+   }
+  },
+  {
+   "hash": "9b8e68a61978e8c2791e6bdd19bbbaf6b918dcaa1d4fcf8450cd498090e4351d",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 2
+   }
+  },
+  {
+   "hash": "9e996e8d514ee78ade5f44ad178b794d6137eb4404d68db08afb7f3b6cddccab",
+   "slim": true,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 2
+   }
+  },
+  {
+   "hash": "a24fa1601e19722bb8cfe9f460627f4d9c80333fd5bf388ea76eb71e552",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 1
+   }
+  },
+  {
+   "hash": "a39a04a2e16d09bc83665f76c78008c3d74cbda1818e801e13be6e7c4bc2f824",
+   "slim": true,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 2
+   }
+  },
+  {
+   "hash": "a3bd16079f764cd541e072e888fe43885e711f98658323db0f9a6045da91ee7a",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 3
+   }
+  },
+  {
+   "hash": "a7f5fd23aafbb9ab4fd14fd0823aea3a9fbdfe6fb2de0f7ef33d0f4b4ab7a",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 422
+   }
+  },
+  {
+   "hash": "a92ca213a501cd2fe64350f9fd5af9ebe2a43043a3a5986d6fe4de9e691f8464",
+   "slim": true,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 2
+   }
+  },
+  {
+   "hash": "aa967e8a484084abef4701e07368a4606593d3ae157a2699191c4daa09595",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 2
+   }
+  },
+  {
+   "hash": "ab8e63abc0ec2d028900287ac7e71dbf447ee7091c9ff0785fa19e880b30815",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 2
+   }
+  },
+  {
+   "hash": "ad265b004b410052ff15bc09ac8c48e8ef0ca9aa66f37b44644175667f14f606",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 2
+   }
+  },
+  {
+   "hash": "b85abdc39eeadd9a1ed834599487c81b84b78236ca4528729a7fdba9c5a84f04",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 3
+   }
+  },
+  {
+   "hash": "b951ffa8c1d64e11bb47cdaf330432a90d8ed0b17ea5d1398696673c08ba9ba6",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 2
+   }
+  },
+  {
+   "hash": "c146d3b6cfc7373cc2805ce43e94b27cbc032955a05a096dd33d819682d812f5",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 1
+   }
+  },
+  {
+   "hash": "cb8c65fd61c8f06717d5cab584f4493cd7e6744d64ec6b93ae5e9d1b601125b2",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 3
+   }
+  },
+  {
+   "hash": "ccf5b934e1f92e316172f82824064f08eaa8e335ce3346472281f19be361cc3f",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "set_slot": 3,
+    "entity_equipment": 6,
+    "window_items": 3,
+    "player_info": 9
+   }
+  },
+  {
+   "hash": "cd654531816ec7200a6a461d7a03c2dadf31f449a591c85f3b31cb2a83dd7366",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 1
+   }
+  },
+  {
+   "hash": "cfad182c0df5eff29889df791641f6c9a308527f5c4f8439813d2cbc0c031073",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 2
+   }
+  },
+  {
+   "hash": "d07661a5e82f0bb86ce3f083b6b8b3f4560146051b19e5e703ebfa57311ded8d",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 3
+   }
+  },
+  {
+   "hash": "d14888f818a452531a2147f80ff7a894d274dec9e3ab80dc7e902c4c7501847",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 3
+   }
+  },
+  {
+   "hash": "d4ed4c6dd46e86378007b84f91ac2dcb23ec9f2e714dfcca1a6a982bad98c428",
+   "slim": true,
+   "kind": "player",
+   "seenIn": {
+    "set_slot": 3,
+    "entity_equipment": 6,
+    "window_items": 3,
+    "player_info": 16
+   }
+  },
+  {
+   "hash": "d6f46eafa7fd8c88d80ac9b77c1ff788558a1ae817a64304864642b70e64d57",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 1
+   }
+  },
+  {
+   "hash": "d919bf6c1c894606c9952428ce573a62e26adecdc6344d6d569eef5510520528",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 10
+   }
+  },
+  {
+   "hash": "da61ff129629647e4f83c1ee59298d5fcf486b1bffa1792746c32d68e3068f07",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 2
+   }
+  },
+  {
+   "hash": "db1736a160a64ec642c62ae580917d96d5b7c76f50ef7d48a2b0a4c674933001",
+   "slim": true,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 2
+   }
+  },
+  {
+   "hash": "ddd7dd58d41183227fcacff594a966e3f9246598735a4bc540f1dbb4fb366590",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 2
+   }
+  },
+  {
+   "hash": "e5cdc3243b2153ab28a159861be643a4fc1e3c17d291cdd3e57a7f370ad676f3",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 2
+   }
+  },
+  {
+   "hash": "e6e3cd10d597b313da255634fbea6771905528e898f43d9ddf990ccc0ba7dd95",
+   "slim": true,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 7
+   }
+  },
+  {
+   "hash": "f5d3f55d28a4e7286196b5b2270899b1fa453ac33a65d9660e85d5c0c59cfb5",
+   "slim": true,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 10
+   }
+  },
+  {
+   "hash": "f618390efc1aa52915ca37b441324b0b1bc325c5aaebc1fedbf3d35f8fc30c76",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 2
+   }
+  },
+  {
+   "hash": "fc1e529d3cccc44bcfcc6d63b77dbaf71dc845cb4e2f47673ee442195d196de",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 2
+   }
+  },
+  {
+   "hash": "fc57e3398daeb32d8d82a3394f9381de2a57f643896ede0db9a656a7068c789",
+   "slim": true,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 2
+   }
+  },
+  {
+   "hash": "ff94b7e38d8a2d4049e7b1eb43fca78ab424c56980ec4b8debcba10347a726e7",
+   "slim": false,
+   "kind": "player",
+   "seenIn": {
+    "player_info": 2
+   }
+  }
+ ]
+}

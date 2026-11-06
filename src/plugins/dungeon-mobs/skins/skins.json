@@ -46,14 +46,14 @@
     "hash": "e381a1875efeb2a260d357984c3e75a7dfbc7a22b582bfe9990421cbb445acc",
     "slim": false,
     "legacy": false,
-    "inCapture": false
+    "inCapture": true
   },
   "lost_adventurer_2": {
     "file": "lost_adventurer_2.png",
     "hash": "3a26cf66af42a48f6be52a0a48a8eb598f3a23639b7a5a8ee171c13999ee94c9",
     "slim": false,
     "legacy": false,
-    "inCapture": true
+    "inCapture": false
   },
   "prince_christian": {
     "file": "prince_christian.png",
@@ -82,5 +82,75 @@
     "slim": false,
     "legacy": false,
     "inCapture": false
+  },
+  "watcher_mute": {
+    "file": null,
+    "hash": "5cccd53f5191c29a9dc8f0170fbdc4e59e66476aae33de27b468f1de1b7cf3b2",
+    "slim": false,
+    "legacy": false,
+    "inCapture": true
+  },
+  "watcher_putrid": {
+    "file": null,
+    "hash": "f4624a9a8c69ca204504abb043d47456cd9b09749a36357462303f276a229d4",
+    "slim": false,
+    "legacy": false,
+    "inCapture": true
+  },
+  "watcher_freak": {
+    "file": null,
+    "hash": "7d12b2ade413a6cd7cca3c95e961ba9f0ae7165fa41fc7b5d5f094a01240c609",
+    "slim": false,
+    "legacy": false,
+    "inCapture": true
+  },
+  "watcher_psycho": {
+    "file": null,
+    "hash": "aa23c8cde2943c84249de8351bc3540be5f8afaaba8b2cb032fc5acad78a269b",
+    "slim": false,
+    "legacy": false,
+    "inCapture": true
+  },
+  "watcher_flamer": {
+    "file": null,
+    "hash": "67237eddaebdbbdaacfa912885560ccdc65da93b4c3d513532868ec23bb5b448",
+    "slim": false,
+    "legacy": false,
+    "inCapture": true
+  },
+  "watcher_ooze": {
+    "file": null,
+    "hash": "9171f35b8f508142bd8c65417d0f324153ab9147739ee4d10dea733cc80eaa20",
+    "slim": false,
+    "legacy": false,
+    "inCapture": true
+  },
+  "watcher_reaper": {
+    "file": null,
+    "hash": "a89f6303af85877610912dc04b8b1e89724752f0a7eea05ab6547e228179c06f",
+    "slim": true,
+    "legacy": false,
+    "inCapture": true
+  },
+  "watcher_parasite": {
+    "file": null,
+    "hash": "4774871190c878c9a2c4496c1e10257c6c4ea13807d72c15d7ac6ab3a7a9a8dc",
+    "slim": false,
+    "legacy": false,
+    "inCapture": true
+  },
+  "primal_fear": {
+    "file": null,
+    "hash": "869887018b2ab31b744375801bb0e75575d710628ee362e76918c4fda3e4b507",
+    "slim": false,
+    "legacy": false,
+    "inCapture": true
+  },
+  "watcher_undead": {
+    "file": null,
+    "hash": "f774534ac3567dedfe330c98b91bc28e1151005525a84e2b5d720cff62316d76",
+    "slim": false,
+    "legacy": false,
+    "inCapture": true
   }
 }

@@ -39,6 +39,8 @@ lists them (`/dmob frozen_adventurer skin=frozen_adventurer`; Lost Adventurer pi
 * The mob AI gets a zombie-like melee profile for player bodies. Bow users (Crypt Dreadlord ...) just melee for now.
 * `players: false` in the plugin settings uses the vanilla bodies (`fallback` in the catalogue) instead.
 
+`skins/hashes.json` holds the texture hashes (`textures.minecraft.net/texture/<hash>`, leading zeros dropped): `mobSkins` for the mobs drawn as players (our PNGs plus the player-model mobs seen in the real-run capture: Crypt Dreadlord/Souleater, Diamond Guy, Lost Adventurer, and the Undead, Parasite, Putrid, Psycho, Reaper, Flamer, Ooze, Freak, Mute and Primal Fear profiles, which have a hash but no PNG), and `otherHashes` for every other skin hash in the capture (`kind: player` tab-list/NPC players, `kind: head` skull items and blocks), kept for later use. `require('./lib/skins').hashes()` returns it.
+
 ## Armour
 
 ```js

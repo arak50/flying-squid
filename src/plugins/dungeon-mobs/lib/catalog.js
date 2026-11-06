@@ -56,6 +56,17 @@ const mobs = {
   redstone_warrior: mini('Redstone Warrior', 'zombie', [2, 7], [160, 860], [150000, 150e6], [712, 216000], { traits: ['redstone_room'] }),
   king_midas: mini('King Midas', 'zombie', [3, 7], [190, 716], [165000, 4.3e6], [1692, 18720], { traits: ['tomb', 'armor_breaks'] }),
 
+  // The Watcher's guardians (blood room). [capture 2026-11-02] player bodies at scale 0.28 (0.2716 for Putrid, Psycho, Mute), each with its own
+  // skin, health and gear. Health is the Entrance value; other floors scale like the rest ([assumed]).
+  watcher_parasite: special('Parasite', 'zombie', [0, 7], [1, 1], [12000, 3e6], [0, 0], { nameColor: 'gold', traits: ['watcher'], scale: 0.28, armor: { mainhand: 'diamond_axe', chestplate: 'iron_chestplate', leggings: 'chainmail_leggings', boots: 'leather_boots' } }),
+  watcher_putrid: special('Putrid', 'zombie', [0, 7], [1, 1], [20000, 4e6], [0, 0], { nameColor: 'gold', traits: ['watcher'], scale: 0.2716, armor: { mainhand: 'golden_sword', chestplate: 'iron_chestplate', leggings: 'leather_leggings', boots: 'leather_boots' } }),
+  watcher_psycho: special('Psycho', 'zombie', [0, 7], [1, 1], [20000, 4e6], [0, 0], { nameColor: 'gold', traits: ['watcher'], scale: 0.2716, armor: { mainhand: 'golden_sword', chestplate: 'iron_chestplate', leggings: 'leather_leggings', boots: 'iron_boots' } }),
+  watcher_reaper: special('Reaper', 'zombie', [0, 7], [1, 1], [20000, 4e6], [0, 0], { nameColor: 'gold', traits: ['watcher'], scale: 0.28, armor: { mainhand: 'golden_axe', chestplate: 'chainmail_chestplate', boots: 'iron_boots' } }),
+  watcher_flamer: special('Flamer', 'zombie', [0, 7], [1, 1], [16000, 3.2e6], [0, 0], { nameColor: 'gold', traits: ['watcher'], scale: 0.28, armor: { mainhand: 'diamond_axe', chestplate: 'chainmail_chestplate', boots: 'chainmail_boots' } }),
+  watcher_ooze: special('Ooze', 'zombie', [0, 7], [1, 1], [14000, 2.8e6], [0, 0], { nameColor: 'gold', traits: ['watcher'], scale: 0.28, armor: { mainhand: 'iron_axe', chestplate: 'chainmail_chestplate', leggings: 'iron_leggings', boots: 'iron_boots' } }),
+  watcher_freak: special('Freak', 'zombie', [0, 7], [1, 1], [16000, 3.2e6], [0, 0], { nameColor: 'gold', traits: ['watcher'], scale: 0.28, armor: { mainhand: 'iron_sword', leggings: 'iron_leggings', boots: 'chainmail_boots' } }),
+  watcher_mute: special('Mute', 'zombie', [0, 7], [1, 1], [12000, 2.4e6], [0, 0], { nameColor: 'gold', traits: ['watcher'], scale: 0.2716, armor: { chestplate: 'chainmail_chestplate', leggings: 'leather_leggings', boots: 'chainmail_boots' } }),
+
   // ---- mechanic-only mobs: never starred ----
   undead_skeleton: special('Undead Skeleton', 'skeleton', [0, 7], [74, 419], [25000, 12.8e6], [720, 126000], { traits: ['from_skull'] }),
   skeletor: special('Skeletor', 'skeleton', [3, 7], [149, 396], [250000, 10.2e6], [2848, 93600], { traits: ['merge', 'bone_throw'] }),
@@ -85,7 +96,15 @@ const PLAYER_SKINS = {
   admin: 'crypt_undead',
   prince: 'prince_christian',
   zombie_commander: 'zombie_commander',
-  skeletor_prime: 'skeletor_prime'
+  skeletor_prime: 'skeletor_prime',
+  watcher_parasite: 'watcher_parasite',
+  watcher_putrid: 'watcher_putrid',
+  watcher_psycho: 'watcher_psycho',
+  watcher_reaper: 'watcher_reaper',
+  watcher_flamer: 'watcher_flamer',
+  watcher_ooze: 'watcher_ooze',
+  watcher_freak: 'watcher_freak',
+  watcher_mute: 'watcher_mute'
 }
 for (const [key, skin] of Object.entries(PLAYER_SKINS)) {
   mobs[key].fallback = mobs[key].entity

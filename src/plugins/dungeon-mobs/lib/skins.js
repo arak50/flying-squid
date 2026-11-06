@@ -48,4 +48,17 @@ function skinProfile (keyOrKeys, name = 'dungeon_mob', rng = Math.random) {
 
 const known = () => Object.keys(load())
 
-module.exports = { skinProfile, known, DIR }
+/**
+ * skins/hashes.json: Mojang texture hashes pulled from the real-run capture and our skins.
+ *   mobSkins    [{ hash, slim, key, file, mobs, seenInCapture, captureNames }]  skins of the mobs drawn as players
+ *   otherHashes [{ hash, slim, kind: 'player' | 'head', seenIn }]               every other skin hash in the capture (for later)
+ * `hash` is the textures.minecraft.net id with leading zeros dropped, as Hypixel sends it.
+ */
+let hashTable = null
+function hashes () {
+  if (hashTable) return hashTable
+  try { hashTable = JSON.parse(fs.readFileSync(path.join(DIR, 'hashes.json'), 'utf8')) } catch { hashTable = { mobSkins: [], otherHashes: [] } }
+  return hashTable
+}
+
+module.exports = { skinProfile, known, hashes, DIR }

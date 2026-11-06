@@ -121,7 +121,7 @@ module.exports.server = function (serv, options) {
     const d = mob.dungeon
     const target = d.tagEntity || mob
     const health = Math.max(0, Math.ceil(mob.health))
-    const component = nametagComponent({ name: d.name, star: d.star, health, modifier: d.modifier ? MODIFIERS[d.modifier].prefix : null, glyphs: config.glyphs })
+    const component = nametagComponent({ name: d.name, star: d.star, health, modifier: d.modifier ? MODIFIERS[d.modifier].prefix : null, glyphs: config.glyphs, nameColor: d.nameColor })
     const k = metaKeys(target.entityType)
     const entries = [
       { key: k.name, type: TYPE_OPTIONAL_COMPONENT, value: componentToNbt(component) },
@@ -164,6 +164,7 @@ module.exports.server = function (serv, options) {
       }
       spawnOriginal(entity)
       if (entity.dungeon && entity.dungeon.tagEntity) sendTag(player, entity)
+      if (entity.dungeon && entity.dungeon.scale) sendScale(entity, [player])
     }
     player.despawnEntities = entities => {
       despawnOriginal(entities)
@@ -260,6 +261,7 @@ module.exports.server = function (serv, options) {
       skin: profile ? profile.key : null,
       star: !!opts.star,
       canBeStar: def.star,
+      nameColor: def.nameColor ?? 'red',
       floor,
       master,
       modifier,
@@ -293,8 +295,18 @@ module.exports.server = function (serv, options) {
     tracked.add(mob)
     const armor = opts.armor !== undefined ? opts.armor : def.armor
     if (armor) setArmor(mob, armor)
+    const bodyScale = opts.scale !== undefined ? opts.scale : def.scale
+    if (bodyScale) { mob.dungeon.scale = bodyScale; sendScale(mob) }
     serv.emit('dungeonMobSpawned', mob)
     return mob
+  }
+  // [capture] The Watcher's guardians are 0.28 scale players: generic.scale attribute (sent to everybody nearby, and again for late arrivals)
+  function sendScale (mob, players) {
+    const packet = { entityId: mob.id, properties: [{ key: 'generic.scale', value: mob.dungeon.scale, modifiers: [] }] }
+    try {
+      if (players) for (const p of players) p._client.write('entity_update_attributes', packet)
+      else mob._writeOthersNearby('entity_update_attributes', packet)
+    } catch (e) { serv.err?.(`[dungeon-mobs] scale failed: ${e.message}`) }
   }
   function sendTag (player, mob) {
     const stand = mob.dungeon.tagEntity
