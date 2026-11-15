@@ -6,6 +6,7 @@ const { Navigation } = require('./navigation')
 const bow = require('./bow')
 const vanilla = require('./vanilla')
 const { computeExplosion } = require('./explosion')
+const collision = require('./collision')
 
 const MAX_TURN_DEG = 35 // per tick
 const toByte = deg => {
@@ -81,6 +82,7 @@ class MobAI {
     this.lookExpires = 0
     this.dims = this._ownDims()
     this.kb = new Vec3(0, 0, 0) // knockback velocity (blocks/s), decays over time
+    this.pushVel = new Vec3(0, 0, 0) // velocity from other entities shoving us (blocks/s), vanilla friction
     this.usingTicks = -1 // >= 0 while a bow is being drawn
     this._initFlags()
 
@@ -116,7 +118,7 @@ class MobAI {
   thaw () { this.frozen = false }
 
   /** Frozen mobs only need to be left alone once they are standing still on the ground. */
-  get settled () { return this.nav.onGround && this.nav.vy === 0 && this.kb.norm() < 0.05 }
+  get settled () { return this.nav.onGround && this.nav.vy === 0 && this.kb.norm() < 0.05 && this.pushVel.norm() < 0.06 }
 
   // ---- small helpers used by goals -------------------------------------------------------
   /**
@@ -547,6 +549,36 @@ class MobAI {
   }
 
   // ---- ticking -----------------------------------------------------------------------------
+  /**
+   * LivingEntity.pushEntities: every pushable entity overlapping our box is shoved apart from us, and we are
+   * shoved away from it (both sides get an impulse, and since every mob runs this each tick a pair is pushed
+   * twice per tick, like in vanilla). Players are only pushed on their own client, so they are never touched
+   * here, but they do push mobs. A crowd of `maxEntityCramming` or more hurts us for 6, one tick in four.
+   */
+  pushEntities () {
+    const grid = this.manager.pushGrid
+    if (!this.config.mobCollision || !grid || this.mob.health <= 0) return
+    const me = this.mob.position
+    const box = vanilla.boxOf(me, this.dims.w, this.dims.h)
+    const near = grid.query(this.mob.world, box)
+    let others = 0
+    for (const o of near) {
+      if (o.ref === this.mob) continue
+      others++
+      const impulse = collision.pushImpulse(me, o.pos)
+      if (!impulse) continue
+      this.pushVel.x += impulse.x * 20
+      this.pushVel.z += impulse.z * 20
+      if (o.ai) {
+        o.ai.pushVel.x -= impulse.x * 20
+        o.ai.pushVel.z -= impulse.z * 20
+      }
+    }
+    if (collision.crammingHurts(others, this.config.maxEntityCramming)) {
+      this.mob.takeDamage({ damage: collision.CRAMMING_DAMAGE, animation: true, damageType: 'cramming' })
+    }
+  }
+
   /** Take over velocity added by the stock combat code (knockback) and run it through our kinematics. */
   absorbVelocity () {
     const v = this.mob.velocity
@@ -565,6 +597,7 @@ class MobAI {
       this.ticks++
       if (this.usingTicks >= 0) this.usingTicks++
       this.absorbVelocity()
+      this.pushEntities()
       this._watchHealth()
       if (this.angryTicks > 0 && --this.angryTicks === 0 && this.profile.type === 'neutral') this.target = null
       if (this.target && !this.targetValid(2)) this.target = null
@@ -575,7 +608,7 @@ class MobAI {
       this._tickCreeper()
       this._tickFire()
 
-      const idle = !this.nav.strafeCmd && !this.nav.path && !this.nav.pending && this.nav.onGround && this.nav.vy === 0 && this.kb.norm() < 0.05
+      const idle = !this.nav.strafeCmd && !this.nav.path && !this.nav.pending && this.nav.onGround && this.nav.vy === 0 && this.kb.norm() < 0.05 && this.pushVel.norm() < 0.06
       if (!idle || this.ticks % 10 === 0 || this.shouldPanic()) await this.nav.update(dt)
 
       await this._updateLook(dt)

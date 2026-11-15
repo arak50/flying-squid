@@ -21,6 +21,7 @@ ported; no code was copied. Values that are our own derivation rather than read 
 | Fire | Sun ignites for 8 s with chance `(brightness - 0.4) * 2 / 30` per tick, 1 damage per second | `MobAI#_sunBurn` |
 | Creeper | Swell goal (starts < 3 blocks, aborts > 7 or out of sight), 30 tick fuse, radius 3 | `SwellGoal`, `MobAI#explode` |
 | Explosion | 16³ shell rays, 0.3 step, `(resistance + 0.3) * 0.3 + 0.225` cost; damage `floor((i² + i) / 2 * 7 * d + 1)` | `explosion.js` |
+| Collision | Overlapping entities shove each other apart (0.05 blocks/tick, falling off with distance, both sides, every tick); players push mobs but are only pushed by their own client; crowds of `maxEntityCramming` (24) hurt for 6, one tick in four | `collision.js`, `MobAI#pushEntities` |
 | Spider | Leap at a target 2-4 blocks away | `LeapAtTargetGoal` |
 | Skeleton | Avoids wolves; arrow damage spread 0.57425 | `AvoidEntityGoal` |
 | Arrows | Piercing (`shoot({ pierce })`) | `projectiles.js` |
@@ -33,6 +34,8 @@ ported; no code was copied. Values that are our own derivation rather than read 
 | `creeperExplosions` | `true` | creepers swell and explode (entities are hurt, knocked back) |
 | `creeperBlockDamage` | `false` | explosions also destroy blocks (vanilla default is on) |
 | `panicFleesAttacker` | `false` | bias panic away from whoever hit the mob (vanilla runs to a random spot) |
+| `mobCollision` | `true` | overlapping mobs and players shove mobs apart |
+| `maxEntityCramming` | `24` | this many entities in one spot hurt the ones inside; `0` disables |
 | `vanillaPathNodes` | `true` | path search budget from follow range instead of `maxPathNodes` |
 
 Profiles can use `attributes.speedAttribute` (vanilla value). Profiles that still give `movementSpeed` in blocks/second
@@ -45,6 +48,8 @@ keep working unchanged.
 * Fireballs, wither skulls, wind charges (they need an acceleration step the calculator does not have)
 * Throwable entities in-game (snowball, egg, pearl, potions). The calculator physics for them is verified, but spawning
   them needs live client testing
+* Hard collision (vanilla has none: entities only push each other), boats/minecarts/riders, team collision rules, and
+  pushing of mobs that have no AI controller (they keep the stock server physics)
 * Powered creepers, mob head visibility for items other than the three listed in `vanilla.js`
 * Explosion knockback units are a tuned guess: `takeDamage` forwards `velocity` to `sendVelocity` and the scale was not
   checked against a real client

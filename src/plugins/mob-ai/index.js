@@ -25,6 +25,7 @@ const { Goal, GoalSelector, Control } = require('./lib/goalSelector')
 const goals = require('./lib/goals')
 const vanilla = require('./lib/vanilla')
 const explosion = require('./lib/explosion')
+const collision = require('./lib/collision')
 const { profiles, NO_GROUND_AI, normalise } = require('./lib/profiles')
 
 const DEFAULTS = {
@@ -38,6 +39,8 @@ const DEFAULTS = {
   vanillaPathNodes: true, // path search budget = followRange * 16 nodes (like vanilla) instead of maxPathNodes
   panicFleesAttacker: false, // vanilla panic runs to a random spot; true biases it away from the attacker
   creeperExplosions: true, // creepers swell and explode (entity damage + knockback)
+  mobCollision: true, // overlapping mobs and players shove mobs apart (vanilla LivingEntity.pushEntities)
+  maxEntityCramming: 24, // this many entities in one spot hurt the ones inside (0 disables)
   creeperBlockDamage: false, // ...and destroy blocks (vanilla default is true; off here on purpose)
   aiForUnknownMobs: false, // give unlisted land mobs wander + look-at-player
   playerBows: true, // vanilla bow draw / release for players (core has an empty TODO for it)
@@ -87,6 +90,7 @@ module.exports.server = function (serv, options) {
     pathfinder,
     projectiles,
     Item: projectiles.Item,
+    pushGrid: new collision.PushGrid(),
     takePathBudget () { return pathBudget-- > 0 },
     get (entity) { return controllers.get(entity.id) },
     debug (msg) { if (config.debug) serv.info(`[mob-ai] ${msg}`) }
@@ -187,6 +191,8 @@ module.exports.server = function (serv, options) {
     const wakeSq = config.activeRange * config.activeRange
     const sleepSq = (config.activeRange + config.hysteresis) ** 2
 
+    if (config.mobCollision) rebuildPushGrid()
+
     const work = []
     for (const id of Object.keys(serv.entities)) {
       const mob = serv.entities[id]
@@ -212,6 +218,20 @@ module.exports.server = function (serv, options) {
     for (const id of ignored) if (!serv.entities[id]) ignored.delete(id)
 
     await Promise.all(work)
+  }
+
+  /** Everything that can shove or be shoved this tick: mobs that have AI, and players that are not spectators. */
+  function rebuildPushGrid () {
+    const entries = []
+    for (const ai of controllers.values()) {
+      const m = ai.mob
+      if (m.health > 0 && m.position && m.world) entries.push({ ref: m, world: m.world, pos: m.position.clone(), w: ai.dims.w, h: ai.dims.h, ai })
+    }
+    for (const p of serv.players) {
+      if (p.health <= 0 || p.gameMode === 3 || !p.position || !p.world) continue
+      entries.push({ ref: p, world: p.world, pos: p.position.clone(), w: 0.6, h: p.crouching ? 1.5 : 1.8 })
+    }
+    manager.pushGrid.rebuild(entries)
   }
 
   function safely (ai, promise) {
@@ -247,6 +267,7 @@ module.exports.server = function (serv, options) {
     goals,
     vanilla,
     explosion,
+    collision,
     /** The MobAI controller for a mob entity (or undefined). Add goals with ai.selector.add(priority, goal). */
     get: entity => controllers.get(entity.id),
     /** Register / replace a profile: { type, height, attributes, goals: [[priority, ai => Goal], ...] } */

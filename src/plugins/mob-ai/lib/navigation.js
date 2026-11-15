@@ -176,6 +176,18 @@ class Navigation {
       if (Math.abs(kb.z) < 0.05) kb.z = 0
     }
 
+    // being shoved by other entities: vanilla ground friction (0.6 * 0.91), air 0.91; motion under 0.003/tick stops
+    const pv = ai.pushVel
+    if (pv.x !== 0 || pv.z !== 0) {
+      mx += pv.x * dt
+      mz += pv.z * dt
+      const friction = this.onGround ? 0.546 : 0.91
+      pv.x *= friction
+      pv.z *= friction
+      if (Math.abs(pv.x) < 0.06) pv.x = 0
+      if (Math.abs(pv.z) < 0.06) pv.z = 0
+    }
+
     // ---- collision-checked horizontal move --------------------------------------------------
     let nx = pos.x
     let nz = pos.z
