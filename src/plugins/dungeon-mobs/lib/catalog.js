@@ -14,6 +14,15 @@
  *   modChance   chance of a random modifier prefix (spiders have a higher one)
  *   traits      free-form behaviour tags for the AI / combat layer to read
  */
+const ARMOR_SETS = require('./armorSets')
+
+/** A fresh copy of a generated armour set (lib/armorSets.js, built from the items endpoint), so mobs never share spec objects. */
+const set = key => {
+  const s = ARMOR_SETS[key]
+  if (!s) throw new Error(`Unknown armour set: ${key}`)
+  return Object.fromEntries(Object.entries(s).map(([slot, piece]) => [slot, { ...piece }]))
+}
+
 const basic = (name, entity, floors, level, health, damage, extra = {}) =>
   ({ name, entity, kind: 'basic', star: true, floors, level, health, damage, defense: 0, modChance: 0.05, traits: [], ...extra })
 const mini = (name, entity, floors, level, health, damage, extra = {}) =>
@@ -21,7 +30,14 @@ const mini = (name, entity, floors, level, health, damage, extra = {}) =>
 const special = (name, entity, floors, level, health, damage, extra = {}) =>
   ({ name, entity, kind: 'special', star: false, floors, level, health, damage, defense: 0, modChance: 0, traits: [], ...extra })
 
+// A friendly NPC drawn as a player: never hurt, no AI, a name tag without a health number. `subtitle` is a second line under it.
+const npc = (name, skin, extra = {}) =>
+  ({ name, entity: 'zombie', kind: 'npc', npc: true, star: false, floors: [0, 7], level: [1, 1], health: [20, 20], damage: [0, 0], defense: 0, modChance: 0, nameColor: 'aqua', traits: ['npc'], ...extra })
+
 const mobs = {
+  // ---- friendly NPCs (the Entrance) ----
+  mort: npc('Mort', 'mort', { lines: [{ text: 'Mort', color: 'aqua', dy: 0 }, { text: 'CLICK', color: 'yellow', bold: true, dy: -0.25 }] }), // [capture] two ordinary stands at the NPC's feet height and 0.25 below
+
   // ---- zombies ----
   crypt_lurker: basic('Crypt Lurker', 'zombie', [0, 7], [47, 395], [9000, 13e6], [291, 72000], { traits: ['bone_throw'] }),
   zombie_grunt: basic('Zombie Grunt', 'zombie', [0, 2], [40, 286], [7000, 3e6], [201, 21600]),
@@ -58,14 +74,14 @@ const mobs = {
 
   // The Watcher's guardians (blood room). [capture 2026-11-02] player bodies at scale 0.28 (0.2716 for Putrid, Psycho, Mute), each with its own
   // skin, health and gear. Health is the Entrance value; other floors scale like the rest ([assumed]).
-  watcher_parasite: special('Parasite', 'zombie', [0, 7], [1, 1], [12000, 3e6], [0, 0], { nameColor: 'gold', traits: ['watcher'], scale: 0.28, armor: { mainhand: 'diamond_axe', chestplate: 'iron_chestplate', leggings: 'chainmail_leggings', boots: 'leather_boots' } }),
-  watcher_putrid: special('Putrid', 'zombie', [0, 7], [1, 1], [20000, 4e6], [0, 0], { nameColor: 'gold', traits: ['watcher'], scale: 0.2716, armor: { mainhand: 'golden_sword', chestplate: 'iron_chestplate', leggings: 'leather_leggings', boots: 'leather_boots' } }),
-  watcher_psycho: special('Psycho', 'zombie', [0, 7], [1, 1], [20000, 4e6], [0, 0], { nameColor: 'gold', traits: ['watcher'], scale: 0.2716, armor: { mainhand: 'golden_sword', chestplate: 'iron_chestplate', leggings: 'leather_leggings', boots: 'iron_boots' } }),
-  watcher_reaper: special('Reaper', 'zombie', [0, 7], [1, 1], [20000, 4e6], [0, 0], { nameColor: 'gold', traits: ['watcher'], scale: 0.28, armor: { mainhand: 'golden_axe', chestplate: 'chainmail_chestplate', boots: 'iron_boots' } }),
-  watcher_flamer: special('Flamer', 'zombie', [0, 7], [1, 1], [16000, 3.2e6], [0, 0], { nameColor: 'gold', traits: ['watcher'], scale: 0.28, armor: { mainhand: 'diamond_axe', chestplate: 'chainmail_chestplate', boots: 'chainmail_boots' } }),
-  watcher_ooze: special('Ooze', 'zombie', [0, 7], [1, 1], [14000, 2.8e6], [0, 0], { nameColor: 'gold', traits: ['watcher'], scale: 0.28, armor: { mainhand: 'iron_axe', chestplate: 'chainmail_chestplate', leggings: 'iron_leggings', boots: 'iron_boots' } }),
-  watcher_freak: special('Freak', 'zombie', [0, 7], [1, 1], [16000, 3.2e6], [0, 0], { nameColor: 'gold', traits: ['watcher'], scale: 0.28, armor: { mainhand: 'iron_sword', leggings: 'iron_leggings', boots: 'chainmail_boots' } }),
-  watcher_mute: special('Mute', 'zombie', [0, 7], [1, 1], [12000, 2.4e6], [0, 0], { nameColor: 'gold', traits: ['watcher'], scale: 0.2716, armor: { chestplate: 'chainmail_chestplate', leggings: 'leather_leggings', boots: 'chainmail_boots' } }),
+  watcher_parasite: special('Parasite', 'zombie', [0, 7], [1, 1], [12000, 3e6], [0, 0], { nameColor: 'gold', traits: ['watcher'], tagDy: 2.16, scale: 0.28, armor: { mainhand: 'diamond_axe', chestplate: 'iron_chestplate', leggings: 'chainmail_leggings', boots: 'leather_boots' } }),
+  watcher_putrid: special('Putrid', 'zombie', [0, 7], [1, 1], [20000, 4e6], [0, 0], { nameColor: 'gold', traits: ['watcher'], tagDy: 2.16, scale: 0.2716, armor: { mainhand: 'golden_sword', chestplate: 'iron_chestplate', leggings: 'leather_leggings', boots: 'leather_boots' } }),
+  watcher_psycho: special('Psycho', 'zombie', [0, 7], [1, 1], [20000, 4e6], [0, 0], { nameColor: 'gold', traits: ['watcher'], tagDy: 2.16, scale: 0.2716, armor: { mainhand: 'golden_sword', chestplate: 'iron_chestplate', leggings: 'leather_leggings', boots: 'iron_boots' } }),
+  watcher_reaper: special('Reaper', 'zombie', [0, 7], [1, 1], [20000, 4e6], [0, 0], { nameColor: 'gold', traits: ['watcher'], tagDy: 2.16, scale: 0.28, armor: { mainhand: 'golden_axe', chestplate: 'chainmail_chestplate', boots: 'iron_boots' } }),
+  watcher_flamer: special('Flamer', 'zombie', [0, 7], [1, 1], [16000, 3.2e6], [0, 0], { nameColor: 'gold', traits: ['watcher'], tagDy: 2.16, scale: 0.28, armor: { mainhand: 'diamond_axe', chestplate: 'chainmail_chestplate', boots: 'chainmail_boots' } }),
+  watcher_ooze: special('Ooze', 'zombie', [0, 7], [1, 1], [14000, 2.8e6], [0, 0], { nameColor: 'gold', traits: ['watcher'], tagDy: 2.16, scale: 0.28, armor: { mainhand: 'iron_axe', chestplate: 'chainmail_chestplate', leggings: 'iron_leggings', boots: 'iron_boots' } }),
+  watcher_freak: special('Freak', 'zombie', [0, 7], [1, 1], [16000, 3.2e6], [0, 0], { nameColor: 'gold', traits: ['watcher'], tagDy: 2.16, scale: 0.28, armor: { mainhand: 'iron_sword', leggings: 'iron_leggings', boots: 'chainmail_boots' } }),
+  watcher_mute: special('Mute', 'zombie', [0, 7], [1, 1], [12000, 2.4e6], [0, 0], { nameColor: 'gold', traits: ['watcher'], tagDy: 2.16, scale: 0.2716, armor: { chestplate: 'chainmail_chestplate', leggings: 'leather_leggings', boots: 'chainmail_boots' } }),
 
   // ---- mechanic-only mobs: never starred ----
   undead_skeleton: special('Undead Skeleton', 'skeleton', [0, 7], [74, 419], [25000, 12.8e6], [720, 126000], { traits: ['from_skull'] }),
@@ -80,6 +96,43 @@ const mobs = {
   blaze: special('Blaze', 'blaze', [0, 7], [11, 27], [1000, 6499], [0, 0], { traits: ['passive', 'blaze_puzzle'] }),
   bat: special('Bat', 'bat', [0, 7], [1, 1], [100, 300], [0, 1], { traits: ['secret', 'airborne'] }),
   fairy: special('Fairy', 'allay', [0, 7], [1, 1], [4, 4], [0, 0], { traits: ['passive', 'fairy_room'] })
+}
+
+// ---- default armour ---------------------------------------------------------------------------------------------------
+// `armor` is a spec for lib/armor.js, or a function ({ floor, master, variant, star }) => spec | null so a mob can look
+// different per floor / variant. `armorVariants` (Lost Adventurer) maps a variant key to its spec; spawn picks one at random
+// unless `variant` is given. Mobs that are not listed wear nothing: Crypt Lurker, Crypt Undead, Undead Skeleton, Scared Skeleton,
+// and Redstone Warrior, Crypt Dreadlord, Crypt Souleater, Withermancer (no confirmed set).
+// Not mapped because the items endpoint has no matching pieces: Zombie Grunt, Skeletor Prime.
+const ARMOR = {
+  // mini-bosses
+  angry_archaeologist: () => set('perfect'),
+  shadow_assassin: () => set('shadow_assassin'),
+  king_midas: () => set('golden'),
+  frozen_adventurer: () => set('frozen_blaze'),
+  // zombies
+  tank_zombie: () => set('heavy'),
+  super_tank_zombie: () => set('super_heavy'),
+  zombie_soldier: () => set('zombie_soldier'),
+  zombie_knight: () => set('zombie_knight'),
+  zombie_commander: () => set('zombie_commander'),
+  zombie_lord: () => set('zombie_lord'),
+  // skeletons
+  skeleton_grunt: () => set('skeleton_grunt'),
+  skeleton_soldier: () => set('skeleton_soldier'),
+  skeleton_master: () => set('skeleton_master'),
+  skeleton_lord: () => set('skeleton_lord'),
+  sniper: () => set('sniper'),
+  skeletor: () => set('skeletor'),
+  super_archer: ({ floor }) => floor === 4 ? set('bouncy') : null // F4 only (the M4 version of the floor included)
+}
+for (const [key, armor] of Object.entries(ARMOR)) mobs[key].armor = armor
+
+mobs.lost_adventurer.armorVariants = {
+  young: () => set('young_dragon'),
+  unstable: () => set('unstable_dragon'),
+  holy: () => set('holy_dragon'),
+  superior: () => set('superior_dragon')
 }
 
 // Mobs Hypixel draws as players. `skin` is a key (or list: one is picked per spawn) of skins/skins.json; `fallback` is the
@@ -104,7 +157,8 @@ const PLAYER_SKINS = {
   watcher_flamer: 'watcher_flamer',
   watcher_ooze: 'watcher_ooze',
   watcher_freak: 'watcher_freak',
-  watcher_mute: 'watcher_mute'
+  watcher_mute: 'watcher_mute',
+  mort: 'mort'
 }
 for (const [key, skin] of Object.entries(PLAYER_SKINS)) {
   mobs[key].fallback = mobs[key].entity

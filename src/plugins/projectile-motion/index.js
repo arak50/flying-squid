@@ -122,6 +122,9 @@ function format (r) {
   }
   const prof = physics.PROJECTILES[i.projectile]
   if (prof && prof.verified === false) lines.push('note: constants for ' + i.projectile + ' are not yet verified against the 26.1 source')
+  if (prof && prof.verified === true && i.vanilla && prof.launch && prof.verifiedFields && !prof.verifiedFields.includes('launch')) {
+    lines.push('note: the launch speed and pitch offset for ' + i.projectile + ' are not yet verified (gravity, drag and tick order are)')
+  }
   if (prof && prof.approximate) lines.push('note: ' + i.projectile + ' is a simplified model')
   return lines
 }

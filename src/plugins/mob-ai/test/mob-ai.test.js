@@ -183,8 +183,8 @@ const test = runner.test
     assert.strictEqual(player.damage.length, 0)
   })
 
-  await test('provoking a passive mob makes it panic away from the attacker', async () => {
-    const serv = makeServer()
+  await test('provoking a passive mob makes it panic away from the attacker (panicFleesAttacker)', async () => {
+    const serv = makeServer({ panicFleesAttacker: true })
     const world = makeWorld()
     const player = makePlayer(world, 0.5, 1, 0.5)
     serv.players.push(player); serv.entities[player.id] = player
@@ -195,6 +195,26 @@ const test = runner.test
     serv.mobAI.get(cow).provoke(player)
     await run(serv, 60)
     assert.ok(cow.position.distanceTo(player.position) > before + 2, 'ran away')
+  })
+
+  await test('by default panic is vanilla: the mob runs to a random spot, not necessarily away', async () => {
+    const serv = makeServer()
+    const world = makeWorld()
+    const player = makePlayer(world, 0.5, 1, 0.5)
+    serv.players.push(player); serv.entities[player.id] = player
+    const cow = makeMob(world, 'cow', 2.5, 1, 0.5)
+    serv.entities[cow.id] = cow
+    await run(serv, 3)
+    const start = cow.position.clone()
+    const ai = serv.mobAI.get(cow)
+    ai.provoke(player)
+    let panicked = false
+    for (let i = 0; i < 60; i++) {
+      await run(serv, 1)
+      if (ai.selector.goals.running.some(g => g.constructor.name === 'PanicGoal')) panicked = true
+    }
+    assert.ok(panicked, 'PanicGoal ran')
+    assert.ok(cow.position.distanceTo(start) > 0.3, 'it moved')
   })
 
   await test('mobs fall to the ground and settle even when frozen', async () => {

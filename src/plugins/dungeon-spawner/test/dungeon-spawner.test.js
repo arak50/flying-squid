@@ -285,9 +285,12 @@ test('session: spawns at the sidecar height (or the scanned floor), reports deat
   assert.strictEqual(b.pos.y, 67, 'no height: the floor at y 66 is scanned')
   assert.ok(a.opts.star && a.opts.roomId === 1 && a.opts.roomsExplored === 2 && !b.opts.star)
   assert.deepStrictEqual(session.gone(), [])
+  a.position = { x: 41.5, y: 67, z: 11.5 } // real entities carry a position
   delete serv.entities[a.id]
   assert.deepStrictEqual(session.gone(), ['m1.0'])
   assert.deepStrictEqual(session.gone(), [], 'reported once')
+  assert.deepStrictEqual(session.deathOf('m1.0'), { x: a.position.x, y: a.position.y, z: a.position.z }, 'where it fell')
+  assert.strictEqual(session.deathOf('nope'), undefined)
   session.despawn('m1.1')
   assert.ok(!serv.entities[b.id] && b.health === 0)
   serv.dungeonMobs.spawn = () => { throw new Error('boom') }

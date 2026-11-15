@@ -13,7 +13,7 @@
  *
  * API (serv.dungeonSpawner):
  *   plannerFor(layout)       -> ctx => plan        hand it to `new DungeonRun({ mobPlanner })`
- *   session({ world, layout, warn }) -> { spawn(plan, onFail), gone(), despawn(mobId), clear(), entities }
+ *   session({ world, layout, warn }) -> { spawn(plan, onFail), gone(), deathOf(mobId), despawn(mobId), clear(), entities }
  *   sidecars / problems      the loaded sidecars and what was wrong with them
  *   validate(block, size)    errors of a `mobs` block
  */
@@ -48,6 +48,7 @@ module.exports.server = function (serv, options) {
 
   function session ({ world, layout, groundScan, warn: w = warn }) {
     const entities = new Map() // mobId -> entity
+    const deaths = new Map() // mobId -> { x, y, z } where it was when it went
     let open = true
 
     async function groundY (x, z) {
@@ -86,9 +87,16 @@ module.exports.server = function (serv, options) {
       /** Mobs that left the world or are at 0 hp since the last call (removed from the session). */
       gone () {
         const out = []
-        for (const [mobId, ent] of entities) if (!serv.entities[ent.id] || ent.health <= 0) { entities.delete(mobId); out.push(mobId) }
+        for (const [mobId, ent] of entities) {
+          if (!serv.entities[ent.id] || ent.health <= 0) {
+            entities.delete(mobId); out.push(mobId)
+            if (ent.position) deaths.set(mobId, { x: ent.position.x, y: ent.position.y, z: ent.position.z })
+          }
+        }
         return out
       },
+      /** Where a mob was when gone() reported it (feet position), or undefined. */
+      deathOf: mobId => deaths.get(mobId),
       despawn (mobId) {
         const ent = entities.get(mobId)
         entities.delete(mobId)

@@ -470,7 +470,8 @@ class DungeonRun extends EventEmitter {
     const mob = room.mobs.get(mobId)
     if (!mob || !mob.alive) return false
     mob.alive = false
-    this._emit('mobDied', { mobId, roomId: room.id, required: mob.required, ...info })
+    if (info.position) room.lastDeath = info.position
+    this._emit('mobDied', { mobId, roomId: room.id, required: mob.required, miniboss: !!mob.miniboss, ...info })
     this._checkCleared(room)
     return true
   }
@@ -508,7 +509,7 @@ class DungeonRun extends EventEmitter {
 
   _clearRoom (room, cause) {
     if (!room.machine.fire('clear')) return false
-    this._emit('roomCleared', { roomId: room.id, cause })
+    this._emit('roomCleared', { roomId: room.id, cause, position: room.lastDeath || null, hasKey: room.keys.length > 0 })
     for (const type of room.keys) this._dropKey(room, type)
     this._checkComplete(room)
     return true
@@ -548,8 +549,8 @@ class DungeonRun extends EventEmitter {
   _dropKey (room, type) {
     const item = { id: `key${this._keyId++}`, keyType: type, roomId: room.id }
     this.keyItems.set(item.id, item)
-    const c = this.roomCenter(room)
-    this._emit('keyDropped', { ...item, position: { x: round2(c.x), z: round2(c.z) } })
+    const c = room.lastDeath || this.roomCenter(room) // the last mob's drop lands where it fell
+    this._emit('keyDropped', { ...item, position: { x: round2(c.x), y: room.lastDeath ? round2(room.lastDeath.y) : undefined, z: round2(c.z) } })
     if (this.cfg.autoPickupKeys) this.pickupKey(item.id, null)
   }
 

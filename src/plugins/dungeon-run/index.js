@@ -19,11 +19,16 @@
  *   autoStart        start as soon as the first player has joined                            [false]
  *   autoStartDelay   ticks to wait after that join (lets the client finish loading)           [60]
  *   sidebar          show the sidebar scoreboard                                              [true]
+ *   mort              stand Mort (the Entrance NPC, a player-model mob) at layout.mort; right-click opens his menu (a stub, see openMortMenu)   [true]
+ *   placePlayers      move the party to layout.spawn (with its facing) when the run starts, so they look at Mort                          [true]
+ *   mortMenu          (player, mortEntity) => void, replaces the stub menu
  *   watcherAnimation  draw the Watcher, its boss bar and the guardians' spawn puffs (lib/watcher-anim.js)   [true]
  *   doorOpen         how a key is spent: 'click' (right-click the door), 'proximity' (walk up to it) or 'both'   ['click']
  *   clickReach       furthest a right-click on a door still counts, in blocks                   [6]
  *   doorRange        blocks from a locked wither / blood door at which a key is spent (proximity)   [2.5]
  *   groundScan       [from, to] y range scanned (bottom up) to stand a spawned mob on the floor; passed to dungeon-spawner
+ *   drops            [true] with dungeon-items loaded, the last required mob of a room drops items (key, else blessing; plus Superboom TNT or a Revive Stone) and a miniboss may drop a blessing
+ *   physicalKeys     [true] keys lie on the floor as items (needs the dungeon-items plugin); false = they go straight into the pool
  *   endDelay         ticks between the end of the run and cleaning up                         [100]
  *   doorAnimation    [true] bats + falling blocks sink while the door opens (capture, lib/door-anim.js)
  *   doorTimeScale    [1] 0 = play the whole animation at once
@@ -41,7 +46,7 @@ const crypto = require('crypto')
 const SPECTATOR = 3
 
 module.exports.server = function (serv, options) {
-  const config = Object.assign({ autoStart: false, autoStartDelay: 60, sidebar: true, doorRange: 2.5, doorOpen: 'click', clickReach: 6, watcherAnimation: true, groundScan: null, endDelay: 100, doorAnimation: true, doorTimeScale: 1, run: {} }, (this && this.settings) || {})
+  const config = Object.assign({ autoStart: false, autoStartDelay: 60, sidebar: true, doorRange: 2.5, doorOpen: 'click', clickReach: 6, watcherAnimation: true, mort: true, physicalKeys: true, drops: true, placePlayers: true, mortMenu: null, groundScan: null, endDelay: 100, doorAnimation: true, doorTimeScale: 1, run: {} }, (this && this.settings) || {})
   const sidebar = createSidebar()
   let current = null // { run, players: Map(uuid -> player), spawner (dungeon-spawner session), world, layout, endAt, prevMode: Map }
 
@@ -68,13 +73,15 @@ module.exports.server = function (serv, options) {
       master: opts.master,
       secrets: opts.secrets ?? (serv.dungeonSecrets && serv.dungeonSecrets.totals(layout)), // from the room sidecars (dungeon-secrets)
       mobPlanner: serv.dungeonSpawner && serv.dungeonSpawner.plannerFor(layout), // room sidecar mobs (dungeon-spawner)
-      config: { autoPickupKeys: true, ...config.run, ...opts.config }, // keys are not physical items yet, see README
+      config: { autoPickupKeys: !(config.physicalKeys && serv.dungeonItems), ...config.run, ...opts.config }, // keys are not physical items yet, see README
       party: players.map(p => ({ id: p.uuid, name: p.username, class: p.dungeonClass || (p.skyblock && p.skyblock.dungeonClass) || null }))
     })
     current = { run, layout, world: opts.world || serv.overworld, players: new Map(players.map(p => [p.uuid, p])), spawner: serv.dungeonSpawner ? serv.dungeonSpawner.session({ world: opts.world || serv.overworld, layout, groundScan: config.groundScan, warn }) : null, endAt: null, prevMode: new Map(), sidebarAt: 0 }
     run.on('*', e => { try { onEvent(e) } catch (err) { warn(`${e.type}: ${err.stack}`) } })
     for (const w of run.warnings) warn(w)
 
+    if (config.placePlayers) placePlayers(current)
+    if (config.mort) spawnMort(current)
     serv.emit('dungeonStart', { layout, players }) // Magical Map
     if (config.sidebar) for (const p of players) sidebar.show(p, run.cfg.lines.title)
     run.start()
@@ -89,11 +96,41 @@ module.exports.server = function (serv, options) {
     const cur = current
     current = null
     endFight(cur)
+    removeMort(cur)
+    if (serv.dungeonItems && config.physicalKeys) serv.dungeonItems.clear()
     for (const p of cur.players.values()) { sidebar.hide(p); restoreMode(cur, p) }
     if (cur.spawner) cur.spawner.clear()
     serv.emit('dungeonEnd', { reason })
     log(`ended (${reason}, ${cur.run.state})`)
     return true
+  }
+
+  // Drops of a room kill: the last required mob always drops items (with the key first, in dropKey), a miniboss may drop a blessing.
+  // A miniboss that is also the last required mob is handled by the roomCleared drop only.
+  function roomDrops (cur, e, kind) {
+    if (!config.drops || !serv.dungeonItems) return
+    try {
+      const room = cur.run.rooms[e.roomId]
+      if (kind === 'miniboss' && room && (room.machine.is('CLEARED', 'COMPLETED') || (e.required && ![...room.mobs.values()].some(m => m.required && m.alive)))) return // the last one is the roomCleared drop
+      const at = (kind === 'lastMob' ? e.position : e.position) || cur.run.roomCenter(cur.run.rooms[e.roomId])
+      const y = at.y !== undefined ? at.y : feetY(cur)
+      const hasKey = kind === 'lastMob' && e.hasKey
+      const drops = serv.dungeonItems.planDrops(kind, { hasKey, floor: cur.run.floor, master: cur.run.master })
+      // keys (if any) take the first spot, so the other drops start one place further along
+      serv.dungeonItems.spawnDrops(drops, { x: Math.floor(at.x) + 0.5 + (hasKey ? 0.5 : 0), y, z: Math.floor(at.z) + 0.5 + (hasKey ? 0.5 : 0) }, { world: cur.world, roomId: e.roomId, floor: cur.run.floor, master: cur.run.master })
+    } catch (err) { warn(`drops: ${err.message}`) }
+  }
+
+  // With the dungeon-items plugin a cleared room's key lies on the floor; walking over it moves it into the party's pool (run.pickupKey)
+  function dropKey (cur, e) {
+    if (!config.physicalKeys || !serv.dungeonItems) return
+    try {
+      serv.dungeonItems.spawn(`${e.keyType}_key`, { x: e.position.y !== undefined ? Math.floor(e.position.x) + 0.5 : e.position.x, y: e.position.y !== undefined ? e.position.y : feetY(cur), z: e.position.y !== undefined ? Math.floor(e.position.z) + 0.5 : e.position.z }, {
+        world: cur.world,
+        roomId: e.roomId,
+        claim: (player) => cur.run.pickupKey(e.id, player.uuid) // false when the player is a ghost: the key stays
+      })
+    } catch (err) { warn(`key item: ${err.message}`); cur.run.pickupKey(e.id, null) }
   }
 
   const restoreMode = (cur, p) => { const m = cur.prevMode.get(p.uuid); if (m !== undefined && p.gameMode === SPECTATOR) p.setGameMode(m); cur.prevMode.delete(p.uuid) }
@@ -111,16 +148,18 @@ module.exports.server = function (serv, options) {
       case 'go': break // [capture] no title; Mort speaks (dialogue events)
 
       case 'roomEntered': serv.emit('dungeonRoomEntered', { roomId: e.roomId, layout: cur.layout, world: cur.world }); break
-      case 'roomCleared': serv.emit('dungeonRoomCleared', { roomId: e.roomId }); break
+      case 'roomCleared': serv.emit('dungeonRoomCleared', { roomId: e.roomId }); if (e.cause === 'mobs') roomDrops(cur, e, 'lastMob'); break
       case 'roomCompleted': serv.emit('dungeonRoomCompleted', { roomId: e.roomId }); break
 
       case 'spawnMobs': spawnPlan(cur, e.plan); break
       case 'spawnWatcherMobs': guardianEntrance(cur, e.plan); spawnPlan(cur, e.plan); break
       case 'mobDied':
         if (e.cause === 'admin' && cur.spawner) cur.spawner.despawn(e.mobId)
+        if (e.miniboss && e.cause === 'killed' && !e.watcher) roomDrops(cur, e, 'miniboss')
         if (e.watcher && cur.fight) toAll(cur, cur.fight.kill(run.watcher.total))
         break
 
+      case 'keyDropped': dropKey(cur, e); break
       case 'keyPickedUp': {
         const who = nameOf(run, e.by)
         const blood = e.keyType === 'blood'
@@ -193,8 +232,12 @@ module.exports.server = function (serv, options) {
     try {
       const mcData = require('minecraft-data')((options && options.version) || serv.version || '26.1')
       const run = cur.run
+      const center = run.roomCenter(run.bloodRoom)
+      // the recorded path is for a door on the north side; turn it to where this room's blood door really is
+      const door = run.doors.find(d => d.kind === 'blood' && d.rooms && d.rooms.includes(run.bloodRoom.id)) || run.doors.find(d => d.kind === 'blood')
       cur.fight = watcherAnim.createFight({
-        center: run.roomCenter(run.bloodRoom),
+        center,
+        door: door ? { x: door.center.x + 0.5 - center.x, z: door.center.z + 0.5 - center.z } : null,
         floorY: feetY(cur),
         ids: { watcher: ++serv.entityMaxId, stand: ++serv.entityMaxId },
         uuids: { watcher: crypto.randomUUID(), stand: crypto.randomUUID(), bar: crypto.randomUUID() },
@@ -284,9 +327,12 @@ module.exports.server = function (serv, options) {
       }
     }
 
-    if (cur.spawner) for (const mobId of cur.spawner.gone()) run.mobDied(mobId, { cause: 'killed' }) // gone from the world or at 0 hp = dead
+    if (cur.spawner) for (const mobId of cur.spawner.gone()) run.mobDied(mobId, { cause: 'killed', position: cur.spawner.deathOf(mobId) }) // gone from the world or at 0 hp = dead
 
-    if (cur.fight) { toAll(cur, cur.fight.advance(1000 / run.cfg.tps)); toAll(cur, cur.fight.aura(serv.tickCount)) }
+    if (cur.fight) {
+      toAll(cur, cur.fight.advance(1000 / run.cfg.tps)); toAll(cur, cur.fight.aura(serv.tickCount))
+      if (serv.tickCount % 4 === 0) toAll(cur, cur.fight.track([...cur.players.values()].filter(p => p.gameMode !== SPECTATOR)))
+    }
     run.tick()
     if (!cur.sidebarAt || serv.tickCount - cur.sidebarAt >= 10 || run.state === 'COMPLETE' || run.state === 'FAILED') { cur.sidebarAt = serv.tickCount; refreshSidebar() }
     if (cur.endAt !== null && serv.tickCount >= cur.endAt) stop('finished')
@@ -297,6 +343,61 @@ module.exports.server = function (serv, options) {
       player.once('spawned', () => setTimeout(() => { if (!current) start({ players: [player] }) }, config.autoStartDelay * 50))
     })
   }
+
+  // ---- spawn position and Mort ------------------------------------------------------------------------------------------
+  // [capture] The party starts on the platform of the Entrance, 4 blocks behind the room centre, looking at Mort 15 blocks away
+  // (layout.spawn / layout.mort come from the generator, see catacombs-generator.js 6g).
+  const angleByte = deg => { const b = Math.round(deg / 360 * 256); return b > 127 ? b - 256 : b }
+  function placePlayers (cur) {
+    const sp = cur.layout.spawn
+    if (!sp || sp.yaw === undefined) return // an older generator gives no facing: leave the party where the server put them
+    for (const p of cur.players.values()) {
+      try {
+        p.yaw = angleByte(sp.yaw || 0); p.pitch = angleByte(sp.pitch || 0) // players keep their angles in 1/256 turns
+        Promise.resolve(p.teleport(new Vec3(sp.x, sp.y, sp.z))).then(() => {
+          // core's sendSelfPosition writes the angle bytes where the 1.21.2+ client wants degrees, so say it again with the facing in degrees
+          p._client.write('position', { x: sp.x, y: sp.y, z: sp.z, yaw: sp.yaw || 0, pitch: sp.pitch || 0, flags: 0, teleportId: 1, dx: 0, dy: 0, dz: 0 })
+        }).catch(err => warn(`place player: ${err.message}`))
+      } catch (err) { warn(`place player: ${err.message}`) }
+    }
+  }
+  function spawnMort (cur) {
+    const m = cur.layout.mort
+    if (!m) { serv.info('[dungeon-run] layout has no `mort`: copy the updated catacombs-generator.js (repo root) too, it places Mort and the spawn'); return }
+    if (!serv.dungeonMobs) { warn('the dungeon-mobs plugin is not loaded: Mort is not spawned'); return }
+    try {
+      cur.mort = serv.dungeonMobs.spawn('mort', new Vec3(m.x, m.y, m.z), { world: cur.world, yaw: angleByte(m.yaw || 0), floor: cur.run.floor })
+    } catch (err) { warn(`mort: ${err.message}`) }
+  }
+  function removeMort (cur) {
+    const m = cur.mort
+    cur.mort = null
+    if (m && serv.entities[m.id]) { try { serv.destroyEntity(m) } catch (err) { /* already gone */ } } // dungeon-mobs removes his tag stands with him
+  }
+
+  // Right-click on Mort. Hypixel opens a menu here; ours is a stub: it only tells the player, and fires 'mortMenu' so a real GUI can hook in
+  // (or pass a settings.mortMenu(player, mort) function).
+  function openMortMenu (player, mort) {
+    serv.emit('mortMenu', { player, mort })
+    if (typeof config.mortMenu === 'function') return config.mortMenu(player, mort)
+    // TODO: open the window (inventory GUI) with the party / start / ready options. Nothing is defined for it yet.
+    try { player.chat('§7(Mort\'s menu is not implemented yet)') } catch (e) { /* client gone */ }
+  }
+  function mortClick (player, target) {
+    const cur = current
+    if (!cur || !cur.mort || target !== cur.mort.id || ![...cur.players.values()].includes(player)) return false
+    const p = player.position
+    if (p && Math.hypot(cur.mort.position.x - p.x, cur.mort.position.z - p.z) > config.clickReach) return false
+    openMortMenu(player, cur.mort)
+    return true
+  }
+  // 26.1: use_entity = interact { target, hand, location, sneaking }; before 26.1: { target, mouse: 0 interact | 1 attack | 2 interact_at }
+  serv.on('newPlayer', player => {
+    player._client.on('use_entity', ({ target, mouse, hand } = {}) => {
+      if (mouse === 1 || mouse === 2 || hand === 1 || hand === 'off_hand') return
+      try { mortClick(player, target) } catch (e) { warn(`mort click: ${e.stack}`) }
+    })
+  })
 
   // ---- right-click a locked door ---------------------------------------------------------------------------------------
   // [capture] Hypixel answers a click without the key with "You do not have the key for this door!". The key itself is spent
@@ -322,7 +423,7 @@ module.exports.server = function (serv, options) {
   }
   serv.on('newPlayer', player => { player._client.on('block_place', ({ location } = {}) => { try { doorClick(player, location) } catch (e) { warn(`door click: ${e.stack}`) } }) })
 
-  serv.dungeonRun = { start, stop, doorClick, get current () { return current && current.run }, get fight () { return current && current.fight }, config, sidebar }
+  serv.dungeonRun = { get party () { return current ? [...current.players.values()] : [] }, get elapsedSeconds () { return current && current.run ? current.run.elapsedSeconds : undefined }, start, stop, doorClick, mortClick, openMortMenu, get mort () { return current && current.mort }, get current () { return current && current.run }, get fight () { return current && current.fight }, config, sidebar }
 
   // ---- command --------------------------------------------------------------------------------------------------------
   serv.commands.add({

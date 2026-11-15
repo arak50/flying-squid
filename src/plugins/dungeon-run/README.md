@@ -61,11 +61,30 @@ run.digest()                         // hash of the event log: same layout + see
 
 ## Not done
 
-* Keys are not physical items: the plugin defaults to `autoPickupKeys` (straight into the pool). The core supports the drop → `pickupKey` flow.
-* Blessings, Superboom TNT, mimics, crypts, reward chests, Catacombs XP, floor boss fights, trap / puzzle mechanics themselves (the run only needs to be told the objective is done), wandering souls, 2-5 player party rules.
+* Keys lie on the floor as items when the dungeon-items plugin is loaded (`physicalKeys`, default true): walking over one calls `pickupKey`. Without that plugin, or with `physicalKeys: false`, they go straight into the pool (`autoPickupKeys`).
+* Blessings and Superboom TNT exist as items (dungeon-items) but are not dropped by rooms or secrets yet; mimics, crypts, reward chests, Catacombs XP, floor boss fights, trap / puzzle mechanics themselves (the run only needs to be told the objective is done), wandering souls, 2-5 player party rules.
 * Only tested against a fake server and the real generator; **not yet with a real Minecraft client** (sidebar, titles, spectator switch and door carving are the parts to eyeball).
 
 Tests: `node src/plugins/dungeon-run/test/dungeon-run.test.js` (`DUNGEON_SWEEP=10` for more real floors per level).
+
+## Spawn position and Mort (from the capture)
+
+The generator (`catacombs-generator.js`, step 6g) now puts `layout.spawn` and `layout.mort` where the capture has them, in two runs with the room turned differently:
+the party spawns on the raised platform of the Entrance, 4 blocks behind the room centre on the centre line, looking at Mort. Mort stands 11 blocks the other way, on the
+floor, looking back at the party. With `f` the direction from the spawn to Mort: spawn = centre - 4f, Mort = centre + 11f. `f` follows the room rotation (0: -z, 1: +x, 2: +z, 3: -x).
+
+| | capture | here |
+|---|---|---|
+| spawn offset / facing | centre - 4f, yaw toward Mort (90 / 180 in the two runs) | same; `layout.spawn = {x,y,z,yaw,pitch}` |
+| spawn height | 76.5 (above the platform) | the platform's feet height (72), no drop |
+| Mort | player entity, slim signed skin, yaw -64 bytes (-90 degrees) next to the 15-block line | `layout.mort = {x,y,z,yaw}`, spawned by `dungeon-mobs` as the `mort` NPC (signed capture skin) |
+| name | tag "Mort" (aqua) and "CLICK" (yellow, bold) | the same: two ordinary stands, scale 0.1, at the feet height and 0.25 lower, no gravity |
+
+At `start()` the party is teleported to the spawn (settings `placePlayers`), including the facing, and Mort is spawned (`mort`); `stop()` removes him. Mort has no AI, turns to face the nearest player (like the capture's `entity_look` every 200 ms), ignores
+attacks, and only the `use_entity` interaction on him (within `clickReach`) counts.
+
+**Right-click menu: stub.** `serv.dungeonRun.openMortMenu(player, mort)` fires `serv.emit('mortMenu', { player, mort })`, calls `settings.mortMenu(player, mort)` if given, and
+otherwise only tells the player the menu is not implemented. The real GUI (window with the party / ready / start options) is still to do.
 
 ## The Watcher fight (from the capture)
 
@@ -85,3 +104,8 @@ What the real run does, and what we send:
 | Guardians | player bodies, scale 0.28 (0.2716 for Putrid, Psycho, Mute), own skin each, health 12k/20k/20k/20k/16k/14k/16k/12k, gear per mob, gold name | `dungeon-mobs` catalog `watcher_*` (skins in `skins/skins.json`, hashes in `skins/hashes.json`) |
 
 Not recreated yet: Hypixel sends every guardian twice in the same tick (first with the generic `Undead ` skin, then again with its own profile under the same entity id), which we do not need; the Parasite, Putrid and Flamer switch to a bow later in the fight and shoot arrows (about one a second); the guardians' idle/attack swing timing follows our mob AI, not the capture; the note-block and `entity.silverfish.death` sounds Hypixel plays in the room (record category) are not sent; the Watcher stand's arm poses are invisible so they are skipped.
+
+**Orientation and eye tracking.** The path was recorded in a blood room whose door is on the north side. `startFight` finds the room's blood door, takes its direction from the
+room centre (north / south / east / west, which follows the generator's rotation: 0 south, 1 west, 2 north, 3 east) and turns every offset and yaw with `turnFor(door)`, so the
+Watcher still starts and ends facing the door. While it flies, the capture's recorded yaw / pitch packets are replayed unchanged. Only while it is stationary above the room centre (before the flight, and once it has settled after it) does
+it turn to the nearest living player within 40 blocks: `entity_look` + `entity_head_rotation` every 4 ticks, at most 30 degrees per update. The capture's path ends one block off the centre; ours settles exactly above it.

@@ -20,18 +20,20 @@
  *   level           force the level shown / stored
  *   yaw, pitch      facing
  *   nametag         show the name tag [true]
- *   armor           armour / held items, see lib/armor.js: 'diamond' | { material:'leather', color } | { helmet, chestplate, leggings, boots, mainhand, offhand }
+ *   armor           armour / held items (default: the catalogue's, see ARMOR in lib/catalog.js), see lib/armor.js: 'diamond' | { material:'leather', color } | { helmet, chestplate, leggings, boots, mainhand, offhand }
+ *   variant         armour variant for mobs that have them (Lost Adventurer: young | unstable | holy | superior) [random]
  *   skin            skin key from skins/skins.json for the mobs drawn as players (default: the catalogue's)
  *
  * Also:  serv.dungeonMobs.spawnGroup([{ mob, position, star, ... }, ...], sharedOptions)
  *        serv.dungeonMobs.setArmor(mob, spec)   serv.dungeonMobs.equip(mob, 'helmet', 'iron_helmet')   (live, nearby players see it)
  *        serv.dungeonMobs.list({ roomId, star, alive })     serv.dungeonMobs.catalog
  * Event: serv.emit('dungeonMobSpawned', entity)
- * Command (op): /dmob <mob> [star] [floor=N] [master] [modifier=<name>] [armor=<material>] [skin=<key>]
+ * Command (op): /dmob <mob> [star] [floor=N] [master] [modifier=<name>] [armor=<material>] [skin=<key>] [variant=<name>]
  *
  * Plugin settings: { glyphs: [{ text, color }], randomHealth: true, modifierChance: <overrides the per-mob chance>, players: true }
  *
  * Melee: players hitting a dungeon mob deal stat-based damage (see meleeDamage); set `meleeDamage: false` to keep core's 1 hp.
+ * Death: player bodies get their death animation from a health metadata update (clients ignore entity_status 3 for players); the corpse is removed after `deathAnimationMs` [1000].
  * Health bar: the number in the name tag follows `mob.health` (checked every tick), so any damage path updates it.
  * Player mobs: Hypixel draws some mobs as players. They are spawned as player entities with a `textures` profile (lib/skins.js).
  * A player's own name plate cannot be edited or hidden by metadata, so the tag is an invisible armour stand riding the mob
@@ -42,6 +44,7 @@ const { mobs: CATALOG, modifiers: MODIFIERS, normalise } = require('./lib/catalo
 const { nametagComponent, componentToNbt, plain } = require('./lib/nametag')
 const armorLib = require('./lib/armor')
 const skins = require('./lib/skins')
+const look = require('./lib/look')
 
 const MASTER_TIERS = 7 // M1-M7 sit after F7 on the stat scale
 
@@ -49,7 +52,7 @@ const lerpGeo = (lo, hi, p) => (lo <= 0 || hi <= 0 || lo === hi) ? lo + (hi - lo
 const pick = a => a[Math.floor(Math.random() * a.length)]
 
 module.exports.server = function (serv, options) {
-  const config = Object.assign({ glyphs: [], randomHealth: true, modifierChance: undefined, players: true, profileRemoveDelay: 3000 }, (this && this.settings) || {})
+  const config = Object.assign({ glyphs: [], randomHealth: true, modifierChance: undefined, players: true, profileRemoveDelay: 3000, deathAnimationMs: 1000, tagLift: 0.15, npcLookRange: 10, npcLookEvery: 4 }, (this && this.settings) || {})
   const registry = serv.registry
   const Item = config.Item || require('prismarine-item')(registry)
   const tracked = new Set() // spawned dungeon mobs: health bar refresh and tag clean-up
@@ -94,6 +97,16 @@ module.exports.server = function (serv, options) {
     return { key, def }
   }
 
+  // Mobs with armour variants (Lost Adventurer: young / unstable / holy / superior) get a random one unless asked for
+  function resolveVariant (def, variant) {
+    if (!def.armorVariants) return null
+    const keys = Object.keys(def.armorVariants)
+    if (variant === undefined || variant === null) return pick(keys)
+    const key = normalise(variant)
+    if (!def.armorVariants[key]) throw new Error(`Unknown variant: ${variant} (${keys.join(', ')})`)
+    return key
+  }
+
   function resolveModifier (mod, def) {
     if (mod === null || mod === 'none' || mod === false) return null
     if (typeof mod === 'string') {
@@ -107,6 +120,7 @@ module.exports.server = function (serv, options) {
 
   // ---- metadata helpers -----------------------------------------------------------------------------------------------
   const TYPE_BYTE = typeIds?.byte ?? 0
+  const TYPE_FLOAT = typeIds?.float ?? 3
   const keyIndex = (entityTypeId, names, fallback) => {
     const keys = (registry.entities?.[entityTypeId]?.metadataKeys) || []
     for (const n of names) { const i = keys.indexOf(n); if (i !== -1) return i }
@@ -119,9 +133,10 @@ module.exports.server = function (serv, options) {
   // Player mobs carry the tag on an invisible armour stand riding them; every other mob wears it as its own custom name.
   function applyNametag (mob) {
     const d = mob.dungeon
+    if (d.npc) return // NPC names are the line stands, made once
     const target = d.tagEntity || mob
     const health = Math.max(0, Math.ceil(mob.health))
-    const component = nametagComponent({ name: d.name, star: d.star, health, modifier: d.modifier ? MODIFIERS[d.modifier].prefix : null, glyphs: config.glyphs, nameColor: d.nameColor })
+    const component = d.npc ? { text: '', extra: [{ text: d.name, color: d.nameColor }] } : nametagComponent({ name: d.name, star: d.star, health, modifier: d.modifier ? MODIFIERS[d.modifier].prefix : null, glyphs: config.glyphs, nameColor: d.nameColor })
     const k = metaKeys(target.entityType)
     const entries = [
       { key: k.name, type: TYPE_OPTIONAL_COMPONENT, value: componentToNbt(component) },
@@ -139,7 +154,28 @@ module.exports.server = function (serv, options) {
     ? { action: { add_player: true, update_listed: true }, data: [{ uuid: fp.uuid, player: { name: fp.name, properties: fp.properties }, listed: false }] }
     : { action: 'add_player', data: [{ uuid: fp.uuid, name: fp.name, properties: fp.properties, gamemode: 0, ping: 0 }] }
 
+  // A player entity shows its profile name (the random "dm1a2b3c4d") above its head. The tag stand carries the real text, so the profile names
+  // go into a scoreboard team whose name tags are never shown (the old rider stand hid the plate by being a passenger). Packet fields
+  // differ by version: 26.1 names the modes and visibility values, 1.21.x numbers them.
+  const TEAM = 'dm_hidden'
+  const teamsNamed = () => { try { return Array.isArray(registry.protocol.play.toClient.types.packet_teams[1][1].type) } catch (e) { return true } }
+  function teamPacket (mode, players) {
+    const named = teamsNamed(); const empty = componentToNbt({ text: '' })
+    if (mode === 'join' || mode === 'leave') return { team: TEAM, mode: named ? mode : (mode === 'join' ? 3 : 4), players }
+    return named
+      ? { team: TEAM, mode: 'add', name: empty, flags: { friendly_fire: false, see_friendly_invisible: false }, nameTagVisibility: 'never', collisionRule: 'never', formatting: 21, prefix: empty, suffix: empty, players }
+      : { team: TEAM, mode: 0, name: empty, friendlyFire: 0, nameTagVisibility: 'never', collisionRule: 'never', formatting: 21, prefix: empty, suffix: empty, players }
+  }
+  function hideProfileName (player, name) {
+    try {
+      if (!player._dmTeam) { player._dmTeam = true; player._client.write('teams', teamPacket('add', [name])) } else player._client.write('teams', teamPacket('join', [name]))
+    } catch (e) { serv.err?.(`[dungeon-mobs] team failed: ${e.message}`) }
+  }
+
   function removeProfile (fp) {
+    try {
+      for (const pl of serv.players) if (pl._dmTeam) pl._client.write('teams', teamPacket('leave', [fp.name]))
+    } catch (e) { /* client gone */ }
     try {
       if (serv.supportFeature('playerInfoActionIsBitfield')) serv._writeAll('player_remove', { players: [fp.uuid] })
       else serv._writeAll('player_info', { action: 'remove_player', data: [{ uuid: fp.uuid }] })
@@ -160,34 +196,82 @@ module.exports.server = function (serv, options) {
       if (entity.tagOf || creatingTag) return // the tag goes out with its owner
       if (entity.type === 'mob' && playerDef() && entity.entityType === playerDef().id) {
         if (!entity.fakePlayer && pendingProfile) entity.fakePlayer = { ...pendingProfile, uuid: entity.uuid }
-        if (entity.fakePlayer) { try { player._client.write('player_info', infoPacket(entity.fakePlayer)) } catch (e) { serv.err?.(`[dungeon-mobs] player_info failed: ${e.message}`) } }
+        if (entity.fakePlayer) {
+          try { player._client.write('player_info', infoPacket(entity.fakePlayer)) } catch (e) { serv.err?.(`[dungeon-mobs] player_info failed: ${e.message}`) }
+          hideProfileName(player, entity.fakePlayer.name)
+        }
       }
       spawnOriginal(entity)
-      if (entity.dungeon && entity.dungeon.tagEntity) sendTag(player, entity)
+      if (entity.dungeon && standsOf(entity).length) sendTag(player, entity)
       if (entity.dungeon && entity.dungeon.scale) sendScale(entity, [player])
     }
     player.despawnEntities = entities => {
+      // a player body that is playing its death animation stays until playDeath removes it (core would drop it as soon as a player moves)
+      const now = Date.now()
+      entities = entities.filter(e => !(e._dmobDyingUntil > now))
+      if (!entities.length) return
       despawnOriginal(entities)
-      const ids = entities.map(e => e.dungeon && e.dungeon.tagEntity && e.dungeon.tagEntity.id).filter(id => id !== undefined)
+      const ids = entities.flatMap(e => (e.dungeon ? standsOf(e) : []).map(st => st.id))
       if (ids.length) { try { player._client.write('entity_destroy', { entityIds: ids }) } catch (e) { /* client gone */ } }
     }
+  }
+  {
+    const bad = skins.unsigned()
+    if (bad.length) serv.info?.(`[dungeon-mobs] ${bad.length} skin(s) have no signed textures property and will show as the default skin in vanilla clients: ${bad.join(', ')} (see lib/skins.js)`)
   }
   serv.on('newPlayer', install)
   for (const p of serv.players || []) install(p)
 
-  function createTag (mob) {
+  // [capture] Hypixel's tags are free invisible armour stands at generic.scale 0.1, not riders. Dungeon mobs: marker stands (flags 0x10),
+  // 2.09-2.19 above a zombie / skeleton's feet (= its height + ~0.15), kept on the mob by position packets. NPCs (Mort, lobby NPCs): stacks of
+  // ordinary stands (flags 0), "Mort" at the NPC's feet height and "CLICK" 0.25 below. The client puts the text 0.5 above a marker stand and
+  // 1.975 + 0.5 above an ordinary one (armour stands ignore generic.scale for their size), so both land a little over the head.
+  const TAG_SCALE = 0.1
+  const BODY_HEIGHT = 1.8 // player model
+  // [capture] the Watcher's guardians (generic.scale 0.28) carry their tag stand 2.13-2.16 above their feet, whatever their scale (`tagDy` in the catalogue);
+  // other mobs: the body height plus a lift that does not shrink with the body
+  const tagDy = mob => mob.dungeon.tagDy !== undefined ? mob.dungeon.tagDy : BODY_HEIGHT * (mob.dungeon.scale || 1) + config.tagLift
+  function makeStand (mob, world, pos, { marker, component }) {
     const def = registry.entitiesByName.armor_stand
     if (!def) return null
     ensureSpawnable(def)
     creatingTag = true
     let stand
-    try { stand = serv.spawnMob(def.id, mob.world, mob.position.clone()) } finally { creatingTag = false }
+    try { stand = serv.spawnMob(def.id, world, pos) } finally { creatingTag = false }
     stand.tagOf = mob
-    const flags = keyIndex(def.id, ['armor_stand_flags', 'armor_stand_data'], 15)
+    stand.size = null // core's physics loop skips entities without a size: stock gravity/collision made the stands hop up 0.9 and fall ("jumping" lines)
+    if (stand.gravity) stand.gravity.set(0, 0, 0)
+    const flags = keyIndex(def.id, ['armor_stand_flags', 'armor_stand_data', 'client_flags'], 15)
+    const noGravity = keyIndex(def.id, ['no_gravity'], 5)
+    const silent = keyIndex(def.id, ['silent'], 4)
     const entries = [{ key: 0, type: TYPE_BYTE, value: 0x20 }] // invisible
-    if (flags !== undefined) entries.push({ key: flags, type: TYPE_BYTE, value: 0x08 | 0x10 }) // no base plate, marker (no hit box)
+    if (flags !== undefined) entries.push({ key: flags, type: TYPE_BYTE, value: marker ? 0x10 : 0 })
+    if (noGravity !== undefined) entries.push({ key: noGravity, type: TYPE_BOOLEAN, value: true }) // else the client drops it to the floor and the server snaps it back: the line "jumps"
+    if (silent !== undefined) entries.push({ key: silent, type: TYPE_BOOLEAN, value: true })
+    if (component) {
+      const k = metaKeys(def.id)
+      entries.push({ key: k.name, type: TYPE_OPTIONAL_COMPONENT, value: componentToNbt(component) }, { key: k.visible, type: TYPE_BOOLEAN, value: true })
+    }
     merge(stand, entries)
     return stand
+  }
+  function createTag (mob) {
+    const p = mob.position
+    const stand = makeStand(mob, mob.world, new Vec3(p.x, p.y + tagDy(mob), p.z), { marker: true })
+    if (stand) stand.followDy = true
+    return stand
+  }
+  // NPC name lines: [{ text, color, bold, dy }] from the top; static stands
+  function createNpcLines (mob, def, world, pos) {
+    return (def.lines || []).map(line => {
+      const { dy, ...part } = line
+      return makeStand(mob, world, new Vec3(pos.x, pos.y + dy, pos.z), { marker: false, component: { text: '', extra: [part] } })
+    }).filter(Boolean)
+  }
+  const standsOf = mob => [mob.dungeon.tagEntity, ...(mob.dungeon.lineStands || [])].filter(Boolean)
+  function sendStand (player, stand) {
+    player._dmobSpawnStand(stand)
+    player._client.write('entity_update_attributes', { entityId: stand.id, properties: [{ key: 'generic.scale', value: TAG_SCALE, modifiers: [] }] })
   }
 
   // ---- equipment ------------------------------------------------------------------------------------------------------
@@ -226,6 +310,7 @@ module.exports.server = function (serv, options) {
 
     const floor = Math.max(0, Math.min(7, opts.floor ?? 0))
     const master = !!opts.master
+    const variant = resolveVariant(def, opts.variant)
     const modifier = resolveModifier(opts.modifier, def)
     const mod = modifier ? MODIFIERS[modifier] : {}
 
@@ -236,7 +321,7 @@ module.exports.server = function (serv, options) {
     } else {
       maxHealth = scale(def.health, def, floor, master)
       if (opts.roomsExplored > 0) maxHealth *= 1 + 0.05 * (opts.roomsExplored - 1)
-      if (config.randomHealth && def.kind !== 'special') maxHealth = Math.max(maxHealth * 0.25, maxHealth + 1000 * (-2 + Math.random() * 8))
+      if (config.randomHealth && def.kind !== 'special' && def.kind !== 'npc') maxHealth = Math.max(maxHealth * 0.25, maxHealth + 1000 * (-2 + Math.random() * 8))
       maxHealth *= mod.healthMul || 1
       maxHealth = Math.max(1, Math.round(maxHealth))
     }
@@ -246,7 +331,7 @@ module.exports.server = function (serv, options) {
     pendingProfile = profile ? { name: 'dm' + Math.random().toString(16).slice(2, 10), properties: profile.properties } : null
     let mob
     try {
-      mob = serv.spawnMob(entity.id, world, pos, { yaw: opts.yaw || 0, pitch: opts.pitch || 0 })
+      mob = serv.spawnMob(entity.id, world, pos, { yaw: opts.yaw || 0, pitch: opts.pitch || 0, headPitch: opts.yaw || 0 }) // yaw / headPitch (= head yaw) are protocol angle bytes
     } finally { pendingProfile = null }
 
     let defense = scale(def.defense, def, floor, master)
@@ -257,6 +342,7 @@ module.exports.server = function (serv, options) {
       key,
       name: def.name,
       kind: def.kind,
+      npc: !!def.npc,
       body: bodyName,
       skin: profile ? profile.key : null,
       star: !!opts.star,
@@ -264,6 +350,7 @@ module.exports.server = function (serv, options) {
       nameColor: def.nameColor ?? 'red',
       floor,
       master,
+      variant,
       modifier,
       roomId: opts.roomId ?? null,
       level: opts.level ?? Math.round(scale(def.level, def, floor, master)),
@@ -275,7 +362,9 @@ module.exports.server = function (serv, options) {
       nametag: opts.nametag !== false,
       spawnedAt: Date.now(),
       armor: {},
-      tagEntity: null
+      tagEntity: null,
+      lineStands: [],
+      homeYaw: 0
     }
 
     // the mob AI (if installed) just gave it a 20 hp vanilla profile: keep its idea of max health in step
@@ -286,20 +375,37 @@ module.exports.server = function (serv, options) {
       // skin layers (hat, jacket, sleeves, pants) are off unless the client is told
       const layers = keyIndex(entity.id, ['player_mode_customisation', 'player_model_customisation', 'skin_parts'], undefined)
       if (layers !== undefined) { const e = [{ key: layers, type: TYPE_BYTE, value: 0x7f }]; merge(mob, e); send(mob, e) }
-      if (opts.nametag !== false) mob.dungeon.tagEntity = createTag(mob)
+      const early = opts.scale !== undefined ? opts.scale : def.scale
+      if (early) mob.dungeon.scale = early // the tag height depends on it (sent to the clients below)
+      if (def.tagDy !== undefined) mob.dungeon.tagDy = def.tagDy
+      if (opts.nametag !== false && !def.npc) mob.dungeon.tagEntity = createTag(mob)
+      if (def.npc) mob.dungeon.lineStands = createNpcLines(mob, def, world, pos)
       // players that already see the mob were sent it before the tag existed: add the tag for them now
-      if (mob.dungeon.tagEntity) for (const p of mob.getNearby().filter(e => e.type === 'player')) { if (p._dmobInstalled) sendTag(p, mob) }
+      if (standsOf(mob).length) for (const p of mob.getNearby().filter(e => e.type === 'player')) { if (p._dmobInstalled) sendTag(p, mob) }
     }
 
+    if (def.npc) { mob.dungeon.homeYaw = (opts.yaw || 0) * 360 / 256; makeNpc(mob) }
     applyNametag(mob)
     tracked.add(mob)
-    const armor = opts.armor !== undefined ? opts.armor : def.armor
+    let armor = opts.armor !== undefined ? opts.armor : (variant && def.armorVariants ? def.armorVariants[variant] : def.armor)
+    if (typeof armor === 'function') armor = armor({ floor, master, variant, star: !!opts.star })
     if (armor) setArmor(mob, armor)
     const bodyScale = opts.scale !== undefined ? opts.scale : def.scale
     if (bodyScale) { mob.dungeon.scale = bodyScale; sendScale(mob) }
     serv.emit('dungeonMobSpawned', mob)
     return mob
   }
+  // ---- NPCs (Mort): no AI, cannot be hurt, optional second tag line under the name --------------------------------------
+  function makeNpc (mob) {
+    const ai = serv.mobAI && serv.mobAI.get && serv.mobAI.get(mob)
+    if (ai) { // the 'player' AI profile is a zombie: swap its goals for none, so it stands where it was put
+      ai.selector.stopAll()
+      ai.selector = new ai.selector.constructor({ startInterval: 2 })
+      ai.attributes.knockbackResistance = 1
+    }
+    mob.invulnerable = true
+  }
+
   // [capture] The Watcher's guardians are 0.28 scale players: generic.scale attribute (sent to everybody nearby, and again for late arrivals)
   function sendScale (mob, players) {
     const packet = { entityId: mob.id, properties: [{ key: 'generic.scale', value: mob.dungeon.scale, modifiers: [] }] }
@@ -309,24 +415,75 @@ module.exports.server = function (serv, options) {
     } catch (e) { serv.err?.(`[dungeon-mobs] scale failed: ${e.message}`) }
   }
   function sendTag (player, mob) {
-    const stand = mob.dungeon.tagEntity
+    try { for (const stand of standsOf(mob)) sendStand(player, stand) } catch (e) { serv.err?.(`[dungeon-mobs] tag failed: ${e.message}`) }
+  }
+  // the tag stands are not passengers any more: put each one back over its mob when the mob has moved
+  // NPCs face the nearest player in range (entity_look + entity_head_rotation, only when the angle changed), and turn back to where they were put
+  function npcLook (mob) {
+    const d = mob.dungeon
+    const players = serv.players.filter(p => p.world === mob.world && p.gameMode !== 3 && p.position)
+    const target = look.nearest(mob.position, players, config.npcLookRange)
+    let yawDeg; let pitchDeg
+    if (target) {
+      const a = look.lookAngles(mob.position, target.position)
+      if (a.yaw === null) return // standing right on top of it
+      yawDeg = a.yaw; pitchDeg = a.pitch
+    } else { yawDeg = d.homeYaw; pitchDeg = 0 }
+    const yaw = look.angleByte(yawDeg); const pitch = look.angleByte(pitchDeg)
+    if (yaw === mob.yaw && pitch === mob.pitch) return
+    mob.yaw = yaw; mob.pitch = pitch; mob.headPitch = yaw // headPitch is the head yaw byte in spawn packets
     try {
-      player._dmobSpawnStand(stand)
-      player._client.write('set_passengers', { entityId: mob.id, passengers: [stand.id] })
-    } catch (e) { serv.err?.(`[dungeon-mobs] tag failed: ${e.message}`) }
+      mob._writeOthersNearby('entity_look', { entityId: mob.id, yaw, pitch, onGround: true })
+      mob._writeOthersNearby('entity_head_rotation', { entityId: mob.id, headYaw: yaw })
+    } catch (e) { serv.err?.(`[dungeon-mobs] npc look failed: ${e.message}`) }
+  }
+  function followTags (mob) {
+    const st = mob.dungeon.tagEntity
+    if (!st || !st.followDy) return
+    const t = mob.position; const dy = tagDy(mob)
+    if (st.position.x === t.x && st.position.y === t.y + dy && st.position.z === t.z) return
+    const to = new Vec3(t.x, t.y + dy, t.z)
+    try { Promise.resolve(st.sendPosition(to, false, to.distanceTo(st.position) > 7)).catch(() => {}) } catch (e) { /* stand gone */ }
+  }
+
+  // ---- death animation for player bodies ------------------------------------------------------------------------------------
+  // Core sends `entity_status 3` when a mob dies and then forgets the entity. Clients ignore that status for player-type entities
+  // (their death is driven by the health metadata dropping to 0), so a player body would just stand there and then be despawned.
+  // Send the health metadata, keep the body for the length of the animation, then remove it.
+  function playDeath (mob) {
+    const key = keyIndex(mob.entityType, ['health', 'living_entity_health'], 9)
+    if (key === undefined) return // unknown layout: nothing better to do than the core behaviour
+    mob._dmobDyingUntil = Date.now() + config.deathAnimationMs
+    const entries = [{ key, type: TYPE_FLOAT, value: 0 }]
+    merge(mob, entries)
+    send(mob, entries)
+    setTimeout(() => {
+      mob._dmobDyingUntil = 0
+      try { serv.destroyEntity(mob) } catch (e) { /* already gone */ }
+    }, config.deathAnimationMs).unref?.()
   }
 
   // ---- upkeep: health bar follows mob.health, tags and fake profiles are removed with their mob ------------------------
+  let ticks = 0
   serv.on('tick', () => {
+    ticks++
     for (const mob of tracked) {
       const d = mob.dungeon
       if (!serv.entities[mob.id]) { // killed (core deletes the entity) or removed
         tracked.delete(mob)
-        if (d.tagEntity) { try { serv.destroyEntity(d.tagEntity) } catch (e) { /* already gone */ } d.tagEntity = null }
-        if (mob.fakePlayer) { const fp = mob.fakePlayer; setTimeout(() => removeProfile(fp), config.profileRemoveDelay).unref?.() } // let the death animation play
+        for (const st of standsOf(mob)) { try { serv.destroyEntity(st) } catch (e) { /* already gone */ } }
+        d.tagEntity = null; d.lineStands = []
+        if (mob.fakePlayer) {
+          const killed = mob.health <= 0 // else it was just removed: no animation
+          if (killed) playDeath(mob)
+          const fp = mob.fakePlayer
+          setTimeout(() => removeProfile(fp), killed ? Math.max(config.profileRemoveDelay, config.deathAnimationMs + 250) : config.profileRemoveDelay).unref?.() // after the corpse is gone
+        }
         continue
       }
-      if (d.nametag && Math.max(0, Math.ceil(mob.health)) !== d.shownHealth) applyNametag(mob)
+      followTags(mob)
+      if (d.npc && ticks % config.npcLookEvery === 0) npcLook(mob)
+      if (d.nametag && !d.npc && Math.max(0, Math.ceil(mob.health)) !== d.shownHealth) applyNametag(mob)
     }
   })
 
@@ -372,7 +529,7 @@ module.exports.server = function (serv, options) {
   serv.commands.add({
     base: 'dmob',
     info: 'Spawn a Catacombs mob',
-    usage: '/dmob <mob> [star] [floor=N] [master] [modifier=<name>] [armor=<material>] [skin=<key>]   (/dmob list)',
+    usage: '/dmob <mob> [star] [floor=N] [master] [modifier=<name>] [armor=<material>] [skin=<key>] [variant=<name>]   (/dmob list)',
     op: true,
     action (params, ctx) {
       const [name, ...flags] = String(params || '').trim().split(/\s+/)
@@ -388,6 +545,7 @@ module.exports.server = function (serv, options) {
         else if (k === 'modifier') opts.modifier = v
         else if (k === 'armor') opts.armor = v
         else if (k === 'skin') opts.skin = v
+        else if (k === 'variant') opts.variant = v
       }
       const yaw = player.yaw || 0
       const ahead = player.position.offset(-Math.sin(yaw) * 2, 0, Math.cos(yaw) * 2)
@@ -406,6 +564,8 @@ module.exports.server = function (serv, options) {
 }
 
 module.exports.player = function (player, serv) {
+  // NPCs cannot be hurt: cancel the attack before core's takeDamage (without running its cancel callback)
+  player.on('attack_cancel', (data, cancel) => { if (data && data.attackedEntity && data.attackedEntity.dungeon && data.attackedEntity.dungeon.npc) cancel(false) })
   player.on('attack', (data, cancelled) => {
     const mob = data && data.attackedEntity
     const dm = serv.dungeonMobs

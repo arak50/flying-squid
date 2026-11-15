@@ -4,153 +4,214 @@
     "hash": "c48c783458e4cf8518e8ab5863fbc4cb948f90568eeb9a60d16c4fde2b96c033",
     "slim": false,
     "legacy": false,
-    "inCapture": true
+    "inCapture": true,
+    "value": "eyJ0aW1lc3RhbXAiOjE1NzU0NzAzOTQwMzEsInByb2ZpbGVJZCI6IjdkYTJhYjNhOTNjYTQ4ZWU4MzA0OGFmYzNiODBlNjhlIiwicHJvZmlsZU5hbWUiOiJHb2xkYXBmZWwiLCJzaWduYXR1cmVSZXF1aXJlZCI6dHJ1ZSwidGV4dHVyZXMiOnsiU0tJTiI6eyJ1cmwiOiJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlL2M0OGM3ODM0NThlNGNmODUxOGU4YWI1ODYzZmJjNGNiOTQ4ZjkwNTY4ZWViOWE2MGQxNmM0ZmRlMmI5NmMwMzMifX19",
+    "signature": "pUw1enOTi2/OX+DmJAEVvaooLrMSRS876TYX/lUHl8z4VCP8VNMax1mAAWLD5eJu/kQIJV1yGlyhrjGyLZULaPx3e18Pc8SWyGZ+mip76qtjRW+GM45lurTE8AK1EPrirJ8zUB/0dNfyuZOgTcYt/w+Y6eOtV2/+KfslsmFQyonmqSAsrlAk0ivehVULqJpbNP4eA2/Gzwdvlx1riz0wAg4fiVtOQtGoY9sltdAyaDnooYKzLMw+2ZO+UNoMoEbOL+nkVUJu5pDLT1Cv9/RZPlpQmggmlDLQg5nSgNpLF/fLDol681BWjavGO38FW7bghGSEpuPRI6QprKaj4jXf0zswcR7xN16gOKlpeLyh9Z+TzsN1EEaChJuXFi23nYwM/c8US0bjmZWdu6hJyFTHJ/CKO2YofRrRW6fwrasGtfe/VkwKEgVC5AzVeRsJD+qxZuGnSgWf951p3Nov2YXxNVUckC4gCfzCSlTdRLGWUqAGSdJVhxB+RRHA9zaLnHYVD4Jfy7UFSHrY+2hL5V2OkQwe6EhfZ/TkN/wzdJOztI++AzaMOldgqqsyJVlaFhFAlFtn6IqRhVJ/f4xEdDfSaLGubixMSi0Wjk4V9dqbp+9dDuTXCBWQ4w8rrz61V66flBvo5rwH9uDxV/z2iF6RyqEZcqVXo0rvzbUTdfEwCsI=",
+    "signed": true
   },
   "crypt_dreadlord": {
     "file": "crypt_dreadlord.png",
     "hash": "66f349270a3b851896cdad842f5eec6e140bd9119b75c074955c3be7865e27c7",
     "slim": false,
     "legacy": false,
-    "inCapture": true
+    "inCapture": true,
+    "value": "eyJ0aW1lc3RhbXAiOjE1NjI0Mjc0MTA5MTQsInByb2ZpbGVJZCI6ImIwZDczMmZlMDBmNzQwN2U5ZTdmNzQ2MzAxY2Q5OGNhIiwicHJvZmlsZU5hbWUiOiJPUHBscyIsInNpZ25hdHVyZVJlcXVpcmVkIjp0cnVlLCJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjZmMzQ5MjcwYTNiODUxODk2Y2RhZDg0MmY1ZWVjNmUxNDBiZDkxMTliNzVjMDc0OTU1YzNiZTc4NjVlMjdjNyJ9fX0=",
+    "signature": "VIR2CuqpFU48fNvF6+wktzkUS8K8eQxXzS10CRGIgeQEpFPSS2p8114dTBfOWcz61Mr3M5D0sUjhoKjSJOJyqaGWW4XJ4znronXq6xtvDKM8zengJrMj0TXfBY27o8SQrLeB2Qaq9xiQjBES+/hl+T5/R54cdGWdqNMboVscNrKWVoKr8kGa8NzYUpdHrsznZ2VltlCPpiPsevwzk2hxquHAwtDaWJMuOn238pexDOacISYdpO2huUtaAoE1mf+phoxJ9lpcJZwWPhPX5rEcTd1huPtn/Wz2mJ4ciFtlraqNsRn3VXCvV9qX8fPNGZEOzWmcfJvC57SyBhrvq3WUBmlgpX3zU6ye9gjmRCdpdsBhZxzDGzAjTl4GQOWcabeOr+jp2RvSTFjRItpb9NeO8ecz3QsGJ3hvvFF7tU5NnHcxc0qHEc6iC8eIF+gaROMDT8a9J5x/8eEc1mBGEzWpLxCK0tFEy018oTZaeDBmJURML7a6EoFBvZ2l/1XmlU4+Uio2DVatSAnnmLMzxaN2a8Bucoac7XS3oEJA+AEjKa2Y8dYhwKxliwMuy7U67BZcshQltCOnsOV2TiNIuB/W3urSoHY8Vf7ElI9qlCP/Ma2cSmNFw/KsBMIHmdzLQB/4hE8AuHadynA9YixzQtLqyuak/nbtRk6WBO2Rxq6co74=",
+    "signed": true
   },
   "crypt_undead": {
     "file": "crypt_undead.png",
     "hash": "32e2d0ed14c23862666b405aefabc65a57a271e842fda5f4d19e6bc118ce0c94",
     "slim": false,
     "legacy": false,
-    "inCapture": false
+    "inCapture": false,
+    "value": "eyJ0aW1lc3RhbXAiOjE1NjM0ODIzNzg4NDQsInByb2ZpbGVJZCI6IjVkMjRiYTBiMjg4YzQyOTM4YmExMGVjOTkwNjRkMjU5IiwicHJvZmlsZU5hbWUiOiIxbnYzbnQxdjN0NGwzbnQiLCJzaWduYXR1cmVSZXF1aXJlZCI6dHJ1ZSwidGV4dHVyZXMiOnsiU0tJTiI6eyJ1cmwiOiJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlL2Y3NzQ1MzRhYzM1NjdkZWRmZTMzMGM5OGI5MWJjMjhlMTE1MTAwNTUyNWE4NGUyYjVkNzIwY2ZmNjIzMTZkNzYifX19",
+    "signature": "sY3RHskVmB0Vj5h3SrFnG4N9retOHmJ6EPWOGr0gfbJTT/v9VgJFsl9et2eD+iaoUfy9AjCWuL9C0YlRYY63k/jINT6L7RLxCDK3suNwj+ZPOSX+BqnWMz+2LMR1cJzSbXK3btrwHFKYNl4tph8rnNqVoXgR96kBgsAOihmHMCyua2+mUUs6Z2de6jCJOrTykmF2NxtdjBjoTfbqS6P/Nt/4XsGkWE6mGh6s5jXW4SVV//D8y8cGvls/UdhMh4FAjAMFHjXZHJR/0Qs57MIA4RjFLSM4jmiRRHjKgbqMYrmyENpgwmfJa4ZLp4kps5wCRXl2a9ypO9jeSSMb0+Na/6G6K1mWD/8oGoWmQBKto6lPTjUTNoW8JBZQPTGYz+lR31Mu9Ms7YW/luqO+duQLm01w230V05W2AKD4kW2DKu84q9qFh9CLCoFDQCpp4jOZbRhE3ojFARR9XHKA7SnX97P01gv2NjT74kgyQlKW5TqSowiX5cBDIFCewKx3uUxARTmXUwj1HmZlHpEi2kLhdb1otJBDxOnRTYlaS20+l/JNU+MAUpJHUPnqNG+0MgcWKPHxpjJ1N1x2Y4K3HQV65zTlcnC381C4tNwhjEXiW8/UKKUEQRfz2ROhTp6pj9bShFWtbo271QBID7xF9Zw2gvYnSKu6ELLkWWMs8Zxdw2g=",
+    "signed": true,
+    "note": "borrowed from the captured Undead profile (signed); replace with the real skin"
   },
   "frozen_adventurer": {
     "file": "frozen_adventurer.png",
     "hash": "3dee50181dbc336d0d9035f622448c43daa7fdb5d7caaa91f67b3bc6486c3210",
     "slim": false,
     "legacy": true,
-    "inCapture": false
+    "inCapture": false,
+    "signed": false
   },
   "king_midas": {
     "file": "king_midas.png",
     "hash": "62bca085750043503f5df9f7def824a2e3acfc27842bcd09d2b6695881e832f5",
     "slim": false,
     "legacy": false,
-    "inCapture": false
+    "inCapture": false,
+    "signed": false
   },
   "lost_adventurer": {
     "file": "lost_adventurer.png",
     "hash": "36a0383a527803d99b662ad18bcac78c119250ebbfb14475b4eb4d4a662796b4",
     "slim": false,
     "legacy": true,
-    "inCapture": false
+    "inCapture": false,
+    "signed": false
   },
   "lost_adventurer_1": {
     "file": "lost_adventurer_1.png",
     "hash": "e381a1875efeb2a260d357984c3e75a7dfbc7a22b582bfe9990421cbb445acc",
     "slim": false,
     "legacy": false,
-    "inCapture": true
+    "inCapture": true,
+    "value": "ewogICJ0aW1lc3RhbXAiIDogMTU5NTQ2MjEwMzQ5OCwKICAicHJvZmlsZUlkIiA6ICJkYTQ5OGFjNGU5Mzc0ZTVjYjYxMjdiMzgwODU1Nzk4MyIsCiAgInByb2ZpbGVOYW1lIiA6ICJOaXRyb2hvbGljXzIiLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTM4MWExODc1ZWZlYjJhMjYwZDM1Nzk4NGMzZTc1YTdkZmJjN2EyMmI1ODJiZmU5OTkwNDIxY2JiNDQ1YWNjIiwKICAgICAgIm1ldGFkYXRhIiA6IHsKICAgICAgICAibW9kZWwiIDogInNsaW0iCiAgICAgIH0KICAgIH0KICB9Cn0=",
+    "signature": "eowm4Fk3Ffgg8KZEtf9YG+UJDHv2/dsvXpFsnO3lsjHjz6uKvRRATbRUkvpCSJ/qBdpR/zZqO6wdPAOV8m4ejuK8H2yY9jkjGAV2JQ85IUCyceTaDOv9wIC3VYt2oz6QT+XPlma4RY6yePmEeC/ZnUK7yQ/18IOdz9KSXYo51XHVjk25vjEZpoxK6GTg03LZ75qN+qVfaDBw8Oj7HwWxgcX1eBpQD/fIMYaeEDclvit08T1FLRDc0z9a+xO60Kni9m6/9d6kp7AzQYhdq9S8g9yUTtD338Q9ChNhYfr/7Rf5SllYTlMRhf3LL7w/GdefCGu1R/2F56Cl5IEVMobfOJ3QMcneSMh8XbrEIo2zeP5pEfKCLO7A8Cwctyorn+fckG1Oxh1xMSsfkebBBdib2lIYaq2DRTPqQhANHjEqqxz9f0rBI28PFMOo9DWTEKtb0QEtqPECmlL30PNbioMeYxkOKcUkvax39IyH/2vyoQEfu6uKeY7zyIzUu9haTj/wED5IBYMFQpgVQu+9ftIaRpde0x3O8YN1THo+xltuxkTuhYFVic9mt/IkXsNe6oPJhuxmxL5yPQeQe/wBKlUXt5XBFdhiFZRDTbLWUJDxttlmNMtNx+Tv3GR32I6zZLfnhc5HWJuiGYQb7rAqSCzjT2/kMIAseTmPIDpYq6rWx3w=",
+    "signed": true
   },
   "lost_adventurer_2": {
     "file": "lost_adventurer_2.png",
     "hash": "3a26cf66af42a48f6be52a0a48a8eb598f3a23639b7a5a8ee171c13999ee94c9",
     "slim": false,
     "legacy": false,
-    "inCapture": false
+    "inCapture": false,
+    "signed": false
   },
   "prince_christian": {
     "file": "prince_christian.png",
     "hash": "4999123cf0a41477f706fc6a50891463e8cb50dcbdd2c81c652fcef6fdbde21c",
     "slim": false,
     "legacy": false,
-    "inCapture": false
+    "inCapture": false,
+    "signed": false
   },
   "shadow_assassin": {
     "file": "shadow_assassin.png",
     "hash": "3399e00f404411e465d74388df132d51fe868ecf86f1c073faffa1d9172ec0f3",
     "slim": false,
     "legacy": false,
-    "inCapture": false
+    "inCapture": false,
+    "signed": false
   },
   "skeletor_prime": {
     "file": "skeletor_prime.png",
     "hash": "1bd3a4f8e22db15e486acac5d456ff35f34ed9ab5c64eec057afd2866d559401",
     "slim": false,
     "legacy": false,
-    "inCapture": false
+    "inCapture": false,
+    "signed": false
   },
   "zombie_commander": {
     "file": "zombie_commander.png",
     "hash": "e3976ef4f9d68cfc0f24f6b313713a5f2abbcfff32a27c514c1392dfe619191e",
     "slim": false,
     "legacy": false,
-    "inCapture": false
+    "inCapture": false,
+    "signed": false
   },
   "watcher_mute": {
     "file": null,
     "hash": "5cccd53f5191c29a9dc8f0170fbdc4e59e66476aae33de27b468f1de1b7cf3b2",
     "slim": false,
     "legacy": false,
-    "inCapture": true
+    "inCapture": true,
+    "value": "eyJ0aW1lc3RhbXAiOjE1ODYwNDEwMzA3NjUsInByb2ZpbGVJZCI6ImRhNDk4YWM0ZTkzNzRlNWNiNjEyN2IzODA4NTU3OTgzIiwicHJvZmlsZU5hbWUiOiJOaXRyb2hvbGljXzIiLCJzaWduYXR1cmVSZXF1aXJlZCI6dHJ1ZSwidGV4dHVyZXMiOnsiU0tJTiI6eyJ1cmwiOiJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzVjY2NkNTNmNTE5MWMyOWE5ZGM4ZjAxNzBmYmRjNGU1OWU2NjQ3NmFhZTMzZGUyN2I0NjhmMWRlMWI3Y2YzYjIifX19",
+    "signature": "F5mq2kyjKDGWjyQDImKz26wlBwB0EkL/KCea6BcrrD7vpmv9OvFPOYwEQjpyGyovsTHHAaKQHsKC9yqpSSeh6D8t+h4Uzyy5BdugPA3SnP/gzbeBj4M9n8snjXfhIJP7JNaSv11I8/nH6yeQpdZVf4l8h+S0Kpe9M8O+P4bJDv8AartsEHM5IYxvoAGZh/uEFwHRkL2EVh3WAsU3BGcOsPtFWXGsXFVivg5ti960rKT8520vNhqWmlDKZw3xVOdzAi3dDrTDhaZyA3id9b5T2HNMWQrinA/zw9pwTBfrqNL/pia7qSCR1lV59+pMybccU/vvW8c4mm6Uuxf0KKW8dtV5G6Vl5s3p1qkeMFyNkjFp+VGI2T+Z4U+h0IZDWsUHY8oUOgCfKPtrQ3hOM5nynxX8GsjLKmpJsbxqF4IlX5G1ws62IOzCcfHXFOX5uCtLhylQCmDiY0FcSSZxDjcYRFcKyIr73YilDgbDkxRkTOoTiS//5KfrwkLZ9ULfVqz5W+tJBO9Wr6DiHVp/uvkf6vBpftJ8/wdLu9LGpITU1ldlyQpV6RnpZEd/MpDQpv3uWxNfiexm06qtLURAAIAAQ+3ncuzpJl5+jTewisfcy8xi7yqE//26zTztZbd+2CIUFhFFO5Ca/1wCmvWqo2wJkx8uWJNpI9i94/C8xoyyKD4=",
+    "signed": true
   },
   "watcher_putrid": {
     "file": null,
     "hash": "f4624a9a8c69ca204504abb043d47456cd9b09749a36357462303f276a229d4",
     "slim": false,
     "legacy": false,
-    "inCapture": true
+    "inCapture": true,
+    "value": "eyJ0aW1lc3RhbXAiOjE1ODYwNDAyMDM1NzMsInByb2ZpbGVJZCI6ImRhNDk4YWM0ZTkzNzRlNWNiNjEyN2IzODA4NTU3OTgzIiwicHJvZmlsZU5hbWUiOiJOaXRyb2hvbGljXzIiLCJzaWduYXR1cmVSZXF1aXJlZCI6dHJ1ZSwidGV4dHVyZXMiOnsiU0tJTiI6eyJ1cmwiOiJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlL2Y0NjI0YTlhOGM2OWNhMjA0NTA0YWJiMDQzZDQ3NDU2Y2Q5YjA5NzQ5YTM2MzU3NDYyMzAzZjI3NmEyMjlkNCJ9fX0=",
+    "signature": "pzTWYQWz6f4H3PZjlnq3Dj5G1tymGGTBGXX8Napoee8N8o7di/kWY8zdAlAuhbBwToGu8XPWY8s3wP1aKL6Z4ky5QywwuKSafumObyq2rucuKWBIrumthe36WlZc9Al/KAYzhwqlsE4v8i6G1/H9JOLymYDI+ScTkyqYE/gcCx9HQHFpCdz2iVIzi/xtTiS1gWPOs3Nn71Rcsk3uoT5V0O2zuTi2a/gnVpuecRX6JUucr8vI6kcYh4YkU+aI/zXttg6jp7/t5AGEtKkyrK//foPJ4d8RcSwoyWyTFkbyIKIWuOR8F0EBj2BGdONrCPdq6qP358ugGcjHs4LO28k8pM2dmHFuPWXHD3RZfUhd0NRUrxF1clEsKiTJZ6pzPVx6Y+mkO8aadFfLxybEsdjnL8MHhMsLR9E1TgGAocinhgDVceIcyJcmq/tkA2BWjeOggIdiGli3xLUKBD7fQvZ7CZWnCb86/zWJCTKuIxmn+vUC7gLmHYVzXFuyMUQT+o7CuBY5CElXAKWmebuqWkV6Y2IlrXQTLmQFgK8ssB7ZlQrchlT0nu/XG8lS0A9y/bCXDCJ3xaV0LmGS66H0CD0gIW7/urUcqxQFSvwGKo/o5L+2/7OXjKk4TYhQ1BDi4oD0sars4AUf+5oe6PUNOUIGTVnO9yUd1dTKkAlUK/aI6bU=",
+    "signed": true
   },
   "watcher_freak": {
     "file": null,
     "hash": "7d12b2ade413a6cd7cca3c95e961ba9f0ae7165fa41fc7b5d5f094a01240c609",
     "slim": false,
     "legacy": false,
-    "inCapture": true
+    "inCapture": true,
+    "value": "eyJ0aW1lc3RhbXAiOjE1ODYwNDA5NTY0MjIsInByb2ZpbGVJZCI6ImRhNDk4YWM0ZTkzNzRlNWNiNjEyN2IzODA4NTU3OTgzIiwicHJvZmlsZU5hbWUiOiJOaXRyb2hvbGljXzIiLCJzaWduYXR1cmVSZXF1aXJlZCI6dHJ1ZSwidGV4dHVyZXMiOnsiU0tJTiI6eyJ1cmwiOiJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzdkMTJiMmFkZTQxM2E2Y2Q3Y2NhM2M5NWU5NjFiYTlmMGFlNzE2NWZhNDFmYzdiNWQ1ZjA5NGEwMTI0MGM2MDkifX19",
+    "signature": "qzXVvv6PGICeFppFWM3GxytfhBNkhaYULbtOyFWLk+P7u0zHaLbaaqILqooHbp6Y6uNYnKHFsQf8UwiwlTYN6R+HNnygRsBLPG56J8pbAANqW94NQT1RhmaG3Vb6nFVzvfHbR6bFvB5cI8JOQTVqEvwpzat7GPIyHrfegh0Qz/B4NydrhJZRBoPwbveZvkb3tHSbfo/EFT4ooRywHDMnQ5nexwxCLWqinzWsJEMkh6yBvv5aQK4eK/gB1ceX4OYghNzZAv13npyuja8/d3KGH5V5YEd5T6nzKsskp3zorrvFT/dNZdeyRyyzKYQ6xcyWs+GdkjqM5KJbcIIkqR6GIlWBkTOY4dozCAcrebRLPZnii8Rnhi1lfXDpFuNR4Sa2DIrNSvbHWD3xAtAQQNWeGT2EssHvvb2J7DMycY+BFJuuE7fgM9NK9CHquWpvPFe3WCsswGS7lACOR9gVQJ2Qi8Av7zqVPZciEGRj6fl9i+ZAYOsw/uq3wU7t4TZ9FTkImT8/mSXgw1dHIY/x5pWmzWen3lwk0ATE7d5JSTSEuDz8uXLurA4Y9lM6jcVFQlBqwqOMuWZgEPh7iES06gMqWoPcDgw78X5oyDcjUnIsqHSo7kiUgazv1OLILuClpRozvAruJpEhBZ1GzXKSyQyM0BFKCBuYFwjTDhRnaNBd+Jg=",
+    "signed": true
   },
   "watcher_psycho": {
     "file": null,
     "hash": "aa23c8cde2943c84249de8351bc3540be5f8afaaba8b2cb032fc5acad78a269b",
     "slim": false,
     "legacy": false,
-    "inCapture": true
+    "inCapture": true,
+    "value": "eyJ0aW1lc3RhbXAiOjE1ODYwNDA3Njk2MTQsInByb2ZpbGVJZCI6ImRhNDk4YWM0ZTkzNzRlNWNiNjEyN2IzODA4NTU3OTgzIiwicHJvZmlsZU5hbWUiOiJOaXRyb2hvbGljXzIiLCJzaWduYXR1cmVSZXF1aXJlZCI6dHJ1ZSwidGV4dHVyZXMiOnsiU0tJTiI6eyJ1cmwiOiJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlL2FhMjNjOGNkZTI5NDNjODQyNDlkZTgzNTFiYzM1NDBiZTVmOGFmYWFiYThiMmNiMDMyZmM1YWNhZDc4YTI2OWIifX19",
+    "signature": "XQIHu5Q5ecr8pyd+IP4bVXHLAVzLSGBD6Bti3UtTMZpXfbkWUmF3OYwePrg8nMRH5rqRpnH2xm/1UL/7Skk6Idj4uLzKDhNMZ1URi6pVRChMtTbxDgBecqpx44mqgCP71dntHPhhGLC5yx/2DhuKrIBu4GRYEFlbcsDziXHBRH/dgECT/F7Bnp16GdG1QJzyhCLtSHWSdgQf2rpEEeWOfkVfTB7aN4J2GLt/XpMP5ojos7jBerc9/UMqy1vnohYCIty3Y/2mTsxO9G/kFCzaPOjb5VOpuy3sCOP4fx35tMA4BevmvLnvpGztSapFExkwiZEVleF6wRkKFrmdN4us720aExyjS8KC3ZD+9d16YUDFJ7/TKJElUQZ8dinx7a06jBcaZqKdHADY1MIz5liLWZx31AiMKXcrNaS2z9vItedrW9i54srNLzhTjbd9Z8od5r5zo/mORZSVsVN+Ycix0T1/c/Vv0zGRj7Ma64FFv7FnUunSno8YHvc5Yti5p1aSso+KxR9ANSBqA0pvfTtefAwb4RdtZdp6x98lhpaSAodFyrBo9HFDJW5IURpIVbhb03zpHLq0BN9gpmp7jXidduZMOYCz36C/bxs2qzLu9kc07Y4u1Y4QQ7T+3bZFHpRPEHFhNHGa4/tKWqmGIIJuz1zGWkiWIWYZeUJC0ysisFw",
+    "signed": true
   },
   "watcher_flamer": {
     "file": null,
     "hash": "67237eddaebdbbdaacfa912885560ccdc65da93b4c3d513532868ec23bb5b448",
     "slim": false,
     "legacy": false,
-    "inCapture": true
+    "inCapture": true,
+    "value": "eyJ0aW1lc3RhbXAiOjE1ODYwNDA5ODk1NTgsInByb2ZpbGVJZCI6ImRhNDk4YWM0ZTkzNzRlNWNiNjEyN2IzODA4NTU3OTgzIiwicHJvZmlsZU5hbWUiOiJOaXRyb2hvbGljXzIiLCJzaWduYXR1cmVSZXF1aXJlZCI6dHJ1ZSwidGV4dHVyZXMiOnsiU0tJTiI6eyJ1cmwiOiJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzY3MjM3ZWRkYWViZGJiZGFhY2ZhOTEyODg1NTYwY2NkYzY1ZGE5M2I0YzNkNTEzNTMyODY4ZWMyM2JiNWI0NDgifX19",
+    "signature": "N0/uCZOe6RHx4U+nhv4DhaADwhWAQfgnYwMg0ctVn2nuDQTcJRzR+CZOZTRniv/k5CDNU76XbIruJL2FJu++16e2fxqMYjsyDT6Zf6M4qpzbDg/MJIHH3XG+oJ64gmuO5tgq2gAjuWOzWt9y/6dz7sGPKu5iG3TCQPnOFOWMqUVOwWx16SHd64ECueT4R9VDYFqOORnXkHBmygrOKeqZ+4WmDCFjBGM66sXV1K3dR2/M0UAJDTGuaMnaD89AaSo2hhNylxw4ThLeok1JT6hRZhr8KXsUESugH2L1tWCD8rSh/LMzFPEqpBdkuHQ8J+RE8OztwrZUbsrkkux1BJrUnIKWgsaKUCgtFuAm0t1YMnAegZ5qRq7qBDVC7nE1EAyy+ooPnNegtjxQd9qpVZAi11r50Tvcz54Ha3605hhmpuWWG/cFnzlYAMM3BYVUZuz8u6hAZeI4v8IdkqKFEV0Vfr0Gi3VGklx1pyoIb50JW4gTTmPpsfSn+6LBYrJq/ll4EbMXUs3AC7JDkQZn9DGeMm0yMGqBLDNcrKGrSxOp3SF+Gf4Lz7K8dRmkTjkwYubkTWsI9HyPT5gL+JDUw2r7yRGczovTTb2nQ2iHijyXWVuaxwqHqKqDAsHZoP1K6w8rMWNGrfdM9VWnldJAcxykjgfDxwy0vhkM/0MPNxgQbKA=",
+    "signed": true
   },
   "watcher_ooze": {
     "file": null,
     "hash": "9171f35b8f508142bd8c65417d0f324153ab9147739ee4d10dea733cc80eaa20",
     "slim": false,
     "legacy": false,
-    "inCapture": true
+    "inCapture": true,
+    "value": "eyJ0aW1lc3RhbXAiOjE1ODYwNDA4MTg4MDMsInByb2ZpbGVJZCI6ImRhNDk4YWM0ZTkzNzRlNWNiNjEyN2IzODA4NTU3OTgzIiwicHJvZmlsZU5hbWUiOiJOaXRyb2hvbGljXzIiLCJzaWduYXR1cmVSZXF1aXJlZCI6dHJ1ZSwidGV4dHVyZXMiOnsiU0tJTiI6eyJ1cmwiOiJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzkxNzFmMzViOGY1MDgxNDJiZDhjNjU0MTdkMGYzMjQxNTNhYjkxNDc3MzllZTRkMTBkZWE3MzNjYzgwZWFhMjAifX19",
+    "signature": "ffBLtRq5rpplSANZ3uHm8/ofRcLOTnfPB4+MWzmGjO0s4iebXsYthww0kkM3Gi4P2Bc0mUYtvYU3KQFHRBqrmzxtqxJPvqmVs/ji+BL1LIJgLeZWYKGCXDwzZYjDHpnCRDpsHTl1yVQcaryouFZ/bg79S3JiRuhLyPF9ALebiFbfA4cgrcQlvb0aQcc/UedOLGipCg7gq4F15BAfBkxymR6upwaEqEEh3+zbLqiyA2ILRsITwBPpQqZl9O+YcpeDdxJUurDfTEvpbwX2jMpVYQaqqsia0N1y0BuiNz+xkH9oshGkGzdqw45m0KeaDuG4AMed6XAjtPePp6ip4ZOxf0JDijx8/aEOmmKUBgT2VdLSnDw8mGTmglsb8HcN8W7SXXKMl7a6CsPo6mHkbPldwMBBIuiOymRAlVxZEiVFIk10IMTSwxx/wUHnzx9bs/q585dMUYfRcnBp4TxAbhu6VNeF8PNXlIVf6099QajOppjvsbEZ+uyWdMH8szLaRh9tnGXiRFjL+VUY3tgznyoJohlad0mHnIj5qnUWCFB4ceU2q+3xWGeJheYaFWc7KV23/DLgnuQ4lsMzYL5Iq/xgWF2eSipq1L0oW+Eh/KrbqZ1o6n4XArMQsErjWErf7MUIERZGWRMT53qDTE3xXuibUiGD/0YPFHViN+vVVi0nH4Q=",
+    "signed": true
   },
   "watcher_reaper": {
     "file": null,
     "hash": "a89f6303af85877610912dc04b8b1e89724752f0a7eea05ab6547e228179c06f",
     "slim": true,
     "legacy": false,
-    "inCapture": true
+    "inCapture": true,
+    "value": "eyJ0aW1lc3RhbXAiOjE1ODYwNDA1MzgzODIsInByb2ZpbGVJZCI6ImRhNDk4YWM0ZTkzNzRlNWNiNjEyN2IzODA4NTU3OTgzIiwicHJvZmlsZU5hbWUiOiJOaXRyb2hvbGljXzIiLCJzaWduYXR1cmVSZXF1aXJlZCI6dHJ1ZSwidGV4dHVyZXMiOnsiU0tJTiI6eyJ1cmwiOiJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlL2E4OWY2MzAzYWY4NTg3NzYxMDkxMmRjMDRiOGIxZTg5NzI0NzUyZjBhN2VlYTA1YWI2NTQ3ZTIyODE3OWMwNmYiLCJtZXRhZGF0YSI6eyJtb2RlbCI6InNsaW0ifX19fQ==",
+    "signature": "LW6tuOSCvDp5OOTD5nO6WlHWj6dHoZdzwQd6esNOWtSxcGSo5ScA+kjchB7Zq2Pck6PtyIr9JSh3h9uJjzbsTLZwhZyAagNhUg0SM4as1xQx35UOpN8/w7TOXHPD+2NsfD/1hseYtaz0Btq9OMNV4Gv2z53tuXM4nKHeyqRvdOn//B1kGChaEkFqwfQQHn7xhlNYIVzqStbeNK4DW66SX4mgI6ClKrc4eRLjNKdkWBEldRafMN0irwzOjkQaZwlrZeIY/BTqR1zZNSuA1Ub1WpPmmB0DQyvIn8wNsiuDIwopSxb4hgHoqrHxONePgd6bOV2iDEP8ebphQ/tch6bpOkc82oxeEf3GMvi72zuUtS2q/shgxrFjBCDmoIMWQTpBBI1FEgCNHdrWRFm6yJV6CctOUJ/1q9Vt5vxhtKcCdxDF58uCGm13LVlWi3mldP3nkSET5uN1V+KG73Je5t8JGGMaJj6IYDX9SXHDfAkEEzlsAIx8W6yQ2bcc9fIwXCIUTV4mQYxNmSv2asihaUwQi4fpSokLsaJnFFa6mpI9kiQMlAwOhhmKktfPIXpjSmuNhKv+UMLgOBMsuAIaMX1PdFRehkFhWKlKlFW2myYCS3+LH3xFtEHHx7Y2QxIJX2jJGmaewEArQfQ1bZLGKI/1P8OHh+wxrE5GD64eGFw14CY=",
+    "signed": true
   },
   "watcher_parasite": {
     "file": null,
     "hash": "4774871190c878c9a2c4496c1e10257c6c4ea13807d72c15d7ac6ab3a7a9a8dc",
     "slim": false,
     "legacy": false,
-    "inCapture": true
+    "inCapture": true,
+    "value": "eyJ0aW1lc3RhbXAiOjE1ODYwNDExODY2MzYsInByb2ZpbGVJZCI6ImRhNDk4YWM0ZTkzNzRlNWNiNjEyN2IzODA4NTU3OTgzIiwicHJvZmlsZU5hbWUiOiJOaXRyb2hvbGljXzIiLCJzaWduYXR1cmVSZXF1aXJlZCI6dHJ1ZSwidGV4dHVyZXMiOnsiU0tJTiI6eyJ1cmwiOiJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzQ3NzQ4NzExOTBjODc4YzlhMmM0NDk2YzFlMTAyNTdjNmM0ZWExMzgwN2Q3MmMxNWQ3YWM2YWIzYTdhOWE4ZGMifX19",
+    "signature": "NM4cUDoIjQluMxWd+j5D/Gj8mpCBXJc2Z8Ds8zNgAprsFjTWanbrimL6PXzRgE/jVRspviZEGZVDuUqqAzcWg038d4g2BGB+5m3/L/PQAE7WHaQizcy9i0T/J14zytl3cALm8eHuOT/+GhhfBgflhjihFy4ZvgIb6O+lDVsKJLgFmbkznKGwXsRqKN4DO2Bs8JTBN57jJf2BJAoFSyYUhXwGcx+1Gs2F0l9ZBxWDlbqHlboiIIFvOLKaUhRnV0QSgjAmsxl6KhmVrucdLuy0SU+z7Bh70xdqPgG+eIEG8IdDEDFkZQCwwYs2iaZCsJ9tZW5aOFAhQrYSQJiz66+qr//CFD35JMRAj58EnqZJLRzwm3/jr0oa23p+WrRcZHvhXVt6VFTckt0UnvjzrdxgviIqYT3bNwNwLxl7xLWV54LIZJK0J+/Vod8B85I+EoXK5l7wGHDaSYqkJjYKjaxWPwkUTg8PGwLsmonQlSYdOu1kihH3bUIZYFgdWX+IjheKITVIX+ezHD7BTEKNdXmJA0emfSzE+oelF9HH2N3JhYzCuyudfZwf+1krLBqvu7aaTHybvTvzFRvZmS9S+iQ+iTC1ftAVAeD9PJcOvyEOiaLnZ2kUHT3eo113wrj8tMpmlXD42Ur8mxzeqzdcI/iiva09otONPoCesC9oB7TXmQs=",
+    "signed": true
   },
   "primal_fear": {
     "file": null,
     "hash": "869887018b2ab31b744375801bb0e75575d710628ee362e76918c4fda3e4b507",
     "slim": false,
     "legacy": false,
-    "inCapture": true
+    "inCapture": true,
+    "value": "ewogICJ0aW1lc3RhbXAiIDogMTY5NTYzOTQwMDMwNywKICAicHJvZmlsZUlkIiA6ICI0YjJlMGM1ODliZjU0ZTk1OWM1ZmJlMzg5MjQ1MzQzZSIsCiAgInByb2ZpbGVOYW1lIiA6ICJfTmVvdHJvbl8iLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODY5ODg3MDE4YjJhYjMxYjc0NDM3NTgwMWJiMGU3NTU3NWQ3MTA2MjhlZTM2MmU3NjkxOGM0ZmRhM2U0YjUwNyIKICAgIH0KICB9Cn0=",
+    "signature": "sxuOS3dcF6Idsyn+zbaV4EBrsldZAML8Z/yIYDXhrU8y7tOgWSwEKcGnBYTlqi6YeSW6R4db+nLZQcC+poXYJE67aDR8wXzeLxsKCQWes8dj4ZbrHT8Bcl513GdM13L+xBCwXvTLpH3fvWEeUa4C8wBq5fMVjTAotu3+ZJ/FnnEQhj3KO/7J3Jpr27z3V9BH++2HhQHeqAfyK/qhn9mbcqRQrF/AfTgi+wLk6nXrCFNnYs53OU0O+iADhHs3H5Vl3lKf77PpKLeAYEs2Op/0OszWA81vEB1l1YUIM13DfJ/xpE1yZvf5/HYlqWrAD4hCNx1bIylPcdPYQsJXX2FOxz0GQ6opMqQBBKclI2SkdbW/hOupSdto5io7tp6gOXETOex3VzPQZIQPqMEX3q1AoYt4UqoOqvaxNFyPHdojbl+A8rfZ/Nr3mqnw2WK+svzgxXf9KtjQuXwxYlTxEuocErRNNTTFlUi4QYcmkGQApj60t6OgN3e4ahV3tI8boCRliL2Fa88QMjltrC5vxslSTQPzVSDoe5sejGxOYiF8NVMaLfkg26la69JrmDdv9ONGufJe1gvPpWUMHFNsBc5gZIv+A9AzIwXNOhbHFHmfc8T4XkvFNTA/mowerQKB6zgsgPRyuTramoGqPIBUnwXgVGb1XpeMfeuP+utAy+0IOjM=",
+    "signed": true
   },
   "watcher_undead": {
     "file": null,
     "hash": "f774534ac3567dedfe330c98b91bc28e1151005525a84e2b5d720cff62316d76",
     "slim": false,
     "legacy": false,
-    "inCapture": true
+    "inCapture": true,
+    "value": "eyJ0aW1lc3RhbXAiOjE1NjM0ODIzNzg4NDQsInByb2ZpbGVJZCI6IjVkMjRiYTBiMjg4YzQyOTM4YmExMGVjOTkwNjRkMjU5IiwicHJvZmlsZU5hbWUiOiIxbnYzbnQxdjN0NGwzbnQiLCJzaWduYXR1cmVSZXF1aXJlZCI6dHJ1ZSwidGV4dHVyZXMiOnsiU0tJTiI6eyJ1cmwiOiJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlL2Y3NzQ1MzRhYzM1NjdkZWRmZTMzMGM5OGI5MWJjMjhlMTE1MTAwNTUyNWE4NGUyYjVkNzIwY2ZmNjIzMTZkNzYifX19",
+    "signature": "sY3RHskVmB0Vj5h3SrFnG4N9retOHmJ6EPWOGr0gfbJTT/v9VgJFsl9et2eD+iaoUfy9AjCWuL9C0YlRYY63k/jINT6L7RLxCDK3suNwj+ZPOSX+BqnWMz+2LMR1cJzSbXK3btrwHFKYNl4tph8rnNqVoXgR96kBgsAOihmHMCyua2+mUUs6Z2de6jCJOrTykmF2NxtdjBjoTfbqS6P/Nt/4XsGkWE6mGh6s5jXW4SVV//D8y8cGvls/UdhMh4FAjAMFHjXZHJR/0Qs57MIA4RjFLSM4jmiRRHjKgbqMYrmyENpgwmfJa4ZLp4kps5wCRXl2a9ypO9jeSSMb0+Na/6G6K1mWD/8oGoWmQBKto6lPTjUTNoW8JBZQPTGYz+lR31Mu9Ms7YW/luqO+duQLm01w230V05W2AKD4kW2DKu84q9qFh9CLCoFDQCpp4jOZbRhE3ojFARR9XHKA7SnX97P01gv2NjT74kgyQlKW5TqSowiX5cBDIFCewKx3uUxARTmXUwj1HmZlHpEi2kLhdb1otJBDxOnRTYlaS20+l/JNU+MAUpJHUPnqNG+0MgcWKPHxpjJ1N1x2Y4K3HQV65zTlcnC381C4tNwhjEXiW8/UKKUEQRfz2ROhTp6pj9bShFWtbo271QBID7xF9Zw2gvYnSKu6ELLkWWMs8Zxdw2g=",
+    "signed": true
+  },
+  "mort": {
+    "file": null,
+    "hash": "9b56895b9659896ad647f58599238af532d46db9c1b0389b8bbeb70999dab33d",
+    "slim": true,
+    "legacy": false,
+    "inCapture": true,
+    "value": "eyJ0aW1lc3RhbXAiOjE1Nzg0MDk0MTMxNjksInByb2ZpbGVJZCI6IjQxZDNhYmMyZDc0OTQwMGM5MDkwZDU0MzRkMDM4MzFiIiwicHJvZmlsZU5hbWUiOiJNZWdha2xvb24iLCJzaWduYXR1cmVSZXF1aXJlZCI6dHJ1ZSwidGV4dHVyZXMiOnsiU0tJTiI6eyJ1cmwiOiJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzliNTY4OTViOTY1OTg5NmFkNjQ3ZjU4NTk5MjM4YWY1MzJkNDZkYjljMWIwMzg5YjhiYmViNzA5OTlkYWIzM2QiLCJtZXRhZGF0YSI6eyJtb2RlbCI6InNsaW0ifX19fQ==",
+    "signature": "VEyyNaHlOvqAGUk+r9tWnKp09JSL6jrCdphYgxbldPga6YCvWv8w8Lluebx6gX8R+TLRpg2EWpSUPRBgwEMKBolUxzV9gFQBxQD1IaUDdbVTucNCqp8tPnBEVazM9HOcje4XTwm47yucZbjnEQFndHwyPyFBORCd5vbO6JfzopR0ZD00A0lZn07JGwJz/2WTGjqM8CtP8Yi7RHykaJaso2xfYKcIBaLLE1iMm5G4ZIQZEtfgstCQ58/W9R+FBegqGfgDccwqXP/zOTDl110BE77cRTufeAjjCXZfmSjegF6ctbcA+SxJYgXpQdHlFaWO8fQhJmuauhCMBcKMzL3nP/EMlDFvnFTYlnQBTz7dUqolLqY8fX6jbr1F9eCH8Rb8CBrVsMx4kAX/G5QGKeyzoWRQtDJxAJuHp5U8Gw9c1zDW4Yapse1Gp/0Gj4r1XfWoPjEGDv7FQgdBRMlggBKxtrctbFvDCfHHExZh6y/PQfP6U9BdIy2TRbPCD2tb9r86mvYSmFd1PXV8POElLLaIJTvqqYNewe2pwgdVt4aj2JLBGrP7my8ditkR5q7bWHFTzl+8DbhF4ect5g6I3MhRjq/61InzNwky6lObsRYVHsDAj4FYc6eT5CLfLZnePzeM/RBTCf+K3Jx6eCF7XWgO1OZGr5W4y5/daWTZpKXz/yw=",
+    "signed": true
   }
 }

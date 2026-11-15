@@ -1,6 +1,7 @@
 'use strict'
 
 const { Vec3 } = require('vec3')
+const vanilla = require('./vanilla')
 const { Cell } = require('./blockView')
 
 const GRAVITY = 32 // blocks / s^2
@@ -54,8 +55,8 @@ class Navigation {
     const mob = ai.mob
     this.pending = ai.pathfinder.find(mob.world, mob.position, pos, {
       height: ai.profile.height,
-      maxFall: ai.profile.maxFall,
-      maxNodes: ai.config.maxPathNodes,
+      maxFall: ai.profile.maxFall !== undefined ? ai.profile.maxFall : vanilla.maxFallDistance(mob.health, ai.attributes.maxHealth, !!ai.target),
+      maxNodes: ai.config.vanillaPathNodes ? vanilla.maxVisitedNodes(ai.attributes.followRange || 16) : ai.config.maxPathNodes,
       reachDist
     }).then(res => {
       if (token !== this.token) return

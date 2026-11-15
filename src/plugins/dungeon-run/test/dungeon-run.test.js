@@ -134,6 +134,22 @@ test('yellow room: one miniboss that must die', () => {
   assert.ok(run.rooms[5].machine.is('CLEARED', 'COMPLETED'))
 })
 
+test('the last required mob\'s death spot is where the room clear, the key and the drops land', () => {
+  const run = running()
+  goTo(run, 1)
+  const req = run.rooms[1].plan.entries.filter(e => e.required)
+  assert.ok(req.length >= 1)
+  req.slice(0, -1).forEach((e, i) => run.mobDied(e.mobId, { position: { x: i, y: 69, z: i } }))
+  assert.strictEqual(events(run, 'roomCleared').filter(e => e.roomId === 1).length, 0, 'not cleared while a required mob lives')
+  run.mobDied(req[req.length - 1].mobId, { cause: 'killed', position: { x: 40.3, y: 69, z: 12.8 } })
+  const cleared = events(run, 'roomCleared').find(e => e.roomId === 1)
+  assert.deepStrictEqual(cleared.position, { x: 40.3, y: 69, z: 12.8 }); assert.strictEqual(cleared.cause, 'mobs'); assert.strictEqual(cleared.hasKey, true)
+  const key = events(run, 'keyDropped').find(e => e.roomId === 1)
+  assert.deepStrictEqual(key.position, { x: 40.3, y: 69, z: 12.8 })
+  const died = events(run, 'mobDied').filter(e => e.roomId === 1)
+  assert.ok(died.every(e => typeof e.miniboss === 'boolean'))
+})
+
 test('keys: dropped on clear, picked up into the party pool, spent on the wither door', () => {
   for (let seed = 1; seed <= 30; seed++) {
     const run = running({ seed })
@@ -496,7 +512,7 @@ function fakeServ () {
     commands: { add (c) { serv.command = c } },
     async setBlock (w, p, id) { serv.blocks.push([p.x, p.y, p.z, id]) },
     destroyEntity (e) { delete serv.entities[e.id] },
-    dungeonMobs: { spawned: [], spawn (key, pos, opts) { const e = { id: nextId++, health: 20, key, pos, opts }; serv.entities[e.id] = e; this.spawned.push(e); return e } }
+    dungeonMobs: { spawned: [], spawn (key, pos, opts) { const e = { id: nextId++, health: 20, key, pos, position: pos, opts }; serv.entities[e.id] = e; this.spawned.push(e); return e } }
   })
   const emit = serv.emit.bind(serv)
   serv.emit = (n, ...a) => { serv.emitted.push(n); return emit(n, ...a) }
@@ -527,6 +543,33 @@ function loadPlugins (serv, settings) {
 }
 const settle = () => new Promise(resolve => setImmediate(resolve))
 async function step (serv, n = 1) { for (let i = 0; i < n; i++) { serv.tickCount++; serv.emit('tick'); await settle() } }
+
+test('plugin glue: with dungeon-items a cleared room drops its key as an item; claiming it fills the pool', async () => {
+  const serv = fakeServ()
+  const items = []
+  const planned = []; const dropped = []
+  serv.dungeonItems = { spawn: (type, position, opts) => { items.push({ type, position, opts }); return {} }, clear () { items.cleared = true }, planDrops: (kind, ctx) => { planned.push({ kind, ctx }); return [{ type: 'blessing_life', level: 2 }, { type: 'superboom_tnt' }] }, spawnDrops: (drops, position, opts) => dropped.push({ drops, position, opts }) }
+  loadPlugins(serv, { endDelay: 5, doorTimeScale: 0, run: { reviveSeconds: 1, reviveSecondsByFloor: { 0: 1 } } })
+  const me = fakePlayer('p1', 5, 15); serv.players.push(me)
+  const run = serv.dungeonRun.start({ layout: fixture(), players: [me] })
+  await step(serv, 100)
+  const c1 = centerOf(run, 1)
+  me.position = { x: c1.x, y: 70, z: c1.z }
+  await step(serv, 3)
+  for (const m of serv.dungeonMobs.spawned) delete serv.entities[m.id]
+  await step(serv, 2)
+  assert.strictEqual(items.length, 1)
+  assert.strictEqual(items[0].type, 'wither_key')
+  assert.strictEqual(items[0].opts.roomId, 1)
+  assert.strictEqual(planned.length, 1); assert.strictEqual(planned[0].kind, 'lastMob'); assert.strictEqual(planned[0].ctx.hasKey, true, 'a room with a key: blessing slot is the key')
+  assert.strictEqual(dropped.length, 1); assert.deepStrictEqual(dropped[0].drops.map(d => d.type), ['blessing_life', 'superboom_tnt']); assert.strictEqual(dropped[0].opts.roomId, 1)
+  assert.strictEqual(run.keys.wither, 0, 'lying on the floor, not in the pool yet')
+  assert.strictEqual(items[0].opts.claim(me), true)
+  assert.strictEqual(run.keys.wither, 1)
+  assert.ok(me.chats.some(m => /Wither Key/.test(m)))
+  serv.dungeonRun.stop('test')
+  assert.strictEqual(items.cleared, true)
+})
 
 test('plugin glue: spawns, doors, keys, ghosts, results, cleanup', async () => {
   const serv = fakeServ()
@@ -729,6 +772,111 @@ test('plugin: /dungeon command', async () => {
 // ---------------------------------------------------------------------------------------------------------------------
 // the sidebar packets are valid for the protocol versions flying-squid serves
 // ---------------------------------------------------------------------------------------------------------------------
+test('plugin glue: the party is placed at layout.spawn facing Mort, Mort stands at layout.mort and his menu is a stub', async () => {
+  const serv = fakeServ()
+  const spawn = { x: 15.5, y: 72, z: 20.5, yaw: 180, pitch: 0 }
+  const mortAt = { x: 15.5, y: 69, z: 5.5, yaw: 0 }
+  loadPlugins(serv, { doorTimeScale: 0, doorAnimation: false })
+  const me = fakePlayer('p1', 99, 99); serv.players.push(me)
+  const run = serv.dungeonRun.start({ layout: fixture({ spawn, mort: mortAt }), players: [me] })
+  await step(serv, 2)
+  assert.ok(run)
+  assert.deepStrictEqual(me.position, { x: 15.5, y: 72, z: 20.5 }, 'moved to the spawn')
+  assert.strictEqual(me.yaw, -128, 'yaw 180 degrees as a protocol angle byte')
+  const pos = me.writes.filter(w => w[0] === 'position').pop()[1]
+  assert.strictEqual(pos.yaw, 180, 'the client is told the facing in degrees')
+  const mort = serv.dungeonRun.mort
+  assert.ok(mort && mort.key === 'mort' && mort.pos.x === 15.5 && mort.pos.y === 69 && mort.pos.z === 5.5)
+  assert.strictEqual(mort.opts.yaw, 0)
+
+  // right-click: out of reach does nothing, in reach calls the stub (event + chat), a replacement menu takes over
+  assert.strictEqual(serv.dungeonRun.mortClick(me, mort.id), false, 'too far away')
+  me.position = { x: 15.5, y: 69, z: 9.5 }
+  assert.strictEqual(serv.dungeonRun.mortClick(me, 9999), false, 'not Mort')
+  assert.strictEqual(serv.dungeonRun.mortClick(me, mort.id), true)
+  assert.ok(serv.emitted.includes('mortMenu') && me.chats.some(m => /menu is not implemented/.test(m)))
+  const seen = []
+  serv.dungeonRun.config.mortMenu = (pl, m) => seen.push([pl, m])
+  serv.dungeonRun.mortClick(me, mort.id)
+  assert.deepStrictEqual(seen, [[me, mort]])
+
+  serv.dungeonRun.stop()
+  assert.ok(!serv.entities[mort.id], 'Mort is removed with the run')
+  assert.deepStrictEqual(serv.errors, [])
+})
+
+test('plugin glue: placePlayers:false and mort:false leave the party and the entrance alone', async () => {
+  const serv = fakeServ()
+  loadPlugins(serv, { doorTimeScale: 0, placePlayers: false, mort: false })
+  const me = fakePlayer('p1', 99, 99); serv.players.push(me)
+  serv.dungeonRun.start({ layout: fixture({ spawn: { x: 1, y: 72, z: 1, yaw: 0 }, mort: { x: 2, y: 69, z: 2, yaw: 0 } }), players: [me] })
+  await step(serv, 2)
+  assert.deepStrictEqual(me.position, { x: 99, y: 70, z: 99 })
+  assert.ok(!serv.dungeonMobs.spawned.some(e => e.key === 'mort'))
+})
+
+test('generator: the spawn and Mort sit where the capture puts them (spawn = centre - 4f, Mort = centre + 11f, face to face)', () => {
+  const gen = require('../../../../catacombs-generator.js')
+  const reg = require('prismarine-registry')('1.21.4')
+  const dirs = { 0: [0, -1], 1: [1, 0], 2: [0, 1], 3: [-1, 0] }
+  const seen = new Set()
+  for (const seed of ['1', '2', '3', '7', '8', '9']) {
+    const dg = gen.buildDungeon(reg, { dungeonSeed: gen.seedToInt(seed), floor: 0, schematicsDir: path.join(__dirname, '../../../../dungeon-room-schematics'), lighting: 'fullbright', heads: false })
+    const L = gen.exportLayout(dg); const ent = dg.layout.rooms.find(r => r.type === gen.T.ENTRANCE)
+    const [fx, fz] = dirs[ent.rot]; seen.add(ent.rot)
+    const cx = ent.gx0 * 32 + 15; const cz = ent.gz0 * 32 + 15
+    assert.ok(L.mort, `seed ${seed}: Mort has a spot`)
+    assert.deepStrictEqual([L.spawn.x, L.spawn.z], [cx - 4 * fx + 0.5, cz - 4 * fz + 0.5], `seed ${seed} spawn`)
+    assert.deepStrictEqual([L.mort.x, L.mort.z], [cx + 11 * fx + 0.5, cz + 11 * fz + 0.5], `seed ${seed} Mort`)
+    assert.strictEqual(L.mort.y, 69); assert.strictEqual(L.spawn.y, 72, 'the platform behind the room centre')
+    // facing: yaw 0 = +z, 90 = -x, 180 = -z, -90 = +x; the two look at each other
+    const yawOf = (x, z) => Math.round(Math.atan2(-x, z) * 180 / Math.PI)
+    assert.strictEqual(Math.round(L.spawn.yaw), yawOf(fx, fz) === -180 ? -180 : yawOf(fx, fz))
+    assert.strictEqual(Math.abs(Math.round(L.mort.yaw - L.spawn.yaw)), 180)
+  }
+  assert.ok(seen.size >= 2, 'several room rotations were checked')
+})
+
+test('watcher fight: the recorded path turns with the blood door and the head follows the nearest player', () => {
+  const wa = require('../lib/watcher-anim')
+  const mk = door => wa.createFight({ center: { x: 100.5, z: 200.5 }, floorY: 69, door, ids: { watcher: 1, stand: 2 }, uuids: { watcher: 'w', stand: 's', bar: 'b' }, types: { zombie: 150, armor_stand: 5 }, headItemId: 1 })
+  const first = f => { const out = f.advance(30000); return out.filter(p => p[0] === 'sync_entity_position' && p[1].entityId === 1).map(p => p[1]) }
+  // door north (as recorded): unchanged. Rows: [18041, -0.38, 4.31, 0.47, 36.6, -23.9] is the second sync
+  const north = first(mk({ x: 0, z: -1 }))
+  assert.deepStrictEqual([north[1].x, north[1].z, north[1].yaw], [100.12, 200.97, 36.6])
+  // door south: everything turned 180 degrees about the centre, yaw flips
+  const south = first(mk({ x: 0, z: 1 }))
+  assert.deepStrictEqual([south[1].x, south[1].z], [100.88, 200.03])
+  assert.ok(Math.abs(south[1].yaw - (36.6 - 180)) < 1e-9)
+  assert.ok(Math.abs(south[0].yaw - 0.8) < 1e-9, 'first pose: faces away from the old door = toward the new one (north 180.8 -> 0.8)')
+  // door east / west
+  const east = first(mk({ x: 1, z: 0 })); assert.deepStrictEqual([east[1].x, east[1].z], [100.03, 200.12])
+  const west = first(mk({ x: -1, z: 0 })); assert.deepStrictEqual([west[1].x, west[1].z], [100.97, 200.88])
+  // the spawn pose follows the door: the start yaw byte (north -128 = 180 degrees) is 0 for a south door
+  assert.strictEqual(mk({ x: 0, z: 1 }).spawn().find(p => p[0] === 'spawn_entity' && p[1].entityId === 1)[1].yaw, 0)
+  assert.strictEqual(mk(null).spawn().find(p => p[0] === 'spawn_entity' && p[1].entityId === 1)[1].yaw, -128, 'no door given: as recorded')
+
+  // eye tracking only while stationary (before the flight, after settling): nothing before the Watcher exists, then it swings (at most 30 degrees per call) toward the nearest player
+  const f = mk({ x: 0, z: -1 })
+  const P = [{ position: { x: 100.5 + 10, y: 69, z: 200.5 } }, { position: { x: 100.5 - 3, y: 69, z: 200.5 } }]
+  assert.deepStrictEqual(f.track(P), [], 'not before it exists')
+  f.advance(800) // hanging above the centre, before the flight
+  const t0 = f.track(P)
+  assert.deepStrictEqual(t0.map(p => p[0]), ['entity_look', 'entity_head_rotation'], 'it already looks around while waiting above the centre')
+  for (let i = 0; i < 6; i++) f.track(P)
+  assert.ok(Math.abs(f.track(P).length) === 0, 'settled')
+  f.advance(10000) // flight starts: the recorded packets play unchanged and track() stays quiet
+  const flying = f.advance(9000).filter(p => p[0] === 'sync_entity_position' && p[1].entityId === 1)
+  assert.ok(flying.length && flying.some(p => Math.abs(p[1].yaw - 90) > 20), 'in flight the yaw is the recorded one, not the player bearing')
+  assert.deepStrictEqual(f.track(P), [], 'no tracking while flying')
+  f.advance(60000)
+  for (let i = 0; i < 8; i++) f.track(P)
+  assert.deepStrictEqual(f.track(P), [], 'settled again at the end')
+  const settled = wa.byte(Math.atan2(3.0, 0) * 180 / Math.PI)
+  assert.ok(Math.abs(settled - 64) <= 1, 'player 3 blocks to -x: yaw 90 is byte 64')
+  assert.deepStrictEqual(f.track([{ position: { x: 500, y: 69, z: 500 } }]), [], 'nobody in range')
+})
+
 test('sidebar and title packets serialise and parse with minecraft-protocol', () => {
   const { createSerializer, createDeserializer } = require('minecraft-protocol/src/transforms/serializer')
   const { states } = require('minecraft-protocol')
@@ -774,7 +922,9 @@ test('watcher fight: Watcher entity, health/bar steps, aura, path and removal (c
   const first = f2.advance(100)
   assert.deepStrictEqual(names(first), ['sync_entity_position', 'entity_head_rotation', 'sync_entity_position'])
   assert.strictEqual(first[0][1].y, 73); assert.strictEqual(first[2][1].y, 74.97)
-  assert.ok(f2.advance(100000).length === (wa.PATH.length - 1) * 3, 'every keyframe is replayed once')
+  const rest = f2.advance(100000)
+  assert.strictEqual(rest.length, (wa.PATH.length - 1) * 3 + 2, 'every keyframe is replayed once, then the Watcher and its stand settle above the centre')
+  assert.deepStrictEqual([rest[rest.length - 2][1].x, rest[rest.length - 2][1].z, rest[rest.length - 1][1].x, rest[rest.length - 1][1].z], [0, 0, 0, 0], 'exactly above the room centre')
   assert.deepStrictEqual(f2.advance(1000), [])
   // kills
   const k1 = fight.kill()

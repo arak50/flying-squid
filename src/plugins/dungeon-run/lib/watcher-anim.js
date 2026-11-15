@@ -12,6 +12,10 @@
  * 5-6 blocks above the floor under the Watcher, and walks down into the room.
  *
  * PATH rows: [ms after spawn, dx, dy, dz, yaw deg, pitch deg]  dx/dz from the blood room centre, dy from the floor (feet).
+ * The path was recorded in a blood room whose door is on the north side (-z); `door` (a unit vector from the room centre to its door) turns
+ * offsets and yaw to any other orientation, so the Watcher still faces the door at the start and the end.
+ * [capture] While it flies, its recorded yaw / pitch packets are replayed unchanged. Only while it is stationary above the room centre (before the
+ * flight, and after the last row once it has settled exactly on the centre; the capture ends 1 block off) does `track()` turn it to look at the nearest player.
  */
 const { componentToNbt } = require('../../dungeon-mobs/lib/nametag')
 const { legacyNbt } = require('./sidebar')
@@ -31,6 +35,24 @@ const WATCHER = {
 const AURA = { everyTicks: 4, dy: 5, spread: 1.4, particles: [['large_smoke', 2], ['witch', 2], ['dust', 2, { color: -10105499, scale: 1 }], ['enchant', 1], ['entity_effect', 1, { color: 645890962 }]] }
 const BURST = { particle: 'cloud', amount: 10, spread: 0.8 } // at each guardian's spawn point
 const GUARDIAN_SPAWN_DY = 5.5 // guardians appear 5-6 blocks above the floor, under the Watcher
+
+// head tracking: the Watcher is a 0.26 scale zombie, its eyes about 0.45 above its feet
+const TRACK = { range: 40, eye: 0.45, playerEye: 1.62, maxTurn: 30 }
+
+/** Turns the recorded (door north) frame to a room whose door is at unit vector `door` ({ x, z }) from the centre. */
+function turnFor (door) {
+  const a = door ? Math.sign(door.x) * (Math.abs(door.x) >= Math.abs(door.z) ? 1 : 0) : 0
+  const b = door ? Math.sign(door.z) * (Math.abs(door.z) > Math.abs(door.x) ? 1 : 0) : -1
+  const dir = (a === 0 && b === 0) ? [0, -1] : [a, b]
+  // rotation taking north (0, -1) to dir: multiply (x + iz) by i * (dir.x + i dir.z)
+  const [ra, rb] = [-dir[1], dir[0]]
+  const delta = Math.atan2(-dir[0], dir[1]) * 180 / Math.PI - 180
+  return {
+    dir,
+    vec: (x, z) => [x * ra - z * rb, x * rb + z * ra],
+    yaw: deg => Math.round((((deg + delta + 540) % 360) - 180) * 100) / 100
+  }
+}
 
 const PATH = [
   [774, 0.0, 4, 0.0, 180.8, 11.8],
@@ -198,7 +220,12 @@ function particle (type, amount, x, y, z, spread, data) {
 function createFight (o) {
   const { center, floorY, ids, uuids } = o
   let elapsed = 0; let cursor = 0; let dead = 0
-  const at = kf => ({ x: round2(center.x + kf[1]), y: round2(floorY + kf[2]), z: round2(center.z + kf[3]) })
+  const rot = turnFor(o.door)
+  const at = kf => { const [dx, dz] = rot.vec(kf[1], kf[3]); return { x: round2(center.x + dx), y: round2(floorY + kf[2]), z: round2(center.z + dz) } }
+  let pose = null // where the Watcher is, once it has flown its path: { x, y, z, yaw, pitch } in degrees
+  let aimed = { yaw: null, pitch: null } // last angles sent by track()
+  let aim = null // last angles chosen by track(), degrees: the path rows use them instead of the recorded ones
+  let settled = false
   const spawnAt = { x: center.x, y: floorY + WATCHER.startDy, z: center.z }
   const base = { velocity: { x: 0, y: 0, z: 0 }, objectData: 0 }
 
@@ -209,7 +236,7 @@ function createFight (o) {
 
     /** Packets that create the Watcher and its boss bar. */
     spawn () {
-      const yaw = WATCHER.startYawByte
+      const yaw = byte(rot.yaw(180)) // WATCHER.startYawByte (-128) turned with the room
       return [
         ['spawn_entity', { entityId: ids.watcher, objectUUID: uuids.watcher, type: o.types.zombie, ...spawnAt, ...base, pitch: 0, yaw, headPitch: yaw }],
         ['entity_head_rotation', { entityId: ids.watcher, headYaw: yaw }],
@@ -227,12 +254,50 @@ function createFight (o) {
       elapsed += ms
       const out = []
       while (cursor < PATH.length && PATH[cursor][0] <= elapsed) {
-        const kf = PATH[cursor++]; const p = at(kf)
-        out.push(['sync_entity_position', { entityId: ids.watcher, x: p.x, y: p.y, z: p.z, dx: 0, dy: 0, dz: 0, yaw: kf[4], pitch: kf[5], onGround: false }])
-        out.push(['entity_head_rotation', { entityId: ids.watcher, headYaw: byte(kf[4]) }])
-        out.push(['sync_entity_position', { entityId: ids.stand, x: p.x, y: round2(p.y + WATCHER.standLift), z: p.z, dx: 0, dy: 0, dz: 0, yaw: kf[4], pitch: 0, onGround: false }])
+        const kf = PATH[cursor++]; const p = at(kf); const yaw = (cursor <= 1 && aim) ? aim.yaw : rot.yaw(kf[4]); const pitch = (cursor <= 1 && aim) ? aim.pitch : kf[5]
+        pose = { x: p.x, y: p.y, z: p.z, yaw, pitch }
+        aimed = { yaw: byte(yaw), pitch: byte(pitch) }
+        out.push(['sync_entity_position', { entityId: ids.watcher, x: p.x, y: p.y, z: p.z, dx: 0, dy: 0, dz: 0, yaw, pitch, onGround: false }])
+        out.push(['entity_head_rotation', { entityId: ids.watcher, headYaw: byte(yaw) }])
+        out.push(['sync_entity_position', { entityId: ids.stand, x: p.x, y: round2(p.y + WATCHER.standLift), z: p.z, dx: 0, dy: 0, dz: 0, yaw, pitch: 0, onGround: false }])
+      }
+      if (cursor >= PATH.length && !settled) { // flight over: hang exactly above the room centre
+        settled = true
+        const last = PATH[PATH.length - 1]; const y = round2(floorY + last[2])
+        pose = { ...pose, x: center.x, y, z: center.z }
+        out.push(['sync_entity_position', { entityId: ids.watcher, x: center.x, y, z: center.z, dx: 0, dy: 0, dz: 0, yaw: pose.yaw, pitch: pose.pitch, onGround: false }])
+        out.push(['sync_entity_position', { entityId: ids.stand, x: center.x, y: round2(y + WATCHER.standLift), z: center.z, dx: 0, dy: 0, dz: 0, yaw: pose.yaw, pitch: 0, onGround: false }])
       }
       return out
+    },
+
+    /**
+     * While stationary (before the flight, after settling) the Watcher turns to the nearest player within TRACK.range, at most TRACK.maxTurn degrees per call so it swings rather than snaps. `players` are { position } feet positions. Returns packets.
+     */
+    track (players) {
+      if (!pose) return []
+      if (!(cursor <= 1 || settled)) return [] // in flight the recorded yaw / pitch packets play unchanged
+      let best = null; let bd = TRACK.range ** 2
+      for (const p of players) {
+        if (!p || !p.position) continue
+        const d = (p.position.x - pose.x) ** 2 + (p.position.z - pose.z) ** 2
+        if (d <= bd) { best = p.position; bd = d }
+      }
+      if (!best) return []
+      const dx = best.x - pose.x; const dz = best.z - pose.z
+      if (Math.hypot(dx, dz) < 1e-6) return []
+      const wantYaw = Math.atan2(-dx, dz) * 180 / Math.PI
+      const wantPitch = -Math.atan2((best.y + TRACK.playerEye) - (pose.y + TRACK.eye), Math.hypot(dx, dz)) * 180 / Math.PI
+      const step = (from, to, wrap) => { let d = to - from; if (wrap) d = ((d + 540) % 360) - 180; return from + Math.max(-TRACK.maxTurn, Math.min(TRACK.maxTurn, d)) }
+      pose.yaw = Math.round((((step(pose.yaw, wantYaw, true) + 540) % 360) - 180) * 100) / 100; pose.pitch = step(pose.pitch, wantPitch, false)
+      aim = { yaw: pose.yaw, pitch: pose.pitch }
+      const yaw = byte(pose.yaw); const pitch = byte(pose.pitch)
+      if (yaw === aimed.yaw && pitch === aimed.pitch) return []
+      aimed = { yaw, pitch }
+      return [
+        ['entity_look', { entityId: ids.watcher, yaw, pitch, onGround: false }],
+        ['entity_head_rotation', { entityId: ids.watcher, headYaw: yaw }]
+      ]
     },
 
     /** One guardian fell: the Watcher's health drops by an eighth and so does the bar (yellow -> red from the first). */
@@ -261,4 +326,4 @@ function createFight (o) {
 /** The puff where a guardian appears. */
 const spawnBurst = pos => particle(BURST.particle, BURST.amount, pos.x, pos.y, pos.z, BURST.spread)
 
-module.exports = { createFight, spawnBurst, healthOf, barOf, WATCHER, AURA, BURST, PATH, GUARDIAN_SPAWN_DY, byte }
+module.exports = { createFight, turnFor, TRACK, spawnBurst, healthOf, barOf, WATCHER, AURA, BURST, PATH, GUARDIAN_SPAWN_DY, byte }

@@ -559,13 +559,30 @@ function buildDungeon (registry, opts) {
   }
   if (bt.missing.size) warnings.push('blocks missing from this version: ' + [...bt.missing.keys()].join(', '))
 
-  // ---- 6g. spawn: open spot in the Entrance room closest to its centre --------------------------------
+  // ---- 6g. spawn + Mort -------------------------------------------------------------------------------------------------
+  // [capture] In the Entrance the party spawns 4 blocks from the room centre, looking at Mort, who stands 11 blocks the other way
+  // from the centre (both on the centre line, Mort facing the party): with f the direction from the spawn to
+  // Mort, spawn = centre - 4f, Mort = centre + 11f (two runs of the capture, rooms turned differently, give the same offsets).
+  // Which way f points follows the room's rotation (0: -z, 1: +x, 2: +z, 3: -x, checked against the generated blocks); if the blocks do
+  // not agree, the other directions are tried, and if none fits the spawn is the open spot closest to the room centre as before.
   const ent = layout.rooms.find(q => q.type === T.ENTRANCE)
   const ecx = ent.gx0 * P + MID; const ecz = ent.gz0 * P + MID; let spawn = { x: ecx + 0.5, y: 70, z: ecz + 0.5 }
   const standable = (x, y, z) => get(x, y - 1, z) !== 0 && get(x, y, z) === 0 && get(x, y + 1, z) === 0 && get(x, y + 2, z) === 0
-  // prefer the ordinary floor level (feet at y=69) near the room centre; otherwise any supported spot (e.g. a ledge)
-  let found = false
-  for (const strict of [true, false]) {
+  const standY = (x, z) => { for (let y = 67; y < 96; y++) if (standable(x, y, z)) return y; return null }
+  const yawOf = (fx, fz) => Math.round(Math.atan2(-fx, fz) * 180 / Math.PI * 100) / 100 // Minecraft yaw: 0 = +z, 90 = -x, 180 = -z, -90 = +x
+  const DIRS = [[0, -1], [1, 0], [0, 1], [-1, 0]]
+  let mort = null; let found = false
+  const mapped = DIRS[(ent.rot ?? 0) & 3]
+  for (const [fx, fz] of [mapped, ...DIRS.filter(d => d !== mapped)]) {
+    const sx = ecx - 4 * fx; const sz = ecz - 4 * fz; const mx = ecx + 11 * fx; const mz = ecz + 11 * fz
+    const sy = standY(sx, sz); const my = standY(mx, mz) // the spawn stands on the raised platform behind the room centre (feet y 72), Mort on the floor (69)
+    if (sy === null || my === null) continue
+    spawn = { x: sx + 0.5, y: sy, z: sz + 0.5, yaw: yawOf(fx, fz), pitch: 0 }
+    mort = { x: mx + 0.5, y: my, z: mz + 0.5, yaw: yawOf(-fx, -fz) }
+    found = true; break
+  }
+  // fallback: open spot closest to the room centre; prefer the ordinary floor level (feet at y=69), otherwise any supported spot (e.g. a ledge)
+  for (const strict of found ? [] : [true, false]) {
     for (let r = 0; r < 16 && !found; r++) for (let dx = -r; dx <= r && !found; dx++) for (let dz = -r; dz <= r && !found; dz++) {
       if (Math.max(Math.abs(dx), Math.abs(dz)) !== r) continue
       const x = ecx + dx; const z = ecz + dz
@@ -575,6 +592,7 @@ function buildDungeon (registry, opts) {
     }
     if (found) break
   }
+  if (!mort) warnings.push('no Mort spot in the Entrance room: Mort is not placed')
 
   // block entities: keep only those whose block really is a skull in the final world, grouped per chunk for the chunk packet
   const skullNames = bt.skull; const beByChunk = new Map(); let beCount = 0
@@ -591,7 +609,7 @@ function buildDungeon (registry, opts) {
   stats.headBlockEntities = beCount
   if (!heads && opts.heads !== false) warnings.push('player heads dropped: no skull block entity id known for this version (pass skullBlockEntityId)')
 
-  const dungeon = { floor, seed, layout, grid, SX, SY, SZ, yMin, yMax, spawn, stats, warnings, bt, blockEntitiesFor: (cx, cz) => beByChunk.get(cx + ',' + cz) || [] }
+  const dungeon = { floor, seed, layout, grid, SX, SY, SZ, yMin, yMax, spawn, mort, stats, warnings, bt, blockEntitiesFor: (cx, cz) => beByChunk.get(cx + ',' + cz) || [] }
   dungeon.light = opts.lighting === 'fullbright' ? null : computeLight(dungeon, registry)
   return dungeon
 }
@@ -669,7 +687,7 @@ function exportLayout (dg) {
   const L = dg.layout
   return {
     floor: dg.floor, seed: dg.seed, gridWidth: L.width, gridHeight: L.height, cellPitch: P, roomSize: S, doorBaseY: DOOR_Y0,
-    spawn: dg.spawn, stats: dg.stats, warnings: [...new Set(dg.warnings)],
+    spawn: dg.spawn, mort: dg.mort, stats: dg.stats, warnings: [...new Set(dg.warnings)],
     criticalPath: L.critical,
     rooms: L.rooms.map(q => ({
       id: q.id, type: NAME[q.type], shape: q.kind, template: q.template ? q.template.name : null, rotationQuarterTurns: q.rot ?? null,

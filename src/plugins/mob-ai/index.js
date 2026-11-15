@@ -23,6 +23,8 @@ const { attachPlayerBow } = require('./lib/playerBow')
 const bowMath = require('./lib/bow')
 const { Goal, GoalSelector, Control } = require('./lib/goalSelector')
 const goals = require('./lib/goals')
+const vanilla = require('./lib/vanilla')
+const explosion = require('./lib/explosion')
 const { profiles, NO_GROUND_AI, normalise } = require('./lib/profiles')
 
 const DEFAULTS = {
@@ -33,6 +35,10 @@ const DEFAULTS = {
   maxPathfindsPerTick: 4,
   maxPathNodes: 200,
   undeadBurnInSun: true,
+  vanillaPathNodes: true, // path search budget = followRange * 16 nodes (like vanilla) instead of maxPathNodes
+  panicFleesAttacker: false, // vanilla panic runs to a random spot; true biases it away from the attacker
+  creeperExplosions: true, // creepers swell and explode (entity damage + knockback)
+  creeperBlockDamage: false, // ...and destroy blocks (vanilla default is true; off here on purpose)
   aiForUnknownMobs: false, // give unlisted land mobs wander + look-at-player
   playerBows: true, // vanilla bow draw / release for players (core has an empty TODO for it)
   arrowLifetime: 1200, // ticks an arrow may fly or stay stuck before it despawns
@@ -82,6 +88,7 @@ module.exports.server = function (serv, options) {
     projectiles,
     Item: projectiles.Item,
     takePathBudget () { return pathBudget-- > 0 },
+    get (entity) { return controllers.get(entity.id) },
     debug (msg) { if (config.debug) serv.info(`[mob-ai] ${msg}`) }
   }
 
@@ -238,6 +245,8 @@ module.exports.server = function (serv, options) {
     GoalSelector,
     Control,
     goals,
+    vanilla,
+    explosion,
     /** The MobAI controller for a mob entity (or undefined). Add goals with ai.selector.add(priority, goal). */
     get: entity => controllers.get(entity.id),
     /** Register / replace a profile: { type, height, attributes, goals: [[priority, ai => Goal], ...] } */

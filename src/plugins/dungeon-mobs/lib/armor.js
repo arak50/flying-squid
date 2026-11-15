@@ -8,7 +8,7 @@
  *   armor: { helmet: { item: 'player_head', skin: '<64 hex texture hash | textures.minecraft.net URL | base64 textures value>' } }
  *   armor: { mainhand: 'diamond_sword', offhand: 'shield', ... }
  *
- * A slot value is an item name, `{ item, color?, skin?, count? }`, or null / false to leave the slot empty.
+ * A slot value is an item name, `{ item, color?, skin?, model?, glint?, count? }`, or null / false to leave the slot empty.
  */
 
 // entity_equipment slot ids
@@ -58,7 +58,13 @@ function makeItem (registry, Item, spec) {
     return true
   }
   if (spec.color !== undefined && /^leather_/.test(name)) add('dyed_color', spec.color)
-  if (spec.skin) add('profile', { type: 'partial', name: undefined, uuid: undefined, properties: [{ name: 'textures', value: textureValueFor(spec.skin), signature: undefined }], skinPatch: {} })
+  if (spec.skin) {
+    // `skin` is a hash / URL / base64 value, or { value, signature } copied from a real (signed) profile property
+    const prop = typeof spec.skin === 'object' ? { name: 'textures', value: spec.skin.value, signature: spec.skin.signature } : { name: 'textures', value: textureValueFor(spec.skin), signature: undefined }
+    add('profile', { type: 'partial', name: undefined, uuid: undefined, properties: [prop], skinPatch: {} })
+  }
+  if (spec.model) add('item_model', spec.model) // resource-pack model id, e.g. 'hypixel_skyblock:item/uncategorized/superboom_tnt'
+  if (spec.glint) add('enchantment_glint_override', true)
   return item
 }
 

@@ -271,6 +271,19 @@
    "captureNames": [
     "Undead "
    ]
+  },
+  {
+   "hash": "9b56895b9659896ad647f58599238af532d46db9c1b0389b8bbeb70999dab33d",
+   "slim": true,
+   "key": "mort",
+   "file": null,
+   "mobs": [
+    "mort"
+   ],
+   "seenInCapture": true,
+   "captureNames": [
+    "Mort"
+   ]
   }
  ],
  "otherHashes": [
@@ -3009,14 +3022,6 @@
    "kind": "player",
    "seenIn": {
     "player_info": 3
-   }
-  },
-  {
-   "hash": "9b56895b9659896ad647f58599238af532d46db9c1b0389b8bbeb70999dab33d",
-   "slim": true,
-   "kind": "player",
-   "seenIn": {
-    "player_info": 7
    }
   },
   {

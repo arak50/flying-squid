@@ -7,8 +7,10 @@
 // Angles: `pitch` is degrees ABOVE the horizon (positive = up, unlike Minecraft's own pitch which is negative up).
 // `yaw` follows Minecraft: 0 faces +Z, positive yaw turns towards -X. Simulations start at the origin, at y = `height`.
 //
-// `verified` on a profile says whether the numbers were checked against the entity source. The 26.1 sources could not
-// be read when this was written, so values marked verified:false come from the wiki / memory and need checking.
+// `verified` on a profile says whether its numbers were checked against a vanilla-accurate implementation. Horizon
+// (https://github.com/horizon-rust/horizon, MIT) is a Rust rewrite of Java Edition checked against vanilla with
+// differential harnesses; gravity, drag, water drag and tick order below were cross-checked against its projectile and
+// arrow code. `verifiedFields` lists what was actually checked, anything else on the profile is still from memory.
 
 const PROJECTILES = {
   arrow: {
@@ -18,6 +20,7 @@ const PROJECTILES = {
     tickOrder: 'position-drag-gravity',
     launch: { speed: null, pitchOffset: 0, inaccuracy: 1.0 }, // bow: speed comes from the draw, see bowSpeed
     verified: true,
+    verifiedFields: ['gravity', 'drag', 'waterDrag', 'tickOrder'],
     note: 'also covers spectral arrows'
   },
   spectral_arrow: {
@@ -26,15 +29,28 @@ const PROJECTILES = {
     waterDrag: { h: 0.6, v: 0.6 },
     tickOrder: 'position-drag-gravity',
     launch: { speed: null, pitchOffset: 0, inaccuracy: 1.0 },
-    verified: true
+    verified: true,
+    verifiedFields: ['gravity', 'drag', 'waterDrag', 'tickOrder']
   },
   trident: {
     gravity: 0.05,
     drag: { h: 0.99, v: 0.99 },
-    waterDrag: { h: 0.99, v: 0.99 },
+    waterDrag: { h: 0.99, v: 0.99 }, // a trident keeps 0.99 in water, arrows drop to 0.6
     tickOrder: 'position-drag-gravity',
     launch: { speed: 2.5, pitchOffset: 0, inaccuracy: 1.0 },
-    verified: false
+    verified: true,
+    verifiedFields: ['gravity', 'drag', 'waterDrag', 'tickOrder'],
+    note: 'launch speed 2.5 was not re-checked'
+  },
+  llama_spit: {
+    gravity: 0.06,
+    drag: { h: 0.99, v: 0.99 },
+    waterDrag: { h: 0.99, v: 0.99 }, // vanilla discards the spit when it touches water, so this never matters
+    tickOrder: 'position-drag-gravity',
+    launch: null,
+    verified: false,
+    verifiedFields: ['gravity'],
+    note: 'mob projectile; only the gravity was confirmed, the tick order is from memory'
   },
   snowball: throwable(0.03, 1.5, 0),
   egg: throwable(0.03, 1.5, 0),
@@ -63,9 +79,10 @@ function throwable (gravity, speed, pitchOffset) {
     gravity,
     drag: { h: 0.99, v: 0.99 },
     waterDrag: { h: 0.8, v: 0.8 },
-    tickOrder: 'gravity-drag-position', // ThrowableProjectile.tick since 1.21.2 (believed; bodies not readable here)
+    tickOrder: 'gravity-drag-position', // ThrowableProjectile.tick: gravity, then inertia, then the move
     launch: { speed, pitchOffset, inaccuracy: 1.0 },
-    verified: false
+    verified: true,
+    verifiedFields: ['gravity', 'drag', 'waterDrag', 'tickOrder'] // launch speeds / pitch offsets are from memory
   }
 }
 

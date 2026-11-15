@@ -66,10 +66,11 @@ class ProjectileManager {
    * @param {boolean} [o.critical=false]
    * @param {number} [o.punch=0]
    * @param {boolean} [o.flame=false]
+   * @param {number} [o.pierce=0]  the arrow flies through `pierce + 1` entities before it is used up (Piercing enchantment)
    * @param {'allowed'|'creative'|'disallowed'} [o.pickup='allowed']
    * @returns {object|null} the arrow record, or null when the entity limit stopped it
    */
-  shoot ({ owner = null, world, origin, velocity, baseDamage = 2, critical = false, punch = 0, flame = false, pickup = 'allowed' }) {
+  shoot ({ owner = null, world, origin, velocity, baseDamage = 2, critical = false, punch = 0, flame = false, pierce = 0, pickup = 'allowed' }) {
     if (this.arrowEntityId === undefined) return null
     let entity
     try {
@@ -99,6 +100,8 @@ class ProjectileManager {
       critical,
       punch,
       flame,
+      pierce,
+      pierced: new Set(),
       pickup,
       age: 0,
       stuck: false,
@@ -137,9 +140,10 @@ class ProjectileManager {
     const entityHit = this._rayEntities(a, from, d, blockHit ? blockHit.t : 1)
 
     if (entityHit) {
-      const consumed = await this._hitEntity(a, entityHit.entity, entityHit.t)
-      if (consumed) return
-      return // deflected off an invulnerable target: it keeps its new (reversed) velocity next tick
+      const result = await this._hitEntity(a, entityHit.entity, entityHit.t)
+      // true: used up. false: deflected off an invulnerable target, it keeps its reversed velocity next tick.
+      // 'pierced': it went through the target and carries on with this tick's flight (one entity per tick).
+      if (result !== 'pierced') return
     }
     if (blockHit) return this._stick(a, blockHit)
 
@@ -195,6 +199,7 @@ class ProjectileManager {
       if (e === a.entity || e.world !== a.world || !e.position) continue
       if (e.type !== 'player' && e.type !== 'mob') continue
       if (e === a.owner && a.age < OWNER_GRACE_TICKS) continue
+      if (a.pierced.has(e.id)) continue
       if (e.health <= 0 || (e.type === 'player' && e.gameMode === 3)) continue
       if (e.position.distanceTo(from) > reach) continue
       const { w, h } = this._dims(e)
@@ -208,7 +213,7 @@ class ProjectileManager {
   }
 
   // ---- hits ---------------------------------------------------------------------------------
-  /** @returns {Promise<boolean>} true when the arrow was used up */
+  /** @returns {Promise<boolean|'pierced'>} true when the arrow was used up, 'pierced' when it flew on through the target */
   async _hitEntity (a, target, t) {
     const point = a.pos.plus(a.vel.scaled(t))
     if (target.type === 'player' && target.gameMode === 1) {
@@ -244,6 +249,10 @@ class ProjectileManager {
     if (a.owner && a.owner.type === 'player' && target.type === 'mob') this.serv.mobAI?.get(target)?.provoke(a.owner)
 
     this.serv.emit('arrowHit', { arrow: a, owner: a.owner, target, damage, critical: a.critical })
+    if (a.pierce > 0) {
+      a.pierced.add(target.id)
+      if (a.pierced.size < a.pierce + 1) return 'pierced' // vanilla: discarded once it has hit pierce + 1 entities
+    }
     this._remove(a)
     return true
   }

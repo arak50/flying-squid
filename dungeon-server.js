@@ -116,6 +116,7 @@ const settings = {
     'mob-ai': { activeRange: 32 },
     'dungeon-mobs': {},
     'dungeon-spawner': { schematics: schematicsDir },
+    'dungeon-items': {},
     'dungeon-secrets': { schematics: schematicsDir },
     'dungeon-run': { autoStart: true },
     'highlight-players': {}
