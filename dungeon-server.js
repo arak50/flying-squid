@@ -112,6 +112,7 @@ const settings = {
     'skyblock-resourcepack': { url: 'https://resourcepacks.hypixel.net/SkyBlock/d8e24365-a992-480e-a1dc-7e95688f0b15/84.zip' },
     'skyblock-vitals': {},
     'skyblock-speed': {},
+    'skyblock-damage': {},
     'projectile-motion': {},
     'mob-ai': { activeRange: 32 },
     'dungeon-mobs': {},
