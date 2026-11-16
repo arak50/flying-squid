@@ -769,6 +769,23 @@ test('plugin: /dungeon command', async () => {
   assert.match(await cmd.action('stop', { player: me }), /stopped/)
 })
 
+test('plugin: /dungeon density shows and sets the mob density, clamped to its limits', async () => {
+  const serv = fakeServ()
+  loadPlugins(serv, { run: { mobDensity: { percent: 120, maxPercent: 200 } } })
+  const me = fakePlayer('p1', 5, 15); serv.players.push(me)
+  serv.dungeon = { layout: fixture() }
+  const cmd = serv.command
+  assert.match(await cmd.action('density', { player: me }), /Mob density 120% \(allowed 10-200%/, 'before any run: the setting')
+  assert.match(await cmd.action('density abc', { player: me }), /Usage/)
+  assert.match(await cmd.action('density 80', { player: me }), /Mob density 80%/)
+  assert.match(await cmd.action('density 999', { player: me }), /Mob density 200%.*outside the allowed range/, 'clamped, and says so')
+  assert.match(await cmd.action('start', { player: me }), /Run started/)
+  assert.strictEqual(serv.dungeonRun.current.cfg.mobDensity.percent, 200, 'the run started with the setting')
+  assert.match(await cmd.action('density 50', { player: me }), /Mob density 50%.*already entered keep/)
+  assert.strictEqual(serv.dungeonRun.current.cfg.mobDensity.percent, 50, 'rooms entered from now on use it')
+  await cmd.action('stop', { player: me })
+})
+
 // ---------------------------------------------------------------------------------------------------------------------
 // the sidebar packets are valid for the protocol versions flying-squid serves
 // ---------------------------------------------------------------------------------------------------------------------

@@ -24,6 +24,14 @@ const defaults = {
   fillerMobs: { perRoom: [1, 3], perExtraCell: [0, 1] },
   spawnMargin: 4, // [assumed] blocks kept free from the walls of a cell when picking spawn spots
 
+  // Mob density: scales the number of mobs of every combat room (see dungeon-spawner/lib/density.js). 100 = the stock counts above.
+  // The percent is clamped to [minPercent, maxPercent]; the resulting count of a room is kept between minPerCell and maxPerCell
+  // mobs per cell of its size (1x1 = 1 cell, 1x2 = 2, L-shape = 3, 2x2 = 4 ...); a room with star mobs keeps at least minStars.
+  // [capture] the Entrance capture has roughly 6-20 zombies / skeletons / spiders per grid cell in its combat rooms (an upper bound: it
+  // includes mobs that walked over a cell border, and multi-cell rooms); the stock planner gives about 5 per 1x1 room, so ~250 % is
+  // Hypixel-like. [assumed] the limits themselves; maxPerCell 16 sits near the top of what the capture shows.
+  mobDensity: { percent: 100, minPercent: 10, maxPercent: 300, minPerCell: 1, maxPerCell: 16, minStars: 1 },
+
   // [wiki] each Wither Door takes one Wither Key, the Blood Door takes the Blood Key. Which rooms hold them is not in the
   // layout export, so it is decided per seed (see run.js, "key rooms"). Set keyRooms: { roomId: ['wither'|'blood', ...] } to pin it.
   keyRooms: null,

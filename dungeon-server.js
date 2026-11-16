@@ -17,6 +17,8 @@
  *   --skull-be-id <n>      override the skull block entity protocol id (default 16, valid for 1.21.2 - 26.1.x)
  *   --gamemode <0-3>       default game mode                                                                [1 = creative]
  *   --online               require Mojang authentication (default is offline mode)
+ *   --mob-density <percent>  mobs per room as a percentage of the stock count (100 = stock, 50 = half, 150 = half as many again), kept within
+ *                          10-300 % and 1-16 mobs per room cell                                       [100]
  *   --dump <file.json>     write the layout (rooms, rotations, doors, spawn) to a JSON file
  *   --dry-run              generate, print the plan + stats, and exit without starting the server
  */
@@ -45,6 +47,9 @@ const dungeonSeed = generator.seedToInt(seedArg)
 const version = args.version || '1.21.4'
 const schematicsDir = path.resolve(args.schematics || path.join(__dirname, 'dungeon-room-schematics'))
 if (!fs.existsSync(schematicsDir)) { console.error(`Schematics folder not found: ${schematicsDir}\nPass --schematics <dir> or put dungeon-room-schematics/ next to this script.`); process.exit(1) }
+
+const mobDensity = args['mob-density'] === undefined ? undefined : Number(args['mob-density'])
+if (mobDensity !== undefined && !Number.isFinite(mobDensity)) { console.error('--mob-density needs a number (percent), e.g. --mob-density 150'); process.exit(1) }
 
 const genOptions = {
   dungeonSeed,
@@ -119,7 +124,7 @@ const settings = {
     'dungeon-spawner': { schematics: schematicsDir },
     'dungeon-items': {},
     'dungeon-secrets': { schematics: schematicsDir },
-    'dungeon-run': { autoStart: true },
+    'dungeon-run': { autoStart: true, run: mobDensity === undefined ? {} : { mobDensity: { percent: mobDensity } } },
     'highlight-players': {}
   },
   worldFolder: undefined, // the dungeon is deterministic; nothing to persist (set a folder here to save player edits)

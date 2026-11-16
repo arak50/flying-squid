@@ -11,6 +11,7 @@
  */
 const { derive } = require('../../dungeon-run/lib/rng')
 const { mobs: CATALOG, modifiers: MODIFIERS } = require('../../dungeon-mobs/lib/catalog')
+const { scaleCounts, scaleEntries } = require('./density')
 
 const round2 = n => Math.round(n * 100) / 100
 
@@ -60,8 +61,8 @@ function randomPlan (ctx) {
     const pool = mobPool(floor)
     const extra = room.cells.length - 1
     const count = ({ perRoom, perExtraCell }) => { let n = rng.range(...perRoom); for (let i = 0; i < extra; i++) n += rng.range(...perExtraCell); return n }
-    const stars = count(cfg.starMobs)
-    const fillers = count(cfg.fillerMobs)
+    // the stock counts are drawn exactly as before; the mob density setting (cfg.mobDensity, lib/density.js) then scales them with the room size
+    const { stars, fillers } = scaleCounts({ stars: count(cfg.starMobs), fillers: count(cfg.fillerMobs) }, room.cells.length, cfg.mobDensity)
     for (let i = 0; i < stars; i++) add(rng.pick(pool), true, true)
     for (let i = 0; i < fillers; i++) add(rng.pick(pool), false, false)
   }
@@ -119,7 +120,28 @@ function sidecarPlan (ctx) {
     if (x.s.yaw !== undefined) entry.yaw = ((x.s.yaw + 90 * geo.rot) % 360 + 360) % 360
     return entry
   })
-  return { roomId: room.id, floor, master, roomsExplored: ctx.exploredCells, entries }
+
+  // 4. mob density: fewer entries (fillers first) or extra basic mobs next to the listed ones, within the per-cell limits.
+  //    Its own stream, so nothing above shifts; at the default 100 % the list is returned as it is.
+  const drng = derive(ctx.seed, 'room', room.id, 'density')
+  const scaled = scaleEntries(entries, room.cells.length, ctx.cfg && ctx.cfg.mobDensity, {
+    shuffle: a => drng.shuffle(a),
+    extra: (i, base, star) => {
+      const key = fallbackPool.length ? drng.pick(fallbackPool) : base.mob
+      const jitter = () => drng.range(-3, 3)
+      const from = base.position
+      return {
+        mobId: `m${room.id}.${slots.length + i}`,
+        mob: key,
+        required: star,
+        star,
+        miniboss: false,
+        modifier: null,
+        position: { x: round2(Math.floor(from.x + jitter()) + 0.5), y: from.y, z: round2(Math.floor(from.z + jitter()) + 0.5) }
+      }
+    }
+  })
+  return { roomId: room.id, floor, master, roomsExplored: ctx.exploredCells, entries: scaled }
 }
 
 /** Sidecar plan when the room has a usable block, the generic one otherwise. */

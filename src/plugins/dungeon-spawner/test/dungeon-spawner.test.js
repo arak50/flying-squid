@@ -8,6 +8,8 @@ const { EventEmitter } = require('events')
 const { validateMobs } = require('../lib/schema')
 const { sidecarPlan, randomPlan, planRoom, toWorld } = require('../lib/plan')
 const { loadSidecars } = require('../lib/sidecars')
+const { resolveDensity, scaleCounts } = require('../lib/density')
+const walkable = require('../lib/walkable')
 const { DungeonRun } = require('../../dungeon-run/lib/run')
 const { resolve } = require('../../dungeon-run/lib/config')
 const { mobs: CATALOG } = require('../../dungeon-mobs/lib/catalog')
@@ -300,6 +302,229 @@ test('session: spawns at the sidecar height (or the scanned floor), reports deat
   session.clear()
   await session.spawn(plan, id => failed.push(id))
   assert.strictEqual(failed.length, 1, 'a cleared session spawns nothing')
+})
+
+// ---------------------------------------------------------------------------------------------------------------------
+// mob density
+// ---------------------------------------------------------------------------------------------------------------------
+const cellsOf = n => Array.from({ length: n }, (_, i) => ({ x: 1 + i, z: 1 }))
+const planFor = (percent, cells, extra = {}) => randomPlan({
+  room: { id: 3, type: 'Normal', cells: cellsOf(cells) },
+  floor: 2,
+  master: false,
+  seed: 5,
+  exploredCells: 1,
+  P: 32,
+  S: 31,
+  roomCenter: { x: 47.5, z: 47.5 },
+  cfg: resolve(percent === undefined ? {} : { mobDensity: { percent, ...extra } }),
+  ...extra.ctx
+})
+const countOf2 = plan => ({ stars: plan.entries.filter(e => e.star).length, fillers: plan.entries.filter(e => !e.star).length, all: plan.entries.length })
+
+test('density: the default (100 %) leaves the plan exactly as the planner made it', () => {
+  const noKey = resolve(); delete noKey.mobDensity // a config from before the setting existed
+  for (const cells of [1, 2, 3, 4]) {
+    const base = randomPlan({ room: { id: 3, type: 'Normal', cells: cellsOf(cells) }, floor: 2, master: false, seed: 5, exploredCells: 1, P: 32, S: 31, roomCenter: { x: 47.5, z: 47.5 }, cfg: noKey })
+    assert.deepStrictEqual(planFor(100, cells), base, `${cells} cell(s)`)
+    assert.deepStrictEqual(planFor(undefined, cells), base)
+  }
+})
+
+test('density: more or fewer mobs with the percentage, and the limits grow with the size of the room', () => {
+  for (const cells of [1, 2, 4]) {
+    const at = p => countOf2(planFor(p, cells))
+    const counts = [10, 50, 100, 150, 300].map(at)
+    for (let i = 1; i < counts.length; i++) assert.ok(counts[i].all >= counts[i - 1].all, `${cells} cells: ${JSON.stringify(counts.map(c => c.all))} never goes down`)
+    assert.ok(at(50).all < at(100).all && at(150).all > at(100).all, `${cells} cells: 50 % < 100 % < 150 %`)
+    const d = resolveDensity()
+    for (const c of counts) {
+      assert.ok(c.all >= d.minPerCell * cells && c.all <= d.maxPerCell * cells, `${cells} cells: ${c.all} within ${d.minPerCell * cells}..${d.maxPerCell * cells}`)
+      assert.ok(c.stars >= d.minStars, 'a room keeps its star mobs')
+    }
+  }
+  const big = countOf2(planFor(300, 4)); const small = countOf2(planFor(300, 1))
+  assert.ok(big.all > small.all * 2, `a 2x2 room (${big.all}) holds far more than a 1x1 (${small.all}) at the same percentage`)
+  assert.ok(planFor(100, 1).entries.map(e => e.mobId).every((id, i, a) => a.indexOf(id) === i), 'ids stay unique')
+})
+
+test('density: the percent is clamped to its limits, and the per-cell limits are settings too', () => {
+  assert.deepStrictEqual(countOf2(planFor(999, 2)), countOf2(planFor(300, 2)), 'above maxPercent = maxPercent')
+  assert.deepStrictEqual(countOf2(planFor(0, 2)), countOf2(planFor(10, 2)), 'below minPercent = minPercent')
+  assert.deepStrictEqual(countOf2(planFor(NaN, 2)), countOf2(planFor(100, 2)), 'nonsense = stock')
+  assert.strictEqual(resolveDensity({ percent: 500, maxPercent: 400 }).percent, 400)
+  assert.ok(planFor(300, 1, { maxPerCell: 3 }).entries.length <= 3 && planFor(300, 4, { maxPerCell: 3 }).entries.length <= 12, 'maxPerCell is per cell of the room')
+  assert.ok(planFor(10, 3, { minPerCell: 4 }).entries.length >= 12, 'minPerCell is per cell of the room')
+  assert.strictEqual(planFor(10, 1, { minStars: 2 }).entries.filter(e => e.star).length, 2)
+  assert.deepStrictEqual(scaleCounts({ stars: 0, fillers: 4 }, 1, { percent: 10 }), { stars: 0, fillers: 1 }, 'no stars to begin with: none invented')
+  // a crowded room keeps its mix instead of turning into all star mobs
+  const crowded = countOf2(planFor(300, 1))
+  assert.ok(crowded.fillers >= 2 && crowded.stars >= 5, JSON.stringify(crowded))
+  // boss rooms hold one mini boss whatever the percentage
+  const boss = randomPlan({ room: { id: 9, type: 'Boss', cells: cellsOf(1) }, floor: 3, master: false, seed: 5, exploredCells: 1, P: 32, S: 31, roomCenter: { x: 47.5, z: 47.5 }, cfg: resolve({ mobDensity: { percent: 300 } }) })
+  assert.strictEqual(boss.entries.length, 1)
+})
+
+test('density: sidecar rooms lose fillers first, gain extras next to the listed spawns, never lose a required mob', () => {
+  const stock = sidecarPlan(ctx())
+  const withPct = (percent, extra = {}) => sidecarPlan(ctx({ cfg: resolve({ mobDensity: { percent, ...extra } }) }))
+  assert.deepStrictEqual(withPct(100), stock, 'default = the authored list')
+  const half = withPct(50)
+  assert.ok(half.entries.length < stock.entries.length)
+  assert.ok(half.entries.filter(e => e.star).length >= 1 && half.entries.every(e => stock.entries.some(s => s.mobId === e.mobId)), 'only entries of the list remain')
+  const more = withPct(300)
+  assert.ok(more.entries.length > stock.entries.length && more.entries.length <= resolveDensity().maxPerCell)
+  assert.ok(more.entries.filter(e => e.star).length > stock.entries.filter(e => e.star).length)
+  assert.ok(more.entries.every(e => e.position.y !== undefined && e.position.x >= 32 && e.position.x <= 64 && e.position.z >= 32 && e.position.z <= 64), 'extras stay in the room')
+  assert.strictEqual(new Set(more.entries.map(e => e.mobId)).size, more.entries.length, 'unique ids')
+  assert.deepStrictEqual(withPct(300), more, 'seeded')
+  // a mini boss / required filler is never scaled away
+  const b = block(); b.spawns[4] = { ...b.spawns[4], mob: 'crypt_lurker', required: true }
+  const plan = sidecarPlan(ctx({ sidecar: { mobs: b, size: { x: 31, y: 40, z: 31 }, floorYWorld: 66 }, cfg: resolve({ mobDensity: { percent: 10 } }) }))
+  assert.ok(plan.entries.some(e => e.spawnId === 'e'), 'required entry kept at 10 %')
+})
+
+// ---------------------------------------------------------------------------------------------------------------------
+// placement: where mobs may stand
+// ---------------------------------------------------------------------------------------------------------------------
+/** A 1x1 room at cell (0, 0): floor at y 66 (feet 67), a wall block, a 6-deep pit, a sealed pocket and a door on the west side. */
+function testRoom () {
+  const v = new walkable.Volume(0, 40, 0, 30, 100, 30)
+  const { SOLID } = walkable
+  for (let x = 0; x <= 30; x++) for (let z = 0; z <= 30; z++) { v.set(x, 66, z, SOLID); v.set(x, 90, z, SOLID) } // floor + roof
+  for (let y = 66; y < 90; y++) for (let i = 0; i <= 30; i++) { v.set(0, y, i, SOLID); v.set(30, y, i, SOLID); v.set(i, y, 0, SOLID); v.set(i, y, 30, SOLID) } // walls
+  for (let y = 66; y < 90; y++) for (let z = 10; z <= 12; z++) v.set(0, y, z, walkable.FREE) // the doorway
+  for (let y = 67; y <= 69; y++) v.set(15, y, 15, SOLID) // a pillar
+  for (let x = 20; x <= 22; x++) for (let z = 20; z <= 22; z++) { v.set(x, 66, z, walkable.FREE); v.set(x, 65, z, walkable.FREE); v.set(x, 64, z, walkable.FREE); v.set(x, 63, z, walkable.FREE); v.set(x, 62, z, walkable.FREE); v.set(x, 61, z, SOLID) } // a pit, 5 deep
+  for (let x = 5; x <= 7; x++) {
+    for (let z = 25; z <= 27; z++) {
+      for (let y = 67; y <= 69; y++) { // a sealed 1x1 pocket cut into a block of stone
+        v.set(x, y, z, SOLID)
+      }
+    }
+  }
+  v.set(6, 67, 26, walkable.FREE); v.set(6, 68, 26, walkable.FREE) // standable pocket (floor 66 is solid), but enclosed
+  return v
+}
+const roomDoors = [{ center: { x: 0, y: 66, z: 11 } }]
+const roomCells = [{ x: 0, z: 0 }]
+
+test('walkable: spots are standable, inside the room and reachable from a door; pits, pockets and walls are not', () => {
+  const scan = walkable.scanRoom({ volume: testRoom(), cells: roomCells, doors: roomDoors })
+  assert.ok(scan && scan.size > 500)
+  assert.ok(scan.has(10, 67, 10), 'open floor')
+  assert.ok(!scan.has(6, 67, 26), 'a pocket nobody can walk into')
+  assert.ok(!scan.has(15, 67, 15) && !scan.has(15, 70, 15), 'not inside the pillar')
+  assert.deepStrictEqual(scan.column(21, 21), [], 'the bottom of a 5-deep pit: not reachable (drop limit 3)')
+  assert.ok(scan.spots.every(s => s.y === 67 || s.y === 70), 'floor level, or on top of the pillar when it can be climbed')
+  assert.ok(scan.roomy.length > 0 && scan.roomy.every(s => Math.hypot(s.x - 0, s.z - 11) > 2.5), 'roomy spots keep away from the door')
+  assert.strictEqual(walkable.scanRoom({ volume: testRoom(), cells: roomCells, doors: [] }), null, 'no door, nothing to start from')
+})
+
+test('walkable: gap columns between two cells of a room count, other rooms do not', () => {
+  const inside = walkable.roomMask([{ x: 0, z: 0 }, { x: 1, z: 0 }])
+  assert.ok(inside(5, 5) && inside(31, 5) && inside(40, 5), 'both cells and the gap between them')
+  assert.ok(!inside(31, 31) && !inside(70, 5) && !inside(5, 40), 'the corner gap, a third cell, a cell below')
+  const one = walkable.roomMask([{ x: 0, z: 0 }])
+  assert.ok(!one(31, 5), 'the gap next to a single cell is a doorway, not room floor')
+})
+
+test('placement: valid spots stay, the rest move onto reachable floor, deterministically', () => {
+  const scan = walkable.scanRoom({ volume: testRoom(), cells: roomCells, doors: roomDoors })
+  const entries = [
+    { mobId: 'ok', position: { x: 10.5, z: 10.5 } }, // fine
+    { mobId: 'pit', position: { x: 21.5, z: 21.5 } }, // over the pit: its column has a spot at floor level? no, the pit is open down to y 62
+    { mobId: 'wall', position: { x: 0.5, z: 5.5 } }, // inside the west wall
+    { mobId: 'pocket', position: { x: 6.5, z: 26.5 } },
+    { mobId: 'authored', position: { x: 12.5, y: 67, z: 12.5 } }, // hand-placed, fine
+    { mobId: 'authoredBad', position: { x: 15.5, y: 67, z: 15.5 } } // hand-placed inside the pillar
+  ]
+  const placed = walkable.placeEntries(entries, scan, { floorY: 67, roomId: 1 })
+  const at = id => placed.get(id)
+  assert.deepStrictEqual([at('ok').x, at('ok').y, at('ok').z, at('ok').moved], [10.5, 67, 10.5, false])
+  assert.deepStrictEqual([at('authored').x, at('authored').y, at('authored').moved], [12.5, 67, false])
+  for (const id of ['pit', 'wall', 'pocket', 'authoredBad']) {
+    const p = at(id); assert.ok(scan.has(Math.floor(p.x), p.y, Math.floor(p.z)), `${id} ends up on a reachable spot (${p.x}, ${p.y}, ${p.z})`)
+  }
+  assert.ok(at('wall').moved && at('pocket').moved && at('authoredBad').moved)
+  assert.ok(Math.hypot(at('authoredBad').x - 15.5, at('authoredBad').z - 15.5) < 3, 'a hand-placed mob is moved to the nearest spot, not somewhere random')
+  assert.deepStrictEqual([...walkable.placeEntries(entries, scan, { floorY: 67, roomId: 1 })], [...placed], 'same input, same answer')
+  assert.deepStrictEqual(walkable.placeEntries([], scan), new Map())
+  assert.strictEqual(walkable.placeEntries(entries, null).size, 0, 'no scan: the plan is left alone')
+  // relocated mobs do not pile up
+  const crowd = Array.from({ length: 12 }, (_, i) => ({ mobId: `w${i}`, position: { x: 0.5, z: 3.5 } }))
+  const out = [...walkable.placeEntries(crowd, scan, { roomId: 1 }).values()]
+  let close = 0; for (let i = 0; i < out.length; i++) for (let j = i + 1; j < out.length; j++) if (Math.hypot(out[i].x - out[j].x, out[i].z - out[j].z) < 1.5) close++
+  assert.strictEqual(close, 0, 'at least 1.5 blocks apart')
+})
+
+test('session: a mob planned inside a wall is spawned on the floor instead; with placement off the plan is used as it is', async () => {
+  const vol = testRoom()
+  const layout = { cellPitch: 32, roomSize: 31, doorBaseY: 66, rooms: [{ id: 0, cells: roomCells }], doors: [{ rooms: [0, 1], center: { x: 0, y: 66, z: 11 } }] }
+  const w = { async getBlockType (p) { return vol.get(p.x, p.y, p.z) === walkable.SOLID ? 1 : 0 } } // the minimal world: only block types
+  const plan = { roomId: 0, floor: 2, master: false, roomsExplored: 1, entries: [{ mobId: 'm0.0', mob: 'zombie_grunt', star: true, modifier: null, position: { x: 0.5, z: 5.5 } }, { mobId: 'm0.1', mob: 'zombie_grunt', star: false, modifier: null, position: { x: 10.5, z: 10.5 } }] }
+  const run = async settings => {
+    const serv = fakeServ()
+    plugin.server.call({ settings: { schematics: sidecarDir(), ...settings } }, serv)
+    await serv.dungeonSpawner.session({ world: w, layout }).spawn(plan, () => {})
+    return serv.dungeonMobs.spawned
+  }
+  const [a, b] = await run({})
+  assert.ok(a.pos.x >= 1 && a.pos.x < 30 && a.pos.y === 67, `moved inside the room: ${a.pos}`)
+  assert.deepStrictEqual([b.pos.x, b.pos.y, b.pos.z], [10.5, 67, 10.5], 'a good spot is untouched')
+  const [c] = await run({ placement: false })
+  assert.strictEqual(c.pos.x, 0.5, 'placement: false = the old behaviour')
+
+  // the Watcher's guardians stand where the plan puts them (a ring the capture defines), however the blocks look there
+  const serv = fakeServ()
+  plugin.server.call({ settings: { schematics: sidecarDir() } }, serv)
+  await serv.dungeonSpawner.session({ world: w, layout }).spawn(plan, () => {}, { place: false })
+  assert.deepStrictEqual(serv.dungeonMobs.spawned.map(m => [m.pos.x, m.pos.z]), [[0.5, 5.5], [10.5, 10.5]], '{ place: false } spawns exactly as planned')
+})
+
+test('placement on real generated floors: no mob in a wall, over a hole or cut off from the room, at any density', async () => {
+  const gen = require(path.join(root, 'catacombs-generator.js'))
+  const registry = require('prismarine-registry')('1.21.4')
+  const cls = walkable.classifier(registry)
+  let rooms = 0; let mobs = 0; let rawBad = 0; let moved = 0
+  for (const [seed, floor] of [[1, 0], [2, 3], [3, 6]]) {
+    const dg = gen.buildDungeon(registry, { dungeonSeed: seed, floor, schematicsDir: path.join(root, 'dungeon-room-schematics'), lighting: 'fullbright', heads: false, log: () => {} })
+    const layout = gen.exportLayout(dg)
+    const state = (x, y, z) => (x < 0 || z < 0 || x >= dg.SX || z >= dg.SZ || y < dg.yMin || y >= dg.yMax) ? 0 : dg.grid[((y - dg.yMin) * dg.SZ + z) * dg.SX + x]
+    const solid = (x, y, z) => cls(state(x, y, z)) === walkable.SOLID
+    const free = (x, y, z) => cls(state(x, y, z)) === walkable.FREE
+    const serv = fakeServ(); serv.registry = registry
+    plugin.server.call({ settings: { schematics: path.join(root, 'dungeon-room-schematics') } }, serv)
+    const session = serv.dungeonSpawner.session({ world: { async getBlockStateId (p) { return state(p.x, p.y, p.z) } }, layout })
+    for (const percent of [50, 100, 300]) {
+      for (const lr of layout.rooms.filter(r => r.type === 'Normal' && r.template)) {
+        const plan = planRoom({ room: { id: lr.id, type: lr.type, template: lr.template, cells: lr.cells }, layoutRoom: lr, floor, master: false, seed, exploredCells: 1, cfg: resolve({ mobDensity: { percent } }), P: 32, S: 31, roomCenter: { x: lr.cells[0].x * 32 + 15.5, z: lr.cells[0].z * 32 + 15.5 }, sidecar: null })
+        const placed = await session.place(plan)
+        assert.strictEqual(placed.size, plan.entries.length, 'every mob got a place')
+        if (percent === 100) rooms++
+        for (const e of plan.entries) {
+          const p = placed.get(e.mobId); const bx = Math.floor(p.x); const by = Math.floor(p.y); const bz = Math.floor(p.z)
+          assert.ok(free(bx, by, bz) && free(bx, by + 1, bz), `seed ${seed} floor ${floor} room ${lr.id} ${e.mobId}: feet / head are free`)
+          assert.ok(solid(bx, by - 1, bz), `seed ${seed} floor ${floor} room ${lr.id} ${e.mobId}: standing on something`)
+          assert.ok(lr.cells.some(c => bx >= c.x * 32 && bx <= c.x * 32 + 31 && bz >= c.z * 32 && bz <= c.z * 32 + 31), 'inside the room')
+          if (percent === 100) { mobs++; if (p.moved) moved++ }
+        }
+      }
+    }
+    // the same rooms without placement: the planned x / z with the plugin's old floor scan
+    for (const lr of layout.rooms.filter(r => r.type === 'Normal' && r.template)) {
+      const plan = planRoom({ room: { id: lr.id, type: lr.type, template: lr.template, cells: lr.cells }, layoutRoom: lr, floor, master: false, seed, exploredCells: 1, cfg: resolve(), P: 32, S: 31, roomCenter: { x: 0, z: 0 }, sidecar: null })
+      for (const e of plan.entries) {
+        const bx = Math.floor(e.position.x); const bz = Math.floor(e.position.z)
+        let y = 69; for (let yy = 64; yy <= 100; yy++) { if (solid(bx, yy, bz) && free(bx, yy + 1, bz) && free(bx, yy + 2, bz)) { y = yy + 1; break } }
+        const lowPit = y < 66 || !free(bx, y, bz) // the old scan picks the lowest floor of the column: a pit or hole floor
+        if (lowPit) rawBad++
+      }
+    }
+  }
+  assert.ok(rooms >= 15 && mobs >= 100, `${rooms} rooms, ${mobs} mobs checked`)
+  assert.ok(moved > 0, 'some mobs did need moving')
+  assert.ok(rawBad > 0, 'sanity: the old floor scan did put mobs in holes on these floors')
 })
 
 ;(async () => {

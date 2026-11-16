@@ -34,11 +34,17 @@
  *   doorTimeScale    [1] 0 = play the whole animation at once
  *   run              overrides for lib/config.js (revive time, watcher size, score curve ...)
  *
- * Op command: /dungeon <start|stop|status|score|clear [room]|tp <room>|die|key [wither|blood]>
+ * Op command: /dungeon <start|stop|status|score|clear [room]|tp <room>|die|key [wither|blood]|density [percent]>
+ *
+ * Mob density: `run: { mobDensity: { percent: 150 } }` puts 50 % more mobs in every combat room, `percent: 50` half as many; the percent is
+ * clamped to [minPercent, maxPercent] and a room's count stays between minPerCell and maxPerCell mobs per cell of its size (see
+ * dungeon-spawner/lib/density.js and `mobDensity` in lib/config.js). `/dungeon density 150` changes it for the rooms entered from now on.
  */
 const { Vec3 } = require('vec3')
 const { DungeonRun } = require('./lib/run')
 const { createSidebar } = require('./lib/sidebar')
+const { resolve } = require('./lib/config')
+const { resolveDensity } = require('../dungeon-spawner/lib/density')
 const doorAnim = require('./lib/door-anim')
 const watcherAnim = require('./lib/watcher-anim')
 const crypto = require('crypto')
@@ -152,7 +158,7 @@ module.exports.server = function (serv, options) {
       case 'roomCompleted': serv.emit('dungeonRoomCompleted', { roomId: e.roomId }); break
 
       case 'spawnMobs': spawnPlan(cur, e.plan); break
-      case 'spawnWatcherMobs': guardianEntrance(cur, e.plan); spawnPlan(cur, e.plan); break
+      case 'spawnWatcherMobs': guardianEntrance(cur, e.plan); spawnPlan(cur, e.plan, { place: false }); break
       case 'mobDied':
         if (e.cause === 'admin' && cur.spawner) cur.spawner.despawn(e.mobId)
         if (e.miniboss && e.cause === 'killed' && !e.watcher) roomDrops(cur, e, 'miniboss')
@@ -262,10 +268,11 @@ module.exports.server = function (serv, options) {
   const round2 = n => Math.round(n * 100) / 100
 
   // ---- mobs: planned by the run, spawned by dungeon-spawner -------------------------------------------------------------
-  function spawnPlan (cur, plan) {
+  // `place: false` for the Watcher's wave: its guardians stand on a ring the capture defines, not on the room's floor spots
+  function spawnPlan (cur, plan, { place = true } = {}) {
     const failed = id => { if (current === cur) cur.run.mobDied(id, { cause: 'spawnFailed' }) } // never leave a room waiting for a mob that does not exist
     if (!cur.spawner) { for (const e of plan.entries) failed(e.mobId); return }
-    cur.spawner.spawn(plan, failed).catch(err => warn(`spawn: ${err.stack}`))
+    cur.spawner.spawn(plan, failed, { place }).catch(err => warn(`spawn: ${err.stack}`))
   }
 
   // ---- doors ----------------------------------------------------------------------------------------------------------
@@ -429,7 +436,7 @@ module.exports.server = function (serv, options) {
   serv.commands.add({
     base: 'dungeon',
     info: 'control the dungeon run',
-    usage: '/dungeon <start|stop|status|score|clear [room]|tp <room>|die|key [wither|blood]>',
+    usage: '/dungeon <start|stop|status|score|clear [room]|tp <room>|die|key [wither|blood]|density [percent]>',
     op: true,
     onlyPlayer: true,
     parse: s => s || '',
@@ -437,6 +444,16 @@ module.exports.server = function (serv, options) {
       const [cmd, a] = String(arg).trim().split(/\s+/)
       const me = ctx.player
       const run = current && current.run
+      if (cmd === 'density') {
+        const shown = () => { const d = resolveDensity((run ? run.cfg : resolve(config.run)).mobDensity); return `Mob density ${d.percent}% (allowed ${d.minPercent}-${d.maxPercent}%, ${d.minPerCell}-${d.maxPerCell} mobs per room cell)` }
+        if (a === undefined) return shown()
+        const pct = Number(a)
+        if (!Number.isFinite(pct) || pct < 0) return 'Usage: /dungeon density [percent], e.g. /dungeon density 150'
+        const set = d => ({ ...d, percent: resolveDensity({ ...d, percent: pct }).percent }) // stored clamped, so the config shows what is in effect
+        config.run = { ...config.run, mobDensity: set(config.run && config.run.mobDensity) } // later runs
+        if (run) run.cfg.mobDensity = set(run.cfg.mobDensity) // rooms not entered yet
+        return `${shown()}${resolveDensity(run ? run.cfg.mobDensity : config.run.mobDensity).percent !== pct ? ` (${pct}% is outside the allowed range)` : ''}. Rooms already entered keep their mobs.`
+      }
       if (cmd === 'start') return start({ players: [...serv.players] }) ? 'Run started.' : 'Could not start (see the server log).'
       if (cmd === 'stop') return stop('command') ? 'Run stopped.' : 'No run is going.'
       if (!run) return 'No run is going. /dungeon start'
@@ -460,7 +477,7 @@ module.exports.server = function (serv, options) {
         run._dropKey(run.rooms[run.entrance.id], type)
         return `A ${type} key was dropped.`
       }
-      return 'Usage: /dungeon <start|stop|status|score|clear [room]|tp <room>|die|key [wither|blood]>'
+      return 'Usage: /dungeon <start|stop|status|score|clear [room]|tp <room>|die|key [wither|blood]|density [percent]>'
     }
   })
 }
